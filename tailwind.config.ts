@@ -10,8 +10,8 @@ const config: Config = {
     extend: {
       colors: {
         primary: '#FFFFFF',
-        secondary: '#EDEDED',
-        menuColor: '#142043',
+        secondary: '#F5F5F5',
+        menuColor: '#F8EDFA',
         error: '#FF0000',
         cardBg: 'rgba(255,255,255, 0.65)',
         buttonLogin: '#3366FF',
@@ -20,6 +20,7 @@ const config: Config = {
         teksBlack: '#474D66',
         teksNavi: '#101840',
         teksPrimary: '#22356F',
+        teksActive: '#8C4D99',
         onGoing: '#008DEB',
         completed: '#27AE60',
         revision: '#D14343',
@@ -43,6 +44,7 @@ const config: Config = {
           neutral: '#3D4451',
           'base-100': '#FFFFFF',
           info: '#e6f4fd',
+          teksActive: '#8C4D99',
           success: '#27AE60',
           warning: '#FEF1CF',
           error: '#FF0000',
