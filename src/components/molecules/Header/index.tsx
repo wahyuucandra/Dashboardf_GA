@@ -1,30 +1,22 @@
-import React from 'react'
+'use client'
 
-import moment from 'moment'
-import Profile from '@components/atoms/profile'
-
-// now indonesia
-const today = moment().locale('id').format('dddd, DD MMMM YYYY')
-const time = '09:00:00'
+import IconGrape from '@assets/icons/IconGrape'
+import { ProfileMobile } from '@components/atoms/profile'
+import useNamePage from '@hooks/useNamePage'
 
 export default function Header() {
+  const pageName = useNamePage()
   return (
-    <header className="flex flex-row bg-primary py-4 px-6 max-h-[8vh]">
-      <div className="flex flex-row flex-1 items-center">
-        <div className="ml-2 border-l-2 border-['#C2C2C2'] px-2">
-          <h1 className="font-semibold text-teksPrimary text-base">Berijalan Next Template</h1>
-        </div>
+    <header className="flex flex-row md:py-6 md:px-6 py-2 px-5">
+      <h1 className="flex text-teksNatural justify-center items-center">{pageName}</h1>
+
+      <div className="flex-row ml-auto hidden md:flex">
+        <IconGrape />
+        <h1 className="text-teksNatural">Grape by ACC</h1>
       </div>
 
-      <div className="flex flex-row items-center">
-        <div className="mr-2 border-r-2 border-['#C2C2C2'] px-2">
-          <h1>{today}</h1>
-        </div>
-        <div className="bg-[#F5F5F5] px-2 py-1 rounded-md">
-          <h1 className="font-semibold text-teksPrimary text-base">{time} WIB</h1>
-        </div>
-
-        <Profile />
+      <div className="md:hidden ml-auto">
+        <ProfileMobile />
       </div>
     </header>
   )

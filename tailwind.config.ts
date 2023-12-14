@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         primary: '#FFFFFF',
+        main: '#8C4D99',
         secondary: '#F5F5F5',
         menuColor: '#F8EDFA',
         error: '#FF0000',
@@ -17,7 +18,8 @@ const config: Config = {
         buttonLogin: '#3366FF',
         titleColor: '#095580',
         tableHeader: '#005c8e',
-        teksBlack: '#474D66',
+        teksBlack: '#0A0A0A',
+        teksNatural: '#757575',
         teksNavi: '#101840',
         teksPrimary: '#22356F',
         teksActive: '#8C4D99',

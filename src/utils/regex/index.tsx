@@ -10,6 +10,8 @@ const domainPattern = /^[a-z-]+$/
 const spaceAtBeginning = /^(?!\s)[a-zA-Z0-9_\s-]*$/ // dissalow space at beginning
 const emailPattern = /^[\w\\.-]+@[\w\\.-]+\.\w+$/
 
+const pageWithlist = /^(Home|Performance|Incentive|Chart|SMP Status)/
+
 export {
   alphaSpaces,
   phonePattern,
@@ -22,4 +24,5 @@ export {
   domainPattern,
   spaceAtBeginning,
   emailPattern,
+  pageWithlist,
 }

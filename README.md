@@ -18,8 +18,8 @@ Things you need to learn :
 Things you need to install:
 
 - Git
-- Node v18
-- Yarn
+- Node >= v18
+- Yarn or NPM
 - Code Editor (Visual Code)
   - Extensions :
     - Tailwind CSS IntelliSense ([Link](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss))
@@ -41,6 +41,9 @@ Things you need to install:
 - typescript
 - jest
 - yup
+- sass
+- next-pwa
+- react-toastify
 
 ## General Code Guidelines
 
@@ -78,8 +81,4 @@ yarn install
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `services/api.ts`.
+Open [http://localhost:4000](http://localhost:4000) with your browser to see the result.
