@@ -21,8 +21,8 @@ export default function InformationDetail() {
               <span className="text-[#909090]">Tanggal Upload</span>
               <span className="text-[#2C598D]">24 Agustus 2024</span>
             </div>
-            <div className="text-[#252525] text-sm font-semibold mb-1">Hadirilah</div>
-            <div className="text-[#717171] text-xs">
+            <div className="text-[#252525] font-semibold mb-1">Hadirilah</div>
+            <div className="text-[#717171] text-sm">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt libero facere est, consequatur, sed
               cumque cum iure at adipisci beatae illum et sunt odio aspernatur eaque alias labore suscipit neque.
             </div>
