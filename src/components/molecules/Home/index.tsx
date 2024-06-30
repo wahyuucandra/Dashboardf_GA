@@ -96,15 +96,15 @@ export default function Home() {
         <div className="font-semibold text-[#2C598D] mb-4">Pilih Kebutuhan</div>
         <div className="grid grid-cols-3 gap-2">
           <button onClick={() => setOpen(true)} className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-md">
-            <IconBookingAsset width={40} height={40} className="mx-auto"></IconBookingAsset>
+            <IconBookingAsset className="h-10 w-10 mx-auto"></IconBookingAsset>
             <span className="text-[#2C598D] text-xs mx-auto">Booking Asset</span>
           </button>
           <button className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-md">
-            <IconBuildingMaintenance width={40} height={40} className="mx-auto"></IconBuildingMaintenance>
+            <IconBuildingMaintenance className="h-10 w-10 mx-auto"></IconBuildingMaintenance>
             <span className="text-[#2C598D] text-xs mx-auto">Building Maintenance Management</span>
           </button>
           <button className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-md">
-            <IconAboutUs width={40} height={40} className="mx-auto"></IconAboutUs>
+            <IconAboutUs className="h-10 w-10 mx-auto"></IconAboutUs>
             <span className="text-[#2C598D] text-xs mx-auto">About Us</span>
           </button>
         </div>
@@ -118,18 +118,32 @@ export default function Home() {
           <div className="font-semibold text-xl mb-1">Pilih lokasi</div>
           <div className="text-sm text-[#717171] mb-6">Tentukan lokasi “Booking Asset” yang Anda butuhkan</div>
           <div className="grid grid-cols-2 gap-4 justify-items-center">
-            <div className="justify-self-stretch w-full text-center text-white font-semibold shadow-xl rounded-lg overflow-hidden">
+            <button
+              onClick={() => {
+                setOpen(false)
+                router.push(`/booking-asset`, { scroll: false })
+              }}
+              type="button"
+              className="justify-self-stretch w-full text-center text-white font-semibold shadow-xl rounded-lg overflow-hidden"
+            >
               <div className="pb-6">
                 <img className="w-[82px] h-[103px] mx-auto" src={logoAcc.src} alt="ACC"></img>
               </div>
               <div className="bg-[#2C598D] py-3">ACC</div>
-            </div>
-            <div className="justify-self-stretch w-full text-center text-white font-semibold shadow-xl rounded-lg overflow-hidden">
+            </button>
+            <button
+              onClick={() => {
+                setOpen(false)
+                router.push(`/booking-asset`, { scroll: false })
+              }}
+              type="button"
+              className="justify-self-stretch w-full text-center text-white font-semibold shadow-xl rounded-lg overflow-hidden"
+            >
               <div className="pb-7">
                 <img className="w-[98px] h-[100px] mx-auto" src={logoBerijalan.src} alt="Berijalan"></img>
               </div>
               <div className="bg-[#2C598D] py-3">Berijalan</div>
-            </div>
+            </button>
           </div>
         </div>
       </Modal>

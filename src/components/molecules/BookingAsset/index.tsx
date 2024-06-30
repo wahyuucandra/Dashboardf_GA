@@ -1,135 +1,70 @@
 'use client'
 
-import IconAboutUs from '@assets/icons/IconAboutUs'
+import IconAsset from '@assets/icons/IconAsset'
+import IconChevronLeft from '@assets/icons/IconChevronLeft'
+import IconManpower from '@assets/icons/IconManpower'
+import IconRoom from '@assets/icons/IconRoom'
+import IconVehicle from '@assets/icons/IconVehicle'
 import IconBookingAsset from '@assets/icons/IconBookingAsset'
-import IconBuildingMaintenance from '@assets/icons/IconBuildingMaintenance'
-import IconClose from '@assets/icons/IconClose'
 
-import bannerInformation1 from '@assets/images/bannerInformation1.png'
-import bannerInformation2 from '@assets/images/bannerInformation2.png'
-import bannerInformation3 from '@assets/images/bannerInformation3.png'
+import bookingAsset from '@assets/images/bookingAsset.png'
 
-import logoAcc from '@assets/images/logoAcc.png'
-import logoBerijalan from '@assets/images/logoBerijalan.png'
-
-import { ProfileHeader } from '@components/atoms/profileHeader'
-
-import { Modal } from '@components/atoms/modal'
-import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 export default function BookingAsset() {
-  const initialize = useRef<boolean>(false)
-
   const router = useRouter()
-
-  const [isOpen, setOpen] = useState<boolean>(false)
-  const [counter, setCounter] = useState<number>(0)
-  const banners = [
-    {
-      alt: 'Banner 1',
-      src: bannerInformation1.src,
-    },
-    {
-      alt: 'Banner 2',
-      src: bannerInformation2.src,
-    },
-    {
-      alt: 'Banner 3',
-      src: bannerInformation3.src,
-    },
-  ]
-
-  useEffect(() => {
-    if (!initialize.current) {
-      setInterval(() => {
-        setCounter(prev => {
-          if (prev / (banners.length - 1) == 100) {
-            return 0
-          }
-          return prev + 100
-        })
-      }, 3000)
-      initialize.current = true
-    }
-  }, [])
 
   return (
     <>
-      <ProfileHeader></ProfileHeader>
-      <div className={`transition-all -translate-x-[${counter}%] duration-300 flex items-center`}>
-        {banners.map((val, index) => {
-          return (
-            <img
-              key={index}
-              onClick={() => router.push(`/booking-asset/informations/${index}`, { scroll: false })}
-              className="w-screen h-[196px] object-cover"
-              src={val.src}
-              alt={val.alt}
-            />
-          )
-        })}
-      </div>
-      <div className="p-3 flex items-center">
-        <div className="flex-1 flex  items-center space-x-1">
-          {banners.map((val, index) => {
-            return (
-              <div
-                key={index}
-                className={`transition-all rounded-full ${
-                  counter != index * 100 ? '7' : '22' ? 'bg-gray-500' : ''
-                } bg-gray-300 h-[7px] w-[${counter != index * 100 ? '7' : '22'}px]`}
-              ></div>
-            )
-          })}
-        </div>
-
-        <Link className="text-xs text-[#0089CF]" href={'/booking-asset/informations'}>
-          Lihat Semua
-        </Link>
-      </div>
-      <div className="p-3">
-        <div className="font-semibold text-[#2C598D] mb-4">Pilih Kebutuhan</div>
-        <div className="grid grid-cols-3 gap-2">
-          <button onClick={() => setOpen(true)} className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-md">
-            <IconBookingAsset width={40} height={40} className="mx-auto"></IconBookingAsset>
-            <span className="text-[#2C598D] text-xs mx-auto">Booking Asset</span>
-          </button>
-          <button className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-md">
-            <IconBuildingMaintenance width={40} height={40} className="mx-auto"></IconBuildingMaintenance>
-            <span className="text-[#2C598D] text-xs mx-auto">Building Maintenance Management</span>
-          </button>
-          <button className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-md">
-            <IconAboutUs width={40} height={40} className="mx-auto"></IconAboutUs>
-            <span className="text-[#2C598D] text-xs mx-auto">About Us</span>
+      <div className="relative">
+        <div className="absolute top-3 left-3">
+          <button
+            type="button"
+            onClick={() => router.back()}
+            className="rounded-md bg-white w-8 h-8 flex items-center justify-center"
+          >
+            <IconChevronLeft className="ml-1 w-4 h-4"></IconChevronLeft>
           </button>
         </div>
-      </div>
 
-      <Modal isOpen={isOpen} backdropClick={() => setOpen(!isOpen)}>
-        <div className="max-w-[350px] bg-white relative p-5 text-center rounded-xl">
-          <button className="absolute top-3 right-3" onClick={() => setOpen(!isOpen)}>
-            <IconClose width={20} height={20}></IconClose>
-          </button>
-          <div className="font-semibold text-xl mb-1">Pilih lokasi</div>
-          <div className="text-sm text-[#717171] mb-6">Tentukan lokasi “Booking Asset” yang Anda butuhkan</div>
-          <div className="grid grid-cols-2 gap-4 justify-items-center">
-            <div className="justify-self-stretch w-full text-center text-white font-semibold shadow-xl rounded-lg overflow-hidden">
-              <div className="pb-6">
-                <img className="w-[82px] h-[103px] mx-auto" src={logoAcc.src} alt="ACC"></img>
+        <img
+          className="object-cover w-full h-[188px] rounded rounded-b-md"
+          src={bookingAsset.src}
+          alt="Booking Asset"
+        />
+
+        <div className="p-3">
+          <div className="flex items-center space-x-3 mb-4">
+            <IconBookingAsset className="w-10 h-10"></IconBookingAsset>
+            <div>
+              <div className="font-semibold text-[#2C598D]">Booking Asset</div>
+              <div className="text-xs text-[#809BB5]">
+                <span>Pilih request yang Anda butuhkan di lokasi </span>
+                <span className="font-semibold">ACC HO</span>
               </div>
-              <div className="bg-[#2C598D] py-3">ACC</div>
-            </div>
-            <div className="justify-self-stretch w-full text-center text-white font-semibold shadow-xl rounded-lg overflow-hidden">
-              <div className="pb-7">
-                <img className="w-[98px] h-[100px] mx-auto" src={logoBerijalan.src} alt="Berijalan"></img>
-              </div>
-              <div className="bg-[#2C598D] py-3">Berijalan</div>
             </div>
           </div>
+          {/* <div className="font-semibold text-[#2C598D] mb-4">Pilih Kebutuhan</div> */}
+          <div className="grid grid-cols-2 gap-2">
+            <button className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-lg">
+              <IconRoom className="w-10 h-10 mx-auto"></IconRoom>
+              <span className="text-[#2C598D] text-xs mx-auto">Room</span>
+            </button>
+            <button className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-lg">
+              <IconVehicle className="w-10 h-10 mx-auto"></IconVehicle>
+              <span className="text-[#2C598D] text-xs mx-auto">Vehicle</span>
+            </button>
+            <button className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-lg">
+              <IconAsset className="w-10 h-10 mx-auto"></IconAsset>
+              <span className="text-[#2C598D] text-xs mx-auto">Asset</span>
+            </button>
+            <button className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-lg">
+              <IconManpower className="w-10 h-10 mx-auto"></IconManpower>
+              <span className="text-[#2C598D] text-xs mx-auto">Manpower</span>
+            </button>
+          </div>
         </div>
-      </Modal>
+      </div>
     </>
   )
 }
