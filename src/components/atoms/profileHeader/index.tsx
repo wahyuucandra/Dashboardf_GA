@@ -1,6 +1,6 @@
 'use client'
 
-import IconNotification from '@assets/icons/iconNotification'
+import IconNotification from '@assets/icons/IconNotification'
 
 export function ProfileHeader() {
   return (

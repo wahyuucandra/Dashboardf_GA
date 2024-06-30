@@ -45,11 +45,11 @@ export function MenuNav({ item, index }: Readonly<ListInterface>) {
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
           className={`${
-            pathname === item.href ? ' rounded-lg text-teksActive' : 'text-teksBlack'
-          } text-[10px] font-semibold my-1 py-2 px-3 hover:rounded-lg hover:text-teksActive flex flex-col justify-center items-center`}
+            pathname === item.href ? ' rounded-lg text-[#2C598D] font-semibold' : 'text-teksBlack'
+          } text-sm my-1 py-2 px-3 hover:rounded-lg hover:text-[#2C598D] flex flex-col justify-center items-center`}
         >
           <div className="mb-2">
-            <ListMenu color={pathname === item.href || isHovering ? '#8C4D99' : '#0A0A0A'} />
+            <ListMenu color={pathname === item.href || isHovering ? '#2C598D' : '#0A0A0A'} />
           </div>
           {item.name}
         </li>

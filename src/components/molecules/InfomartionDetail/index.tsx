@@ -1,6 +1,6 @@
 'use client'
 
-import IconChevronLeft from '@assets/icons/iconChevronLeft'
+import IconChevronLeft from '@assets/icons/IconChevronLeft'
 
 import banner1 from '@assets/images/bannerInformation1.png'
 

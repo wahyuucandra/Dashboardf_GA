@@ -1,10 +1,5 @@
-import Header from '@components/molecules/Header'
+import HomePage from '@components/molecules/Home'
 
 export default function Home() {
-  return (
-    <div className="h-full">
-      <Header />
-      <h1 className="text-4xl font-bold">Home</h1>
-    </div>
-  )
+  return <HomePage></HomePage>
 }

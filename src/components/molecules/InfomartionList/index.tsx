@@ -1,7 +1,7 @@
 'use client'
 
-import IconChevronLeft from '@assets/icons/iconChevronLeft'
-import IconSearch from '@assets/icons/iconSearch'
+import IconChevronLeft from '@assets/icons/IconChevronLeft'
+import IconSearch from '@assets/icons/IconSearch'
 
 import banner1 from '@assets/images/bannerInformation1.png'
 import banner2 from '@assets/images/bannerInformation2.png'
@@ -31,7 +31,7 @@ export default function InfomartionList() {
 
         {[banner1, banner2, banner3].map((val, index) => {
           return (
-            <Link key={index} href={`/booking-asset/informations/${index}`}>
+            <Link key={index} href={`/informations/${index}`}>
               <div className="relative overflow-hidden w-full border border-[#E6E5E6] rounded-xl shadow-xl mb-4">
                 <div className="rounded-md absolute top-2 right-2 bg-white px-2 py-1.5 text-[10px] text-[#2C598D]">
                   {' '}

@@ -16,10 +16,10 @@ import { ProfileHeader } from '@components/atoms/profileHeader'
 
 import { Modal } from '@components/atoms/modal'
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
 
-export default function BookingAsset() {
+export default function Home() {
   const initialize = useRef<boolean>(false)
 
   const router = useRouter()
@@ -58,12 +58,15 @@ export default function BookingAsset() {
   return (
     <>
       <ProfileHeader></ProfileHeader>
-      <div className={`transition-all -translate-x-[${counter}%] duration-300 flex items-center`}>
+      <div
+        className={`transition-all flex items-center duration-300`}
+        style={{ transform: `translateX(-${counter}%)` }}
+      >
         {banners.map((val, index) => {
           return (
             <img
               key={index}
-              onClick={() => router.push(`/booking-asset/informations/${index}`, { scroll: false })}
+              onClick={() => router.push(`/informations/${index}`, { scroll: false })}
               className="w-screen h-[196px] object-cover"
               src={val.src}
               alt={val.alt}
@@ -78,14 +81,14 @@ export default function BookingAsset() {
               <div
                 key={index}
                 className={`transition-all rounded-full ${
-                  counter != index * 100 ? '7' : '22' ? 'bg-gray-500' : ''
-                } bg-gray-300 h-[7px] w-[${counter != index * 100 ? '7' : '22'}px]`}
+                  counter != index * 100 ? 'bg-gray-300' : 'bg-gray-500'
+                } h-[7px] ${counter != index * 100 ? 'w-[7px]' : 'w-[22px]'} `}
               ></div>
             )
           })}
         </div>
 
-        <Link className="text-xs text-[#0089CF]" href={'/booking-asset/informations'}>
+        <Link className="text-xs text-[#0089CF]" href={'/informations'}>
           Lihat Semua
         </Link>
       </div>

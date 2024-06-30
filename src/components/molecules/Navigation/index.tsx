@@ -12,8 +12,9 @@ export default function Navigation() {
   if (!pageWithlist.test(pageName)) {
     return null
   }
+
   return (
-    <div className="md:hidden bg-primary fixed bottom-0 w-screen shadow-[0px_0px_20px_0px_#00000024] px-4 py-2 grid grid-cols-5">
+    <div className="md:hidden bg-primary fixed bottom-0 z-[900] w-screen shadow-[0px_0px_20px_0px_#00000024] px-4 py-2 grid grid-cols-4">
       {MENU_HEADER.map((item, index) => (
         <MenuNav key={item.id} item={item} index={index} />
       ))}

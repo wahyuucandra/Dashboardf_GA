@@ -1,53 +1,44 @@
-import IconHome from '@assets/icons/IconHome'
-import IconIncentive from '@assets/icons/IconIncentive'
-import IconPerformance from '@assets/icons/IconPerformance'
-import IconChart from '@assets/icons/IconChart'
-import IconSMPStatus from '@assets/icons/IconSMPStatus'
+import IconHistory from '@assets/icons/IconHistory'
+import IconHomeFill from '@assets/icons/IconHomeFill'
+import IconNotification from '@assets/icons/IconNotification'
+import IconUser from '@assets/icons/IconUser'
 
 const MENU_HEADER = [
   {
     id: 'Home-01',
     name: 'Home',
     href: '/',
-    icon: 'IconHome',
+    icon: 'IconHomeFill',
     submenu: [],
   },
   {
-    id: 'Performance-02',
-    name: 'Performance',
-    href: '/performance',
-    icon: 'IconPerformance',
+    id: 'Notification-02',
+    name: 'Notification',
+    href: '/notification',
+    icon: 'IconNotification',
     submenu: [],
   },
   {
-    id: 'Incentive-03',
-    name: 'Incentive',
-    href: '/incentive',
-    icon: 'IconIncentive',
+    id: 'History-03',
+    name: 'History',
+    href: '/history',
+    icon: 'IconHistory',
     submenu: [],
   },
   {
-    id: 'Chart-04',
-    name: 'Chart',
-    href: '/chart',
-    icon: 'IconChart',
-    submenu: [],
-  },
-  {
-    id: 'SMPStatus-05',
-    name: 'SMP Status',
-    href: '/smpstatus',
-    icon: 'IconSMPStatus',
+    id: 'Profile-04',
+    name: 'Profile',
+    href: '/profile',
+    icon: 'IconUser',
     submenu: [],
   },
 ]
 
 const ICON_MENU = {
-  IconHome: ({ color }: { color: string }) => <IconHome width={20} height={20} color={color} />,
-  IconPerformance: ({ color }: { color: string }) => <IconPerformance width={20} height={20} color={color} />,
-  IconIncentive: ({ color }: { color: string }) => <IconIncentive width={20} height={20} color={color} />,
-  IconChart: ({ color }: { color: string }) => <IconChart width={20} height={20} color={color} />,
-  IconSMPStatus: ({ color }: { color: string }) => <IconSMPStatus width={20} height={20} color={color} />,
+  IconHomeFill: ({ color }: { color: string }) => <IconHomeFill width={25} height={24} color={color} />,
+  IconNotification: ({ color }: { color: string }) => <IconNotification width={24} height={24} color={color} />,
+  IconHistory: ({ color }: { color: string }) => <IconHistory width={25} height={24} color={color} />,
+  IconUser: ({ color }: { color: string }) => <IconUser width={25} height={24} color={color} />,
 }
 
-export { MENU_HEADER, ICON_MENU }
+export { ICON_MENU, MENU_HEADER }
