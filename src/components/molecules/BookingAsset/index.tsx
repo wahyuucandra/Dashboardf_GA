@@ -23,7 +23,7 @@ export default function BookingAsset() {
             onClick={() => router.back()}
             className="rounded-md bg-white w-8 h-8 flex items-center justify-center"
           >
-            <IconChevronLeft className="ml-1 w-4 h-4"></IconChevronLeft>
+            <IconChevronLeft className="ml-1 w-3 h-3"></IconChevronLeft>
           </button>
         </div>
 
