@@ -35,10 +35,10 @@ const MENU_HEADER = [
 ]
 
 const ICON_MENU = {
-  IconHomeFill: ({ color }: { color: string }) => <IconHomeFill width={25} height={24} color={color} />,
-  IconNotification: ({ color }: { color: string }) => <IconNotification width={24} height={24} color={color} />,
-  IconHistory: ({ color }: { color: string }) => <IconHistory width={25} height={24} color={color} />,
-  IconUser: ({ color }: { color: string }) => <IconUser width={25} height={24} color={color} />,
+  IconHomeFill: ({ color }: { color: string }) => <IconHomeFill className="w-6 h-6" color={color} />,
+  IconNotification: ({ color }: { color: string }) => <IconNotification className="w-6 h-6" color={color} />,
+  IconHistory: ({ color }: { color: string }) => <IconHistory className="w-6 h-6" color={color} />,
+  IconUser: ({ color }: { color: string }) => <IconUser className="w-6 h-6" color={color} />,
 }
 
 export { ICON_MENU, MENU_HEADER }

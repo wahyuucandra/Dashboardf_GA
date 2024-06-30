@@ -12,7 +12,7 @@ export function ProfileHeader() {
           <span className="text-lg font-semibold">Biko Haryono</span>
         </div>
         <button>
-          <IconNotification width={24} height={24}></IconNotification>
+          <IconNotification className="w-6 h-6"></IconNotification>
         </button>
       </div>
     </>
