@@ -1,7 +1,6 @@
 'use client'
 
 import IconNotification from '@assets/icons/iconNotification'
-import { usePathname } from 'next/navigation'
 
 export function ProfileHeader() {
   return (

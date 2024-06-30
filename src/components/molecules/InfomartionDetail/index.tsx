@@ -4,11 +4,15 @@ import IconChevronLeft from '@assets/icons/iconChevronLeft'
 
 import banner1 from '@assets/images/bannerInformation1.png'
 
+import { useRouter } from 'next/navigation'
+
 export default function InformationDetail() {
+  const router = useRouter()
+
   return (
     <>
       <header className="relative shadow flex items-center justify-center h-11">
-        <button className="absolute p-4 top-0 left-2">
+        <button type="button" onClick={() => router.back()} className="absolute p-4 top-0 left-2">
           <IconChevronLeft width={20} height={20}></IconChevronLeft>
         </button>
         <h1 className="font-semibold text-[#2C598D]">Detail Informasi</h1>

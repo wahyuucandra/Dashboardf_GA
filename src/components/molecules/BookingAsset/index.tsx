@@ -1,39 +1,95 @@
 'use client'
 
+import './style.css'
+
 import IconAboutUs from '@assets/icons/iconAboutUs'
-import IconBuildingMaintenance from '@assets/icons/iconBuildingMaintenance'
 import IconBookingAsset from '@assets/icons/iconBookingAsset'
+import IconBuildingMaintenance from '@assets/icons/iconBuildingMaintenance'
 import IconClose from '@assets/icons/iconClose'
 
-import bannerImage from '@assets/images/banner.png'
+import bannerInformation1 from '@assets/images/bannerInformation1.png'
+import bannerInformation2 from '@assets/images/bannerInformation2.png'
+import bannerInformation3 from '@assets/images/bannerInformation3.png'
 
 import logoAcc from '@assets/images/logoAcc.png'
 import logoBerijalan from '@assets/images/logoBerijalan.png'
 
-import { ProfileMobile } from '@components/atoms/profile'
 import { ProfileHeader } from '@components/atoms/profileHeader'
 
-import useNamePage from '@hooks/useNamePage'
 import { Modal } from '@components/atoms/modal'
-import { useState } from 'react'
+import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function BookingAsset() {
+  const initialize = useRef<boolean>(false)
+
+  const router = useRouter()
+
   const [isOpen, setOpen] = useState<boolean>(false)
+  const [counter, setCounter] = useState<number>(0)
+  const banners = [
+    {
+      alt: 'Banner 1',
+      src: bannerInformation1.src,
+    },
+    {
+      alt: 'Banner 2',
+      src: bannerInformation2.src,
+    },
+    {
+      alt: 'Banner 3',
+      src: bannerInformation3.src,
+    },
+  ]
+
+  useEffect(() => {
+    if (!initialize.current) {
+      setInterval(() => {
+        setCounter(prev => {
+          if (prev / (banners.length - 1) == 100) {
+            return 0
+          }
+          return prev + 100
+        })
+      }, 3000)
+      initialize.current = true
+    }
+  }, [])
 
   return (
     <>
       <ProfileHeader></ProfileHeader>
-      <div>
-        <img className="w-full h-[196px] object-cover" src={bannerImage.src} alt="Banner" />
+      <div className={`transition-all -translate-x-[${counter}%] duration-300 flex items-center`}>
+        {banners.map((val, index) => {
+          return (
+            <img
+              key={index}
+              onClick={() => router.push(`/booking-asset/informations/${index}`, { scroll: false })}
+              className="w-screen h-[196px] object-cover"
+              src={val.src}
+              alt={val.alt}
+            />
+          )
+        })}
       </div>
       <div className="p-3 flex items-center">
-        <div className="flex-1 flex items-center space-x-1">
-          <div className="rounded-full bg-gray-500 h-[7px] w-[22px]"></div>
-          <div className="rounded-full bg-gray-300 h-[7px] w-[7px]"></div>
-          <div className="rounded-full bg-gray-300 h-[7px] w-[7px]"></div>
-          <div className="rounded-full bg-gray-300 h-[7px] w-[7px]"></div>
+        <div className="flex-1 flex  items-center space-x-1">
+          {banners.map((val, index) => {
+            return (
+              <div
+                key={index}
+                className={`transition-all rounded-full ${
+                  counter != index * 100 ? '7' : '22' ? 'bg-gray-500' : ''
+                } bg-gray-300 h-[7px] w-[${counter != index * 100 ? '7' : '22'}px]`}
+              ></div>
+            )
+          })}
         </div>
-        <button className="text-xs text-[#0089CF]">Lihat Semua</button>
+
+        <Link className="text-xs text-[#0089CF]" href={'/booking-asset/informations'}>
+          Lihat Semua
+        </Link>
       </div>
       <div className="p-3">
         <div className="font-semibold text-[#2C598D] mb-4">Pilih Kebutuhan</div>
@@ -73,10 +129,6 @@ export default function BookingAsset() {
               </div>
               <div className="bg-[#2C598D] py-3">Berijalan</div>
             </div>
-
-            {/* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur omnis reprehenderit at, molestiae aut
-            illum aliquid aliquam nihil minima? Explicabo dolore illo fuga sed magni, molestiae enim possimus
-            dignissimos consequuntur. */}
           </div>
         </div>
       </Modal>

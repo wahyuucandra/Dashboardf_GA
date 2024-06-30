@@ -1,0 +1,16 @@
+/* 
+
+.slideshow-pointer {
+  animation-name: pointer-animation;
+  animation-duration: 0.5s;
+}
+
+@keyframes pointer-animation {
+  from {
+    width: 1px;
+    transform: 
+  }
+  to {
+    transform: translateX(-200%);
+  }
+} */
