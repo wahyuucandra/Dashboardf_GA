@@ -14,7 +14,7 @@ import { Room, RoomType, roomTypes, roomsData } from './data'
 
 import confirmationDanger from '@assets/images/confirmationDanger.png'
 
-import { Modal } from '@components/atoms/modal'
+import { Modal } from '@components/atoms/modalCustom'
 
 export default function ScheduleRoom() {
   const initialize = useRef<boolean>(false)

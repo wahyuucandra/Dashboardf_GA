@@ -14,7 +14,7 @@ import logoBerijalan from '@assets/images/logoBerijalan.png'
 
 import { ProfileHeader } from '@components/atoms/profileHeader'
 
-import { Modal } from '@components/atoms/modal'
+import { Modal } from '@components/atoms/modalCustom'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
