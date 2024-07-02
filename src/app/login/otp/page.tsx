@@ -1,9 +1,9 @@
-import LoginPage from '@components/organisms/Login'
+import OTPLogin from '@components/organisms/OTPLogin'
 
 export const metadata = {
   title: 'Login',
 }
 
 export default function Login() {
-  return <LoginPage />
+  return <OTPLogin />
 }
