@@ -13,7 +13,7 @@ export default function InformationDetail() {
     <>
       <header className="relative shadow flex items-center justify-center h-11">
         <button type="button" onClick={() => router.back()} className="absolute p-4 top-0 left-2">
-          <IconChevronLeft className="w-3 h-3"></IconChevronLeft>
+          <IconChevronLeft className="w-6 h-6"></IconChevronLeft>
         </button>
         <h1 className="font-semibold text-[#2C598D]">Detail Informasi</h1>
       </header>

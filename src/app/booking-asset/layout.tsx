@@ -16,8 +16,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: 'Home | GRAPE',
-    template: '%s | GRAPE',
+    default: 'Booking Asset | GA',
+    template: '%s | GA',
   },
   description: 'Get Result and Performance HC',
   manifest: '/manifest.json',

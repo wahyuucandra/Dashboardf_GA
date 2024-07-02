@@ -113,7 +113,7 @@ export default function Home() {
       <Modal isOpen={isOpen} backdropClick={() => setOpen(!isOpen)}>
         <div className="max-w-[350px] bg-white relative p-5 text-center rounded-xl">
           <button className="absolute top-3 right-3" onClick={() => setOpen(!isOpen)}>
-            <IconClose width={20} height={20}></IconClose>
+            <IconClose className="w-5 h-5"></IconClose>
           </button>
           <div className="font-semibold text-xl mb-1">Pilih lokasi</div>
           <div className="text-sm text-[#717171] mb-6">Tentukan lokasi “Booking Asset” yang Anda butuhkan</div>

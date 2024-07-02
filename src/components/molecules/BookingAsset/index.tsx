@@ -10,6 +10,7 @@ import IconBookingAsset from '@assets/icons/IconBookingAsset'
 import bookingAsset from '@assets/images/bookingAsset.png'
 
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export default function BookingAsset() {
   const router = useRouter()
@@ -23,7 +24,7 @@ export default function BookingAsset() {
             onClick={() => router.back()}
             className="rounded-md bg-white w-8 h-8 flex items-center justify-center"
           >
-            <IconChevronLeft className="ml-1 w-3 h-3"></IconChevronLeft>
+            <IconChevronLeft className="w-6 h-6"></IconChevronLeft>
           </button>
         </div>
 
@@ -46,22 +47,25 @@ export default function BookingAsset() {
           </div>
           {/* <div className="font-semibold text-[#2C598D] mb-4">Pilih Kebutuhan</div> */}
           <div className="grid grid-cols-2 gap-2">
-            <button className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-lg">
+            <Link href={'/booking-asset/room'} className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-lg">
               <IconRoom className="w-10 h-10 mx-auto"></IconRoom>
               <span className="text-[#2C598D] text-xs mx-auto">Room</span>
-            </button>
-            <button className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-lg">
+            </Link>
+            <Link href={'/booking-asset/vehicle'} className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-lg">
               <IconVehicle className="w-10 h-10 mx-auto"></IconVehicle>
               <span className="text-[#2C598D] text-xs mx-auto">Vehicle</span>
-            </button>
-            <button className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-lg">
+            </Link>
+            <Link href={'/booking-asset/asset'} className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-lg">
               <IconAsset className="w-10 h-10 mx-auto"></IconAsset>
               <span className="text-[#2C598D] text-xs mx-auto">Asset</span>
-            </button>
-            <button className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-lg">
+            </Link>
+            <Link
+              href={'/booking-asset/manpower'}
+              className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-lg"
+            >
               <IconManpower className="w-10 h-10 mx-auto"></IconManpower>
               <span className="text-[#2C598D] text-xs mx-auto">Manpower</span>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
