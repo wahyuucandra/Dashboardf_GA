@@ -3,6 +3,7 @@ import Label, { LabelProps } from './Label'
 import TextInput, { TextInputProps } from './TextInput'
 import { Control, Controller } from 'react-hook-form'
 import { joinClass } from '@utils/common'
+import { IconEyeHide, IconEyeShow } from '../Icon'
 
 interface FieldInput extends TextInputProps {
   type?: 'text' | 'email' | 'tel' | 'password' | 'number' | 'time'
@@ -95,7 +96,9 @@ const TextForm: React.FC<TextFormProps> = ({
                   className="absolute bottom-[0.35rem] right-2 cursor-pointer"
                   onClick={togglePasswordVisibility}
                 >
-                  {showPassword ? 'icon mata' : 'icon mata tutup'}
+                  {showPassword
+                    ? IconEyeShow({ color: '#757575', height: 24, width: 24 })
+                    : IconEyeHide({ color: '#757575', height: 24, width: 24 })}
                 </button>
               )}
               {suffix && <span>{suffix}</span>}
