@@ -10,7 +10,7 @@ const domainPattern = /^[a-z-]+$/
 const spaceAtBeginning = /^(?!\s)[a-zA-Z0-9_\s-]*$/ // dissalow space at beginning
 const emailPattern = /^[\w\\.-]+@[\w\\.-]+\.\w+$/
 
-const pageWithlist = /^(Home|Performance|Incentive|Chart|SMP Status|Profile)/
+const pageWithlist = /^(Home|Performance|Incentive|Chart|SMP Status|Profile|Booking-asset)/
 
 export {
   alphaSpaces,
