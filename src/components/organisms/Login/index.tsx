@@ -22,8 +22,9 @@ export default function LoginPage() {
   const router = useRouter()
 
   const [isLoading, setIsLoading] = useState(false)
+  const [passwords] = useState('password')
 
-  const { handleSubmit, control } = useForm<LoginCredentials>({
+  const { handleSubmit, getValues, setError, control } = useForm<LoginCredentials>({
     resolver: yupResolver(schema),
     mode: 'all',
   })
@@ -31,11 +32,17 @@ export default function LoginPage() {
   const onSubmit = () => {
     setIsLoading(true)
 
-    setTimeout(() => {
-      setIsLoading(false)
+    const formValues = getValues()
 
-      router.push('/login/otp')
-    }, 1000)
+    if (formValues && formValues.password !== passwords) {
+      setError('password', { type: 'custom', message: 'Kata sandi yang Anda masukkan salah' })
+      setIsLoading(false)
+    } else {
+      setTimeout(() => {
+        setIsLoading(false)
+        router.push('/login/otp')
+      }, 1000)
+    }
   }
 
   return (

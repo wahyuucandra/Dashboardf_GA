@@ -38,6 +38,7 @@ export default function OTPRegister() {
     countDownTimeInMilliseconds: 2 * 60 * 1000, // 2 menit
     onEndOfTime: () => {
       setTimeOutOTP(true)
+      setIsModalOpen2(true)
     },
   })
 
