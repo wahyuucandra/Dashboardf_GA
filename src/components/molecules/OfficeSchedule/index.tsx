@@ -9,7 +9,7 @@ import IconTime from '@assets/icons/IconTime'
 import bookingAsset from '@assets/images/bookingAsset.png'
 
 import IconClose from '@assets/icons/IconClose'
-import { Modal } from '@components/atoms/modalCustom'
+import { Modal } from '@components/atoms/ModalCustom'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 

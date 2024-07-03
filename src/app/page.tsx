@@ -1,4 +1,4 @@
-import HomePage from '@components/molecules/Home'
+import HomePage from '@components/organisms/Home'
 
 export const metadata = {
   title: 'Home',

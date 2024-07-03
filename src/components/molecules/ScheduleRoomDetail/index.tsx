@@ -15,7 +15,7 @@ import IconClose from '@assets/icons/IconClose'
 
 import bannerSchaduleRoomDetail from '@assets/images/bannerSchaduleRoomDetail.png'
 
-import { Modal } from '@components/atoms/modalCustom'
+import { Modal } from '@components/atoms/ModalCustom'
 
 import IconChevronRight from '@assets/icons/IconChevronRight'
 

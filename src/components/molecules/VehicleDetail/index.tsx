@@ -17,7 +17,7 @@ import IconClose from '@assets/icons/IconClose'
 
 import bannerSchaduleRoomDetail from '@assets/images/bannerSchaduleRoomDetail.png'
 
-import { Modal } from '@components/atoms/modalCustom'
+import { Modal } from '@components/atoms/ModalCustom'
 
 import IconChevronRight from '@assets/icons/IconChevronRight'
 
@@ -486,37 +486,6 @@ export default function ScheduleRoomDetail() {
 
   const [selectedDate, setSelectedDate] = useState<{ start: DateInput; end: DateInput }>()
   const [selectedTimes, setSelectedTimes] = useState<TimeInput[]>()
-
-  const handleBindSelectedDate = () => {
-    const start = selectedDate?.start
-    const end = selectedDate?.end
-
-    if (start?.date || end?.date) {
-      if (start?.date?.getTime() == end?.date?.getTime())
-        return `${start?.date?.getDate()}/${(start?.date?.getMonth() as number) + 1}/${start?.date?.getFullYear()}`
-      if (start?.date?.getTime() != end?.date?.getTime())
-        return `${daysData[start?.day as number]}, ${start?.date?.getDate()}/${
-          (start?.date?.getMonth() as number) + 1
-        }/${start?.date?.getFullYear()} - ${daysData[end?.day as number]}, ${end?.date?.getDate()}/${
-          (end?.date?.getMonth() as number) + 1
-        }/${end?.date?.getFullYear()}`
-    } else {
-      return 'Pilih Tanggal'
-    }
-  }
-
-  const handleBindSelectedTimes = () => {
-    if (selectedTimes) {
-      const start = selectedTimes[0]?.startText
-      const end =
-        selectedTimes.length > 0 ? selectedTimes[selectedTimes?.length - 1]?.endText : selectedTimes[0]?.endText
-      if (start || end) {
-        return `${start} - ${end}`
-      }
-    }
-
-    return 'Pilih Jam'
-  }
 
   return (
     <>
