@@ -1,0 +1,7 @@
+textarea {
+  outline: none;
+}
+
+.search-textarea:has(textarea:focus) {
+  border: 1px solid #4994ec;
+}
