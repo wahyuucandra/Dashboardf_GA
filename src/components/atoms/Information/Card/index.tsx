@@ -1,14 +1,7 @@
 'use client'
 
+import { Infomation } from '@interfaces/information'
 import Image from 'next/image'
-
-interface Infomation {
-  id: number
-  title: string
-  desc: string
-  date: string
-  banner: string
-}
 
 export function Card({ information }: { information: Infomation }) {
   return (

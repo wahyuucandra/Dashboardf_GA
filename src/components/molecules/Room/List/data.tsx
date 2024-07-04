@@ -1,17 +1,5 @@
-export interface Room {
-  id: number
-  capacity: number
-  name: string
-  banner: string
-  type: RoomType
-}
-
-export interface RoomType {
-  id: string
-  text: string
-}
-
 import bannerScheduleRoom from '@assets/images/bannerScheduleRoom.png'
+import { Room, RoomType } from '@interfaces/room'
 
 export const roomTypes: RoomType[] = [
   {
@@ -43,6 +31,7 @@ export const roomsData: Room[] = [
     banner: bannerScheduleRoom.src,
     name: 'Meeting Room - 101',
     type: roomTypes[0],
+    isAvailabel: true,
   },
   {
     id: 1,
@@ -50,6 +39,7 @@ export const roomsData: Room[] = [
     banner: bannerScheduleRoom.src,
     name: 'Meeting Room - 102',
     type: roomTypes[0],
+    isAvailabel: true,
   },
   {
     id: 2,
@@ -57,6 +47,7 @@ export const roomsData: Room[] = [
     banner: bannerScheduleRoom.src,
     name: 'Ballroom Lantai 7 - 101',
     type: roomTypes[1],
+    isAvailabel: true,
   },
   {
     id: 3,
@@ -64,6 +55,7 @@ export const roomsData: Room[] = [
     banner: bannerScheduleRoom.src,
     name: 'Karaoke - 101',
     type: roomTypes[2],
+    isAvailabel: false,
   },
   {
     id: 4,
@@ -71,5 +63,6 @@ export const roomsData: Room[] = [
     banner: bannerScheduleRoom.src,
     name: 'Meeting Room 2 - 101',
     type: roomTypes[3],
+    isAvailabel: true,
   },
 ]
