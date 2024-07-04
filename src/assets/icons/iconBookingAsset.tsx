@@ -1,11 +1,11 @@
 export default function IconBookingAsset({
-  width = 20,
-  height = 20,
+  width = 41,
+  height = 41,
   color = '#CCD7E1',
   ...props
 }: Readonly<React.SVGProps<SVGSVGElement>>) {
   return (
-    <svg viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <svg width={width} height={height} viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
         d="M33 5.91667H8C5.92893 5.91667 4.25 7.5956 4.25 9.66667V33C4.25 35.0711 5.92893 36.75 8 36.75H33C35.0711 36.75 36.75 35.0711 36.75 33V9.66667C36.75 7.5956 35.0711 5.91667 33 5.91667Z"
         fill={color}

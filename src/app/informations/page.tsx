@@ -1,9 +1,9 @@
-import InfomartionPage from '@components/molecules/InfomartionList'
+import { InformationListPage } from '@components/organisms/Information'
 
 export const metadata = {
   title: 'Informations',
 }
 
 export default function Informations() {
-  return <InfomartionPage></InfomartionPage>
+  return <InformationListPage></InformationListPage>
 }

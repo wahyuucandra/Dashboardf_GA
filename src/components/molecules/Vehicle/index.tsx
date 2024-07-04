@@ -14,7 +14,7 @@ import { carsData, operationTypes, Car, OperationType } from './data'
 
 import confirmationDanger from '@assets/images/confirmationDanger.png'
 
-import { Modal } from '@components/atoms/modalCustom'
+import { Modal } from '@components/atoms/ModalCustom'
 
 export default function ScheduleCar() {
   const initialize = useRef<boolean>(false)
