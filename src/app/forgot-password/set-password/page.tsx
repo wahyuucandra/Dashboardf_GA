@@ -1,4 +1,4 @@
-import AturUlangKataSandi from '@components/organisms/ForgotPassword/AturUlangKataSandi'
+import AturUlangKataSandi from '@components/molecules/ForgotPassword/AturUlangKataSandi'
 
 export const metadata = {
   title: 'Forgot Password',

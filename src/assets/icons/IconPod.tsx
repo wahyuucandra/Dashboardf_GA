@@ -1,11 +1,11 @@
-export default function IconNotification({
-  width = 20,
-  height = 20,
+export default function IconPod({
+  width = 51,
+  height = 33,
   color = '#2C598D',
   ...props
 }: Readonly<React.SVGProps<SVGSVGElement>>) {
   return (
-    <svg viewBox="0 0 51 33" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <svg width={width} height={height} viewBox="0 0 51 33" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"

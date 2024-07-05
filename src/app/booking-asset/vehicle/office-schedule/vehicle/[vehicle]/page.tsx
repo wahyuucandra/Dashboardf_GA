@@ -5,5 +5,5 @@ export const metadata = {
 }
 
 export default function VehicleDetail() {
-  return <VehicleDetailPage></VehicleDetailPage>
+  return <VehicleDetailPage />
 }

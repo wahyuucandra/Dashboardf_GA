@@ -1,9 +1,4 @@
-export default function IconVehicleSpecialOperation({
-  width = 20,
-  height = 20,
-  color = '#2C598D',
-  ...props
-}: Readonly<React.SVGProps<SVGSVGElement>>) {
+export default function IconVehicleSpecialOperation({ ...props }: Readonly<React.SVGProps<SVGSVGElement>>) {
   return (
     <svg viewBox="0 0 56 55" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path

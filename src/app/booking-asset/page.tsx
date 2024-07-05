@@ -1,4 +1,4 @@
-import BookingAssetPage from '@components/molecules/BookingAsset'
+import BookingAssetPage from '@components/organisms/BookingAsset'
 
 export const metadata = {
   title: 'Booking Asset',

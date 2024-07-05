@@ -1,20 +1,16 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
+
+import './style.css'
 import IconPlateNumber from '@assets/icons/IconPlateNumber'
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
 import IconScheduleRoom from '@assets/icons/IconScheduleRoom'
-
-import { useRouter } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
-
-import './style.css'
-
-import IconClose from '@assets/icons/IconClose'
-import { carsData, operationTypes, Car, OperationType } from './data'
-
 import confirmationDanger from '@assets/images/confirmationDanger.png'
-
-import { Modal } from '@components/atoms/modalCustom'
+import { carsData, operationTypes, Car, OperationType } from './data'
+import { Modal } from '@components/atoms/modalCustom/ModalCustom'
 
 export default function ScheduleCar() {
   const initialize = useRef<boolean>(false)
@@ -34,15 +30,12 @@ export default function ScheduleCar() {
     setSelectedTypes(prev => {
       if (prev) {
         const data = prev
-
         if (data?.includes(input)) {
           const newData = data.filter(val => val != input)
           return [...newData]
         }
-
         return [...data, input]
       }
-
       return [input]
     })
   }
@@ -111,7 +104,7 @@ export default function ScheduleCar() {
         <div className="grid grid-cols-2 gap-x-6 gap-y-4 px-6">
           {cars?.map(val => (
             <div key={val.id} className={`${handleClassCar(val)} rounded-xl overflow-hidden shadow-md`}>
-              <img src={val.banner} className="rounded-sm w-full h-auto" alt="" />
+              <Image width={100} height={100} src={val.banner} className="rounded-sm w-full h-auto" alt="" />
               <div className="p-3">
                 <div className="text-xs font-bold mb-1">{val.name}</div>
                 <div className="flex items-center space-x-1 text-[10px] font-medium">
@@ -126,7 +119,7 @@ export default function ScheduleCar() {
       <Modal isOpen={isOpen} backdropClick={() => setOpen(!isOpen)}>
         <div className="max-w-[350px] bg-white relative p-5 text-center rounded-xl">
           <div>
-            <img src={confirmationDanger.src} className="mx-auto mb-2" alt="" />
+            <Image width={100} height={100} src={confirmationDanger.src} className="mx-auto mb-2" alt="" />
           </div>
           <div className="text-xl font-semibold mb-1">Konfirmasi Pindah Menu</div>
           <div className="text-sm text-[#717171] mb-6">

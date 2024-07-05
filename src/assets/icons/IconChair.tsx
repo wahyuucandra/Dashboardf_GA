@@ -1,17 +1,13 @@
-export default function IconChair({
-  width = 20,
-  height = 20,
-  color = '#1C1B1F',
-  ...props
-}: Readonly<React.SVGProps<SVGSVGElement>>) {
+export default function IconChair({ width = 13, height = 12, ...props }: Readonly<React.SVGProps<SVGSVGElement>>) {
   return (
     <svg
-      width="13"
-      height="12"
+      width={width}
+      height={height}
       viewBox="0 0 13 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
+      {...props}
     >
       <rect x="0.5" width="12" height="12" fill="url(#pattern0_1356_13855)" />
       <defs>

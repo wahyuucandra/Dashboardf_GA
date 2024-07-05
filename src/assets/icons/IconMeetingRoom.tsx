@@ -1,11 +1,11 @@
-export default function IconNotification({
-  width = 20,
-  height = 20,
+export default function IconMeetingRoom({
+  width = 41,
+  height = 41,
   color = '#CCD7E1',
   ...props
 }: Readonly<React.SVGProps<SVGSVGElement>>) {
   return (
-    <svg viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <svg width={width} height={height} viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path d="M12.7295 37.0391H6.4105L3.84375 31.9867L5.37153 26.8461L7.89392 32.0819H12.7295V37.0391Z" fill={color} />
       <path
         d="M14.4424 27.4664H8.12339L5.55664 22.4139L7.08442 17.2733L9.60681 22.5091H14.4424V27.4664Z"

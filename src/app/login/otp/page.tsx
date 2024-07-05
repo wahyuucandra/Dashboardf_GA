@@ -1,4 +1,4 @@
-import OTPLogin from '@components/organisms/OTPLogin'
+import OTPLogin from '@components/molecules/OTPLogin'
 
 export const metadata = {
   title: 'Login',

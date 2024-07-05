@@ -9,6 +9,7 @@ import bookingAsset from '@assets/images/bookingAsset.png'
 
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Room() {
   const router = useRouter()
@@ -26,7 +27,9 @@ export default function Room() {
           </button>
         </div>
 
-        <img
+        <Image
+          width={100}
+          height={188}
           className="object-cover w-full h-[188px] rounded rounded-b-md"
           src={bookingAsset.src}
           alt="Booking Asset"

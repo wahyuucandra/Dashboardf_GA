@@ -9,13 +9,14 @@ import IconTime from '@assets/icons/IconTime'
 import bookingAsset from '@assets/images/bookingAsset.png'
 
 import IconClose from '@assets/icons/IconClose'
-import { Modal } from '@components/atoms/modalCustom'
+import { Modal } from '@components/atoms/modalCustom/ModalCustom'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
 import './style.css'
 
 import { DateInput, TimeInput, daysData, daysSplit, monthsData } from './data'
+import Image from 'next/image'
 
 function DateInputComponent({
   closeClick = () => {},
@@ -278,7 +279,7 @@ function DateInputComponent({
 
 function TimeInputComponent({
   endDate,
-  closeClick = () => {},
+  // closeClick = () => {},
   appendClick = () => {},
 }: {
   endDate?: DateInput
@@ -291,10 +292,10 @@ function TimeInputComponent({
   const [selectedTimes, setSelectedTimes] = useState<TimeInput[]>()
 
   const handleFetchTimesInDay = () => {
-    let date = new Date()
+    const date = new Date()
     // let endTime = new Date(date.getFullYear(), date.getMonth(), date.getDay(), 10)
 
-    let times: TimeInput[] = []
+    const times: TimeInput[] = []
 
     const validate = (time: Date) => {
       if (endDate) {
@@ -416,13 +417,13 @@ function TimeInputComponent({
 }
 
 function CapacityInputComponent({
-  closeClick = () => {},
+  // closeClick = () => {},
   appendClick = () => {},
 }: {
   closeClick?: any
   appendClick?: any
 }) {
-  const initialize = useRef<boolean>(false)
+  // const initialize = useRef<boolean>(false)
 
   const capacities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -432,7 +433,7 @@ function CapacityInputComponent({
         {capacities.map((val, index) => (
           <div
             key={index}
-            onClick={e => appendClick(val)}
+            onClick={() => appendClick(val)}
             className={`text-[#252525]  ${capacities?.length - 1 != index ? 'mb-3' : ''} `}
           >
             {val} kursi
@@ -446,12 +447,12 @@ function CapacityInputComponent({
 export default function Schedule() {
   const router = useRouter()
 
-  const [isTimeOpen, setTimeOpen] = useState<boolean>(false)
-  const [isDateOpen, setDateOpen] = useState<boolean>(false)
-  const [isCapacityOpen, setCapacityOpen] = useState<boolean>(false)
+  const [isTimeOpen, setIsTimeOpen] = useState<boolean>(false)
+  const [isDateOpen, setIsDateOpen] = useState<boolean>(false)
+  const [isCapacityOpen, setIsCapacityOpen] = useState<boolean>(false)
 
-  const [selectedDriver, setSelectedDriver] = useState<boolean>()
-  const [selectedPoliceNumber, setSelectedPoliceNumber] = useState<boolean>()
+  const [selectedDriver] = useState<boolean>()
+  const [selectedPoliceNumber] = useState<boolean>()
   const [selectedDate, setSelectedDate] = useState<{ start: DateInput; end: DateInput }>()
   const [selectedTimes, setSelectedTimes] = useState<TimeInput[]>()
   const [selectedCapacity, setSelectedCapacity] = useState<number>()
@@ -512,7 +513,9 @@ export default function Schedule() {
             <IconChevronLeft className="w-6 h-6"></IconChevronLeft>
           </button>
 
-          <img
+          <Image
+            width={100}
+            height={100}
             className=" object-cover w-full h-[188px] rounded rounded-b-md"
             src={bookingAsset.src}
             alt="Booking Asset"
@@ -529,15 +532,11 @@ export default function Schedule() {
               </div>
               <div className="grid grid-cols-2 gap-6">
                 <label className="container">
-                  Ya
-                  <input type="radio" checked={selectedDriver} name="radio" />
-                  <span className="radio"></span>
+                  Ya <input type="radio" checked={selectedDriver} name="radio" /> <span className="radio"></span>
                 </label>
 
                 <label className="container">
-                  Tidak
-                  <input type="radio" checked={selectedDriver} name="radio" />
-                  <span className="radio"></span>
+                  Tidak <input type="radio" checked={selectedDriver} name="radio" /> <span className="radio"></span>
                 </label>
               </div>
             </div>
@@ -549,21 +548,19 @@ export default function Schedule() {
               </div>
               <div className="grid grid-cols-2 gap-6">
                 <label className="container">
-                  Ganjil
-                  <input type="checkbox" checked={selectedPoliceNumber} name="checkbox" />
+                  Ganjil <input type="checkbox" checked={selectedPoliceNumber} name="checkbox" />
                   <span className="checkmark"></span>
                 </label>
 
                 <label className="container">
-                  Genap
-                  <input type="checkbox" checked={selectedPoliceNumber} name="checkbox" />
+                  Genap <input type="checkbox" checked={selectedPoliceNumber} name="checkbox" />
                   <span className="checkmark"></span>
                 </label>
               </div>
             </div>
 
             {/* Date Input */}
-            <div onClick={() => setDateOpen(true)} className="mb-6">
+            <div onClick={() => setIsDateOpen(true)} className="mb-6">
               <div className="text-[#252525] mb-2">
                 Pilih Tanggal <span className="text-[#E15241] -mt-1">*</span>
               </div>
@@ -574,7 +571,7 @@ export default function Schedule() {
             </div>
 
             {/* Time Input */}
-            <div onClick={() => setTimeOpen(true)} className="mb-6">
+            <div onClick={() => setIsTimeOpen(true)} className="mb-6">
               <div className="text-[#252525] mb-2">
                 Jam <span className="text-[#E15241] -mt-1">*</span>
               </div>
@@ -590,7 +587,7 @@ export default function Schedule() {
                 Kapasitas <span className="text-[#E15241] -mt-1">*</span>
               </div>
               <div
-                onClick={() => setCapacityOpen(!isCapacityOpen)}
+                onClick={() => setIsCapacityOpen(!isCapacityOpen)}
                 className={`bg-white text-sm border ${
                   isCapacityOpen ? 'border-[#4994ec]' : 'border-[#D5D5D5]'
                 }  relative rounded-md p-3 flex items-center space-x-4`}
@@ -606,11 +603,11 @@ export default function Schedule() {
               >
                 {CapacityInputComponent({
                   closeClick: () => {
-                    setCapacityOpen(false)
+                    setIsCapacityOpen(false)
                   },
                   appendClick: (val: number) => {
                     setSelectedCapacity(val)
-                    setCapacityOpen(false)
+                    setIsCapacityOpen(false)
                   },
                 })}
               </div>
@@ -648,32 +645,32 @@ export default function Schedule() {
       </div>
 
       {/* Date Input */}
-      <Modal isOpen={isDateOpen} isFloating={false} backdropClick={() => setDateOpen(false)}>
+      <Modal isOpen={isDateOpen} isFloating={false} backdropClick={() => setIsDateOpen(false)}>
         <div className="w-screen h-4/5 bg-white relative p-4 text-center rounded-xl">
           {DateInputComponent({
             closeClick: () => {
-              setDateOpen(false)
+              setIsDateOpen(false)
             },
             appendClick: (val: { start: DateInput; end: DateInput }) => {
               setSelectedDate(val)
               setSelectedTimes(undefined)
-              setDateOpen(false)
+              setIsDateOpen(false)
             },
           })}
         </div>
       </Modal>
 
       {/* Time Input */}
-      <Modal isOpen={isTimeOpen} isFloating={false} backdropClick={() => setTimeOpen(false)}>
+      <Modal isOpen={isTimeOpen} isFloating={false} backdropClick={() => setIsTimeOpen(false)}>
         <div className="w-screen h-4/5 bg-white relative px-4 pt-4 text-center rounded-xl">
           {TimeInputComponent({
             endDate: selectedDate?.end,
             closeClick: () => {
-              setTimeOpen(false)
+              setIsTimeOpen(false)
             },
             appendClick: (val: TimeInput[]) => {
               setSelectedTimes(val)
-              setTimeOpen(false)
+              setIsTimeOpen(false)
             },
           })}
         </div>

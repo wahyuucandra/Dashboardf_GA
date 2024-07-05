@@ -9,13 +9,14 @@ import IconTime from '@assets/icons/IconTime'
 import bookingAsset from '@assets/images/bookingAsset.png'
 
 import IconClose from '@assets/icons/IconClose'
-import { Modal } from '@components/atoms/modalCustom'
+import { Modal } from '@components/atoms/modalCustom/ModalCustom'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
 import './style.css'
 
 import { DateInput, TimeInput, daysData, daysSplit, monthsData } from './data'
+import Image from 'next/image'
 
 function DateInputComponent({
   closeClick = () => {},
@@ -278,7 +279,7 @@ function DateInputComponent({
 
 function TimeInputComponent({
   endDate,
-  closeClick = () => {},
+  // closeClick = () => {},
   appendClick = () => {},
 }: {
   endDate?: DateInput
@@ -291,10 +292,10 @@ function TimeInputComponent({
   const [selectedTimes, setSelectedTimes] = useState<TimeInput[]>()
 
   const handleFetchTimesInDay = () => {
-    let date = new Date()
+    const date = new Date()
     // let endTime = new Date(date.getFullYear(), date.getMonth(), date.getDay(), 10)
 
-    let times: TimeInput[] = []
+    const times: TimeInput[] = []
 
     const validate = (time: Date) => {
       if (endDate) {
@@ -415,15 +416,7 @@ function TimeInputComponent({
   )
 }
 
-function CapacityInputComponent({
-  closeClick = () => {},
-  appendClick = () => {},
-}: {
-  closeClick?: any
-  appendClick?: any
-}) {
-  const initialize = useRef<boolean>(false)
-
+function CapacityInputComponent({ appendClick = () => {} }: { closeClick?: any; appendClick?: any }) {
   const capacities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   return (
@@ -432,7 +425,7 @@ function CapacityInputComponent({
         {capacities.map((val, index) => (
           <div
             key={index}
-            onClick={e => appendClick(val)}
+            onClick={() => appendClick(val)}
             className={`text-[#252525]  ${capacities?.length - 1 != index ? 'mb-3' : ''} `}
           >
             {val} kursi
@@ -510,10 +503,12 @@ export default function Schedule() {
             <IconChevronLeft className="w-6 h-6"></IconChevronLeft>
           </button>
 
-          <img
+          <Image
             className=" object-cover w-full h-[188px] rounded rounded-b-md"
             src={bookingAsset.src}
             alt="Booking Asset"
+            width={100}
+            height={100}
           />
         </div>
 

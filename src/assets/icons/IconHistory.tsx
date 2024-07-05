@@ -1,9 +1,4 @@
-export default function IconHistory({
-  width = 25,
-  height = 24,
-  color = '#484C52',
-  ...props
-}: Readonly<React.SVGProps<SVGSVGElement>>) {
+export default function IconHistory({ color = '#484C52', ...props }: Readonly<React.SVGProps<SVGSVGElement>>) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24" fill="none" {...props}>
       <path

@@ -1,6 +1,12 @@
 import bannerSchaduleRoomDetail from '@assets/images/bannerSchaduleRoomDetail.png'
 import banner from '@assets/images/banner.png'
 
+export interface Photo {
+  id: number
+  image: string
+  desc: string
+}
+
 export interface DateInput {
   day: number
   date: Date
@@ -15,12 +21,6 @@ export interface TimeInput {
   startTime: Date
   endTime: Date
   availabel: boolean
-}
-
-export interface Photo {
-  id: number
-  image: string
-  desc: string
 }
 
 export const daysData = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']

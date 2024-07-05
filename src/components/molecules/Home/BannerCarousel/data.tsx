@@ -1,0 +1,16 @@
+import BannerCarousel from '@assets/images/bannerCarousel.png'
+
+export const banners = [
+  {
+    alt: 'Banner 1',
+    src: BannerCarousel.src,
+  },
+  {
+    alt: 'Banner 2',
+    src: BannerCarousel.src,
+  },
+  {
+    alt: 'Banner 3',
+    src: BannerCarousel.src,
+  },
+]

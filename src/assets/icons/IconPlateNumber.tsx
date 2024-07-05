@@ -1,9 +1,4 @@
-export default function IconChart({
-  width = 20,
-  height = 20,
-  color = '#000000',
-  ...props
-}: Readonly<React.SVGProps<SVGSVGElement>>) {
+export default function IconChart({ color = '#000000', ...props }: Readonly<React.SVGProps<SVGSVGElement>>) {
   return (
     <svg {...props} viewBox="0 0 24 13" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path

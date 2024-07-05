@@ -1,9 +1,4 @@
-export default function IconChevronTop({
-  width = 20,
-  height = 20,
-  color = '#1C1B1F',
-  ...props
-}: Readonly<React.SVGProps<SVGSVGElement>>) {
+export default function IconChevronTop({ color = '#1C1B1F', ...props }: Readonly<React.SVGProps<SVGSVGElement>>) {
   return (
     <svg fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
