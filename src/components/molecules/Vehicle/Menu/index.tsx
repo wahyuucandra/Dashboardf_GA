@@ -3,12 +3,12 @@
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
 import IconVehicleOfficeOperation from '@assets/icons/IconVehicleOfficeOperation'
 import IconVehicleSpecialOperation from '@assets/icons/IconVehicleSpecialOperation'
-import IconRoom from '@assets/icons/IconRoom'
 
 import bookingAsset from '@assets/images/BookingAsset.png'
 
-import Link from 'next/link'
+import IconVehicle from '@assets/icons/IconVehicle'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export function Menu() {
   return (
@@ -31,9 +31,9 @@ export function Menu() {
 
         <div className="px-3 pt-[200px]">
           <div className="flex items-center space-x-3 mb-4">
-            <IconRoom width={32} height={32}></IconRoom>
+            <IconVehicle width={32} height={32}></IconVehicle>
             <div>
-              <div className="text-heading xs semibold-16 text-[#2C598D]">Booking Asset</div>
+              <div className="text-heading xs semibold-16 text-[#2C598D]">Vehicle</div>
               <div className="text-[#809BB5] -mt-1">
                 <span className="text-extra-small regular-12">Pilih request yang Anda butuhkan di lokasi </span>
                 <span className="text-extra-small semibold-12">ACC HO</span>
