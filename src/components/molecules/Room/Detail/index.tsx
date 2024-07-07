@@ -8,9 +8,7 @@ import { photos, room } from './data'
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
 
 export function Detail() {
-  const handleShowMoreFacility = () => {
-    console.log('Show more')
-  }
+  const handleShowMoreFacility = () => {}
 
   return (
     <>

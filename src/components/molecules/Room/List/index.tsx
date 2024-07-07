@@ -6,11 +6,11 @@ import Header from '@components/atoms/Header'
 import { Modal } from '@components/atoms/ModalCustom'
 import { RoomCard } from '@components/atoms/Room'
 import { Room, RoomType } from '@interfaces/room'
+import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { roomTypes, roomsData } from './data'
-import { useRouter } from 'next/navigation'
-
 import './style.css'
 
 export function List() {
@@ -108,7 +108,14 @@ export function List() {
       <Modal isOpen={isConfimationModalOpen} backdropClick={() => setConfimationModalOpen(!isConfimationModalOpen)}>
         <div className="max-w-[350px] bg-white relative p-6 text-center rounded-xl">
           <div>
-            <img src={confirmationDanger.src} className="mx-auto mb-4 w-28 h-28" alt="" />
+            <Image
+              width={0}
+              height={0}
+              sizes="100"
+              src={confirmationDanger.src}
+              className="mx-auto mb-4 w-28 h-28"
+              alt="confirmation"
+            ></Image>
           </div>
           <div className="text-heading s semibold-18 text-[#252525] mb-1">Konfirmasi Pindah Menu</div>
           <div className="text-paragraph regular-14 text-[#717171] mb-8 px-3">

@@ -1,13 +1,21 @@
 'use client'
 
 import bookingSuccessfully from '@assets/images/BookingSuccessfully.png'
+import Image from 'next/image'
 
 export function Success() {
   return (
     <>
       <div className="bg-white fixed z-[102] bottom-0 bottom-0 right-0 w-full h-screen">
         <div className="flex flex-col items-center h-full justify-center">
-          <img src={bookingSuccessfully.src} className="mb-10 w-48 h-48" alt="" />
+          <Image
+            width={0}
+            height={0}
+            sizes="100"
+            src={bookingSuccessfully.src}
+            className="mb-10 w-48 h-48"
+            alt="success"
+          ></Image>
           <div className="text-container-success title mb-2">Booking Berhasil</div>
           <div className="text-container-success desc text-[#717171] mb-8">Room request berhasil di booking</div>
           <div className="px-3 py-4 text-container-success list text-[#252525] bg-[#E5F2FC] border border-[#809BB5] rounded w-4/5">

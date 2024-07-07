@@ -39,7 +39,6 @@ export function Schedule() {
   })
 
   const onSubmit = async (data: any) => {
-    console.log(data)
     router.push('/booking-asset/room/meeting-room')
   }
 

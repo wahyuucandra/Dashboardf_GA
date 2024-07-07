@@ -4,16 +4,15 @@ import IconCalendar from '@assets/icons/IconCalendar'
 import IconTime from '@assets/icons/IconTime'
 
 import { DateRangeInputCustom } from '@components/atoms/DateRangeInput'
+import { monthsData } from '@components/atoms/DateRangeInput/data'
 import { TimeRangeInputCustom } from '@components/atoms/TimeRangeInput'
 import { DateInput } from '@interfaces/date-input'
-import { RoomDetail } from '@interfaces/room'
-import { TimeInput } from '@interfaces/time-input'
-import { useState } from 'react'
-import './style.css'
-import { useForm, useWatch } from 'react-hook-form'
 import { DefaulScheduleForm, ScheduleForm } from '@interfaces/schedule'
-import { daysData, monthsData } from '@components/atoms/DateRangeInput/data'
+import { TimeInput } from '@interfaces/time-input'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useForm, useWatch } from 'react-hook-form'
+import './style.css'
 
 export function Booking() {
   const router = useRouter()
@@ -21,7 +20,7 @@ export function Booking() {
   const [isDateModalOpen, setDateModalOpen] = useState<boolean>(false)
   const [isTimeModalOpen, setTimeModalOpen] = useState<boolean>(false)
 
-  const { handleSubmit, setValue, getValues, control } = useForm<ScheduleForm>({ defaultValues: DefaulScheduleForm })
+  const { handleSubmit, setValue, control } = useForm<ScheduleForm>({ defaultValues: DefaulScheduleForm })
 
   const date = useWatch({
     control,
@@ -34,7 +33,6 @@ export function Booking() {
   })
 
   const onSubmit = async (data: any) => {
-    console.log(data)
     router.push('/booking-asset/room/meeting-room/success')
   }
 
