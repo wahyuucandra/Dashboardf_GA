@@ -1,0 +1,11 @@
+textarea {
+  outline: none;
+}
+
+.input-textarea {
+  border: 1px solid #d5d5d5;
+}
+
+.input-textarea:has(textarea:focus) {
+  border: 1px solid #4994ec;
+}

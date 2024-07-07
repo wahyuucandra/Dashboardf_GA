@@ -14,22 +14,22 @@ export function Menu() {
   return (
     <>
       <div className="relative">
-        <div className="absolute top-4 left-4">
+        <Image
+          width={0}
+          height={0}
+          sizes="100"
+          className="fixed top-0 object-cover w-full h-[188px] rounded-b"
+          src={bookingAsset.src}
+          alt="Booking Asset"
+        ></Image>
+
+        <div className="fixed top-4 left-4">
           <Link href={'/'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
             <IconChevronLeft></IconChevronLeft>
           </Link>
         </div>
 
-        <Image
-          width={0}
-          height={0}
-          sizes="100"
-          className="object-cover w-full h-[188px] rounded rounded-b"
-          src={bookingAsset.src}
-          alt="Booking Asset"
-        ></Image>
-
-        <div className="p-3">
+        <div className="px-3 pt-[200px]">
           <div className="flex items-center space-x-3 mb-4">
             <IconRoom width={32} height={32}></IconRoom>
             <div>

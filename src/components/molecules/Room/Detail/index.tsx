@@ -34,7 +34,7 @@ export function Detail() {
           <RoomTerms room={room}></RoomTerms>
         </div>
       </div>
-      <RoomBooking room={room}></RoomBooking>
+      <RoomBooking></RoomBooking>
     </>
   )
 }

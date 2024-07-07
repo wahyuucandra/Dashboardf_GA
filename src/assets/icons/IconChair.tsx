@@ -1,9 +1,4 @@
-export default function IconChair({
-  width = 13,
-  height = 12,
-  color = '#1C1B1F',
-  ...props
-}: Readonly<React.SVGProps<SVGSVGElement>>) {
+export default function IconChair({ width = 13, height = 12, ...props }: Readonly<React.SVGProps<SVGSVGElement>>) {
   return (
     <svg
       width={width}

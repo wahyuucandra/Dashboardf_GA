@@ -16,7 +16,7 @@ import './style.css'
 export function List() {
   const router = useRouter()
 
-  const [rooms, setRooms] = useState<Room[]>(roomsData)
+  const [rooms] = useState<Room[]>(roomsData)
 
   const [isConfimationModalOpen, setConfimationModalOpen] = useState<boolean>(false)
   const [selectedTypes, setSelectedTypes] = useState<RoomType[]>()
@@ -96,7 +96,7 @@ export function List() {
           {rooms?.map(room => (
             <Link
               key={room.id}
-              href={`booking-asset/room/meeting-room/${room.id}`}
+              href={`/booking-asset/room/meeting-room/${room.id}`}
               className={`${handleIsSelectTypeSame(room)}`}
             >
               <RoomCard room={room}></RoomCard>

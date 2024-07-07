@@ -15,7 +15,7 @@ export function Facility({ room, onButtonClick }: { room?: RoomDetail; onButtonC
       <div className="text-room-detail list text-[#000000]">
         {room?.facility?.map((val, index) => (
           <div key={index} className="flex items-center space-x-2 mb-3">
-            <span className="w-2 h-2 bg-[#000000] rounded-full"></span>
+            <span className="w-2 h-2 bg-[#000000] rounded-full -mt-1"></span>
             <span>{val}</span>
           </div>
         ))}
