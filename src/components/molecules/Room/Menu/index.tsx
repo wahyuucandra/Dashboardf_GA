@@ -24,7 +24,7 @@ export function Menu() {
         ></Image>
 
         <div className="fixed top-4 left-4">
-          <Link href={'/'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
+          <Link href={'/booking-asset'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
             <IconChevronLeft></IconChevronLeft>
           </Link>
         </div>

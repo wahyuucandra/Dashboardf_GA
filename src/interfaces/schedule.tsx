@@ -14,3 +14,37 @@ export const DefaulScheduleForm = {
   capacity: undefined,
   reason: undefined,
 }
+
+export interface VehicleScheduleForm {
+  withDriver: boolean | undefined
+  plateType: { odd: boolean | undefined; even: boolean | undefined } | undefined
+  date: { start: DateInput | undefined; end: DateInput | undefined } | undefined
+  time: { start: TimeInput | undefined; end: TimeInput | undefined } | undefined
+  capacity: number | undefined
+  reason: string | undefined
+}
+
+export const DefaulVehicleScheduleForm = {
+  withDriver: undefined,
+  plateType: undefined,
+  date: undefined,
+  time: undefined,
+  capacity: undefined,
+  reason: undefined,
+}
+
+export interface AcceptTermForm {
+  accept: boolean | undefined
+}
+
+export const DefaulAcceptTermForm = {
+  accept: undefined,
+}
+
+export interface VehicleOrderForm {
+  fileForm: File | undefined
+}
+
+export const DefaulVehicleOrderForm = {
+  fileForm: undefined,
+}

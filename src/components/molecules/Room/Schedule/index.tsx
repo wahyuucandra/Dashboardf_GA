@@ -4,7 +4,7 @@ import IconChevronLeft from '@assets/icons/IconChevronLeft'
 import bookingAsset from '@assets/images/BookingAsset.png'
 import CapacityInput from '@components/atoms/CapacityInput'
 import { DateRangeInput } from '@components/atoms/DateRangeInput'
-import ReasonInput from '@components/atoms/ReasonInput'
+import { ReasonInputArea } from '@components/atoms/ReasonInput'
 import { TimeRangeInput } from '@components/atoms/TimeRangeInput'
 import { DefaulScheduleForm, ScheduleForm } from '@interfaces/schedule'
 import Image from 'next/image'
@@ -55,7 +55,7 @@ export function Schedule() {
         ></Image>
 
         <div className="fixed top-4 left-4">
-          <Link href={'/'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
+          <Link href={'/booking-asset/room'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
             <IconChevronLeft></IconChevronLeft>
           </Link>
         </div>
@@ -103,12 +103,12 @@ export function Schedule() {
                 <div className="text-paragraph regular-14 mb-1">
                   Keperluan <span className="text-[#E15241]">*</span>
                 </div>
-                <ReasonInput
+                <ReasonInputArea
                   value={reason}
                   onChangeInput={val => {
                     setValue('reason', val)
                   }}
-                ></ReasonInput>
+                ></ReasonInputArea>
               </div>
             </div>
 

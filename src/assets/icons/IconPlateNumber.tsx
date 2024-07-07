@@ -1,11 +1,11 @@
-export default function IconChart({
-  width = 20,
-  height = 20,
+export default function IconPlateNumber({
+  width = 24,
+  height = 13,
   color = '#000000',
   ...props
 }: Readonly<React.SVGProps<SVGSVGElement>>) {
   return (
-    <svg {...props} viewBox="0 0 24 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={width} height={height} viewBox="0 0 24 13" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
         d="M14.0498 3.48877C13.9167 3.48877 13.789 3.54164 13.6949 3.63575C13.6008 3.72985 13.5479 3.85749 13.5479 3.99058V5.49602L15.0534 3.48877H14.0498ZM4.01353 3.48877C3.88044 3.48877 3.7528 3.54164 3.6587 3.63575C3.56459 3.72985 3.51172 3.85749 3.51172 3.99058V5.49602L5.01715 3.48877H4.01353ZM5.01715 6.49964C5.15024 6.49964 5.27788 6.44677 5.37199 6.35266C5.4661 6.25855 5.51897 6.13092 5.51897 5.99783V4.49239L4.01353 6.49964H5.01715ZM15.5552 5.99783V4.49239L14.0498 6.49964H15.0534C15.1865 6.49964 15.3141 6.44677 15.4082 6.35266C15.5023 6.25855 15.5552 6.13092 15.5552 5.99783Z"
         fill={color}

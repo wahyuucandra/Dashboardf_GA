@@ -1,5 +1,12 @@
 textarea {
   outline: none;
+  background: inherit;
+}
+
+input {
+  outline: none;
+  background: inherit;
+
 }
 
 .input-textarea {
@@ -7,5 +14,9 @@ textarea {
 }
 
 .input-textarea:has(textarea:focus) {
+  border: 1px solid #4994ec;
+}
+
+.input-textarea:has(input:focus) {
   border: 1px solid #4994ec;
 }

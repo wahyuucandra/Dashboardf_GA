@@ -126,7 +126,7 @@ export function List() {
             <button
               onClick={() => {
                 setConfimationModalOpen(false)
-                router.push(`/booking-asset/room`, { scroll: false })
+                router.push(`/booking-asset/room/meeting-room/schedule`, { scroll: false })
               }}
               type="button"
               className="exit-button w-full text-center text-[#00376A] rounded-md overflow-hidden h-11"
