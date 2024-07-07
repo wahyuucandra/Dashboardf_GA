@@ -1,9 +1,9 @@
-import BookingSuccessPage from '@components/molecules/BookingSuccess'
+// import BookingSuccessPage from '@components/molecules/Room/Success'
 
 export const metadata = {
   title: 'Schedule Ruangan',
 }
 
 export default function BookingSuccess() {
-  return <BookingSuccessPage></BookingSuccessPage>
+  return ''
 }

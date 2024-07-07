@@ -65,7 +65,7 @@ export function List() {
         <div className="flex items-center space-x-3 py-3">
           <div className="flex-1">
             <div className="flex items-center space-x-3 mb-1">
-              <IconScheduleRoom className="w-4 h-4 text-[#0089CF]"></IconScheduleRoom>
+              <IconScheduleRoom></IconScheduleRoom>
               <span className="text-information">ACC TB Simatupang</span>
             </div>
             <div className="text-desc flex items-center space-x-2">
