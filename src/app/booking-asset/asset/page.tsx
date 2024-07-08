@@ -1,9 +1,9 @@
-import { VehicleMenuPage } from '@components/organisms/Vehicle/index'
+import { AssetListPage } from '@components/organisms/Asset'
 
 export const metadata = {
-  title: 'Vehicle Menu',
+  title: 'Asset List',
 }
 
 export default function Vehicle() {
-  return <VehicleMenuPage></VehicleMenuPage>
+  return <AssetListPage></AssetListPage>
 }

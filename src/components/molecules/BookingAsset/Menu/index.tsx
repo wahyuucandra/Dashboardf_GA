@@ -58,7 +58,7 @@ export function Menu() {
               <span className="text-paragraph semibold-14 text-[#2C598D]">Vehicle</span>
             </Link>
             <Link
-              href={'/booking-asset/asset'}
+              href={'/booking-asset/asset/schedule'}
               className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
             >
               <IconAsset className="mx-auto"></IconAsset>

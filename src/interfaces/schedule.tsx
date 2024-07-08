@@ -33,6 +33,18 @@ export const DefaulVehicleScheduleForm = {
   reason: undefined,
 }
 
+export interface AssetScheduleForm {
+  date: { start: DateInput | undefined; end: DateInput | undefined } | undefined
+  time: { start: TimeInput | undefined; end: TimeInput | undefined } | undefined
+  reason: string | undefined
+}
+
+export const DefaulAssetScheduleForm = {
+  date: undefined,
+  time: undefined,
+  reason: undefined,
+}
+
 export interface AcceptTermForm {
   accept: boolean | undefined
 }
