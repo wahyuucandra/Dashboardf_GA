@@ -1,6 +1,11 @@
-export default function IconUser({ color = '#484C52', ...props }: Readonly<React.SVGProps<SVGSVGElement>>) {
+export default function IconUser({
+  width = 16,
+  height = 16,
+  color = '#484C52',
+  ...props
+}: Readonly<React.SVGProps<SVGSVGElement>>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24" fill="none" {...props}>
+    <svg width={width} height={height} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24" fill="none" {...props}>
       <path
         d="M12.125 12C14.8864 12 17.125 9.76142 17.125 7C17.125 4.23858 14.8864 2 12.125 2C9.36358 2 7.125 4.23858 7.125 7C7.125 9.76142 9.36358 12 12.125 12Z"
         stroke={color}

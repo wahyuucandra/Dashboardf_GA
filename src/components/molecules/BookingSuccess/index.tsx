@@ -2,7 +2,6 @@
 
 import bookingSuccessfully from '@assets/images/bookingSuccessfully.png'
 
-import './style.css'
 import Image from 'next/image'
 
 export default function BookingSuccess() {

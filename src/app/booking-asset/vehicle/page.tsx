@@ -1,9 +1,9 @@
-import VehicleMenuPage from '@components/molecules/VehicleMenu'
+import { VehicleMenuPage } from '@components/organisms/Vehicle/index'
 
 export const metadata = {
   title: 'Vehicle Menu',
 }
 
-export default function Room() {
+export default function Vehicle() {
   return <VehicleMenuPage></VehicleMenuPage>
 }

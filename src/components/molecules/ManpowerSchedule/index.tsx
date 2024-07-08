@@ -8,7 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import Image from 'next/image'
 
 import './style.css'
-import { Modal } from '@components/atoms/modalCustom/ModalCustom'
+import { Modal } from '@components/atoms/modalCustom'
 import { DateInput, TimeInput, daysData, daysSplit, monthsData } from './data'
 import { IScheduleManpower } from '@interfaces/manpower'
 import { Button } from '@components/atoms/button'

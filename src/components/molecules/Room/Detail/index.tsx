@@ -1,15 +1,14 @@
 'use client'
 
-import Link from 'next/link'
-
 import { RoomBannerImage, RoomDescription, RoomFacility, RoomTerms, RoomBooking } from '@components/atoms/Room'
-import IconChevronLeft from '@assets/icons/IconChevronLeft'
+
+import Link from 'next/link'
 import { photos, room } from './data'
 
+import IconChevronLeft from '@assets/icons/IconChevronLeft'
+
 export function Detail() {
-  const handleShowMoreFacility = () => {
-    // console.log('Show more')
-  }
+  const handleShowMoreFacility = () => {}
 
   return (
     <>
@@ -33,7 +32,7 @@ export function Detail() {
           <RoomTerms room={room}></RoomTerms>
         </div>
       </div>
-      <RoomBooking room={room}></RoomBooking>
+      <RoomBooking></RoomBooking>
     </>
   )
 }

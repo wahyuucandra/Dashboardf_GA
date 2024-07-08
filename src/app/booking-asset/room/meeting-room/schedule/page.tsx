@@ -1,9 +1,9 @@
-import { RoomListPage } from '@components/organisms/Room'
+import { RoomSchedulePage } from '@components/organisms/Room'
 
 export const metadata = {
-  title: 'Meeting Room',
+  title: 'Schdule Meeting Room',
 }
 
-export default function MeetingRoom() {
-  return <RoomListPage></RoomListPage>
+export default function MeetingRoomSchedule() {
+  return <RoomSchedulePage></RoomSchedulePage>
 }

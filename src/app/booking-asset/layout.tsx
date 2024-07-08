@@ -5,7 +5,6 @@ import type { Metadata, Viewport } from 'next'
 import Container from '@components/organisms/Container'
 // import { Source_Sans_3 } from 'next/font/google'
 
-// const inter = Source_Sans_3({ subsets: ['latin'] })
 export const viewport: Viewport = {
   themeColor: '#ffff',
   width: 'device-width',
