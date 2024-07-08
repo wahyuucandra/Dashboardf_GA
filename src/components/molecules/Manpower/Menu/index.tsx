@@ -1,6 +1,5 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
@@ -12,29 +11,25 @@ import IconManpowerReceptionist from '@assets/icons/IconManpowerReceptionist'
 import IconManpower from '@assets/icons/IconManpower'
 import Image from 'next/image'
 
-export default function ManpowerMenuPage() {
-  const router = useRouter()
-
+export function Menu() {
   return (
     <div className="relative">
-      <div className="sticky top-0">
-        <button
-          type="button"
-          onClick={() => router.back()}
-          className="absolute top-3 left-3 rounded-md bg-white w-8 h-8 flex items-center justify-center z-10"
-        >
-          <IconChevronLeft className="w-6 h-6"></IconChevronLeft>
-        </button>
-        <Image
-          className="object-cover w-full max-h-[188px] "
-          width={1000}
-          height={188}
-          src={bookingAsset.src}
-          alt="Booking Asset"
-        />
+      <Image
+        width={0}
+        height={0}
+        sizes="100"
+        className="fixed top-0 object-cover w-full h-[188px] rounded-b"
+        src={bookingAsset.src}
+        alt="Booking Asset"
+      ></Image>
+
+      <div className="fixed top-4 left-4">
+        <Link href={'/booking-asset'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
+          <IconChevronLeft></IconChevronLeft>
+        </Link>
       </div>
 
-      <div className="p-3">
+      <div className="px-3 pt-[200px]">
         <div className="flex items-center space-x-3 mb-4">
           <IconManpower className="w-10 h-10"></IconManpower>
           <div>
@@ -45,34 +40,35 @@ export default function ManpowerMenuPage() {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-2">
+
+        <div className="grid grid-cols-2 gap-4 text-center">
           <Link
-            href="/booking-asset/manpower/cleaning-service"
-            className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-lg"
+            href="/booking-asset/manpower/cleaning-service/schedule"
+            className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconManpowerCleaning className="w-10 h-10 mx-auto text-[#2C598D]" />
-            <span className="text-[#2C598D] text-xs font-semibold mx-auto">Cleaning Service</span>
+            <span className="text-paragraph semibold-14 text-[#2C598D]">Cleaning Service</span>
           </Link>
           <Link
             href="/booking-asset/manpower/maintenance"
-            className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-lg"
+            className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconManpowerMaintenance className="w-10 h-10 mx-auto text-[#2C598D]"></IconManpowerMaintenance>
-            <span className="text-[#2C598D] text-xs font-semibold mx-auto">Maintenance</span>
+            <span className="text-paragraph semibold-14 text-[#2C598D]">Maintenance</span>
           </Link>
           <Link
             href="/booking-asset/manpower/security"
-            className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-lg"
+            className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconManpowerSecurity className="w-10 h-10 mx-auto text-[#2C598D]"></IconManpowerSecurity>
-            <span className="text-[#2C598D] text-xs font-semibold mx-auto">Security</span>
+            <span className="text-paragraph semibold-14 text-[#2C598D]">Security</span>
           </Link>
           <Link
             href="/booking-asset/manpower/receptionist"
-            className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-lg"
+            className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconManpowerReceptionist className="w-10 h-10 mx-auto text-[#2C598D]"></IconManpowerReceptionist>
-            <span className="text-[#2C598D] text-xs font-semibold mx-auto">Receptionist</span>
+            <span className="text-paragraph semibold-14 text-[#2C598D]">Receptionist</span>
           </Link>
         </div>
       </div>
