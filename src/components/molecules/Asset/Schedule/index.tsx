@@ -2,7 +2,6 @@
 
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
 import bookingAsset from '@assets/images/BookingAsset.png'
-import CapacityInput from '@components/atoms/CapacityInput'
 import { DateRangeInput } from '@components/atoms/DateRangeInput'
 import { ReasonInput } from '@components/atoms/ReasonInput'
 import { TimeRangeInput } from '@components/atoms/TimeRangeInput'
