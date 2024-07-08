@@ -1,27 +1,13 @@
 'use client'
 
-import IconDotsVertical from '@assets/icons/IconDotsVertical'
 import Header from '@components/atoms/Header'
-import { ReasonInputArea } from '@components/atoms/ReasonInput'
-import {} from '@interfaces/schedule'
-import { useRouter } from 'next/navigation'
-import BannerCar from '@assets/images/BannerCar.png'
-import Image from 'next/image'
-
-import { useForm, useWatch } from 'react-hook-form'
-import IconCloudDownload from '@assets/icons/IconCloudDownload'
-import Link from 'next/link'
-import IconCloudUpload from '@assets/icons/IconCloudUpload'
-import { useRef } from 'react'
-import IconPencil from '@assets/icons/IconPencil'
-import IconTrash from '@assets/icons/IconTrash'
 import './style.css'
 
 export function DetailOrder() {
-  const router = useRouter()
+  // const router = useRouter()
 
-  const fileInput = useRef<HTMLInputElement>(null)
-  const fileInputKey = useRef<string>(Math.random().toString(36))
+  // const fileInput = useRef<HTMLInputElement>(null)
+  // const fileInputKey = useRef<string>(Math.random().toString(36))
 
   // const { handleSubmit, setValue, control } = useForm<AssetOrderForm>({
   //   defaultValues: { ...DefaulAssetOrderForm },
@@ -32,15 +18,15 @@ export function DetailOrder() {
   //   name: 'fileForm',
   // })
 
-  const onSubmit = async () => {
-    router.push('/booking-asset/vehicle/special-operational/process')
-  }
+  // const onSubmit = async () => {
+  //   router.push('/booking-asset/vehicle/special-operational/process')
+  // }
 
-  const onFileClicked = () => {
-    if (fileInput.current) {
-      fileInput.current.click()
-    }
-  }
+  // const onFileClicked = () => {
+  //   if (fileInput.current) {
+  //     fileInput.current.click()
+  //   }
+  // }
 
   return (
     <>

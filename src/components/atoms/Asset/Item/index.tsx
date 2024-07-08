@@ -4,9 +4,9 @@ import { Asset } from '@interfaces/asset'
 import Image from 'next/image'
 
 export function Item({ asset }: { asset: Asset }) {
-  const handleCheckIsAvailabel = (asset: Asset) => {
-    if (!asset.isAvailabel) return 'opacity-40'
-  }
+  // const handleCheckIsAvailabel = (asset: Asset) => {
+  //   if (!asset.isAvailabel) return 'opacity-40'
+  // }
 
   return (
     <div

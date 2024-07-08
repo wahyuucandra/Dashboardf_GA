@@ -2,15 +2,7 @@
 
 // import { AssetBannerImage, AssetBooking, AssetDescription, AssetInformation, AssetTerms } from '@components/atoms/Asset'
 
-import Link from 'next/link'
-import { photos, vehicle } from './data'
-
-import IconChevronLeft from '@assets/icons/IconChevronLeft'
-import { useState } from 'react'
-
 export function Detail() {
-  const [acceptTerm, setAcceptTerm] = useState<boolean>(false)
-
   return (
     <>
       {/* <div className="relative">
