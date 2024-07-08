@@ -1,6 +1,6 @@
 export default function IconChevronRight({
-  width = 20,
-  height = 20,
+  width = 24,
+  height = 24,
   color = '#1C1B1F',
   ...props
 }: Readonly<React.SVGProps<SVGSVGElement>>) {

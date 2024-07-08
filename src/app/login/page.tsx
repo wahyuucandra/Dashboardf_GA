@@ -1,4 +1,4 @@
-import LoginPage from '@components/organisms/Login'
+import LoginPage from '@components/molecules/Login'
 
 export const metadata = {
   title: 'Login',

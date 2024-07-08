@@ -45,6 +45,22 @@ export const DefaulAssetScheduleForm = {
   reason: undefined,
 }
 
+export interface ManpowerScheduleForm {
+  gender: string | undefined
+  date: { start: DateInput | undefined; end: DateInput | undefined } | undefined
+  time: { start: TimeInput | undefined; end: TimeInput | undefined } | undefined
+  manpower: number | undefined
+  reason: string | undefined
+}
+
+export const DefaulManpowerScheduleForm: ManpowerScheduleForm = {
+  gender: undefined,
+  date: undefined,
+  time: undefined,
+  reason: undefined,
+  manpower: undefined,
+}
+
 export interface AcceptTermForm {
   accept: boolean | undefined
 }

@@ -1,4 +1,4 @@
-import IconLogout from '@assets/icons/iconLogout'
+import IconLogout from '@assets/icons/IconLogout'
 import React from 'react'
 
 export default function LogoutButton() {

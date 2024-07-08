@@ -1,6 +1,6 @@
 export default function IconUser({
-  width = 25,
-  height = 24,
+  width = 16,
+  height = 16,
   color = '#484C52',
   ...props
 }: Readonly<React.SVGProps<SVGSVGElement>>) {

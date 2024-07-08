@@ -1,6 +1,6 @@
 export default function IconHomeFill({
-  width = 25,
-  height = 24,
+  width = 16,
+  height = 16,
   color = '#2C598D',
   ...props
 }: Readonly<React.SVGProps<SVGSVGElement>>) {

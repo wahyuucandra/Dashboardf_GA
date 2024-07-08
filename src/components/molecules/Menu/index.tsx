@@ -1,9 +1,9 @@
 'use client'
 
 import LogoutButton from '@components/atoms/logoutButton'
+import useNamePage from '@hooks/useNamePage'
 import { MenuList } from '@components/atoms/menuList'
 import { Profile } from '@components/atoms/profile'
-import useNamePage from '@hooks/useNamePage'
 import { MENU_HEADER } from '@utils/list'
 import { pageWithlist } from '@utils/regex'
 

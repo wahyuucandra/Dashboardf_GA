@@ -1,4 +1,4 @@
-import OPTForget from '@components/organisms/OTPForget'
+import OPTForget from '@components/molecules/OTPForget'
 
 export const metadata = {
   title: 'Forgot Password',

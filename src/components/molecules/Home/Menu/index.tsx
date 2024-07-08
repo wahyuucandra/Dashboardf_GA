@@ -3,12 +3,12 @@
 import IconAboutUs from '@assets/icons/IconAboutUs'
 import IconBookingAsset from '@assets/icons/IconBookingAsset'
 import IconBuildingMaintenance from '@assets/icons/IconBuildingMaintenance'
-import IconClose from '@assets/icons/iconClose'
+import IconClose from '@assets/icons/IconClose'
 
 import logoAcc from '@assets/images/logoAcc.png'
 import logoBerijalan from '@assets/images/logoBerijalan.png'
 
-import { Modal } from '@components/atoms/ModalCustom'
+import { Modal } from '@components/atoms/modalCustom'
 import Link from 'next/link'
 import Image from 'next/image'
 
