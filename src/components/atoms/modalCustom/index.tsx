@@ -6,7 +6,6 @@ export function Modal({
   backdropDismiss = false,
   backdropClick = () => {},
   isFloating = true,
-  ...props
 }: {
   readonly children: React.ReactElement
   isOpen: boolean
@@ -23,7 +22,7 @@ export function Modal({
         } z-[999] fixed top-0 left-0 h-screen w-screen bg-gray-950 opacity-40`}
       ></div>
       <div
-        onClick={e => {
+        onClick={() => {
           backdropClick()
         }}
         className={`${
@@ -36,7 +35,7 @@ export function Modal({
       </div>
 
       <div
-        onClick={e => {
+        onClick={() => {
           backdropClick()
         }}
         className={`${

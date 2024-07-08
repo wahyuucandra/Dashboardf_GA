@@ -6,17 +6,17 @@ import Header from '@components/atoms/Header'
 import { Modal } from '@components/atoms/ModalCustom'
 import { RoomCard } from '@components/atoms/Room'
 import { Room, RoomType } from '@interfaces/room'
+import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { roomTypes, roomsData } from './data'
-import { useRouter } from 'next/navigation'
-
 import './style.css'
 
 export function List() {
   const router = useRouter()
 
-  const [rooms, setRooms] = useState<Room[]>(roomsData)
+  const [rooms] = useState<Room[]>(roomsData)
 
   const [isConfimationModalOpen, setConfimationModalOpen] = useState<boolean>(false)
   const [selectedTypes, setSelectedTypes] = useState<RoomType[]>()
@@ -65,7 +65,7 @@ export function List() {
         <div className="flex items-center space-x-3 py-3">
           <div className="flex-1">
             <div className="flex items-center space-x-3 mb-1">
-              <IconScheduleRoom className="w-4 h-4 text-[#0089CF]"></IconScheduleRoom>
+              <IconScheduleRoom></IconScheduleRoom>
               <span className="text-information">ACC TB Simatupang</span>
             </div>
             <div className="text-desc flex items-center space-x-2">
@@ -96,7 +96,7 @@ export function List() {
           {rooms?.map(room => (
             <Link
               key={room.id}
-              href={`booking-asset/room/meeting-room/${room.id}`}
+              href={`/booking-asset/room/meeting-room/${room.id}`}
               className={`${handleIsSelectTypeSame(room)}`}
             >
               <RoomCard room={room}></RoomCard>
@@ -108,7 +108,14 @@ export function List() {
       <Modal isOpen={isConfimationModalOpen} backdropClick={() => setConfimationModalOpen(!isConfimationModalOpen)}>
         <div className="max-w-[350px] bg-white relative p-6 text-center rounded-xl">
           <div>
-            <img src={confirmationDanger.src} className="mx-auto mb-4 w-28 h-28" alt="" />
+            <Image
+              width={0}
+              height={0}
+              sizes="100"
+              src={confirmationDanger.src}
+              className="mx-auto mb-4 w-28 h-28"
+              alt="confirmation"
+            ></Image>
           </div>
           <div className="text-heading s semibold-18 text-[#252525] mb-1">Konfirmasi Pindah Menu</div>
           <div className="text-paragraph regular-14 text-[#717171] mb-8 px-3">
@@ -119,7 +126,7 @@ export function List() {
             <button
               onClick={() => {
                 setConfimationModalOpen(false)
-                router.push(`/booking-asset/room`, { scroll: false })
+                router.push(`/booking-asset/room/meeting-room/schedule`, { scroll: false })
               }}
               type="button"
               className="exit-button w-full text-center text-[#00376A] rounded-md overflow-hidden h-11"

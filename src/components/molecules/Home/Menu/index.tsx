@@ -10,6 +10,8 @@ import logoBerijalan from '@assets/images/logoBerijalan.png'
 
 import { Modal } from '@components/atoms/ModalCustom'
 import Link from 'next/link'
+import Image from 'next/image'
+
 import { useState } from 'react'
 
 export function Menu() {
@@ -61,7 +63,14 @@ export function Menu() {
                   className="text-center text-white w-full shadow-[0_0_10px_0_rgba(0,0,0,0.1)] rounded-lg overflow-hidden"
                 >
                   <div className="pt-6 pb-6">
-                    <img className="w-[82px] h-[103px] mx-auto" src={logoAcc.src} alt="ACC"></img>
+                    <Image
+                      width={0}
+                      height={0}
+                      sizes="100"
+                      src={logoAcc.src}
+                      className="w-[82px] h-[103px] mx-auto"
+                      alt="ACC"
+                    ></Image>
                   </div>
                   <div className="bg-[#2C598D] text-modal button py-5">ACC</div>
                 </button>
@@ -76,7 +85,14 @@ export function Menu() {
                   className="text-center text-white w-full shadow-[0_0_10px_0_rgba(0,0,0,0.1)] rounded-lg overflow-hidden"
                 >
                   <div className="pt-6 pb-7">
-                    <img className="w-[98px] h-[100px] mx-auto" src={logoBerijalan.src} alt="Berijalan"></img>
+                    <Image
+                      width={0}
+                      height={0}
+                      sizes="100"
+                      src={logoBerijalan.src}
+                      className="w-[98px] h-[100px] mx-auto"
+                      alt="Berijalan"
+                    ></Image>
                   </div>
                   <div className="bg-[#2C598D] text-modal button py-5">Berijalan</div>
                 </button>

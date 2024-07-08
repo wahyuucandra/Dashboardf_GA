@@ -5,7 +5,7 @@ export default function IconHistory({
   ...props
 }: Readonly<React.SVGProps<SVGSVGElement>>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24" fill="none" {...props}>
+    <svg width={width} height={height} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24" fill="none" {...props}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
