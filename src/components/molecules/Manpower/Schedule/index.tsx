@@ -84,7 +84,7 @@ export function Schedule() {
         <form className="relative h-full" onSubmit={handleSubmit(onSubmit)}>
           <div className="text-2xl font-semibold text-[#2C598D] mb-6">Schedule Manpower</div>
           {/* Gender Input */}
-          <div className="mb-6">
+          <div className="mb-5">
             <div className="text-paragraph regular-14 mb-1">
               Jenis Kelamin:<span className="text-[#E15241] -mt-1">*</span>
             </div>
@@ -104,7 +104,7 @@ export function Schedule() {
           </div>
 
           {/* Date Input */}
-          <div>
+          <div className="mb-5">
             <div className="text-paragraph regular-14 mb-1">
               Pilih tanggal <span className="text-[#E15241]">*</span>
             </div>
@@ -117,7 +117,7 @@ export function Schedule() {
           </div>
 
           {/* Time Input */}
-          <div>
+          <div className="mb-5">
             <div className="text-paragraph regular-14 mb-1">
               Jam <span className="text-[#E15241]">*</span>
             </div>
@@ -130,7 +130,7 @@ export function Schedule() {
           </div>
 
           {/* Keperluan Input */}
-          <div>
+          <div className="mb-5">
             <div className="text-paragraph regular-14 mb-1">
               Keperluan <span className="text-[#E15241]">*</span>
             </div>
@@ -143,7 +143,7 @@ export function Schedule() {
           </div>
 
           {/* Manpower Input */}
-          <div>
+          <div className="mb-5">
             <div className="text-paragraph regular-14 mb-1">
               Kebutuhan Manpower <span className="text-[#E15241]">*</span>
             </div>

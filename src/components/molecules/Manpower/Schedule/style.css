@@ -21,10 +21,6 @@ textarea {
   border: 1px solid #00376a;
 }
 
-textarea {
-  outline: none;
-}
-
 .input-textarea {
   border: 1px solid #d5d5d5;
 }
