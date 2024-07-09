@@ -60,7 +60,7 @@ export function Schedule() {
         </Link>
       </div>
 
-      <div className="bg-white w-full fixed bottom-0 top-0 z-[101] px-4 mt-[216px]">
+      <div className="bg-white w-full fixed bottom-0 top-0 z-[101] px-4 mt-[216px] ">
         <form className="relative h-full" onSubmit={handleSubmit(onSubmit)}>
           <div className="text-heading m semibold-21 text-[#2C598D] mb-6">Schedule Meeting Room</div>
 
@@ -115,7 +115,7 @@ export function Schedule() {
             </div>
           </div>
 
-          <div className="absolute bottom-12 w-full">
+          <div className="absolute bottom-0 pb-12 w-full bg-white pt-3">
             <button
               type="submit"
               className="next-button h-11 rounded-lg w-full text-heading xs semibold-16 text-[#FFFFFF]"

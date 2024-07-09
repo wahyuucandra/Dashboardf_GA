@@ -21,10 +21,7 @@ export function BannerCarousel() {
         if (width && currentScroll != null) {
           const diffScroll = (currentScroll || 0) % width
 
-          const scroll =
-            currentScroll / (banners.length - 1) == width
-              ? 0
-              : currentScroll + (diffScroll ? width - diffScroll : width)
+          const scroll = currentScroll / (banners.length - 1) == width ? 0 : currentScroll + (width - diffScroll)
 
           const val = Math.floor(scroll / width)
           setCounter(val)
@@ -47,40 +44,38 @@ export function BannerCarousel() {
   }, [])
 
   return (
-    <>
-      <div className="w-screen">
-        <div ref={carouselRef} className={`whitespace-nowrap overflow-x-auto transition-all duration-300`}>
+    <div className="w-screen">
+      <div ref={carouselRef} className={`whitespace-nowrap overflow-x-auto transition-all duration-300`}>
+        {banners.map((val, index) => {
+          return (
+            <Link key={val.alt} href={`/informations/banner${index}`} className="w-screen h-[198px] inline-block">
+              <Image
+                key={val.alt}
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-full h-full object-cover"
+                src={val.src}
+                alt={val.alt}
+              ></Image>
+            </Link>
+          )
+        })}
+      </div>
+
+      <div className="px-3 py-2 flex items-center">
+        <div className="flex-1 flex items-center space-x-2">
           {banners.map((val, index) => {
             return (
-              <Link key={index} href={`/informations/banner${index}`} className="w-screen h-[198px] inline-block">
-                <Image
-                  key={index}
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  className="w-full h-full object-cover"
-                  src={val.src}
-                  alt={val.alt}
-                ></Image>
-              </Link>
+              <div key={val.alt} className={`transition-all rounded-full h-[7px] ${handleAnimatePointer(index)}`}></div>
             )
           })}
         </div>
 
-        <div className="px-3 py-2 flex items-center">
-          <div className="flex-1 flex items-center space-x-2">
-            {banners.map((val, index) => {
-              return (
-                <div key={index} className={`transition-all rounded-full h-[7px] ${handleAnimatePointer(index)}`}></div>
-              )
-            })}
-          </div>
-
-          <Link className="text-extra-small regular-12 text-[#0089CF]" href={'/informations'}>
-            Lihat Semua
-          </Link>
-        </div>
+        <Link className="text-extra-small regular-12 text-[#0089CF]" href={'/informations'}>
+          Lihat Semua
+        </Link>
       </div>
-    </>
+    </div>
   )
 }

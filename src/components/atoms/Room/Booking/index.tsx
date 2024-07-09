@@ -17,8 +17,8 @@ import './style.css'
 export function Booking() {
   const router = useRouter()
 
-  const [isDateModalOpen, setDateModalOpen] = useState<boolean>(false)
-  const [isTimeModalOpen, setTimeModalOpen] = useState<boolean>(false)
+  const [isDateModalOpen, setIsDateModalOpen] = useState<boolean>(false)
+  const [isTimeModalOpen, setIsTimeModalOpen] = useState<boolean>(false)
 
   const { handleSubmit, setValue, control } = useForm<ScheduleForm>({ defaultValues: DefaulScheduleForm })
 
@@ -70,21 +70,21 @@ export function Booking() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="text-heading xs semibold-16 text-[#101010] mb-4">Reservation Date</div>
           <div className="text-room-detail badge-time text-[#0089CF] flex items-center space-x-3 mb-4">
-            <div
-              onClick={() => setDateModalOpen(true)}
+            <button
+              onClick={() => setIsDateModalOpen(true)}
               className="rounded-full flex items-center space-x-2 px-4 py-2 bg-[#E5F2FC]"
             >
               <IconCalendar color="#0089CF"></IconCalendar>
               <span className="mt-0.5">{handleBindDate(date)}</span>
-            </div>
+            </button>
 
-            <div
-              onClick={() => setTimeModalOpen(true)}
+            <button
+              onClick={() => setIsTimeModalOpen(true)}
               className="rounded-full flex items-center space-x-2 px-4 py-2 bg-[#E5F2FC]"
             >
               <IconTime color="#0089CF"></IconTime>
               <span className="mt-0.5">{handleBindTime(time)}</span>
-            </div>
+            </button>
           </div>
 
           <button
@@ -99,9 +99,9 @@ export function Booking() {
       <DateRangeInputCustom
         isOpen={isDateModalOpen}
         value={date}
-        onCloseClick={() => setDateModalOpen(false)}
+        onCloseClick={() => setIsDateModalOpen(false)}
         onButtonClick={val => {
-          setDateModalOpen(false)
+          setIsDateModalOpen(false)
           setValue('date', val)
         }}
       ></DateRangeInputCustom>
@@ -109,9 +109,9 @@ export function Booking() {
       <TimeRangeInputCustom
         isOpen={isTimeModalOpen}
         value={time}
-        onCloseClick={() => setTimeModalOpen(false)}
+        onCloseClick={() => setIsTimeModalOpen(false)}
         onButtonClick={val => {
-          setTimeModalOpen(false)
+          setIsTimeModalOpen(false)
           setValue('time', val)
         }}
       ></TimeRangeInputCustom>

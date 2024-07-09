@@ -4,7 +4,7 @@ import IconPlateNumber from '@assets/icons/IconPlateNumber'
 import { Vehicle } from '@interfaces/vehicle'
 import Image from 'next/image'
 
-export function Card({ vehicle }: { vehicle: Vehicle }) {
+export function Card({ vehicle }: Readonly<{ vehicle: Vehicle }>) {
   const handleCheckIsAvailabel = (vehicle: Vehicle) => {
     if (!vehicle.isAvailabel) return 'opacity-40'
   }

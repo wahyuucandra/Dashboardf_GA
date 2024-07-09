@@ -4,8 +4,6 @@ import IconScheduleRoom from '@assets/icons/IconScheduleRoom'
 import confirmationDanger from '@assets/images/ConfirmationDanger.png'
 import Header from '@components/atoms/Header'
 import { Modal } from '@components/atoms/ModalCustom'
-// import { AssetCard } from '@components/atoms/Asset'
-// import { OperationType, Asset } from '@interfaces/vehicle'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -26,10 +24,10 @@ export function List() {
   const [selectedAsset, setSelectedAsset] = useState<Asset>(assetsData[0])
   const [acceptTerm, setAcceptTerm] = useState<boolean>()
 
-  const [isConfimationModalOpen, setConfimationModalOpen] = useState<boolean>(false)
-  const [isItemModalOpen, setItemModalOpen] = useState<boolean>(false)
-  const [isItemConfimationModalOpen, setItemConfimationModalOpen] = useState<boolean>(false)
-  const [isCheckoutModalOpen, setCheckoutModalOpen] = useState<boolean>(false)
+  const [isConfimationModalOpen, setIsConfimationModalOpen] = useState<boolean>(false)
+  const [isItemModalOpen, setIsItemModalOpen] = useState<boolean>(false)
+  const [isItemConfimationModalOpen, setIsItemConfimationModalOpen] = useState<boolean>(false)
+  const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState<boolean>(false)
 
   const { setValue, control } = useForm<AssetForm>({ defaultValues: DefaulAssetForm })
 
@@ -37,11 +35,6 @@ export function List() {
     control,
     name: 'brands',
   })
-
-  // const reason = useWatch({
-  //   control,
-  //   name: 'reason',
-  // })
 
   const handleSearchBrand = (keyword: string) => {
     const data = brandsData.filter(
@@ -77,15 +70,15 @@ export function List() {
         }
 
         setValue('brands', [...data])
-        return
+        return undefined
       }
 
       setValue('brands', [...data, { ...brand, qty: 1, isSelected: true }])
-      return
+      return undefined
     }
 
     setValue('brands', [{ ...brand, qty: 1, isSelected: true }])
-    return
+    return undefined
   }
 
   const handleSubtractItem = (brand: Brand) => {
@@ -105,7 +98,7 @@ export function List() {
           return
         }
 
-        delete data[index]
+        data.splice(index, 1)
         setValue('brands', [...data])
         return
       }
@@ -148,19 +141,19 @@ export function List() {
         data[index] = {
           ...data[index],
           isSelected: checked,
-          qty: findedBrand?.qty || 0,
+          qty: findedBrand?.qty ?? 0,
         }
 
         setValue('brands', [...data])
-        return
+        return undefined
       }
 
-      setValue('brands', [...data, { ...brand, qty: findedBrand?.qty || 0, isSelected: checked }])
-      return
+      setValue('brands', [...data, { ...brand, qty: findedBrand?.qty ?? 0, isSelected: checked }])
+      return undefined
     }
 
-    setValue('brands', [{ ...brand, qty: findedBrand?.qty || 0, isSelected: checked }])
-    return
+    setValue('brands', [{ ...brand, qty: findedBrand?.qty ?? 0, isSelected: checked }])
+    return undefined
   }
 
   const handleTotalQty = (asset?: Asset) => {
@@ -170,7 +163,7 @@ export function List() {
     if (asset) {
       total = data?.reduce((prev, curr) => {
         if (curr.asset?.id == asset?.id && curr.isSelected) {
-          return (prev += curr.qty)
+          return prev + curr.qty
         }
 
         return prev
@@ -178,14 +171,14 @@ export function List() {
     } else {
       total = data?.reduce((prev, curr) => {
         if (curr.isSelected) {
-          return (prev += curr.qty)
+          return prev + curr.qty
         }
 
         return prev
       }, 0)
     }
 
-    return total || 0
+    return total ?? 0
   }
 
   const handleMappingData = () => {
@@ -220,8 +213,8 @@ export function List() {
         key={'header'}
         useLink={false}
         onBack={() => {
-          setItemModalOpen(false)
-          setCheckoutModalOpen(false)
+          setIsItemModalOpen(false)
+          setIsCheckoutModalOpen(false)
         }}
       ></Header>
       <div className="px-4 pt-16 h-screen">
@@ -237,7 +230,7 @@ export function List() {
           </div>
           <button
             type="button"
-            onClick={() => setConfimationModalOpen(true)}
+            onClick={() => setIsConfimationModalOpen(true)}
             className="text-button bg-[#E5F2FC] text-[#0089CF] px-3 py-2 rounded-md"
           >
             Ubah
@@ -254,10 +247,10 @@ export function List() {
                 onButtonClick={() => {
                   setSelectedAsset(asset)
                   if (!handleTotalQty(asset)) {
-                    setItemModalOpen(true)
+                    setIsItemModalOpen(true)
                     setBrands(brandsData.filter(val => val.asset == asset))
                   } else {
-                    setItemConfimationModalOpen(true)
+                    setIsItemConfimationModalOpen(true)
                   }
                 }}
                 asset={asset}
@@ -271,9 +264,9 @@ export function List() {
 
       <div className="fixed bottom-0 z-[101] bg-white pb-10 pt-5 w-full px-4">
         <button
-          disabled={handleTotalQty() == 0 ? true : false}
+          disabled={handleTotalQty() == 0}
           onClick={() => {
-            setCheckoutModalOpen(true)
+            setIsCheckoutModalOpen(true)
           }}
           type="button"
           className={` ${
@@ -290,7 +283,7 @@ export function List() {
         </button>
       </div>
 
-      <Modal isOpen={isConfimationModalOpen} backdropClick={() => setConfimationModalOpen(!isConfimationModalOpen)}>
+      <Modal isOpen={isConfimationModalOpen} backdropClick={() => setIsConfimationModalOpen(!isConfimationModalOpen)}>
         <div className="max-w-[350px] bg-white relative p-6 text-center rounded-xl">
           <div>
             <Image
@@ -310,7 +303,7 @@ export function List() {
           <div className="grid grid-cols-2 gap-4 justify-items-center">
             <button
               onClick={() => {
-                setConfimationModalOpen(false)
+                setIsConfimationModalOpen(false)
                 router.push(`/booking-asset/room`, { scroll: false })
               }}
               type="button"
@@ -320,7 +313,7 @@ export function List() {
             </button>
             <button
               onClick={() => {
-                setConfimationModalOpen(false)
+                setIsConfimationModalOpen(false)
               }}
               type="button"
               className="cancel-button w-full text-center text-white rounded-xl overflow-hidden h-11"
@@ -335,7 +328,7 @@ export function List() {
         isOpen={isItemModalOpen}
         isFloating={false}
         backdropDismiss={false}
-        backdropClick={() => setItemModalOpen(!isItemModalOpen)}
+        backdropClick={() => setIsItemModalOpen(!isItemModalOpen)}
       >
         <div className="w-screen h-[calc(100vh_-_50px)] bg-white relative py-6 px-4">
           <div className="text-heading xs semibold-16 mb-4">Pilih Brand {selectedAsset?.name}</div>
@@ -351,53 +344,52 @@ export function List() {
           </div>
 
           <div className="-mx-4 overflow-x-auto h-screen pb-[350px]">
-            {brands &&
-              brands.map(brand => (
-                <div
-                  key={brand.id}
-                  className={`${brand?.asset != selectedAsset ? 'hidden' : ''} flex items-center space-x-6 mb-6 px-4`}
-                >
-                  <label className="flex-1 flex items-center custom-checkbox text-paragraph regular-14">
-                    <span
-                      className={`${brand.isAvailabel ? 'text-[#000000]' : 'text-[#D5D5D5]'} text-heading xs regular-16  mr-2`}
-                    >
-                      {brand.name}
-                    </span>
-                    <span
-                      className={`text-paragraph regular-14 ${brand.isAvailabel ? 'text-[#000000]' : 'text-[#D5D5D5]'} `}
-                    >
-                      ({brand.qty} pcs)
-                    </span>
-                    <input
-                      disabled={!brand.isAvailabel}
-                      type="checkbox"
-                      onChange={e => handleSelectBrand(brand, e?.target?.checked)}
-                      defaultChecked={handleIsSelected(brand)}
-                      name="checkmark"
-                    />
-                    <span className="checkmark"></span>
-                  </label>
-                  <div className="flex items-center space-x-3">
-                    <button
-                      disabled={!handleCanSubtract(brand)}
-                      onClick={() => handleSubtractItem(brand)}
-                      className={`${!handleCanSubtract(brand) ? 'border-[#D5D5D5] text-[#D5D5D5]' : 'border-[#0089CF] text-[#0089CF]'} h-6 w-6 border  text-3xl rounded-full flex items-center justify-center`}
-                    >
-                      <IconMinus color={!handleCanSubtract(brand) ? '#D5D5D5' : '#0089CF'}></IconMinus>
-                    </button>
-                    <div className={`${handleIsSelected(brand) ? '' : 'text-[#D5D5D5]'}`}>
-                      {handleFindBrand(brand)?.qty || 0}
-                    </div>
-                    <button
-                      disabled={!handleCanAdd(brand)}
-                      onClick={() => handleAddItem(brand)}
-                      className={`${!handleCanAdd(brand) ? 'border-[#D5D5D5] text-[#D5D5D5]' : 'border-[#0089CF] text-[#0089CF]'} h-6 w-6 border  text-3xl rounded-full flex items-center justify-center`}
-                    >
-                      <IconPlus color={!handleCanAdd(brand) ? '#D5D5D5' : '#0089CF'}></IconPlus>
-                    </button>
+            {brands?.map(brand => (
+              <div
+                key={brand.id}
+                className={`${brand?.asset != selectedAsset ? 'hidden' : ''} flex items-center space-x-6 mb-6 px-4`}
+              >
+                <label className="flex-1 flex items-center custom-checkbox text-paragraph regular-14">
+                  <span
+                    className={`${brand.isAvailabel ? 'text-[#000000]' : 'text-[#D5D5D5]'} text-heading xs regular-16  mr-2`}
+                  >
+                    {brand.name}
+                  </span>
+                  <span
+                    className={`text-paragraph regular-14 ${brand.isAvailabel ? 'text-[#000000]' : 'text-[#D5D5D5]'} `}
+                  >
+                    ({brand.qty} pcs)
+                  </span>
+                  <input
+                    disabled={!brand.isAvailabel}
+                    type="checkbox"
+                    onChange={e => handleSelectBrand(brand, e?.target?.checked)}
+                    defaultChecked={handleIsSelected(brand)}
+                    name="checkmark"
+                  />
+                  <span className="checkmark"></span>
+                </label>
+                <div className="flex items-center space-x-3">
+                  <button
+                    disabled={!handleCanSubtract(brand)}
+                    onClick={() => handleSubtractItem(brand)}
+                    className={`${!handleCanSubtract(brand) ? 'border-[#D5D5D5] text-[#D5D5D5]' : 'border-[#0089CF] text-[#0089CF]'} h-6 w-6 border  text-3xl rounded-full flex items-center justify-center`}
+                  >
+                    <IconMinus color={!handleCanSubtract(brand) ? '#D5D5D5' : '#0089CF'}></IconMinus>
+                  </button>
+                  <div className={`${handleIsSelected(brand) ? '' : 'text-[#D5D5D5]'}`}>
+                    {handleFindBrand(brand)?.qty ?? 0}
                   </div>
+                  <button
+                    disabled={!handleCanAdd(brand)}
+                    onClick={() => handleAddItem(brand)}
+                    className={`${!handleCanAdd(brand) ? 'border-[#D5D5D5] text-[#D5D5D5]' : 'border-[#0089CF] text-[#0089CF]'} h-6 w-6 border  text-3xl rounded-full flex items-center justify-center`}
+                  >
+                    <IconPlus color={!handleCanAdd(brand) ? '#D5D5D5' : '#0089CF'}></IconPlus>
+                  </button>
                 </div>
-              ))}
+              </div>
+            ))}
           </div>
 
           <div className="absolute bottom-0 right-0 left-0">
@@ -410,7 +402,7 @@ export function List() {
               </div>
               <button
                 onClick={() => {
-                  setItemModalOpen(false)
+                  setIsItemModalOpen(false)
                 }}
                 type="button"
                 className="save-button h-12 rounded-lg w-full text-paragraph semibold-14 text-[#FFFFFF]"
@@ -426,7 +418,7 @@ export function List() {
         isOpen={isItemConfimationModalOpen}
         isFloating={false}
         backdropDismiss={true}
-        backdropClick={() => setItemConfimationModalOpen(false)}
+        backdropClick={() => setIsItemConfimationModalOpen(false)}
       >
         <div className="w-screen h-[calc(40vh)] bg-white relative py-6 px-4 rounded-t-xl ">
           <div className="text-heading xs semibold-16">{selectedAsset?.name}</div>
@@ -461,8 +453,8 @@ export function List() {
             <div className="bg-white h-full px-4 py-6">
               <button
                 onClick={() => {
-                  setItemConfimationModalOpen(false)
-                  setItemModalOpen(true)
+                  setIsItemConfimationModalOpen(false)
+                  setIsItemModalOpen(true)
                   setBrands(brandsData.filter(val => val.asset?.id == selectedAsset?.id))
                 }}
                 type="button"
@@ -479,7 +471,7 @@ export function List() {
         isOpen={isCheckoutModalOpen}
         isFloating={false}
         backdropDismiss={false}
-        backdropClick={() => setCheckoutModalOpen(false)}
+        backdropClick={() => setIsCheckoutModalOpen(false)}
       >
         <div className="w-screen h-[calc(100vh_-_50px)] bg-white relative py-6 px-4">
           <div className="flex items-center space-x-3 py-3">
@@ -491,7 +483,7 @@ export function List() {
             </div>
             <button
               type="button"
-              onClick={() => setConfimationModalOpen(true)}
+              onClick={() => setIsConfimationModalOpen(true)}
               className="text-button bg-[#E5F2FC] text-[#0089CF] px-5 py-2 rounded-md"
             >
               Ubah

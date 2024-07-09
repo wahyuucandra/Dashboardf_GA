@@ -19,9 +19,9 @@ export function List() {
           <input type="text" placeholder="Cari informasi" className="flex-1 text-paragraph regular-14 mt-1" />
         </div>
 
-        {informations.map((val, index) => {
+        {informations.map(val => {
           return (
-            <Link key={index} href={`/informations/${val.id}`}>
+            <Link key={val.id} href={`/informations/${val.id}`}>
               <InformationCard information={val}></InformationCard>
             </Link>
           )
