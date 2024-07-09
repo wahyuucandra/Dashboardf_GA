@@ -1,7 +1,7 @@
 import IconClose from '@assets/icons/IconClose'
 import { TimeInput } from '@interfaces/time-input'
 import { useState } from 'react'
-import { Modal } from '../modalCustom'
+import { Modal } from '../ModalCustom'
 import { handleFetchTimesInDay } from './data'
 import './style.css'
 import IconTime from '@assets/icons/IconTime'
