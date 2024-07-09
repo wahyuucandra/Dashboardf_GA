@@ -12,7 +12,7 @@ export interface TimeRangeInputProps {
 }
 
 export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({ value, onButtonClick }) => {
-  const [isOpen, setOpen] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const times = handleFetchTimesInDay()
 
@@ -66,7 +66,7 @@ export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({ value, onButtonC
   }
 
   const handleButtonValidator = () => {
-    return selectedTimes?.start && selectedTimes?.end ? false : true
+    return !(selectedTimes?.start && selectedTimes?.end)
   }
 
   const handleActiveText = (input: { start: TimeInput | undefined; end: TimeInput | undefined } | undefined) => {
@@ -93,7 +93,7 @@ export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({ value, onButtonC
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={() => setIsOpen(true)}
         className="w-full h-11 border border-[#D5D5D5] text-left py-2.5 px-3 rounded flex items-center space-x-4"
       >
         <IconTime></IconTime>
@@ -101,11 +101,11 @@ export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({ value, onButtonC
           {handleBindTime(value)}
         </div>
       </button>
-      <Modal isOpen={isOpen} isFloating={false} backdropClick={() => setOpen(false)}>
+      <Modal isOpen={isOpen} isFloating={false} backdropClick={() => setIsOpen(false)}>
         <div className="w-screen h-4/5 bg-white relative px-4 py-6 text-center rounded-xl">
           <div className="pb-6">
             <div className="flex items-center space-x-4 mb-6">
-              <button onClick={() => setOpen(false)}>
+              <button onClick={() => setIsOpen(false)}>
                 <IconClose className="w-6 h-6"></IconClose>
               </button>
               <div className="text-xl font-semibold">Pilih Waktu</div>
@@ -114,6 +114,7 @@ export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({ value, onButtonC
               <div className="grid grid-cols-2 gap-3 mb-6 ">
                 {timesInDay?.map((val, index) => (
                   <div
+                    onKeyDown={() => {}}
                     onClick={() => handleSelectTime(val)}
                     key={index}
                     className={`rounded-lg border ${handleClassSelectedTimes(val)} text-sm p-2`}
@@ -139,7 +140,7 @@ export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({ value, onButtonC
               disabled={handleButtonValidator()}
               onClick={() => {
                 onButtonClick && onButtonClick(selectedTimes)
-                setOpen(false)
+                setIsOpen(false)
               }}
               type="button"
               className={` ${
@@ -176,7 +177,7 @@ export const TimeRangeInputCustom: React.FC<TimeRangeInputCustomProps> = ({
   >(value)
 
   const handleSelectTime = (timeInput: TimeInput) => {
-    if (!timeInput?.availabel) return
+    if (!timeInput?.availabel) return undefined
 
     setSelectedTimes(prev => {
       const start = prev?.start
@@ -202,7 +203,7 @@ export const TimeRangeInputCustom: React.FC<TimeRangeInputCustomProps> = ({
 
   const handleClassSelectedTimes = (timeInput: TimeInput) => {
     if (!timeInput?.availabel) {
-      return 'bg-[#D9D9D9] border-[#D9D9D9] text-[#717171]'
+      return 'bg-[#D9D9D9] border-[#D9D9D9] text-[#717171] c'
     }
 
     if (selectedTimes?.start && selectedTimes?.end) {
@@ -213,67 +214,66 @@ export const TimeRangeInputCustom: React.FC<TimeRangeInputCustomProps> = ({
         timeInput?.startTime?.getTime() >= start?.startTime?.getTime() &&
         timeInput?.endTime?.getTime() <= end?.endTime?.getTime()
       ) {
-        return 'bg-[#E5F2FC] border-[#0089CF] text-[#0089CF]'
+        return 'bg-[#E5F2FC] border-[#0089CF] text-[#0089CF] c'
       }
     }
-    return 'border-[#B1B1B1]'
+    return 'border-[#B1B1B1] c'
   }
 
   const handleButtonValidator = () => {
-    return selectedTimes?.start && selectedTimes?.end ? false : true
+    return !(selectedTimes?.start && selectedTimes?.end)
   }
 
   return (
-    <>
-      <Modal isOpen={isOpen} isFloating={false} backdropClick={onCloseClick}>
-        <div className="w-screen h-4/5 bg-white relative px-4 py-6 text-center rounded-xl">
-          <div className="pb-6">
-            <div className="flex items-center space-x-4 mb-6">
-              <button onClick={onCloseClick}>
-                <IconClose className="w-6 h-6"></IconClose>
-              </button>
-              <div className="text-xl font-semibold">Pilih Waktu</div>
-            </div>
-            <div className="h-[40vh] overflow-y-auto">
-              <div className="grid grid-cols-2 gap-3 mb-6 ">
-                {timesInDay?.map((val, index) => (
-                  <div
-                    onClick={() => handleSelectTime(val)}
-                    key={index}
-                    className={`rounded-lg border ${handleClassSelectedTimes(val)} text-sm p-2`}
-                  >
-                    {val.startText} - {val.endText}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex justify-center items-center space-x-8 my-6">
-              <div className="flex items-center space-x-3">
-                <div className="rounded-lg border border-[#B1B1B1] w-6 h-6"></div>
-                <span>Availabel</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="rounded-lg bg-[#D9D9D9] border-[#D9D9D9] w-6 h-6"></div>
-                <span>Reserved</span>
-              </div>
-            </div>
-
-            <button
-              disabled={handleButtonValidator()}
-              onClick={() => {
-                onButtonClick && onButtonClick(selectedTimes)
-              }}
-              type="button"
-              className={` ${
-                handleButtonValidator() ? 'bg-[#B1B1B1]' : 'approve-button'
-              } h-11 w-full text-[#ffffff] py-2.5 text-heading xs semibold-16 rounded-lg`}
-            >
-              Pilih Waktu
+    <Modal isOpen={isOpen} isFloating={false} backdropClick={onCloseClick}>
+      <div className="w-screen h-4/5 bg-white relative px-4 py-6 text-center rounded-xl">
+        <div className="pb-6">
+          <div className="flex items-center space-x-4 mb-6">
+            <button onClick={onCloseClick}>
+              <IconClose className="w-6 h-6"></IconClose>
             </button>
+            <div className="text-xl font-semibold">Pilih Waktu</div>
           </div>
+          <div className="h-[40vh] overflow-y-auto">
+            <div className="grid grid-cols-2 gap-3 mb-6 ">
+              {timesInDay?.map((val, index) => (
+                <div
+                  onKeyDown={() => {}}
+                  onClick={() => handleSelectTime(val)}
+                  key={index}
+                  className={`rounded-lg border ${handleClassSelectedTimes(val)} text-sm p-2`}
+                >
+                  {val.startText} - {val.endText}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex justify-center items-center space-x-8 my-6">
+            <div className="flex items-center space-x-3">
+              <div className="rounded-lg border border-[#B1B1B1] w-6 h-6"></div>
+              <span>Availabel</span>
+            </div>
+            <div className="flex items-center space-x-3">
+              <div className="rounded-lg bg-[#D9D9D9] border-[#D9D9D9] w-6 h-6"></div>
+              <span>Reserved</span>
+            </div>
+          </div>
+
+          <button
+            disabled={handleButtonValidator()}
+            onClick={() => {
+              onButtonClick && onButtonClick(selectedTimes)
+            }}
+            type="button"
+            className={` ${
+              handleButtonValidator() ? 'bg-[#B1B1B1]' : 'approve-button'
+            } h-11 w-full text-[#ffffff] py-2.5 text-heading xs semibold-16 rounded-lg`}
+          >
+            Pilih Waktu
+          </button>
         </div>
-      </Modal>
-    </>
+      </div>
+    </Modal>
   )
 }

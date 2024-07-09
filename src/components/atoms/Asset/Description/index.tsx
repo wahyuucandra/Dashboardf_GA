@@ -2,7 +2,7 @@
 
 import { RoomDetail } from '@interfaces/room'
 
-export function Description({ room }: { room?: RoomDetail }) {
+export function Description({ room }: Readonly<{ room?: RoomDetail }>) {
   return (
     <>
       <div className="text-room-detail title text-[#101010] mb-3">{room?.name}</div>
