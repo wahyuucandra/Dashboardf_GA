@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 export function Success() {
   return (
-    <div className="bg-white fixed z-[102] bottom-0 bottom-0 right-0 w-full h-screen">
+    <div className="bg-white fixed z-[102] bottom-0  right-0 w-full h-screen">
       <div className="flex flex-col items-center h-full justify-center">
         <Image
           width={0}
