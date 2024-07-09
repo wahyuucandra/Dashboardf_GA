@@ -21,7 +21,9 @@ export function DetailOrder() {
   const router = useRouter()
 
   const fileInput = useRef<HTMLInputElement>(null)
-  const fileInputKey = useRef<string>(Math.random().toString(36))
+
+  const array = new Uint32Array(1)
+  const fileInputKey = useRef<string>(crypto.getRandomValues(array).toString())
 
   const { handleSubmit, setValue, control } = useForm<VehicleOrderForm>({
     defaultValues: { ...DefaulVehicleOrderForm },
