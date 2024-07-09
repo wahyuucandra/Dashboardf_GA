@@ -31,7 +31,9 @@ export function Modal({
           isOpen ? '-translate-y-1/2' : 'translate-y-full'
         }`}
       >
-        <div onClick={e => e.stopPropagation()}>{children}</div>
+        <div onClick={e => e.stopPropagation()} onKeyDown={() => {}}>
+          {children}
+        </div>
       </div>
 
       <div
@@ -44,7 +46,9 @@ export function Modal({
           isOpen ? 'translate-y-[0%]' : 'translate-y-[500%]'
         }`}
       >
-        <div onClick={e => e.stopPropagation()}>{children}</div>
+        <div onClick={e => e.stopPropagation()} onKeyDown={() => {}}>
+          {children}
+        </div>
       </div>
     </>
   )
