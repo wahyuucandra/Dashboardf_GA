@@ -2,19 +2,8 @@ import { TimeInput } from '@interfaces/time-input'
 
 export const handleFetchTimesInDay = () => {
   const date = new Date()
-  // let endTime = new Date(date.getFullYear(), date.getMonth(), date.getDay(), 10)
 
   const times: TimeInput[] = []
-
-  // const validate = (time: Date) => {
-  //   // if (endDate) {
-  //   //   return time?.getTime() < endDate?.date?.getTime() ? true : false
-  //   // }
-
-  //   // return time.getTime() > date?.getTime() ? true : false
-
-  //   return false
-  // }
 
   for (let minute = 7 * 60; minute < 21 * 60; minute += 30) {
     const start = new Date(date.getFullYear(), date.getMonth(), date.getDay(), 0, minute)

@@ -3,7 +3,7 @@
 import { Infomation } from '@interfaces/information'
 import Image from 'next/image'
 
-export function Card({ information }: { information: Infomation }) {
+export function Card({ information }: Readonly<{ information: Infomation }>) {
   return (
     <div className="relative overflow-hidden w-full border border-[#E6E5E6] rounded-md shadow-[2px_4px_12px_0_rgba(0,0,0,0.1)] mb-4">
       <div className="rounded absolute top-2 right-2 bg-white p-2 text-ultra-small regular-10 text-[#2C598D]">
