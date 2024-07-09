@@ -31,6 +31,7 @@ export default function IconProfile({
     </svg>
   )
 }
+
 export function IconProfileLG({
   width = 32,
   height = 32,
