@@ -1,9 +1,11 @@
-import { ManpowerMenuPage } from '@components/organisms/Manpower/index'
-
 export const metadata = {
-  title: 'Manpower Menu',
+  title: 'Manpower Security',
 }
 
-export default function Manpower() {
-  return <ManpowerMenuPage></ManpowerMenuPage>
+export default function ManpowerSecurity() {
+  return (
+    <div className="h-full">
+      <h1 className="text-4xl font-bold">Manpower Security</h1>
+    </div>
+  )
 }
