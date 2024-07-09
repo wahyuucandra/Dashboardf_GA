@@ -71,6 +71,7 @@ export function Booking({ acceptTerm }: Readonly<{ acceptTerm?: boolean }>) {
           <div className="text-heading xs semibold-16 text-[#101010] mb-4">Reservation Date</div>
           <div className="text-room-detail badge-time text-[#0089CF] flex items-center space-x-3 mb-4">
             <button
+              type="button"
               onClick={() => setIsDateModalOpen(true)}
               className="rounded-full flex items-center space-x-2 px-4 py-2 bg-[#E5F2FC]"
             >
@@ -79,6 +80,7 @@ export function Booking({ acceptTerm }: Readonly<{ acceptTerm?: boolean }>) {
             </button>
 
             <button
+              type="button"
               onClick={() => setIsTimeModalOpen(true)}
               className="rounded-full flex items-center space-x-2 px-4 py-2 bg-[#E5F2FC]"
             >
