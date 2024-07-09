@@ -13,3 +13,17 @@ export interface Brand {
   qty: number
   isAvailabel: boolean
 }
+
+export interface BrandItem extends Brand {
+  isSelected: boolean
+}
+
+export interface AssetForm {
+  brands: BrandItem[] | undefined
+  reason: string | undefined
+}
+
+export const DefaulAssetForm = {
+  brands: undefined,
+  reason: undefined,
+}

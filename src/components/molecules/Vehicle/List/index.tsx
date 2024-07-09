@@ -3,7 +3,7 @@
 import IconScheduleRoom from '@assets/icons/IconScheduleRoom'
 import confirmationDanger from '@assets/images/ConfirmationDanger.png'
 import Header from '@components/atoms/Header'
-import { Modal } from '@components/atoms/modalCustom'
+import { Modal } from '@components/atoms/ModalCustom'
 import { VehicleCard } from '@components/atoms/Vehicle'
 import { OperationType, Vehicle } from '@interfaces/vehicle'
 import Image from 'next/image'
