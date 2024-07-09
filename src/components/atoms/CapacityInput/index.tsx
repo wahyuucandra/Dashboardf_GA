@@ -64,7 +64,7 @@ const CapacityInput: React.FC<CapacityInputProps> = ({
                   }}
                   className={`text-heading xs regular-16 text-[#333333]  ${data?.length - 1 != index ? 'mb-3' : ''}`}
                 >
-                  {val} kursi
+                  {val} {label}
                 </div>
               ))}
           </div>
