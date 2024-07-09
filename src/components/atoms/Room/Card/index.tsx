@@ -4,7 +4,7 @@ import IconChair from '@assets/icons/IconChair'
 import { Room } from '@interfaces/room'
 import Image from 'next/image'
 
-export function Card({ room }: { room: Room }) {
+export function Card({ room }: Readonly<{ room: Room }>) {
   const handleCheckIsAvailabel = (room: Room) => {
     if (!room.isAvailabel) return 'opacity-40'
   }

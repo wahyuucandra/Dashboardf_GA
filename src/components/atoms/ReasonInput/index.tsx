@@ -14,29 +14,23 @@ export const ReasonInput: React.FC<ReasonInputProps> = ({
   onChangeInput,
 }) => {
   const handleActiveText = (input: string | undefined) => {
-    if (input != undefined) {
-      return 'text-[#505050]'
-    }
-
-    return 'text-[#909090]'
+    return input != undefined ? 'text-[#505050]' : 'text-[#909090]'
   }
 
   return (
-    <>
-      <div className="border input-textarea py-2.5 px-3 rounded">
-        <input
-          value={value}
-          maxLength={max}
-          onChange={e => {
-            onChangeInput && onChangeInput(e?.target?.value)
-          }}
-          name="reason"
-          id="reason"
-          className={`w-full text-paragraph regular-14 ${handleActiveText(value)}`}
-          placeholder={placeholder}
-        />
-      </div>
-    </>
+    <div className="border input-textarea py-2.5 px-3 rounded">
+      <input
+        value={value}
+        maxLength={max}
+        onChange={e => {
+          onChangeInput && onChangeInput(e?.target?.value)
+        }}
+        name="reason"
+        id="reason"
+        className={`w-full text-paragraph regular-14 ${handleActiveText(value)}`}
+        placeholder={placeholder}
+      />
+    </div>
   )
 }
 
@@ -60,35 +54,27 @@ export const ReasonInputArea: React.FC<ReasonInputAreaProps> = ({
   onChangeInput,
 }) => {
   const handleActiveText = (input: string | undefined) => {
-    if (input != undefined) {
-      return 'text-[#505050]'
-    }
-
-    return 'text-[#909090]'
+    return input != undefined ? 'text-[#505050]' : 'text-[#909090'
   }
 
   return (
-    <>
-      <div className="border input-textarea py-4 px-3 rounded">
-        <textarea
-          disabled={disabled}
-          value={value}
-          rows={rows}
-          maxLength={max}
-          onChange={e => {
-            onChangeInput && onChangeInput(e?.target?.value)
-          }}
-          name="reason"
-          id="reason"
-          className={`w-full text-paragraph regular-14 ${handleActiveText(value)}`}
-          placeholder={placeholder}
-        ></textarea>
-        <div className={`${showCounter ? '' : 'hidden'} flex justify-end text-[#909090] text-input-counter`}>
-          {value?.length || '0'}/{max}
-        </div>
+    <div className="border input-textarea py-4 px-3 rounded">
+      <textarea
+        disabled={disabled}
+        value={value}
+        rows={rows}
+        maxLength={max}
+        onChange={e => {
+          onChangeInput && onChangeInput(e?.target?.value)
+        }}
+        name="reason"
+        id="reason"
+        className={`w-full text-paragraph regular-14 ${handleActiveText(value)}`}
+        placeholder={placeholder}
+      ></textarea>
+      <div className={`${showCounter ? '' : 'hidden'} flex justify-end text-[#909090] text-input-counter`}>
+        {value?.length ?? '0'}/{max}
       </div>
-    </>
+    </div>
   )
 }
-
-// export default ReasonInput

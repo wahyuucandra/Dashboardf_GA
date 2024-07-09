@@ -6,22 +6,24 @@ export function Modal({
   backdropDismiss = true,
   backdropClick = () => {},
   isFloating = true,
-}: {
+}: Readonly<{
   readonly children: React.ReactElement
   isOpen: boolean
   backdropDismiss?: boolean
   backdropClick?: any
   isFloating?: boolean
-}) {
+}>) {
   return (
     <>
       <div
+        onKeyDown={() => {}}
         onClick={() => backdropClick()}
         className={`${
           !backdropDismiss || !isOpen ? 'hidden' : ''
         } z-[999] fixed top-0 left-0 h-screen w-screen bg-gray-950 opacity-40`}
       ></div>
       <div
+        onKeyDown={() => {}}
         onClick={() => {
           backdropClick()
         }}
@@ -31,10 +33,13 @@ export function Modal({
           isOpen ? '-translate-y-1/2' : 'translate-y-full'
         }`}
       >
-        <div onClick={e => e.stopPropagation()}>{children}</div>
+        <div onKeyDown={() => {}} onClick={e => e.stopPropagation()}>
+          {children}
+        </div>
       </div>
 
       <div
+        onKeyDown={() => {}}
         onClick={() => {
           backdropClick()
         }}
@@ -44,7 +49,9 @@ export function Modal({
           isOpen ? 'translate-y-[0%]' : 'translate-y-[500%]'
         }`}
       >
-        <div onClick={e => e.stopPropagation()}>{children}</div>
+        <div onKeyDown={() => {}} onClick={e => e.stopPropagation()}>
+          {children}
+        </div>
       </div>
     </>
   )

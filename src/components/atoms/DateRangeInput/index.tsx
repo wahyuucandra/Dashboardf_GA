@@ -15,7 +15,7 @@ export interface DateRangeInputProps {
 }
 
 export const DateRangeInput: React.FC<DateRangeInputProps> = ({ value, maxRange = 7, onButtonClick }) => {
-  const [isOpen, setOpen] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const daysInit: DateInput[] = handleFetchDaysInMonth(
     new Date(Date.now()).getMonth(),
@@ -126,7 +126,7 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({ value, maxRange 
 
       const diff = (end - start) / (24 * 60 * 60 * 1000)
 
-      return diff < maxRange ? false : true
+      return diff >= maxRange
     }
 
     return true
@@ -139,7 +139,7 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({ value, maxRange 
 
       const diff = (end - start) / (24 * 60 * 60 * 1000)
 
-      return diff < maxRange ? true : false
+      return diff < maxRange
     }
 
     return true
@@ -150,12 +150,12 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({ value, maxRange 
       const start = input?.start
       const end = input?.end
       if (start?.date?.getTime() == end?.date?.getTime())
-        return `${daysData[start?.day as number]}, ${start?.date?.getDate()}/${(start?.date?.getMonth() as number) + 1}/${start?.date?.getFullYear()}`
+        return `${daysData[start?.day]}, ${start?.date?.getDate()}/${start?.date?.getMonth() + 1}/${start?.date?.getFullYear()}`
       if (start?.date?.getTime() != end?.date?.getTime())
-        return `${daysData[start?.day as number]}, ${start?.date?.getDate()}/${
-          (start?.date?.getMonth() as number) + 1
-        }/${start?.date?.getFullYear()} - ${daysData[end?.day as number]}, ${end?.date?.getDate()}/${
-          (end?.date?.getMonth() as number) + 1
+        return `${daysData[start?.day]}, ${start?.date?.getDate()}/${
+          start?.date?.getMonth() + 1
+        }/${start?.date?.getFullYear()} - ${daysData[end?.day]}, ${end?.date?.getDate()}/${
+          end?.date?.getMonth() + 1
         }/${end?.date?.getFullYear()}`
     }
 
@@ -174,7 +174,7 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({ value, maxRange 
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={() => setIsOpen(true)}
         className="w-full h-11 border border-[#D5D5D5] text-left py-2.5 px-3 rounded flex items-center space-x-4"
       >
         <IconCalendar></IconCalendar>
@@ -183,11 +183,11 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({ value, maxRange 
         </div>
       </button>
 
-      <Modal isOpen={isOpen} isFloating={false} backdropClick={() => setOpen(false)}>
+      <Modal isOpen={isOpen} isFloating={false} backdropClick={() => setIsOpen(false)}>
         <div className="w-screen h-4/5 bg-white relative px-4 py-6 text-center rounded-xl">
           <div className="pb-6">
             <div className="flex items-center space-x-4 mb-6">
-              <button onClick={() => setOpen(false)}>
+              <button onClick={() => setIsOpen(false)}>
                 <IconClose width={24} height={24} color="#252525"></IconClose>
               </button>
               <div className="text-heading s semibold-18">Pilih Tanggal</div>
@@ -215,15 +215,16 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({ value, maxRange 
 
             <div>
               <div className="grid grid-cols-7 mb-4">
-                {daysSplit.map((val, index) => (
-                  <div key={index} className="py-2 text-date-range-input day text-[#2C598D] mb-10">
+                {daysSplit.map(val => (
+                  <div key={val} className="py-2 text-date-range-input day text-[#2C598D] mb-10">
                     {val}
                   </div>
                 ))}
-                {daysInMonth?.map((val: DateInput, index) => (
-                  <div
+                {daysInMonth?.map((val: DateInput) => (
+                  <button
+                    type="button"
                     onClick={() => handleSelectedDate(val)}
-                    key={index}
+                    key={val?.date?.getTime()}
                     className={`${handleClassSelectedDate(val)} ${handleClassBetween(val)}  relative py-2 mb-10`}
                   >
                     <span
@@ -237,7 +238,7 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({ value, maxRange 
                     <div className={` ${val?.include ? '' : 'text-[#E5E4EA]'} text-date-range-input date`}>
                       {val.dateNumber}
                     </div>
-                  </div>
+                  </button>
                 ))}
               </div>
               <div className={`${handleAlertValidator() ? 'hidden' : ''} text-red-600 text-left text-xs mb-1`}>
@@ -248,7 +249,7 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({ value, maxRange 
                 disabled={handleButtonValidator()}
                 onClick={() => {
                   onButtonClick && onButtonClick(selectedDate)
-                  setOpen(false)
+                  setIsOpen(false)
                 }}
                 type="button"
                 className={`${
@@ -294,29 +295,19 @@ export const DateRangeInputCustom: React.FC<DateRangeInputCustomProps> = ({
   >(value)
 
   const handleNext = () => {
-    if (month < 11) {
-      setMonth(prev => prev + 1)
-      const fetchData: DateInput[] = handleFetchDaysInMonth(month + 1, year)
-      setDaysInMonth(fetchData)
-    } else {
-      setMonth(0)
-      setYear(prev => prev + 1)
-      const fetchData: DateInput[] = handleFetchDaysInMonth(0, year)
-      setDaysInMonth(fetchData)
-    }
+    const condition = month < 11
+    setMonth(prev => (condition ? prev + 1 : 0))
+    if (!condition) setYear(prev => prev + 1)
+    const fetchData: DateInput[] = handleFetchDaysInMonth(condition ? month + 1 : 0, year)
+    setDaysInMonth(fetchData)
   }
 
   const handlePrev = () => {
-    if (month > 0) {
-      setMonth(prev => prev - 1)
-      const fetchData: DateInput[] = handleFetchDaysInMonth(month - 1, year)
-      setDaysInMonth(fetchData)
-    } else {
-      setMonth(11)
-      setYear(prev => prev - 1)
-      const fetchData: DateInput[] = handleFetchDaysInMonth(11, year)
-      setDaysInMonth(fetchData)
-    }
+    const condition = month > 0
+    setMonth(prev => (condition ? prev - 1 : 11))
+    if (!condition) setYear(prev => prev - 1)
+    const fetchData: DateInput[] = handleFetchDaysInMonth(condition ? month - 1 : 11, year)
+    setDaysInMonth(fetchData)
   }
 
   const handleFindMonth = () => {
@@ -324,7 +315,7 @@ export const DateRangeInputCustom: React.FC<DateRangeInputCustomProps> = ({
   }
 
   const handleSelectedDate = (dateInput: DateInput) => {
-    if (!dateInput?.include) return
+    if (!dateInput?.include) return undefined
 
     setSelectedDate(prev => {
       const start = prev?.start
@@ -367,7 +358,7 @@ export const DateRangeInputCustom: React.FC<DateRangeInputCustomProps> = ({
         return 'rounded-r bg-[#2C598D] text-[#ffffff]'
       }
     }
-    return 'text-[#505050]'
+    return 'text-[#505050] test'
   }
 
   const handleClassBetween = (dateInput: DateInput) => {
@@ -376,7 +367,7 @@ export const DateRangeInputCustom: React.FC<DateRangeInputCustomProps> = ({
         dateInput?.date?.getTime() > selectedDate?.start?.date?.getTime() &&
         dateInput?.date?.getTime() < selectedDate?.end?.date?.getTime()
       )
-        return 'bg-[#E5F2FC]'
+        return 'bg-[#E5F2FC] test'
       return ''
     }
     return ''
@@ -387,106 +378,92 @@ export const DateRangeInputCustom: React.FC<DateRangeInputCustomProps> = ({
       const start = selectedDate.start?.date?.getTime()
       const end = selectedDate.end?.date?.getTime()
 
-      const diff = (end - start) / (24 * 60 * 60 * 1000)
+      const diff = (end - start) / (24 * 60 * 60 * 1000) / 1
 
-      return diff < maxRange ? false : true
-    }
-
-    return true
-  }
-
-  const handleAlertValidator = () => {
-    if (selectedDate?.start && selectedDate?.end) {
-      const start = selectedDate.start?.date?.getTime()
-      const end = selectedDate.end?.date?.getTime()
-
-      const diff = (end - start) / (24 * 60 * 60 * 1000)
-
-      return diff < maxRange ? true : false
+      return diff >= maxRange
     }
 
     return true
   }
 
   return (
-    <>
-      <Modal isOpen={isOpen} isFloating={false} backdropClick={onCloseClick}>
-        <div className="w-screen h-4/5 bg-white relative px-4 py-6 text-center rounded-xl">
-          <div className="pb-6">
-            <div className="flex items-center space-x-4 mb-6">
-              <button onClick={onCloseClick}>
-                <IconClose width={24} height={24} color="#252525"></IconClose>
-              </button>
-              <div className="text-heading s semibold-18">Pilih Tanggal</div>
-            </div>
+    <Modal isOpen={isOpen} isFloating={false} backdropClick={onCloseClick}>
+      <div className="w-screen h-4/5 bg-white relative px-4 py-6 text-center rounded-xl">
+        <div className="pb-6">
+          <div className="flex items-center space-x-4 mb-6">
+            <button onClick={onCloseClick}>
+              <IconClose width={24} height={24} color="#252525"></IconClose>
+            </button>
+            <div className="text-heading s semibold-18">Pilih Tanggal</div>
+          </div>
 
-            <div className="flex items-center justify-between space-x-3 mb-6">
-              <button
-                onClick={() => {
-                  handlePrev()
-                }}
-              >
-                <IconChevronLeft width={24} height={24} color="#1C1B1F"></IconChevronLeft>
-              </button>
-              <div className="text-heading xs semibold-16">
-                {handleFindMonth()?.text} {year}
-              </div>
-              <button
-                onClick={() => {
-                  handleNext()
-                }}
-              >
-                <IconChevronRight width={24} height={24} color="#1C1B1F"></IconChevronRight>
-              </button>
+          <div className="flex items-center justify-between space-x-3 mb-6">
+            <button
+              onClick={() => {
+                handlePrev()
+              }}
+            >
+              <IconChevronLeft width={24} height={24} color="#1C1B1F"></IconChevronLeft>
+            </button>
+            <div className="text-heading xs semibold-16">
+              {handleFindMonth()?.text} {year}
             </div>
+            <button
+              onClick={() => {
+                handleNext()
+              }}
+            >
+              <IconChevronRight width={24} height={24} color="#1C1B1F"></IconChevronRight>
+            </button>
+          </div>
 
-            <div>
-              <div className="grid grid-cols-7 mb-4">
-                {daysSplit.map((val, index) => (
-                  <div key={index} className="py-2 text-date-range-input day text-[#2C598D] mb-10">
-                    {val}
-                  </div>
-                ))}
-                {daysInMonth?.map((val: DateInput, index) => (
-                  <div
-                    onClick={() => handleSelectedDate(val)}
-                    key={index}
-                    className={`${handleClassSelectedDate(val)} ${handleClassBetween(val)}  relative py-2 mb-10`}
+          <div>
+            <div className="grid grid-cols-7 mb-4">
+              {daysSplit.map(val => (
+                <div key={val} className="py-2 text-date-range-input day text-[#2C598D] mb-10">
+                  {val}
+                </div>
+              ))}
+              {daysInMonth?.map((val: DateInput) => (
+                <button
+                  type="button"
+                  onClick={() => handleSelectedDate(val)}
+                  key={val?.date?.getTime()}
+                  className={`${handleClassSelectedDate(val)} ${handleClassBetween(val)}  relative py-2 mb-10`}
+                >
+                  <span
+                    className={`absolute -top-4 left-2 whitespace-nowrap text-xs text-[#0089CF] ${
+                      val?.now ? '' : 'hidden'
+                    }`}
                   >
-                    <span
-                      className={`absolute -top-4 left-2 whitespace-nowrap text-xs text-[#0089CF] ${
-                        val?.now ? '' : 'hidden'
-                      }`}
-                    >
-                      Hari ini
-                    </span>
+                    Hari ini
+                  </span>
 
-                    <div className={` ${val?.include ? '' : 'text-[#E5E4EA]'} text-date-range-input date`}>
-                      {val.dateNumber}
-                    </div>
+                  <div className={` ${val?.include ? '' : 'text-[#E5E4EA]'} text-date-range-input date`}>
+                    {val.dateNumber}
                   </div>
-                ))}
-              </div>
-              <div className={`${handleAlertValidator() ? 'hidden' : ''} text-red-600 text-left text-xs mb-1`}>
-                * Range tanggal tidak boleh lebih dari 7 hari
-              </div>
-
-              <button
-                disabled={handleButtonValidator()}
-                onClick={() => {
-                  onButtonClick && onButtonClick(selectedDate)
-                }}
-                type="button"
-                className={`${
-                  handleButtonValidator() ? 'bg-[#B1B1B1]' : 'approve-button'
-                } h-11 w-full text-[#ffffff] py-2.5 text-heading xs semibold-16 rounded-lg`}
-              >
-                Pilih Tanggal
-              </button>
+                </button>
+              ))}
             </div>
+            <div className={`${handleButtonValidator() ? 'hidden' : ''} text-red-600 text-left text-xs mb-1`}>
+              * Range tanggal tidak boleh lebih dari 7 hari
+            </div>
+
+            <button
+              disabled={handleButtonValidator()}
+              onClick={() => {
+                onButtonClick && onButtonClick(selectedDate)
+              }}
+              type="button"
+              className={`${
+                handleButtonValidator() ? 'bg-[#B1B1B1]' : 'approve-button'
+              } h-11 w-full text-[#ffffff] py-2.5 text-heading xs semibold-16 rounded-lg`}
+            >
+              Pilih Tanggal
+            </button>
           </div>
         </div>
-      </Modal>
-    </>
+      </div>
+    </Modal>
   )
 }

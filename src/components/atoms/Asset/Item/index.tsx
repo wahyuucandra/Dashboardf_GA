@@ -3,16 +3,13 @@
 import { Asset } from '@interfaces/asset'
 import Image from 'next/image'
 
-export function Item({ asset, qty = 0, onButtonClick }: { asset: Asset; qty?: number; onButtonClick?: () => void }) {
-  // const handleCheckIsAvailabel = (asset: Asset) => {
-  //   if (!asset.isAvailabel) return 'opacity-40'
-  // }
-
+export function Item({
+  asset,
+  qty = 0,
+  onButtonClick,
+}: Readonly<{ asset: Asset; qty?: number; onButtonClick?: () => void }>) {
   return (
-    <div
-      className="flex space-x-3"
-      // className={`${handleCheckIsAvailabel(room)}`}
-    >
+    <div className="flex space-x-3">
       <div className="flex-1">
         <div className="text-heading xs semibold-16 mb-1">{asset.name}</div>
         <div className="text-extra-small regular-12">{asset.desc}</div>
