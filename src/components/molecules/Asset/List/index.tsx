@@ -7,58 +7,224 @@ import { Modal } from '@components/atoms/ModalCustom'
 // import { AssetCard } from '@components/atoms/Asset'
 // import { OperationType, Asset } from '@interfaces/vehicle'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { assetsData } from './data'
+import { assetsData, brandsData } from './data'
 import './style.css'
-import { Asset } from '@interfaces/asset'
+import { Asset, AssetForm, Brand, DefaulAssetForm } from '@interfaces/asset'
 import IconSearch from '@assets/icons/IconSearch'
 import { AssetItem } from '@components/atoms/Asset'
+import { useForm, useWatch } from 'react-hook-form'
+import IconPlus from '@assets/icons/IconPlus'
+import IconMinus from '@assets/icons/IconMinus'
 
 export function List() {
   const router = useRouter()
 
   const [assets] = useState<Asset[]>(assetsData)
+  const [brands, setBrands] = useState<Brand[]>([{ ...brandsData[0] }, { ...brandsData[1] }, { ...brandsData[2] }])
+  const [selectedAsset, setSelectedAsset] = useState<Asset>(assetsData[0])
+  const [acceptTerm, setAcceptTerm] = useState<boolean>()
 
   const [isConfimationModalOpen, setConfimationModalOpen] = useState<boolean>(false)
-  // const [selectedTypes, setSelectedTypes] = useState<OperationType[]>()
+  const [isItemModalOpen, setItemModalOpen] = useState<boolean>(false)
+  const [isItemConfimationModalOpen, setItemConfimationModalOpen] = useState<boolean>(false)
+  const [isCheckoutModalOpen, setCheckoutModalOpen] = useState<boolean>(false)
 
-  // const handleOperationTypeIsActive = (input: OperationType) => {
-  //   return selectedTypes?.includes(input)
-  //     ? 'bg-[#E5F2FC] border-[1.2px] border-[#0089CF] text-[#0089CF]'
-  //     : 'border border-[#D5D5D5] text-[#000000]'
-  // }
+  const { setValue, control } = useForm<AssetForm>({ defaultValues: DefaulAssetForm })
 
-  // const handleSelectOperationType = (input: OperationType) => {
-  //   setSelectedTypes(prev => {
-  //     if (prev) {
-  //       const data = prev
+  const brandsForm = useWatch({
+    control,
+    name: 'brands',
+  })
 
-  //       if (data?.includes(input)) {
-  //         const newData = data.filter(val => val != input)
-  //         return [...newData]
-  //       }
+  // const reason = useWatch({
+  //   control,
+  //   name: 'reason',
+  // })
 
-  //       return [...data, input]
-  //     }
+  const handleSearchBrand = (keyword: string) => {
+    const data = brandsData.filter(
+      val => val?.name?.toLowerCase().includes(keyword.toLowerCase()) && val?.asset?.id === selectedAsset?.id
+    )
+    setBrands(data)
+  }
 
-  //     return [input]
-  //   })
-  // }
+  const handleFindBrand = (brand: Brand) => {
+    return brandsForm?.find(val => val?.id == brand?.id)
+  }
 
-  // const handleIsSelectTypeSame = (input: Asset) => {
-  //   if (!selectedTypes?.length) {
-  //     return ''
-  //   }
+  const handleFindBrandByAsset = (asset: Asset) => {
+    return brandsForm?.filter(val => val?.asset?.id == asset?.id)
+  }
 
-  //   return selectedTypes?.includes(input.operationType) ? '' : 'hidden'
-  // }
+  const handleFindBrandIndex = (brand: Brand): number => {
+    if (brandsForm?.length) return brandsForm?.findIndex(val => val?.id == brand?.id)
+    return -1
+  }
+
+  const handleAddItem = (brand: Brand) => {
+    const data = brandsForm
+
+    if (data?.length) {
+      const index = handleFindBrandIndex(brand)
+
+      if (index >= 0) {
+        data[index] = {
+          ...data[index],
+          qty: data[index]?.qty + 1,
+          isSelected: true,
+        }
+
+        setValue('brands', [...data])
+        return
+      }
+
+      setValue('brands', [...data, { ...brand, qty: 1, isSelected: true }])
+      return
+    }
+
+    setValue('brands', [{ ...brand, qty: 1, isSelected: true }])
+    return
+  }
+
+  const handleSubtractItem = (brand: Brand) => {
+    const data = brandsForm
+
+    if (data?.length) {
+      const index = handleFindBrandIndex(brand)
+
+      if (index >= 0) {
+        if (data[index]?.qty > 0) {
+          data[index] = {
+            ...data[index],
+            qty: data[index]?.qty - 1,
+          }
+
+          setValue('brands', [...data])
+          return
+        }
+
+        delete data[index]
+        setValue('brands', [...data])
+        return
+      }
+    }
+  }
+
+  const handleCanAdd = (brand: Brand) => {
+    const data = handleFindBrand(brand)
+
+    if (!data?.isAvailabel) return false
+    if (!data?.isSelected) return false
+    if (!data?.qty) return true
+    if (data?.qty < brand?.qty) return true
+  }
+
+  const handleCanSubtract = (brand: Brand) => {
+    const data = handleFindBrand(brand)
+
+    if (!data?.isAvailabel) return false
+    if (!data?.isSelected) return false
+    if (!data?.qty) return false
+    if (brand?.qty > 0) return true
+  }
+
+  const handleIsSelected = (brand: Brand) => {
+    const data = handleFindBrand(brand)
+
+    if (data?.isSelected) return true
+    return false
+  }
+
+  const handleSelectBrand = (brand: Brand, checked: boolean) => {
+    const data = brandsForm
+    const findedBrand = handleFindBrand(brand)
+
+    if (data?.length) {
+      const index = handleFindBrandIndex(brand)
+
+      if (index >= 0) {
+        data[index] = {
+          ...data[index],
+          isSelected: checked,
+          qty: findedBrand?.qty || 0,
+        }
+
+        setValue('brands', [...data])
+        return
+      }
+
+      setValue('brands', [...data, { ...brand, qty: findedBrand?.qty || 0, isSelected: checked }])
+      return
+    }
+
+    setValue('brands', [{ ...brand, qty: findedBrand?.qty || 0, isSelected: checked }])
+    return
+  }
+
+  const handleTotalQty = (asset?: Asset) => {
+    const data = brandsForm
+    let total
+
+    if (asset) {
+      total = data?.reduce((prev, curr) => {
+        if (curr.asset?.id == asset?.id && curr.isSelected) {
+          return (prev += curr.qty)
+        }
+
+        return prev
+      }, 0)
+    } else {
+      total = data?.reduce((prev, curr) => {
+        if (curr.isSelected) {
+          return (prev += curr.qty)
+        }
+
+        return prev
+      }, 0)
+    }
+
+    return total || 0
+  }
+
+  const handleMappingData = () => {
+    // let data = reason
+    return ''
+    // let data = brandsForm
+    // const ma
+    // let total
+    // if (asset) {
+    //   total = data?.reduce((prev, curr) => {
+    //     if (curr.asset?.id == asset?.id && curr.isSelected) {
+    //       return (prev += curr.qty)
+    //     }
+    //     return prev
+    //   }, 0)
+    // } else {
+    //   total = data?.reduce((prev, curr) => {
+    //     if (curr.isSelected) {
+    //       return (prev += curr.qty)
+    //     }
+    //     return prev
+    //   }, 0)
+    // }
+    // return total || 0
+  }
 
   return (
     <>
-      <Header prevLink="/booking-asset/asset/schedule" title="Asset" key={'header'} useLink={false}></Header>
-      <div className="px-6 pt-16 h-screen">
+      <Header
+        prevLink="/booking-asset/asset/schedule"
+        title="Asset"
+        key={'header'}
+        useLink={false}
+        onBack={() => {
+          setItemModalOpen(false)
+          setCheckoutModalOpen(false)
+        }}
+      ></Header>
+      <div className="px-4 pt-16 h-screen">
         <div className="flex items-center space-x-3 py-3 mb-4">
           <div className="flex-1">
             <div className="flex items-center space-x-3 mb-1">
@@ -77,33 +243,51 @@ export function List() {
             Ubah
           </button>
         </div>
-        <div className="search-input h-[38px] mb-4 px-3 flex items-center justify-center space-x-3 border border-[#000000] rounded-lg">
-          <IconSearch></IconSearch>
+        <div className="search-input h-[38px] mb-6 px-3 flex items-center justify-center space-x-3 border border-[#D5D5D5] rounded-lg">
+          <IconSearch color="#909090"></IconSearch>
           <input type="text" placeholder="Cari Assets" className="flex-1 text-paragraph regular-14 mt-1" />
         </div>
-        {/* <div className="w-screen whitespace-nowrap overflow-x-auto mb-6 px-6 -mx-6">
-          {operationTypes?.map((val, index) => (
-            <div
-              onClick={() => handleSelectOperationType(val)}
-              key={index}
-              className={`inline-block rounded-full  py-2 px-4 text-badge mr-2 ${handleOperationTypeIsActive(val)}`}
-            >
-              {val.text}
-            </div>
-          ))}
-        </div> */}
         <div>
           {assets?.map(asset => (
-            <Link
-              key={asset.id}
-              href={`/booking-asset/vehicle/special-operational/${asset.id}`}
-              // className={`${handleIsSelectTypeSame(vehicle)}`}
-            >
-              <AssetItem asset={asset}></AssetItem>
+            <div key={asset.id}>
+              <AssetItem
+                onButtonClick={() => {
+                  setSelectedAsset(asset)
+                  if (!handleTotalQty(asset)) {
+                    setItemModalOpen(true)
+                    setBrands(brandsData.filter(val => val.asset == asset))
+                  } else {
+                    setItemConfimationModalOpen(true)
+                  }
+                }}
+                asset={asset}
+                qty={handleTotalQty(asset)}
+              ></AssetItem>
               <hr className="border-b border-[#EDEDED] my-6" />
-            </Link>
+            </div>
           ))}
         </div>
+      </div>
+
+      <div className="fixed bottom-0 z-[101] bg-white pb-10 pt-5 w-full px-4">
+        <button
+          disabled={handleTotalQty() == 0 ? true : false}
+          onClick={() => {
+            setCheckoutModalOpen(true)
+          }}
+          type="button"
+          className={` ${
+            handleTotalQty() == 0 ? 'bg-[#B1B1B1]' : 'save-button'
+          } h-12 w-full text-[#ffffff] py-2.5  rounded-lg`}
+        >
+          {handleTotalQty() == 0 && <span className="text-heading xs semibold-16">Pesan Sekarang</span>}
+          {handleTotalQty() >= 0 && (
+            <div className="flex items-center justify-between px-4">
+              <span>{handleTotalQty()} items</span>
+              <span className="text-heading xs semibold-16">Pesan Sekarang</span>
+            </div>
+          )}
+        </button>
       </div>
 
       <Modal isOpen={isConfimationModalOpen} backdropClick={() => setConfimationModalOpen(!isConfimationModalOpen)}>
@@ -144,6 +328,195 @@ export function List() {
               <div className="py-2.5 px-6 text-heading xs semibold-16">Batal</div>
             </button>
           </div>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={isItemModalOpen}
+        isFloating={false}
+        backdropDismiss={false}
+        backdropClick={() => setItemModalOpen(!isItemModalOpen)}
+      >
+        <div className="w-screen h-[calc(100vh_-_50px)] bg-white relative py-6 px-4">
+          <div className="text-heading xs semibold-16 mb-4">Pilih Brand {selectedAsset?.name}</div>
+
+          <div className="search-input h-[38px] mb-4 px-3 flex items-center justify-center space-x-3 border border-[#D5D5D5] rounded-lg">
+            <IconSearch color="#909090"></IconSearch>
+            <input
+              onChange={e => handleSearchBrand(e?.target?.value)}
+              type="text"
+              placeholder="Cari Brand"
+              className="flex-1 text-paragraph regular-14 mt-1"
+            />
+          </div>
+
+          <div className="-mx-4 overflow-x-auto h-screen pb-[350px]">
+            {brands &&
+              brands.map(brand => (
+                <div
+                  key={brand.id}
+                  className={`${brand?.asset != selectedAsset ? 'hidden' : ''} flex items-center space-x-6 mb-6 px-4`}
+                >
+                  <label className="flex-1 flex items-center custom-checkbox text-paragraph regular-14">
+                    <span
+                      className={`${brand.isAvailabel ? 'text-[#000000]' : 'text-[#D5D5D5]'} text-heading xs regular-16  mr-2`}
+                    >
+                      {brand.name}
+                    </span>
+                    <span
+                      className={`text-paragraph regular-14 ${brand.isAvailabel ? 'text-[#000000]' : 'text-[#D5D5D5]'} `}
+                    >
+                      ({brand.qty} pcs)
+                    </span>
+                    <input
+                      disabled={!brand.isAvailabel}
+                      type="checkbox"
+                      onChange={e => handleSelectBrand(brand, e?.target?.checked)}
+                      defaultChecked={handleIsSelected(brand)}
+                      name="checkmark"
+                    />
+                    <span className="checkmark"></span>
+                  </label>
+                  <div className="flex items-center space-x-3">
+                    <button
+                      disabled={!handleCanSubtract(brand)}
+                      onClick={() => handleSubtractItem(brand)}
+                      className={`${!handleCanSubtract(brand) ? 'border-[#D5D5D5] text-[#D5D5D5]' : 'border-[#0089CF] text-[#0089CF]'} h-6 w-6 border  text-3xl rounded-full flex items-center justify-center`}
+                    >
+                      <IconMinus color={!handleCanSubtract(brand) ? '#D5D5D5' : '#0089CF'}></IconMinus>
+                    </button>
+                    <div className={`${handleIsSelected(brand) ? '' : 'text-[#D5D5D5]'}`}>
+                      {handleFindBrand(brand)?.qty || 0}
+                    </div>
+                    <button
+                      disabled={!handleCanAdd(brand)}
+                      onClick={() => handleAddItem(brand)}
+                      className={`${!handleCanAdd(brand) ? 'border-[#D5D5D5] text-[#D5D5D5]' : 'border-[#0089CF] text-[#0089CF]'} h-6 w-6 border  text-3xl rounded-full flex items-center justify-center`}
+                    >
+                      <IconPlus color={!handleCanAdd(brand) ? '#D5D5D5' : '#0089CF'}></IconPlus>
+                    </button>
+                  </div>
+                </div>
+              ))}
+          </div>
+
+          <div className="absolute bottom-0 right-0 left-0">
+            <div className="bg-white h-full px-4 py-6">
+              <div
+                className={`${handleTotalQty(selectedAsset) ? '' : 'hidden'} text-heading xs semibold-16 flex justify-between mb-6`}
+              >
+                <span>Item quantity</span>
+                <span>{handleTotalQty(selectedAsset)} item</span>
+              </div>
+              <button
+                onClick={() => {
+                  setItemModalOpen(false)
+                }}
+                type="button"
+                className="save-button h-12 rounded-lg w-full text-paragraph semibold-14 text-[#FFFFFF]"
+              >
+                Simpan Pesanan
+              </button>
+            </div>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={isItemConfimationModalOpen}
+        isFloating={false}
+        backdropDismiss={true}
+        backdropClick={() => setItemConfimationModalOpen(false)}
+      >
+        <div className="w-screen h-[calc(40vh)] bg-white relative py-6 px-4 rounded-t-xl ">
+          <div className="text-heading xs semibold-16">{selectedAsset?.name}</div>
+          <hr className="border border-[#D9D9D9] my-4" />
+
+          <div className="flex space-x-4 h-[400px] overflow-y-auto">
+            <Image
+              width={0}
+              height={0}
+              sizes="100"
+              className="w-16 h-16 object-cover rounded"
+              src={selectedAsset.banner}
+              alt="banner more"
+            ></Image>
+            <div className="flex-1">
+              <div className="text-heading xs semibold-16 mb-2">{selectedAsset?.name}</div>
+              {handleFindBrandByAsset(selectedAsset)?.length &&
+                handleFindBrandByAsset(selectedAsset)?.map(val => (
+                  <div key={val.id} className="text-extra-small regular-12 text-[#0C0C0C] mb-1">
+                    {val.name} ({val.qty} items)
+                  </div>
+                ))}
+            </div>
+            <div>
+              <button className="border border-[#0089CF] w-full text-extra-small regular-12 text-[#0089CF] py-1 rounded px-6">
+                {handleTotalQty(selectedAsset) + ' items'}
+              </button>
+            </div>
+          </div>
+
+          <div className="absolute bottom-0 right-0 left-0">
+            <div className="bg-white h-full px-4 py-6">
+              <button
+                onClick={() => {
+                  setItemConfimationModalOpen(false)
+                  setItemModalOpen(true)
+                  setBrands(brandsData.filter(val => val.asset?.id == selectedAsset?.id))
+                }}
+                type="button"
+                className="save-button h-11 rounded-lg w-full text-paragraph  semibold-14 text-[#FFFFFF]"
+              >
+                Pesan Lagi
+              </button>
+            </div>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={isCheckoutModalOpen}
+        isFloating={false}
+        backdropDismiss={false}
+        backdropClick={() => setCheckoutModalOpen(false)}
+      >
+        <div className="w-screen h-[calc(100vh_-_50px)] bg-white relative py-6 px-4">
+          <div className="flex items-center space-x-3 py-3">
+            <div className="flex-1">
+              <div className="flex items-center space-x-3 mb-1">
+                <IconScheduleRoom></IconScheduleRoom>
+                <span className="text-information">ACC TB Simatupang</span>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setConfimationModalOpen(true)}
+              className="text-button bg-[#E5F2FC] text-[#0089CF] px-5 py-2 rounded-md"
+            >
+              Ubah
+            </button>
+          </div>
+
+          <div className="h-1.5 bg-[#F9F5F5] -mx-4 mt-3 mb-6"></div>
+
+          <div className="text-heading xs semibold-16 mb-12">Order Summary</div>
+
+          {handleMappingData()}
+          {/* <div className="text-heading xs semibold-16">{selectedAsset?.name}</div>
+          <hr className="border border-[#D9D9D9] my-4" /> */}
+          <label className="flex-1 flex items-center custom-checkbox text-paragraph regular-14">
+            <span className="text-[#252525]">
+              Saya menyetujui <span className="text-[#0089CF]">syarat dan ketentuan</span> yang berlaku
+            </span>
+            <input
+              type="checkbox"
+              onChange={e => setAcceptTerm(e?.target?.checked)}
+              defaultChecked={acceptTerm}
+              name="checkmark"
+            />
+            <span className="-mt-0.5 checkmark"></span>
+          </label>
         </div>
       </Modal>
     </>

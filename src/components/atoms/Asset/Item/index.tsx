@@ -3,7 +3,7 @@
 import { Asset } from '@interfaces/asset'
 import Image from 'next/image'
 
-export function Item({ asset }: { asset: Asset }) {
+export function Item({ asset, qty = 0, onButtonClick }: { asset: Asset; qty?: number; onButtonClick?: () => void }) {
   // const handleCheckIsAvailabel = (asset: Asset) => {
   //   if (!asset.isAvailabel) return 'opacity-40'
   // }
@@ -28,8 +28,11 @@ export function Item({ asset }: { asset: Asset }) {
           alt={`Banner${asset.id}`}
         ></Image>
 
-        <button className="border border-[#0089CF] w-full text-extra-small regular-12 text-[#0089CF] py-1 rounded">
-          Add
+        <button
+          onClick={onButtonClick}
+          className="border border-[#0089CF] w-full text-extra-small regular-12 text-[#0089CF] py-1 rounded"
+        >
+          {qty ? qty + ' items' : 'Add'}
         </button>
       </div>
     </div>

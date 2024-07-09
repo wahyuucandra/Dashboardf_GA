@@ -3,7 +3,7 @@
 export function Modal({
   children,
   isOpen,
-  backdropDismiss = false,
+  backdropDismiss = true,
   backdropClick = () => {},
   isFloating = true,
 }: {
@@ -18,7 +18,7 @@ export function Modal({
       <div
         onClick={() => backdropClick()}
         className={`${
-          backdropDismiss || !isOpen ? 'hidden' : ''
+          !backdropDismiss || !isOpen ? 'hidden' : ''
         } z-[999] fixed top-0 left-0 h-screen w-screen bg-gray-950 opacity-40`}
       ></div>
       <div

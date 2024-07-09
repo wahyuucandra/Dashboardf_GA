@@ -6,21 +6,21 @@ import { Asset, Brand } from '@interfaces/asset'
 export const assetsData: Asset[] = [
   {
     id: 0,
-    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation , proyektor',
+    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua proyektor.',
     banner: bannerAsset1.src,
     name: 'Proyektor',
     isAvailabel: true,
   },
   {
     id: 1,
-    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation , kamera',
+    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua kamera.',
     banner: bannerAsset2.src,
     name: 'Kamera',
     isAvailabel: true,
   },
   {
     id: 3,
-    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation , hdmi',
+    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua hdmi.',
     banner: bannerAsset3.src,
     name: 'Kabel HDMI',
     isAvailabel: false,
@@ -43,10 +43,31 @@ export const brandsData: Brand[] = [
     isAvailabel: true,
   },
   {
-    id: 0,
+    id: 2,
     asset: assetsData[0],
     name: 'Canon',
     qty: 1,
+    isAvailabel: false,
+  },
+  {
+    id: 3,
+    asset: assetsData[1],
+    name: 'Canon SLR',
+    qty: 5,
+    isAvailabel: true,
+  },
+  {
+    id: 4,
+    asset: assetsData[1],
+    name: 'Nikon SLR',
+    qty: 3,
+    isAvailabel: true,
+  },
+  {
+    id: 5,
+    asset: assetsData[2],
+    name: 'HDMI AAA',
+    qty: 7,
     isAvailabel: true,
   },
 ]
