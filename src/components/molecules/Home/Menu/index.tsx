@@ -8,7 +8,7 @@ import IconClose from '@assets/icons/IconClose'
 import logoAcc from '@assets/images/logoAcc.png'
 import logoBerijalan from '@assets/images/logoBerijalan.png'
 
-import { Modal } from '@components/atoms/modalCustom'
+import { Modal } from '@components/atoms/ModalCustom'
 import Link from 'next/link'
 import Image from 'next/image'
 

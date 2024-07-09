@@ -1,7 +1,7 @@
 'use client'
 
 import IconClose from '@assets/icons/IconClose'
-import { Modal } from '@components/atoms/modalCustom'
+import { Modal } from '@components/atoms/ModalCustom'
 import { Photo } from '@interfaces/photo'
 import Image from 'next/image'
 import { useState } from 'react'
