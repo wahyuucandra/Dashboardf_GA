@@ -70,13 +70,13 @@ export function Booking() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="text-heading xs semibold-16 text-[#101010] mb-4">Reservation Date</div>
           <div className="text-room-detail badge-time text-[#0089CF] flex items-center space-x-3 mb-4">
-            <button
+            <div
               onClick={() => setDateModalOpen(true)}
               className="rounded-full flex items-center space-x-2 px-4 py-2 bg-[#E5F2FC]"
             >
               <IconCalendar color="#0089CF"></IconCalendar>
               <span className="mt-0.5">{handleBindDate(date)}</span>
-            </button>
+            </div>
 
             <div
               onClick={() => setTimeModalOpen(true)}
