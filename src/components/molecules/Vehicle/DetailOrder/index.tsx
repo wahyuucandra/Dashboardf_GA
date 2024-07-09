@@ -141,7 +141,7 @@ export function DetailOrder() {
                   onChange={e => {
                     if (e?.target.files?.length) {
                       setValue('fileForm', e?.target?.files[0])
-                      fileInputKey.current = Math.random().toString(36)
+                      fileInputKey.current = crypto.getRandomValues(array).toString()
                     }
                   }}
                 />
