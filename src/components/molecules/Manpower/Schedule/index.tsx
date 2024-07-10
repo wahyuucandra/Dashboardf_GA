@@ -9,7 +9,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import './style.css'
-import bookingAsset from '@assets/images/bookingAsset.png'
+import bookingAsset from '@assets/images/BookingAsset.png'
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
 import { DateRangeInput } from '@components/atoms/DateRangeInput'
 import { TimeRangeInput } from '@components/atoms/TimeRangeInput'

@@ -5,6 +5,7 @@ export default function IconChevronLeft({
   ...props
 }: Readonly<React.SVGProps<SVGSVGElement>>) {
   return (
+    // tes
     <svg width={width} height={height} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <mask id="mask0_2670_8470" maskUnits="userSpaceOnUse" x="0" y="0" width={width} height={height}>
         <rect width={width} height={height} fill="#D9D9D9" />
