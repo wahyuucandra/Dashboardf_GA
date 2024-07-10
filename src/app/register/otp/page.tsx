@@ -1,4 +1,4 @@
-import OTPRegister from '@components/molecules/OTPRegister'
+import OTPRegister from '@components/molecules/OTP/OTPRegister'
 
 export const metadata = {
   title: 'Register',

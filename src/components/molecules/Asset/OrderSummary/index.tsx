@@ -7,138 +7,140 @@ import { Modal } from '@components/atoms/ModalCustom'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { assetsData, brandsData } from './data'
 import './style.css'
-import { Asset, AssetForm, Brand, DefaulAssetForm } from '@interfaces/asset'
-import IconSearch from '@assets/icons/IconSearch'
-import { AssetItem } from '@components/atoms/Asset'
+// import { Asset, AssetForm, Brand, DefaulAssetForm } from '@interfaces/asset'
+import { Asset, AssetForm, DefaulAssetForm } from '@interfaces/asset'
 import { useForm, useWatch } from 'react-hook-form'
-import IconPlus from '@assets/icons/IconPlus'
-import IconMinus from '@assets/icons/IconMinus'
+// import { assetsData, brandsData } from './data'
+// import IconSearch from '@assets/icons/IconSearch'
+// import { AssetItem } from '@components/atoms/Asset'
+// import IconPlus from '@assets/icons/IconPlus'
+// import IconMinus from '@assets/icons/IconMinus'
 
 export function OrderSummary() {
   const router = useRouter()
 
-  const [assets] = useState<Asset[]>(assetsData)
-  const [brands, setBrands] = useState<Brand[]>([{ ...brandsData[0] }, { ...brandsData[1] }, { ...brandsData[2] }])
-  const [selectedAsset, setSelectedAsset] = useState<Asset>(assetsData[0])
+  // const [assets] = useState<Asset[]>(assetsData)
+  // const [brands, setBrands] = useState<Brand[]>([{ ...brandsData[0] }, { ...brandsData[1] }, { ...brandsData[2] }])
+  // const [selectedAsset, setSelectedAsset] = useState<Asset>(assetsData[0])
   const [acceptTerm, setAcceptTerm] = useState<boolean>()
 
   const [isTermModalOpen, SetIsTermModalOpen] = useState<boolean>(false)
   const [isConfimationModalOpen, setIsConfimationModalOpen] = useState<boolean>(false)
 
-  const { setValue, control } = useForm<AssetForm>({ defaultValues: DefaulAssetForm })
+  // const { setValue, control } = useForm<AssetForm>({ defaultValues: DefaulAssetForm })
+  const { control } = useForm<AssetForm>({ defaultValues: DefaulAssetForm })
 
   const brandsForm = useWatch({
     control,
     name: 'brands',
   })
 
-  const handleFindBrand = (brand: Brand) => {
-    return brandsForm?.find(val => val?.id == brand?.id)
-  }
+  // const handleFindBrand = (brand: Brand) => {
+  //   return brandsForm?.find(val => val?.id == brand?.id)
+  // }
 
-  const handleFindBrandByAsset = (asset: Asset) => {
-    return brandsForm?.filter(val => val?.asset?.id == asset?.id)
-  }
+  // // const handleFindBrandByAsset = (asset: Asset) => {
+  // //   return brandsForm?.filter(val => val?.asset?.id == asset?.id)
+  // // }
 
-  const handleFindBrandIndex = (brand: Brand): number => {
-    if (brandsForm?.length) return brandsForm?.findIndex(val => val?.id == brand?.id)
-    return -1
-  }
+  // const handleFindBrandIndex = (brand: Brand): number => {
+  //   if (brandsForm?.length) return brandsForm?.findIndex(val => val?.id == brand?.id)
+  //   return -1
+  // }
 
-  const handleAddItem = (brand: Brand) => {
-    const data = brandsForm
+  // const handleAddItem = (brand: Brand) => {
+  //   const data = brandsForm
 
-    if (data?.length) {
-      const index = handleFindBrandIndex(brand)
+  //   if (data?.length) {
+  //     const index = handleFindBrandIndex(brand)
 
-      if (index >= 0) {
-        data[index] = {
-          ...data[index],
-          qty: data[index]?.qty + 1,
-          isSelected: true,
-        }
+  //     if (index >= 0) {
+  //       data[index] = {
+  //         ...data[index],
+  //         qty: data[index]?.qty + 1,
+  //         isSelected: true,
+  //       }
 
-        setValue('brands', [...data])
-        return undefined
-      }
+  //       setValue('brands', [...data])
+  //       return undefined
+  //     }
 
-      setValue('brands', [...data, { ...brand, qty: 1, isSelected: true }])
-      return undefined
-    }
+  //     setValue('brands', [...data, { ...brand, qty: 1, isSelected: true }])
+  //     return undefined
+  //   }
 
-    setValue('brands', [{ ...brand, qty: 1, isSelected: true }])
-    return undefined
-  }
+  //   setValue('brands', [{ ...brand, qty: 1, isSelected: true }])
+  //   return undefined
+  // }
 
-  const handleSubtractItem = (brand: Brand) => {
-    const data = brandsForm
+  // const handleSubtractItem = (brand: Brand) => {
+  //   const data = brandsForm
 
-    if (data?.length) {
-      const index = handleFindBrandIndex(brand)
+  //   if (data?.length) {
+  //     const index = handleFindBrandIndex(brand)
 
-      if (index >= 0) {
-        if (data[index]?.qty > 0) {
-          data[index] = {
-            ...data[index],
-            qty: data[index]?.qty - 1,
-          }
+  //     if (index >= 0) {
+  //       if (data[index]?.qty > 0) {
+  //         data[index] = {
+  //           ...data[index],
+  //           qty: data[index]?.qty - 1,
+  //         }
 
-          setValue('brands', [...data])
-          return
-        }
+  //         setValue('brands', [...data])
+  //         return
+  //       }
 
-        data.splice(index, 1)
-        setValue('brands', [...data])
-        return
-      }
-    }
-  }
+  //       data.splice(index, 1)
+  //       setValue('brands', [...data])
+  //       return
+  //     }
+  //   }
+  // }
 
-  const handleCanAdd = (brand: Brand) => {
-    const data = handleFindBrand(brand)
+  // const handleCanAdd = (brand: Brand) => {
+  //   const data = handleFindBrand(brand)
 
-    if (!data?.isAvailabel) return false
-    if (!data?.isSelected) return false
-    if (!data?.qty) return true
-    if (data?.qty < brand?.qty) return true
-  }
+  //   if (!data?.isAvailabel) return false
+  //   if (!data?.isSelected) return false
+  //   if (!data?.qty) return true
+  //   if (data?.qty < brand?.qty) return true
+  // }
 
-  const handleCanSubtract = (brand: Brand) => {
-    const data = handleFindBrand(brand)
+  // const handleCanSubtract = (brand: Brand) => {
+  //   const data = handleFindBrand(brand)
 
-    if (!data?.isAvailabel) return false
-    if (!data?.isSelected) return false
-    if (!data?.qty) return false
-    if (brand?.qty > 0) return true
-  }
+  //   if (!data?.isAvailabel) return false
+  //   if (!data?.isSelected) return false
+  //   if (!data?.qty) return false
+  //   if (brand?.qty > 0) return true
+  // }
 
-  const handleSelectBrand = (brand: Brand, checked: boolean) => {
-    const data = brandsForm
-    const findedBrand = handleFindBrand(brand)
+  // const handleSelectBrand = (brand: Brand, checked: boolean) => {
+  //   const data = brandsForm
+  //   const findedBrand = handleFindBrand(brand)
 
-    if (data?.length) {
-      const index = handleFindBrandIndex(brand)
+  //   if (data?.length) {
+  //     const index = handleFindBrandIndex(brand)
 
-      if (index >= 0) {
-        data[index] = {
-          ...data[index],
-          isSelected: checked,
-          qty: findedBrand?.qty ?? 0,
-        }
+  //     if (index >= 0) {
+  //       data[index] = {
+  //         ...data[index],
+  //         isSelected: checked,
+  //         qty: findedBrand?.qty ?? 0,
+  //       }
 
-        setValue('brands', [...data])
-        return undefined
-      }
+  //       setValue('brands', [...data])
+  //       return undefined
+  //     }
 
-      setValue('brands', [...data, { ...brand, qty: findedBrand?.qty ?? 0, isSelected: checked }])
-      return undefined
-    }
+  //     setValue('brands', [...data, { ...brand, qty: findedBrand?.qty ?? 0, isSelected: checked }])
+  //     return undefined
+  //   }
 
-    setValue('brands', [{ ...brand, qty: findedBrand?.qty ?? 0, isSelected: checked }])
-    return undefined
-  }
+  //   setValue('brands', [{ ...brand, qty: findedBrand?.qty ?? 0, isSelected: checked }])
+  //   return undefined
+  // }
 
   const handleTotalQty = (asset?: Asset) => {
     const data = brandsForm
@@ -165,29 +167,29 @@ export function OrderSummary() {
     return total ?? 0
   }
 
-  const handleMappingData = () => {
-    // let data = reason
-    return ''
-    // let data = brandsForm
-    // const ma
-    // let total
-    // if (asset) {
-    //   total = data?.reduce((prev, curr) => {
-    //     if (curr.asset?.id == asset?.id && curr.isSelected) {
-    //       return (prev += curr.qty)
-    //     }
-    //     return prev
-    //   }, 0)
-    // } else {
-    //   total = data?.reduce((prev, curr) => {
-    //     if (curr.isSelected) {
-    //       return (prev += curr.qty)
-    //     }
-    //     return prev
-    //   }, 0)
-    // }
-    // return total || 0
-  }
+  // const handleMappingData = () => {
+  //   // let data = reason
+  //   return ''
+  //   // let data = brandsForm
+  //   // const ma
+  //   // let total
+  //   // if (asset) {
+  //   //   total = data?.reduce((prev, curr) => {
+  //   //     if (curr.asset?.id == asset?.id && curr.isSelected) {
+  //   //       return (prev += curr.qty)
+  //   //     }
+  //   //     return prev
+  //   //   }, 0)
+  //   // } else {
+  //   //   total = data?.reduce((prev, curr) => {
+  //   //     if (curr.isSelected) {
+  //   //       return (prev += curr.qty)
+  //   //     }
+  //   //     return prev
+  //   //   }, 0)
+  //   // }
+  //   // return total || 0
+  // }
 
   return (
     <>

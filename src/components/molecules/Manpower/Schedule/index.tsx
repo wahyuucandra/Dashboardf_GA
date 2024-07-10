@@ -15,7 +15,7 @@ import { DateRangeInput } from '@components/atoms/DateRangeInput'
 import { TimeRangeInput } from '@components/atoms/TimeRangeInput'
 import { ReasonInputArea } from '@components/atoms/ReasonInput'
 import { DefaulManpowerScheduleForm, ManpowerScheduleForm } from '@interfaces/schedule'
-import ManpowerInput from '@components/atoms/ManpowerInput'
+import CapacityInput from '@components/atoms/CapacityInput'
 
 // const schema = Yup.object().shape({
 //   gender: Yup.string().required('Jenis kelamin wajib diisi'),
@@ -75,7 +75,7 @@ export function Schedule() {
       />
 
       <div className="fixed top-4 left-4">
-        <Link href={'/booking-asset/room'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
+        <Link href={'/booking-asset/manpower'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
           <IconChevronLeft></IconChevronLeft>
         </Link>
       </div>
@@ -148,12 +148,14 @@ export function Schedule() {
               Kebutuhan Manpower <span className="text-[#E15241]">*</span>
             </div>
 
-            <ManpowerInput
+            <CapacityInput
               data={[1, 2, 3, 4, 5]}
               value={manpower}
               onButtonClick={val => {
                 setValue('manpower', val)
               }}
+              label="orang"
+              placeholder="Masukan kebutuhan"
             />
           </div>
 
