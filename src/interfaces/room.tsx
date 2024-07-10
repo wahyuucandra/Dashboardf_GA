@@ -19,3 +19,9 @@ export interface RoomType {
   id: string
   text: string
 }
+
+export interface BallroomFacility {
+  id: number
+  facility: string
+  qty: number
+}

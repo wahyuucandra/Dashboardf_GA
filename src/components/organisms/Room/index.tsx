@@ -5,6 +5,7 @@ import { SchedulePage as RoomSchedulePage } from './Schedule/index'
 import { SuccessPage as RoomSuccessPage } from './Success/index'
 import { BallroomSchedulePage } from './Ballroom/Schedule/index'
 import { BallroomListPage } from './Ballroom/List/index'
+import { BallroomDetailPage } from './Ballroom/Detail/index'
 
 export {
   RoomMenuPage,
@@ -14,4 +15,5 @@ export {
   RoomSuccessPage,
   BallroomSchedulePage,
   BallroomListPage,
+  BallroomDetailPage,
 }

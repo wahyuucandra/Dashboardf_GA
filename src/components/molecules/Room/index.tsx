@@ -5,5 +5,6 @@ import { Schedule as RoomSchedule } from './Schedule/index'
 import { Success as RoomSuccess } from './Success/index'
 import { BallroomSchedule } from './Ballroom/Schedule/index'
 import { BallroomList } from './Ballroom/List/index'
+import { BallroomDetail } from './Ballroom/Detail/index'
 
-export { RoomMenu, RoomList, RoomDetail, RoomSchedule, RoomSuccess, BallroomSchedule, BallroomList }
+export { RoomMenu, RoomList, RoomDetail, RoomSchedule, RoomSuccess, BallroomSchedule, BallroomList, BallroomDetail }

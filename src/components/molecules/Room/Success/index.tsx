@@ -2,11 +2,21 @@
 
 import bookingSuccessfully from '@assets/images/BookingSuccessfully.png'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 export function Success() {
+  const router = useRouter()
+
+  useEffect(() => {
+    setTimeout(() => {
+      router.push('/booking-asset')
+    }, 3000)
+  }, [])
+
   return (
     <>
-      <div className="bg-white fixed z-[102] bottom-0 bottom-0 right-0 w-full h-screen">
+      <div className="bg-white fixed z-[102] bottom-0 right-0 w-full h-screen">
         <div className="flex flex-col items-center h-full justify-center">
           <Image
             width={0}
