@@ -5,7 +5,6 @@ export default function IconSearch({
   ...props
 }: Readonly<React.SVGProps<SVGSVGElement>>) {
   return (
-    //tes
     <svg width={width} height={height} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <g clipPath="url(#clip0_3410_3328)">
         <path

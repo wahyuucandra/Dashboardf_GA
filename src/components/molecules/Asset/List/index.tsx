@@ -22,10 +22,12 @@ export function List() {
   const [assets] = useState<Asset[]>(assetsData)
   const [brands, setBrands] = useState<Brand[]>([{ ...brandsData[0] }, { ...brandsData[1] }, { ...brandsData[2] }])
   const [selectedAsset, setSelectedAsset] = useState<Asset>(assetsData[0])
+  const [acceptTerm, setAcceptTerm] = useState<boolean>()
 
   const [isConfimationModalOpen, setIsConfimationModalOpen] = useState<boolean>(false)
   const [isItemModalOpen, setIsItemModalOpen] = useState<boolean>(false)
   const [isItemConfimationModalOpen, setIsItemConfimationModalOpen] = useState<boolean>(false)
+  const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState<boolean>(false)
 
   const { setValue, control } = useForm<AssetForm>({ defaultValues: DefaulAssetForm })
 
@@ -179,6 +181,30 @@ export function List() {
     return total ?? 0
   }
 
+  const handleMappingData = () => {
+    // let data = reason
+    return ''
+    // let data = brandsForm
+    // const ma
+    // let total
+    // if (asset) {
+    //   total = data?.reduce((prev, curr) => {
+    //     if (curr.asset?.id == asset?.id && curr.isSelected) {
+    //       return (prev += curr.qty)
+    //     }
+    //     return prev
+    //   }, 0)
+    // } else {
+    //   total = data?.reduce((prev, curr) => {
+    //     if (curr.isSelected) {
+    //       return (prev += curr.qty)
+    //     }
+    //     return prev
+    //   }, 0)
+    // }
+    // return total || 0
+  }
+
   return (
     <>
       <Header
@@ -188,7 +214,7 @@ export function List() {
         useLink={false}
         onBack={() => {
           setIsItemModalOpen(false)
-          setIsConfimationModalOpen(true)
+          setIsCheckoutModalOpen(false)
         }}
       ></Header>
       <div className="px-4 pt-16 h-screen">
@@ -240,7 +266,7 @@ export function List() {
         <button
           disabled={handleTotalQty() == 0}
           onClick={() => {
-            // router.push(`/booking-asset/asset/order-summary`, { scroll: false })
+            setIsCheckoutModalOpen(true)
           }}
           type="button"
           className={` ${
@@ -248,7 +274,7 @@ export function List() {
           } h-12 w-full text-[#ffffff] py-2.5  rounded-lg`}
         >
           {handleTotalQty() == 0 && <span className="text-heading xs semibold-16">Pesan Sekarang</span>}
-          {handleTotalQty() > 0 && (
+          {handleTotalQty() >= 0 && (
             <div className="flex items-center justify-between px-4">
               <span>{handleTotalQty()} items</span>
               <span className="text-heading xs semibold-16">Pesan Sekarang</span>
@@ -438,6 +464,51 @@ export function List() {
               </button>
             </div>
           </div>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={isCheckoutModalOpen}
+        isFloating={false}
+        backdropDismiss={false}
+        backdropClick={() => setIsCheckoutModalOpen(false)}
+      >
+        <div className="w-screen h-[calc(100vh_-_50px)] bg-white relative py-6 px-4">
+          <div className="flex items-center space-x-3 py-3">
+            <div className="flex-1">
+              <div className="flex items-center space-x-3 mb-1">
+                <IconScheduleRoom></IconScheduleRoom>
+                <span className="text-information">ACC TB Simatupang</span>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsConfimationModalOpen(true)}
+              className="text-button bg-[#E5F2FC] text-[#0089CF] px-5 py-2 rounded-md"
+            >
+              Ubah
+            </button>
+          </div>
+
+          <div className="h-1.5 bg-[#F9F5F5] -mx-4 mt-3 mb-6"></div>
+
+          <div className="text-heading xs semibold-16 mb-12">Order Summary</div>
+
+          {handleMappingData()}
+          {/* <div className="text-heading xs semibold-16">{selectedAsset?.name}</div>
+          <hr className="border border-[#D9D9D9] my-4" /> */}
+          <label className="flex-1 flex items-center custom-checkbox text-paragraph regular-14">
+            <span className="text-[#252525]">
+              Saya menyetujui <span className="text-[#0089CF]">syarat dan ketentuan</span> yang berlaku
+            </span>
+            <input
+              type="checkbox"
+              onChange={e => setAcceptTerm(e?.target?.checked)}
+              defaultChecked={acceptTerm}
+              name="checkmark"
+            />
+            <span className="-mt-0.5 checkmark"></span>
+          </label>
         </div>
       </Modal>
     </>

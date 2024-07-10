@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
 import IconManpowerCleaning from '@assets/icons/IconManpowerCleaning'
-import bookingAsset from '@assets/images/BookingAsset.png'
+import bookingAsset from '@assets/images/bookingAsset.png'
 import IconManpowerMaintenance from '@assets/icons/IconManpowerMaintanance'
 import IconManpowerSecurity from '@assets/icons/IconManpowerSecurity'
 import IconManpowerReceptionist from '@assets/icons/IconManpowerReceptionist'

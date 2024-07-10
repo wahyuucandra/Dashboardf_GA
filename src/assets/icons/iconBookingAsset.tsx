@@ -4,7 +4,6 @@ export default function IconBookingAsset({
   color = '#CCD7E1',
   ...props
 }: Readonly<React.SVGProps<SVGSVGElement>>) {
-  //tes
   return (
     <svg width={width} height={height} viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
