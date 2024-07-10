@@ -1,5 +1,6 @@
 export default function IconLogout({ ...props }: Readonly<React.SVGProps<SVGSVGElement>>) {
   return (
+    // tes
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" {...props}>
       <g clipPath="url(#clip0_818_36442)">
         <path
