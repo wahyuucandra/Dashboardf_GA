@@ -1,4 +1,4 @@
-import BannerCarousel from '@assets/images/bannerCarousel.png'
+import BannerCarousel from '@assets/images/BannerCarousel.png'
 
 export const banners = [
   {
