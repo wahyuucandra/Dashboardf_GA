@@ -19,7 +19,7 @@ export function List() {
 
   const [rooms] = useState<Room[]>(roomsData)
 
-  const [isConfimationModalOpen, setConfimationModalOpen] = useState<boolean>(false)
+  const [isConfimationModalOpen, setIsConfimationModalOpen] = useState<boolean>(false)
   const [selectedTypes, setSelectedTypes] = useState<RoomType[]>()
 
   const handleRoomTypeIsActive = (input: RoomType) => {
@@ -60,7 +60,7 @@ export function List() {
         title="Schedule Ruangan"
         key={'header'}
         useLink={false}
-        onBack={() => setConfimationModalOpen(true)}
+        onBack={() => setIsConfimationModalOpen(true)}
       ></Header>
       <div className="px-6 pt-16 h-screen">
         <div className="flex items-center space-x-3 py-3">
@@ -76,17 +76,18 @@ export function List() {
           </div>
           <button
             type="button"
-            onClick={() => setConfimationModalOpen(true)}
+            onClick={() => setIsConfimationModalOpen(true)}
             className="text-button bg-[#E5F2FC] text-[#0089CF] px-3 py-2 rounded-md"
           >
             Ubah
           </button>
         </div>
         <div className="w-screen whitespace-nowrap overflow-x-auto mb-6 px-6 -mx-6">
-          {roomTypes?.map((val, index) => (
+          {roomTypes?.map(val => (
             <div
+              onKeyDown={() => {}}
               onClick={() => handleSelectRoomType(val)}
-              key={index}
+              key={val.id}
               className={`inline-block rounded-full  py-2 px-4 text-badge mr-2 ${handleRoomTypeIsActive(val)}`}
             >
               {val.text}
@@ -106,7 +107,7 @@ export function List() {
         </div>
       </div>
 
-      <Modal isOpen={isConfimationModalOpen} backdropClick={() => setConfimationModalOpen(!isConfimationModalOpen)}>
+      <Modal isOpen={isConfimationModalOpen} backdropClick={() => setIsConfimationModalOpen(!isConfimationModalOpen)}>
         <div className="max-w-[350px] bg-white relative p-6 text-center rounded-xl">
           <div>
             <Image
@@ -126,7 +127,7 @@ export function List() {
           <div className="grid grid-cols-2 gap-4 justify-items-center">
             <button
               onClick={() => {
-                setConfimationModalOpen(false)
+                setIsConfimationModalOpen(false)
                 router.push(`/booking-asset/room/meeting-room/schedule`, { scroll: false })
               }}
               type="button"
@@ -136,7 +137,7 @@ export function List() {
             </button>
             <button
               onClick={() => {
-                setConfimationModalOpen(false)
+                setIsConfimationModalOpen(false)
               }}
               type="button"
               className="cancel-button w-full text-center text-white rounded-xl overflow-hidden h-11"

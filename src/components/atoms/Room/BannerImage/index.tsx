@@ -7,8 +7,8 @@ import IconClose from '@assets/icons/IconClose'
 import { Modal } from '@components/atoms/ModalCustom'
 import { Photo } from '@interfaces/photo'
 
-export function BannerImage({ photos }: { photos: Photo[] }) {
-  const [isOpen, setOpen] = useState<boolean>(false)
+export function BannerImage({ photos }: Readonly<{ photos: Photo[] }>) {
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const [photo, setPhoto] = useState<Photo>(photos[0])
 
   return (
@@ -19,7 +19,8 @@ export function BannerImage({ photos }: { photos: Photo[] }) {
           height={0}
           sizes="100"
           className="object-cover w-full h-[188px] mb-0.5"
-          onClick={() => setOpen(true)}
+          onClick={() => setIsOpen(true)}
+          onKeyDown={() => {}}
           src={photos[0].image}
           alt="Banner 1"
         />
@@ -30,7 +31,8 @@ export function BannerImage({ photos }: { photos: Photo[] }) {
             height={0}
             sizes="100"
             className="object-cover w-full h-[74px]"
-            onClick={() => setOpen(true)}
+            onClick={() => setIsOpen(true)}
+            onKeyDown={() => {}}
             src={photos[1].image}
             alt="Banner 2"
           />
@@ -40,18 +42,20 @@ export function BannerImage({ photos }: { photos: Photo[] }) {
             height={0}
             sizes="100"
             className="object-cover w-full h-[74px]"
-            onClick={() => setOpen(true)}
+            onClick={() => setIsOpen(true)}
+            onKeyDown={() => {}}
             src={photos[2].image}
             alt="Banner 3"
           />
 
-          <div onClick={() => setOpen(true)} className="relative overflow-hidden">
+          <div onClick={() => setIsOpen(true)} onKeyDown={() => {}} className="relative overflow-hidden">
             <Image
               width={0}
               height={0}
               sizes="100"
               className="object-cover w-full h-[74px]"
-              onClick={() => setOpen(true)}
+              onClick={() => setIsOpen(true)}
+              onKeyDown={() => {}}
               src={photos[3].image}
               alt="Banner 4"
             />
@@ -64,13 +68,13 @@ export function BannerImage({ photos }: { photos: Photo[] }) {
         </div>
       </div>
 
-      <Modal isOpen={isOpen} isFloating={false} backdropClick={() => setOpen(false)}>
+      <Modal isOpen={isOpen} isFloating={false} backdropClick={() => setIsOpen(false)}>
         <div className="w-screen h-4/5 bg-[#1C2931] relative rounded-t-xl">
           <div className="relative pt-4">
             <div className="flex text-center items-center justify-center">
               <div className="text-banner-image modal-title text-white">Photos</div>
             </div>
-            <button onClick={() => setOpen(false)}>
+            <button onClick={() => setIsOpen(false)}>
               <IconClose
                 width={24}
                 height={24}
@@ -99,7 +103,7 @@ export function BannerImage({ photos }: { photos: Photo[] }) {
 
             <div className="w-screen whitespace-nowrap overflow-x-auto pb-6">
               {photos?.map((val, index) => (
-                <div onClick={() => setPhoto(val)} key={index} className={`inline-block pr-0.5`}>
+                <div onClick={() => setPhoto(val)} onKeyDown={() => {}} key={index} className={`inline-block pr-0.5`}>
                   <Image
                     width={0}
                     height={0}
