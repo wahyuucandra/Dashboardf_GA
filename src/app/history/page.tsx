@@ -6,9 +6,9 @@ export const metadata = {
 
 export default function History() {
   return (
-    <div className="">
+    <div className="h-full">
       <Header />
-      <h1 className="text-4xl font-bold items-center ">History</h1>
+      <h1 className="text-4xl font-bold">History</h1>
     </div>
   )
 }
