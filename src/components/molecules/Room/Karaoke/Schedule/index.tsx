@@ -8,7 +8,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import './style.css'
-import bookingAsset from '@assets/images/bookingAsset.png'
+import bookingAsset from '@assets/images/BookingAsset.png'
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
 import { DateRangeInput } from '@components/atoms/DateRangeInput'
 import { TimeRangeInput } from '@components/atoms/TimeRangeInput'
@@ -56,10 +56,11 @@ export function KaraokeSchedule() {
       <Image
         width={0}
         height={0}
+        sizes="100"
         className="fixed top-0 object-cover w-full h-[188px] rounded-b"
-        src={bookingAsset}
+        src={bookingAsset.src}
         alt="Booking Asset"
-      />
+      ></Image>
 
       <div className="fixed top-4 left-4">
         <Link href={'/booking-asset/room'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
