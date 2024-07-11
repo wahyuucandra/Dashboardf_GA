@@ -94,7 +94,7 @@ export function List() {
         <div className="search-input h-[38px] mb-6 px-3 flex items-center justify-center space-x-3 border border-[#D5D5D5] rounded-lg">
           <IconSearch color="#909090"></IconSearch>
           <input
-            onChange={e => {}}
+            onChange={() => {}}
             type="text"
             placeholder="Cari nama, mobil"
             className="flex-1 text-paragraph regular-14 mt-1"
