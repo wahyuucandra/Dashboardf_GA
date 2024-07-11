@@ -20,7 +20,7 @@ export function OrderSummary() {
 
   const [brands] = useState<Brand[]>(brandsData)
   const [acceptTerm, setAcceptTerm] = useState<boolean>()
-  const [isTermModalOpen, SetIsTermModalOpen] = useState<boolean>(true)
+  const [isTermModalOpen, setIsTermModalOpen] = useState<boolean>(true)
   const [isConfimationModalOpen, setIsConfimationModalOpen] = useState<boolean>(false)
 
   const { setValue, control } = useForm<AssetForm>({
@@ -348,7 +348,7 @@ export function OrderSummary() {
         </div>
       </Modal>
 
-      <Modal isOpen={isTermModalOpen} backdropClick={() => SetIsTermModalOpen(false)}>
+      <Modal isOpen={isTermModalOpen} backdropClick={() => setIsTermModalOpen(false)}>
         <div className="max-w-xs bg-white relative rounded-xl">
           <div className="pt-7 pb-4 px-4">
             <div className=" text-center text-heading s semibold-18 text-[#252525] mb-1">Syarat & Ketentuan</div>

@@ -45,14 +45,6 @@ export function List() {
     })
   }
 
-  const handleIsSelectTypeSame = (input: Vehicle) => {
-    if (!selectedTypes?.length) {
-      return ''
-    }
-
-    return selectedTypes?.includes(input.operationType) ? '' : 'hidden'
-  }
-
   return (
     <>
       <Header
@@ -116,7 +108,7 @@ export function List() {
 
         <div className="grid grid-cols-1 gap-x-6 gap-y-4">
           {[...vehicles, ...vehicles, ...vehicles]?.map((vehicle, index) => (
-            <Link key={index} href={`/booking-asset/vehicle-security/special-operational/${vehicle.id}`}>
+            <Link key={vehicle.id + index} href={`/booking-asset/vehicle-security/special-operational/${vehicle.id}`}>
               <VehicleSecurityCard></VehicleSecurityCard>
             </Link>
           ))}
