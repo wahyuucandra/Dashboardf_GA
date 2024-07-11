@@ -1,9 +1,9 @@
-import { InformationListPage } from '@components/organisms/Information'
+import { TransactionListPage } from '@components/organisms/Transaction'
 
 export const metadata = {
   title: 'Transactions',
 }
 
-export default function Informations() {
-  return <InformationListPage></InformationListPage>
+export default function Transactions() {
+  return <TransactionListPage></TransactionListPage>
 }
