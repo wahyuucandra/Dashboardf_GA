@@ -21,3 +21,28 @@ export interface OperationType {
   id: string
   text: string
 }
+
+export interface VehicleSecurityExitForm {
+  kilometer: number | undefined
+  securityName: string | undefined
+  exitTime: Date | undefined
+  condition: string | undefined
+  fuelCondition: File | undefined
+  frontside: File | undefined
+  backside: File | undefined
+  rightside: File | undefined
+  leftside: File | undefined
+  desc: string | undefined
+}
+
+export interface VehicleSecurityEnterForm {
+  kilometer: number | undefined
+  exitTime: Date | undefined
+  condition: string | undefined
+  fuelCondition: File | undefined
+  frontside: File | undefined
+  backside: File | undefined
+  rightside: File | undefined
+  leftside: File | undefined
+  desc: string | undefined
+}
