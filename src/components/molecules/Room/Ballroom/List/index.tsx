@@ -88,6 +88,7 @@ export function BallroomList() {
               onClick={() => handleSelectRoomType(val)}
               key={index}
               className={`inline-block rounded-full  py-2 px-4 text-badge mr-2 ${handleRoomTypeIsActive(val)}`}
+              onKeyDown={() => {}}
             >
               {val.text}
             </div>
