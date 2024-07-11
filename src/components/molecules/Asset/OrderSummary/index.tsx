@@ -149,7 +149,7 @@ export function OrderSummary() {
 
   const handleBindBrandItems = (brandItems: Brand[]) => {
     if (!brandItems?.length) return ''
-    return brandItems?.map(brandItem => (
+    const data = brandItems?.map(brandItem => (
       <div key={brandItem.id} className={`flex items-center space-x-6 mb-6`}>
         <div className="flex-1 flex items-center text-paragraph regular-14">
           <span
@@ -180,6 +180,8 @@ export function OrderSummary() {
         </div>
       </div>
     ))
+
+    return data
   }
 
   const handleMappingData = () => {
@@ -195,6 +197,7 @@ export function OrderSummary() {
             data[`${val.asset.name}`] = [val]
           }
         }
+        return val
       })
 
       if (data) {

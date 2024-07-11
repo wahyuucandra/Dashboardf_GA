@@ -1,14 +1,11 @@
 'use client'
 
-import Header from '@components/atoms/Header'
-import { useRouter } from 'next/navigation'
-import './style.css'
 import IconChevronBottom from '@assets/icons/IconChevronBottom'
+import Header from '@components/atoms/Header'
 import { AssetFailedCard, AssetReturnCard, AssetSuccessCard } from '@components/atoms/Transaction'
+import './style.css'
 
 export function List() {
-  const router = useRouter()
-
   const filterTypes = ['Semua Status', 'Semua Produk', 'Semua Tanggal']
 
   return (
