@@ -149,10 +149,7 @@ export function Detail() {
         </div>
       </div>
 
-      <Modal
-        isOpen={true || isConfimationModalOpen}
-        backdropClick={() => setIsConfimationModalOpen(!isConfimationModalOpen)}
-      >
+      <Modal isOpen={isConfimationModalOpen} backdropClick={() => setIsConfimationModalOpen(!isConfimationModalOpen)}>
         <div className="max-w-[350px] bg-white relative p-6 text-center rounded-xl">
           <div>
             <Image
