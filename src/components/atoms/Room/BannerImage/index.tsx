@@ -1,10 +1,11 @@
 'use client'
 
+import Image from 'next/image'
+import { useState } from 'react'
+
 import IconClose from '@assets/icons/IconClose'
 import { Modal } from '@components/atoms/ModalCustom'
 import { Photo } from '@interfaces/photo'
-import Image from 'next/image'
-import { useState } from 'react'
 
 export function BannerImage({ photos }: Readonly<{ photos: Photo[] }>) {
   const [isOpen, setIsOpen] = useState<boolean>(false)

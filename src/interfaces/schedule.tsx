@@ -61,6 +61,28 @@ export const DefaulManpowerScheduleForm: ManpowerScheduleForm = {
   manpower: undefined,
 }
 
+export interface FacilityValue {
+  id: number
+  facility: string
+  qty: number
+}
+
+export interface BallroomScheduleForm {
+  date: { start: DateInput | undefined; end: DateInput | undefined } | undefined
+  time: { start: TimeInput | undefined; end: TimeInput | undefined } | undefined
+  capacity: number | undefined
+  facility: FacilityValue[] | undefined
+  reason: string | undefined
+}
+
+export const DefaulBallroomScheduleForm: BallroomScheduleForm = {
+  date: undefined,
+  time: undefined,
+  capacity: undefined,
+  facility: undefined,
+  reason: undefined,
+}
+
 export interface AcceptTermForm {
   accept: boolean | undefined
 }

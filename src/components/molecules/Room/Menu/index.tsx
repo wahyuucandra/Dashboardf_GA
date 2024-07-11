@@ -1,14 +1,15 @@
 'use client'
 
-import IconMeetingRoom from '@assets/icons/IconMeetingRoom'
-import IconChevronLeft from '@assets/icons/IconChevronLeft'
-import IconPod from '@assets/icons/IconPod'
-import IconRoom from '@assets/icons/IconRoom'
+import Link from 'next/link'
+import Image from 'next/image'
 
 import bookingAsset from '@assets/images/BookingAsset.png'
 
-import Link from 'next/link'
-import Image from 'next/image'
+import IconMeetingRoom from '@assets/icons/IconMeetingRoom'
+import IconChevronLeft from '@assets/icons/IconChevronLeft'
+import IconRoom from '@assets/icons/IconRoom'
+import IconBallroom from '@assets/icons/IconBallroom'
+import IconKaraoke from '@assets/icons/IconKaraoke'
 
 export function Menu() {
   return (
@@ -49,11 +50,18 @@ export function Menu() {
             <span className="text-paragraph semibold-14 text-[#2C598D]">Meeting Room</span>
           </Link>
           <Link
-            href={'/booking-asset/room/pods/schedule'}
+            href={'/booking-asset/room/ballroom/schedule'}
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
-            <IconPod className="mx-auto mb-2"></IconPod>
-            <span className="text-paragraph semibold-14 text-[#2C598D]">Pods</span>
+            <IconBallroom className="mx-auto mb-2"></IconBallroom>
+            <span className="text-paragraph semibold-14 text-[#2C598D]">Ballroom</span>
+          </Link>
+          <Link
+            href={'/booking-asset/room/karaoke/schedule'}
+            className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
+          >
+            <IconKaraoke className="mx-auto mb-2"></IconKaraoke>
+            <span className="text-paragraph semibold-14 text-[#2C598D]">Karaoke</span>
           </Link>
         </div>
       </div>
