@@ -45,14 +45,6 @@ export function List() {
     })
   }
 
-  const handleIsSelectTypeSame = (input: Vehicle) => {
-    if (!selectedTypes?.length) {
-      return ''
-    }
-
-    return selectedTypes?.includes(input.operationType) ? '' : 'hidden'
-  }
-
   return (
     <>
       <Header
@@ -102,7 +94,7 @@ export function List() {
         <div className="search-input h-[38px] mb-6 px-3 flex items-center justify-center space-x-3 border border-[#D5D5D5] rounded-lg">
           <IconSearch color="#909090"></IconSearch>
           <input
-            onChange={e => {}}
+            onChange={() => {}}
             type="text"
             placeholder="Cari nama, mobil"
             className="flex-1 text-paragraph regular-14 mt-1"
@@ -116,7 +108,7 @@ export function List() {
 
         <div className="grid grid-cols-1 gap-x-6 gap-y-4">
           {[...vehicles, ...vehicles, ...vehicles]?.map((vehicle, index) => (
-            <Link key={index} href={`/booking-asset/vehicle-security/special-operational/${vehicle.id}`}>
+            <Link key={vehicle.id + index} href={`/booking-asset/vehicle-security/special-operational/${vehicle.id}`}>
               <VehicleSecurityCard></VehicleSecurityCard>
             </Link>
           ))}

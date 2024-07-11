@@ -20,7 +20,7 @@ export function OrderSummary() {
 
   const [brands] = useState<Brand[]>(brandsData)
   const [acceptTerm, setAcceptTerm] = useState<boolean>()
-  const [isTermModalOpen, SetIsTermModalOpen] = useState<boolean>(true)
+  const [isTermModalOpen, setIsTermModalOpen] = useState<boolean>(true)
   const [isConfimationModalOpen, setIsConfimationModalOpen] = useState<boolean>(false)
 
   const { setValue, control } = useForm<AssetForm>({
@@ -149,41 +149,37 @@ export function OrderSummary() {
 
   const handleBindBrandItems = (brandItems: Brand[]) => {
     if (!brandItems?.length) return ''
-    return brandItems?.map(brandItem => {
-      return (
-        <div key={brandItem.id} className={`flex items-center space-x-6 mb-6`}>
-          <div className="flex-1 flex items-center text-paragraph regular-14">
-            <span
-              className={`${brandItem.isAvailabel ? 'text-[#000000]' : 'text-[#D5D5D5]'} text-heading xs regular-16  mr-2`}
-            >
-              {brandItem.name}
-            </span>
-            <span
-              className={`text-paragraph regular-14 ${brandItem.isAvailabel ? 'text-[#000000]' : 'text-[#D5D5D5]'} `}
-            >
-              ({brandItem.qty} pcs)
-            </span>
-          </div>
-          <div className="flex items-center space-x-3">
-            <button
-              disabled={!handleCanSubtract(brandItem)}
-              onClick={() => handleSubtractItem(brandItem)}
-              className={`${!handleCanSubtract(brandItem) ? 'border-[#D5D5D5] text-[#D5D5D5]' : 'border-[#0089CF] text-[#0089CF]'} h-6 w-6 border  text-3xl rounded-full flex items-center justify-center`}
-            >
-              <IconMinus color={!handleCanSubtract(brandItem) ? '#D5D5D5' : '#0089CF'}></IconMinus>
-            </button>
-            <div className={`text-[#252525]`}>{handleFindBrand(brandItem)?.qty ?? 0}</div>
-            <button
-              disabled={!handleCanAdd(brandItem)}
-              onClick={() => handleAddItem(brandItem)}
-              className={`${!handleCanAdd(brandItem) ? 'border-[#D5D5D5] text-[#D5D5D5]' : 'border-[#0089CF] text-[#0089CF]'} h-6 w-6 border  text-3xl rounded-full flex items-center justify-center`}
-            >
-              <IconPlus color={!handleCanAdd(brandItem) ? '#D5D5D5' : '#0089CF'}></IconPlus>
-            </button>
-          </div>
+    return brandItems?.map(brandItem => (
+      <div key={brandItem.id} className={`flex items-center space-x-6 mb-6`}>
+        <div className="flex-1 flex items-center text-paragraph regular-14">
+          <span
+            className={`${brandItem.isAvailabel ? 'text-[#000000]' : 'text-[#D5D5D5]'} text-heading xs regular-16  mr-2`}
+          >
+            {brandItem.name}
+          </span>
+          <span className={`text-paragraph regular-14 ${brandItem.isAvailabel ? 'text-[#000000]' : 'text-[#D5D5D5]'} `}>
+            ({brandItem.qty} pcs)
+          </span>
         </div>
-      )
-    })
+        <div className="flex items-center space-x-3">
+          <button
+            disabled={!handleCanSubtract(brandItem)}
+            onClick={() => handleSubtractItem(brandItem)}
+            className={`${!handleCanSubtract(brandItem) ? 'border-[#D5D5D5] text-[#D5D5D5]' : 'border-[#0089CF] text-[#0089CF]'} h-6 w-6 border  text-3xl rounded-full flex items-center justify-center`}
+          >
+            <IconMinus color={!handleCanSubtract(brandItem) ? '#D5D5D5' : '#0089CF'}></IconMinus>
+          </button>
+          <div className={`text-[#252525]`}>{handleFindBrand(brandItem)?.qty ?? 0}</div>
+          <button
+            disabled={!handleCanAdd(brandItem)}
+            onClick={() => handleAddItem(brandItem)}
+            className={`${!handleCanAdd(brandItem) ? 'border-[#D5D5D5] text-[#D5D5D5]' : 'border-[#0089CF] text-[#0089CF]'} h-6 w-6 border  text-3xl rounded-full flex items-center justify-center`}
+          >
+            <IconPlus color={!handleCanAdd(brandItem) ? '#D5D5D5' : '#0089CF'}></IconPlus>
+          </button>
+        </div>
+      </div>
+    ))
   }
 
   const handleMappingData = () => {
@@ -206,16 +202,13 @@ export function OrderSummary() {
 
         return dataArr.map((assetArray, index) => {
           return (
-            <>
-              <div
-                key={!Array.isArray(assetArray[0]) ? assetArray[0] : index}
-                className={`text-heading xs semibold-16 mb-6`}
-              >
+            <div key={!Array.isArray(assetArray[0]) ? assetArray[0] : index}>
+              <div className={`text-heading xs semibold-16 mb-6`}>
                 {!Array.isArray(assetArray[0]) ? assetArray[0] : ''}
               </div>
               {Array.isArray(assetArray[1]) && handleBindBrandItems(assetArray[1])}
               <hr className="border-b border-[#EDEDED] my-6" />
-            </>
+            </div>
           )
         })
       }
@@ -348,7 +341,7 @@ export function OrderSummary() {
         </div>
       </Modal>
 
-      <Modal isOpen={isTermModalOpen} backdropClick={() => SetIsTermModalOpen(false)}>
+      <Modal isOpen={isTermModalOpen} backdropClick={() => setIsTermModalOpen(false)}>
         <div className="max-w-xs bg-white relative rounded-xl">
           <div className="pt-7 pb-4 px-4">
             <div className=" text-center text-heading s semibold-18 text-[#252525] mb-1">Syarat & Ketentuan</div>
