@@ -2,7 +2,6 @@
 
 import bookingProcess from '@assets/images/BookingProcess.png'
 import Image from 'next/image'
-import './style.css'
 import { useRouter } from 'next/navigation'
 
 export function Process() {

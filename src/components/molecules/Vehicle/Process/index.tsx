@@ -2,11 +2,10 @@
 
 import bookingProcess from '@assets/images/BookingProcess.png'
 import Image from 'next/image'
-import './style.css'
 
 export function Process() {
   return (
-    <div className="bg-white fixed z-[102] bottom-0 bottom-0 right-4 left-4  h-screen">
+    <div className="bg-white fixed z-[102] bottom-0 right-4 left-4  h-screen">
       <div className="flex flex-col items-center h-full justify-center">
         <Image
           width={0}

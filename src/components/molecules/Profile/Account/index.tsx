@@ -26,6 +26,7 @@ export function Account() {
             onClick={() => {
               router.push('/profile/detail')
             }}
+            onKeyDown={() => {}}
           >
             <p className=" font-normal text-[14px] text-[#909090]">View my profile</p>
             <IconChevronRight width={18} height={18} color="#909090" />
