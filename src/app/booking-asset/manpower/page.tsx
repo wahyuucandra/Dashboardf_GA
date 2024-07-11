@@ -1,9 +1,9 @@
-import { ManpowerMenuPage } from '@components/organisms/Manpower/index'
+import { ManpowerMenuPage } from '@components/organisms/Manpower'
 
 export const metadata = {
-  title: 'Manpower Menu',
+  title: 'Manpower Security',
 }
 
-export default function Manpower() {
+export default function ManpowerSecurity() {
   return <ManpowerMenuPage></ManpowerMenuPage>
 }

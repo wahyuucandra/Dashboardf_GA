@@ -1,14 +1,14 @@
 import Header from '@components/molecules/Header'
 
 export const metadata = {
-  title: 'Performance',
+  title: 'History',
 }
 
-export default function Performance() {
+export default function History() {
   return (
     <div className="">
       <Header />
-      <h1 className="text-4xl font-bold">Performance</h1>
+      <h1 className="text-4xl font-bold items-center ">History</h1>
     </div>
   )
 }
