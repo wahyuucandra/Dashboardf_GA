@@ -39,7 +39,7 @@ const SelectInput: React.FC<SelectProps> = forwardRef(({ isValid, isInvalid, pro
         container: () => ({
           position: 'static',
           boxSizing: 'border-box',
-          zIndex: 3,
+          // zIndex: 3,
         }),
         menu: () => ({
           position: 'absolute',

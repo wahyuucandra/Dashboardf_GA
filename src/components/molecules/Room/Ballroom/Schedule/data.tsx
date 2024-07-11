@@ -1,5 +1,5 @@
 import bannerScheduleRoom from '@assets/images/bannerScheduleRoom.png'
-import { Room, RoomType } from '@interfaces/room'
+import { BallroomFacility, Room, RoomType } from '@interfaces/room'
 
 export const roomTypes: RoomType[] = [
   {
@@ -23,6 +23,43 @@ export const roomTypes: RoomType[] = [
     text: 'Meeting Room 3',
   },
 ]
+
+export const options = [
+  {
+    label: 'Meja (10)',
+    value: {
+      id: 0,
+      facility: 'Meja',
+      qty: 10,
+    },
+  },
+  {
+    label: 'Kursi (10)',
+    value: {
+      id: 1,
+      facility: 'Kursi',
+      qty: 10,
+    },
+  },
+  {
+    label: 'Proyektor (5)',
+    value: {
+      id: 2,
+      facility: 'Proyektor',
+      qty: 5,
+    },
+  },
+  {
+    label: 'Mic (8)',
+    value: {
+      id: 3,
+      facility: 'Mic',
+      qty: 8,
+    },
+  },
+]
+
+export const ballroomFacility: BallroomFacility[] = []
 
 export const roomsData: Room[] = [
   {
