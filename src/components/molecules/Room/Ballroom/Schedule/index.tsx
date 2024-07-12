@@ -7,7 +7,6 @@ import { useForm, useWatch } from 'react-hook-form'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-import './style.css'
 import { ballroomFacility, options } from './data'
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
 import IconButtonMinus from '@assets/icons/IconButtonMinus'
