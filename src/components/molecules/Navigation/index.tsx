@@ -1,9 +1,9 @@
 'use client'
 
 import { MenuNav } from '@components/atoms/menuList'
-import useNamePage from '@hooks/useNamePage'
 import { MENU_HEADER } from '@utils/list'
 import { pageWithlist } from '@utils/regex'
+import useNamePage from '@hooks/useNamePage'
 import React from 'react'
 
 export default function Navigation() {

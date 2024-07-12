@@ -1,16 +1,40 @@
-import IconNotification from '../../../../assets/icons/IconNotification'
+'use client'
+
+import IconChevronLeft from '@assets/icons/IconChevronLeft'
+import SelectInput from '@components/atoms/Form/Select'
+import { useState } from 'react'
 
 export function AllNotification() {
+  const [location, setLocation] = useState([])
+  const option = [
+    { id: 1, name: 'Semua Lokasi' },
+    {
+      id: 2,
+      name: 'ACC HO',
+    },
+    {
+      id: 3,
+      name: 'Berijalan',
+    },
+  ]
+
   return (
-    <div className="w-screen h-14 px-3 flex items-center space-x-3">
-      <div className="w-14 h-14 rounded-full bg-[#D9D9D9]"></div>
-      <div className="flex-1 flex flex-col space-y-1">
-        <span className="text-paragraph regular-14">Halo,</span>
-        <span className="text-heading s semibold-18">Biko Haryono</span>
+    <div className="bg-white w-full fixed bottom-0 top-0 z-[101] px-4 pt-4">
+      <div className="flex flex-row mb-2 items-center ">
+        <IconChevronLeft width={24} height={24} className="mr-2" />
+        <span className="font-semibold text-[18px]">Notifikasi</span>
       </div>
-      <button>
-        <IconNotification></IconNotification>
-      </button>
+      <div>
+        <SelectInput
+          options={option}
+          value={location}
+          placeholder="Pilih opsi"
+          className="w-full mr-2"
+          onChange={(selectedOption: any) => {
+            setLocation(selectedOption)
+          }}
+        />
+      </div>
     </div>
   )
 }

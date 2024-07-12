@@ -39,7 +39,7 @@ export function Account() {
       </div>
       <div
         className="flex flex-row items-center bg-white px-4 py-4 justify-between"
-        onClick={() => router.push('/')}
+        onClick={() => router.push('/history')}
         onKeyDown={() => {}}
       >
         <div className="flex flex-row items-center">
@@ -48,7 +48,11 @@ export function Account() {
         </div>
         <IconChevronRight width={16} height={16} />
       </div>
-      <div className="flex flex-row items-center bg-white px-4 py-4 justify-between mb-2">
+      <div
+        className="flex flex-row items-center bg-white px-4 py-4 justify-between mb-2"
+        onClick={() => router.push('/notification')}
+        onKeyDown={() => {}}
+      >
         <div className="flex flex-row items-center">
           <IconNotification width={24} height={24}></IconNotification>
           <p className="font-normal text-[14px] ml-2">Notification</p>
