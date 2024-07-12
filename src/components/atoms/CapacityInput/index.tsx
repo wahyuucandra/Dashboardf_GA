@@ -39,7 +39,9 @@ const CapacityInput: React.FC<CapacityInputProps> = ({
       <div
         onKeyDown={() => {}}
         onClick={() => setIsOpen(!isOpen)}
-        className={`h-11 border ${isOpen ? 'border-[#4994EC]' : 'border-[#D5D5D5]'}  py-2.5 px-3 rounded flex items-center space-x-4`}
+        className={`h-11 border ${
+          isOpen ? 'border-[#4994EC]' : 'border-[#D5D5D5]'
+        }  py-2.5 px-3 rounded flex items-center space-x-4`}
       >
         <div className={`flex-1 text-paragraph regular-14 -mb-1 ${handleActiveText(value)}`}>
           {handleBindCapacity(value)}
@@ -56,17 +58,17 @@ const CapacityInput: React.FC<CapacityInputProps> = ({
       >
         <div className="h-[120px] w-full bg-[#FFFFFF] p-3 mt-2 border border-[#D5D5D5] rounded-md overflow-y-scroll">
           {data?.map((val, index) => (
-            <span
+            <div
               onKeyDown={() => {}}
-              key={val}
+              key={index}
               onClick={() => {
                 onButtonClick && onButtonClick(val)
                 setIsOpen(false)
               }}
               className={`text-heading xs regular-16 text-[#333333]  ${data?.length - 1 != index ? 'mb-3' : ''}`}
             >
-              {val} kursi
-            </span>
+              {val} {label}
+            </div>
           ))}
         </div>
       </div>

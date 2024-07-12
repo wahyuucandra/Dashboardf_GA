@@ -1,14 +1,9 @@
-import Header from '@components/molecules/Header'
+import { AllNotificationPage } from '@components/organisms/Notification'
 
 export const metadata = {
-  title: 'Performance',
+  title: 'Notification',
 }
 
 export default function Notification() {
-  return (
-    <div className="h-full">
-      <Header />
-      <h1 className="text-4xl font-bold">Notification</h1>
-    </div>
-  )
+  return <AllNotificationPage></AllNotificationPage>
 }

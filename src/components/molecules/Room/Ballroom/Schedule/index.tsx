@@ -105,7 +105,6 @@ export function BallroomSchedule() {
     setFacilityList(updatedFacilityList)
   }
 
-  // Filter options based on facilityList
   const filteredOptions = options.filter(option => !facilityList.some(facility => facility.id === option.value.id))
 
   return (
@@ -125,7 +124,7 @@ export function BallroomSchedule() {
         </Link>
       </div>
 
-      <div className="relative bg-white w-full px-4 z-[101] bottom-0 top-0 mt-2 pb-2">
+      <div className="relative bg-white w-full bottom-0 top-0 z-[101] px-4 pt-4 pb-8">
         <form className="relative h-full" onSubmit={handleSubmit(onSubmit)}>
           <div className="text-heading m semibold-21 text-[#2C598D] mb-6">Schedule Ballroom</div>
 
