@@ -1,7 +1,7 @@
 import { ManpowerMenuPage } from '@components/organisms/Manpower'
 
 export const metadata = {
-  title: 'Manpower Security',
+  title: 'Manpower Menu',
 }
 
 export default function ManpowerSecurity() {
