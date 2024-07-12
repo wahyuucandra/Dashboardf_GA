@@ -6,3 +6,11 @@
   box-shadow: 0px 0px 0px 1px #375dfb;
   box-shadow: 0px 1px 2px 0px #253ea77a;
 }
+
+input {
+  outline: none;
+}
+
+.text-input:has(input:focus) {
+  border: 1px solid #4994ec;
+}
