@@ -12,7 +12,6 @@ import { Modal } from '@components/atoms/ModalCustom'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { roomTypes, roomsData } from './data'
-import './style.css'
 
 export function BallroomList() {
   const router = useRouter()
