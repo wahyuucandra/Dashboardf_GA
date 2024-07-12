@@ -23,7 +23,7 @@ export interface OperationType {
 }
 
 export interface VehicleSecurityExitForm {
-  kilometer: number | undefined
+  kilometer: string | undefined
   securityName: string | undefined
   exitTime: Date | undefined
   condition: string | undefined
@@ -40,6 +40,7 @@ export interface VehicleSecurityEnterForm {
   exitTime: Date | undefined
   condition: string | undefined
   fuelCondition: File | undefined
+  refuel: boolean | undefined
   frontside: File | undefined
   backside: File | undefined
   rightside: File | undefined

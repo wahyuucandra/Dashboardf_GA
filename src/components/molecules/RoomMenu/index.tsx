@@ -4,7 +4,7 @@ import IconChevronLeft from '@assets/icons/IconChevronLeft'
 import IconRoom from '@assets/icons/IconRoom'
 import IconPod from '@assets/icons/IconPod'
 import IconMeetingRoom from '@assets/icons/IconMeetingRoom'
-import bookingAsset from '@assets/images/bookingAsset.png'
+import bookingAsset from '@assets/images/BookingAsset.png'
 
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
