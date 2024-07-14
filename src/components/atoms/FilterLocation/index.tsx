@@ -44,8 +44,8 @@ export const FilterLocation = () => {
             <div className="divider"></div>
           </div>
           <div>
-            <label className="container text-heading xs semibold-16">
-              Semua Lokasi{' '}
+            <label className="containers text-heading xs semibold-16">
+              <p className="text-left">Semua Lokasi</p>
               <input
                 type="radio"
                 checked={location === 'all'}
@@ -53,12 +53,12 @@ export const FilterLocation = () => {
                 name="location"
                 value="all"
               />
-              <span className="radio"></span>
+              <span className="radios"></span>
             </label>
             <div className="divider"></div>
 
-            <label className="container text-heading xs semibold-16">
-              ACC HO{' '}
+            <label className="containers text-heading xs semibold-16">
+              <p className="text-left">ACC HO</p>
               <input
                 type="radio"
                 checked={location === 'HO'}
@@ -66,12 +66,12 @@ export const FilterLocation = () => {
                 name="location"
                 value="HO"
               />
-              <span className="radio"></span>
+              <span className="radios"></span>
             </label>
             <div className="divider"></div>
 
-            <label className="container text-heading xs semibold-16">
-              Berijalan{' '}
+            <label className="containers text-heading xs semibold-16">
+              <p className="text-left">Berijalan</p>
               <input
                 type="radio"
                 checked={location === 'Berijalan'}
@@ -79,7 +79,7 @@ export const FilterLocation = () => {
                 name="location"
                 value="Berijalan"
               />
-              <span className="radio"></span>
+              <span className="radios"></span>
             </label>
           </div>
         </div>
