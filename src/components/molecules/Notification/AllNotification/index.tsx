@@ -4,9 +4,11 @@ import IconChevronLeft from '@assets/icons/IconChevronLeft'
 import { FilterLocation } from '@components/atoms/FilterLocation'
 import { FilterProduk } from '@components/atoms/FilterProduk'
 import { dataNotification } from './data'
-import IconSetting from '../../../../assets/icons/IconSetting'
+import { useRouter } from 'next/navigation'
 
 export function AllNotification() {
+  const router = useRouter()
+
   const handleNotificationStatus = (status: any) => {
     if (status) {
       // Do something if status is truthy
@@ -36,9 +38,11 @@ export function AllNotification() {
   }
 
   return (
-    <div className="bg-white w-full fixed bottom-0 top-0 z-[101]">
+    <div className="bg-white w-full bottom-0 top-0 z-[101]">
       <div className="relative flex flex-row items-center px-4 pt-4">
-        <IconChevronLeft width={24} height={24} className="mr-2" />
+        <button onClick={() => router.push('/')}>
+          <IconChevronLeft width={24} height={24} className="mr-2" />
+        </button>
         <div className="flex-1 flex justify-center">
           <span className="font-semibold text-[18px] text-[#2C598D]">Notifikasi</span>
         </div>
@@ -53,9 +57,9 @@ export function AllNotification() {
             <FilterProduk></FilterProduk>
           </div>
         </div>
-        <button onClick={() => {}}>
-          <IconSetting className="mr-4" />
-        </button>
+        {/* <button onClick={() => { }}>
+          <IconSetting className='mr-4' />
+        </button> */}
       </div>
       <div>
         {dataNotification.map(notification => (

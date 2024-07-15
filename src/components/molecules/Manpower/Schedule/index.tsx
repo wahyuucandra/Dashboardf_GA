@@ -86,8 +86,7 @@ export function Schedule() {
           {/* Gender Input */}
           <div className="mb-5">
             <div className="text-paragraph regular-14 mb-1">
-              Jenis Kelamin:
-              <span className="text-[#E15241] -mt-1">*</span>
+              Jenis Kelamin: <span className="text-[#E15241] -mt-1">*</span>
             </div>
             <div className="grid grid-cols-2 gap-6">
               <label className="container">

@@ -1,4 +1,4 @@
-const dataRoom: any[] = [
+export const dataRoom: any[] = [
   {
     id: 1,
     name: 'Meeting Room',
@@ -21,7 +21,7 @@ const dataRoom: any[] = [
   },
 ]
 
-const dataVehicle: any[] = [
+export const dataVehicle: any[] = [
   {
     id: 1,
     name: 'Operational Khusus',
@@ -34,7 +34,7 @@ const dataVehicle: any[] = [
   },
 ]
 
-const dataManpower: any[] = [
+export const dataManpower: any[] = [
   {
     id: 1,
     name: 'Cleaning Service',
@@ -57,7 +57,7 @@ const dataManpower: any[] = [
   },
 ]
 
-const dataMaintenance: any[] = [
+export const dataMaintenance: any[] = [
   {
     id: 1,
     name: 'Urgent Action',
@@ -90,7 +90,7 @@ const dataMaintenance: any[] = [
   },
 ]
 
-const dataManagementSystem: any[] = [
+export const dataManagementSystem: any[] = [
   {
     id: 1,
     name: 'Waste Management',
@@ -123,7 +123,7 @@ const dataManagementSystem: any[] = [
   },
 ]
 
-const dataSecurityGuard: any[] = [
+export const dataSecurityGuard: any[] = [
   {
     id: 1,
     name: 'Manpower SG',
@@ -141,7 +141,7 @@ const dataSecurityGuard: any[] = [
   },
 ]
 
-const dataCleaningService: any[] = [
+export const dataCleaningService: any[] = [
   {
     id: 1,
     name: 'Manpower CS',
@@ -159,7 +159,7 @@ const dataCleaningService: any[] = [
   },
 ]
 
-const dataAsset: any[] = [
+export const dataAsset: any[] = [
   {
     id: 1,
     name: 'Manpower',

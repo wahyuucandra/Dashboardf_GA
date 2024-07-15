@@ -125,3 +125,11 @@
 	border-radius: 50%;
 	background: white;
 }
+
+.dividing {
+	width: 100%;
+	height: 1px;
+	background-color: #ddd;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
