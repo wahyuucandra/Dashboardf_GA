@@ -82,7 +82,7 @@ export const dataNotification = [
   {
     id: 11,
     location: 'ACC',
-    product: 'Room',
+    product: 'Pods',
     asset: 'Lantai 4 - 401',
     date: new Date('2024-04-18T13:40:29+07:00'),
     status: true,
@@ -90,7 +90,7 @@ export const dataNotification = [
   {
     id: 12,
     location: 'ACC',
-    product: 'Room',
+    product: 'Pods',
     asset: 'Lantai 1 - 101',
     date: new Date('2024-03-19T13:40:29+07:00'),
     status: true,
@@ -106,7 +106,7 @@ export const dataNotification = [
   {
     id: 14,
     location: 'Berijalan',
-    product: 'Room',
+    product: 'Pods',
     asset: 'Lantai 3 - 301',
     date: new Date('2024-01-21T13:40:29+07:00'),
     status: true,

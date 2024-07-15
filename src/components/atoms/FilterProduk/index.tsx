@@ -4,13 +4,20 @@ import { useState } from 'react'
 
 import './style.css'
 
-// import { dataProduk } from './data';
 import IconClose from '@assets/icons/IconClose'
 import IconChevronBottom from '@assets/icons/IconChevronBottom'
 import { Modal } from '../ModalCustom'
+import {
+  dataCleaningService,
+  dataMaintenance,
+  dataManagementSystem,
+  dataManpower,
+  dataRoom,
+  dataSecurityGuard,
+  dataVehicle,
+} from './data'
 
 export const FilterProduk = () => {
-  // const [isProductOpen, setIsProductOpen] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const [isRoomDrop, setIsRoomDrop] = useState<boolean>(false)
@@ -21,10 +28,15 @@ export const FilterProduk = () => {
   const [isSecurityDrop, setIsSecurityDrop] = useState<boolean>(false)
   const [isCleaningDrop, setIsCleaningDrop] = useState<boolean>(false)
 
-  const [product, setProduct] = useState<string>('')
-  // const [produks] = useState(dataProduk);
+  const [rooms] = useState(dataRoom)
+  const [vehicles] = useState(dataVehicle)
+  const [manpower] = useState(dataManpower)
+  const [maintenance] = useState(dataMaintenance)
+  const [managementSystem] = useState(dataManagementSystem)
+  const [securityGuard] = useState(dataSecurityGuard)
+  const [cleaningService] = useState(dataCleaningService)
 
-  // console.log(produks);
+  const [product, setProduct] = useState<string>('')
 
   const handleProductChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setProduct(event.target.value)
@@ -128,56 +140,24 @@ export const FilterProduk = () => {
             <div className="dividing" />
 
             {/* Submenu Room */}
-            <div className={`pl-9 ${isRoomDrop ? 'opacity-100' : 'opacity-0 hidden'} transition-all duration-300`}>
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Meeting Room</p>
-                <input
-                  type="radio"
-                  checked={product === 'meetingRoom'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="meetingRoom"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Pods</p>
-                <input
-                  type="radio"
-                  checked={product === 'Pods'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="Pods"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Karaoke</p>
-                <input
-                  type="radio"
-                  checked={product === 'Karaoke'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="Karaoke"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Ballroom</p>
-                <input
-                  type="radio"
-                  checked={product === 'Ballroom'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="Ballroom"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-            </div>
+            {isRoomDrop && (
+              <div className={`pl-9 transition-all duration-300`}>
+                {rooms.map(item => (
+                  <label key={item.id} className="containers text-heading xs regular-16">
+                    <p className="text-left">{item.name}</p>
+                    <input
+                      type="radio"
+                      checked={product === item.values}
+                      onChange={handleProductChange}
+                      name="product"
+                      value={item.values}
+                    />
+                    <span className="radios"></span>
+                    <div className="dividing"></div>
+                  </label>
+                ))}
+              </div>
+            )}
 
             {/* Vehicle */}
             <label className="containers text-heading xs semibold-16">
@@ -202,33 +182,24 @@ export const FilterProduk = () => {
             <div className="dividing" />
 
             {/* Submenu Vehicle */}
-            <div className={`pl-9 ${isVehicleDrop ? '' : 'hidden'}`}>
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Operational Khusus</p>
-                <input
-                  type="radio"
-                  checked={product === 'operasionalKhusus'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="operasionalKhusus"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Operational Kantor</p>
-                <input
-                  type="radio"
-                  checked={product === 'operasionalKantor'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="operasionalKantor"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-            </div>
+            {isVehicleDrop && (
+              <div className={`pl-9 transition-all duration-300`}>
+                {vehicles.map(item => (
+                  <label key={item.id} className="containers text-heading xs regular-16">
+                    <p className="text-left">{item.name}</p>
+                    <input
+                      type="radio"
+                      checked={product === item.values}
+                      onChange={handleProductChange}
+                      name="product"
+                      value={item.values}
+                    />
+                    <span className="radios"></span>
+                    <div className="dividing"></div>
+                  </label>
+                ))}
+              </div>
+            )}
 
             {/* Asset */}
             <label className="containers text-heading xs semibold-16" htmlFor="asset">
@@ -259,60 +230,26 @@ export const FilterProduk = () => {
             <div className="dividing" />
 
             {/* Submenu Manpower */}
-            <div className={`pl-9 ${isManpowerDrop ? '' : 'hidden'}`}>
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Cleaning Service</p>
-                <input
-                  type="radio"
-                  checked={product === 'cleaningService'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="cleaningService"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
+            {isManpowerDrop && (
+              <div className={`pl-9 transition-all duration-300`}>
+                {manpower.map(item => (
+                  <label key={item.id} className="containers text-heading xs regular-16">
+                    <p className="text-left">{item.name}</p>
+                    <input
+                      type="radio"
+                      checked={product === item.values}
+                      onChange={handleProductChange}
+                      name="product"
+                      value={item.values}
+                    />
+                    <span className="radios"></span>
+                    <div className="dividing"></div>
+                  </label>
+                ))}
+              </div>
+            )}
 
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Maintenance</p>
-                <input
-                  type="radio"
-                  checked={product === 'operasionalKantor'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="operasionalKantor"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Security</p>
-                <input
-                  type="radio"
-                  checked={product === 'security'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="security"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Receptionist</p>
-                <input
-                  type="radio"
-                  checked={product === 'receptionist'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="receptionist"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-            </div>
-
+            {/* Menu Building Maintenance */}
             <label className="containers text-heading xs semibold-16">
               <p className="text-left">Building Maintenance</p>
               <input
@@ -335,85 +272,24 @@ export const FilterProduk = () => {
             <div className="dividing" />
 
             {/* Submenu Building Maintenance */}
-            <div className={`pl-9 ${isMaintenanceDrop ? '' : 'hidden'}`}>
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Urgent Action</p>
-                <input
-                  type="radio"
-                  checked={product === 'urgentAction'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="urgentAction"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Pengajuan Perbaikan</p>
-                <input
-                  type="radio"
-                  checked={product === 'pengajuanPerbaikan'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="pengajuanPerbaikan"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Budget & Timeline</p>
-                <input
-                  type="radio"
-                  checked={product === 'budgetTimeline'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="budgetTimeline"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Report Kondisi Cabang</p>
-                <input
-                  type="radio"
-                  checked={product === 'reportKondisiCabang'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="reportKondisiCabang"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">History Perbaikan</p>
-                <input
-                  type="radio"
-                  checked={product === 'historyPerbaikan'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="historyPerbaikan"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Standar Cabang</p>
-                <input
-                  type="radio"
-                  checked={product === 'standarCabang'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="standarCabang"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-            </div>
+            {isMaintenanceDrop && (
+              <div className={`pl-9 transition-all duration-300`}>
+                {maintenance.map(item => (
+                  <label key={item.id} className="containers text-heading xs regular-16">
+                    <p className="text-left">{item.name}</p>
+                    <input
+                      type="radio"
+                      checked={product === item.values}
+                      onChange={handleProductChange}
+                      name="product"
+                      value={item.values}
+                    />
+                    <span className="radios"></span>
+                    <div className="dividing"></div>
+                  </label>
+                ))}
+              </div>
+            )}
 
             {/* Menu EHS Management System */}
             <label className="containers text-heading xs semibold-16">
@@ -438,85 +314,24 @@ export const FilterProduk = () => {
             <div className="dividing" />
 
             {/* Submenu EHS Management */}
-            <div className={`pl-9 ${isManagementDrop ? '' : 'hidden'}`}>
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Waste Management</p>
-                <input
-                  type="radio"
-                  checked={product === 'wasteManagement'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="wasteManagement"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Penggunaan Air</p>
-                <input
-                  type="radio"
-                  checked={product === 'penggunaanAir'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="penggunaanAir"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Penggunaan BBM</p>
-                <input
-                  type="radio"
-                  checked={product === 'penggunaanBBM'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="penggunaanBBM"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Penggunaan Listrik</p>
-                <input
-                  type="radio"
-                  checked={product === 'penggunaanListrik'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="penggunaanListrik"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">AGC</p>
-                <input
-                  type="radio"
-                  checked={product === 'agc'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="agc"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">P2LK3</p>
-                <input
-                  type="radio"
-                  checked={product === 'p2lk3'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="p2lk3"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-            </div>
+            {isManagementDrop && (
+              <div className={`pl-9 transition-all duration-300`}>
+                {managementSystem.map(item => (
+                  <label key={item.id} className="containers text-heading xs regular-16">
+                    <p className="text-left">{item.name}</p>
+                    <input
+                      type="radio"
+                      checked={product === item.values}
+                      onChange={handleProductChange}
+                      name="product"
+                      value={item.values}
+                    />
+                    <span className="radios"></span>
+                    <div className="dividing"></div>
+                  </label>
+                ))}
+              </div>
+            )}
 
             {/* Menu Security Guard */}
             <label className="containers text-heading xs semibold-16">
@@ -541,46 +356,24 @@ export const FilterProduk = () => {
             <div className="dividing" />
 
             {/* Submenu Security */}
-            <div className={`pl-9 ${isSecurityDrop ? '' : 'hidden'}`}>
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Manpower SG</p>
-                <input
-                  type="radio"
-                  checked={product === 'manpowerSG'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="manpowerSG"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">ASMS</p>
-                <input
-                  type="radio"
-                  checked={product === 'asms'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="asms"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">SOI</p>
-                <input
-                  type="radio"
-                  checked={product === 'soi'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="soi"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-            </div>
+            {isSecurityDrop && (
+              <div className={`pl-9 transition-all duration-300`}>
+                {securityGuard.map(item => (
+                  <label key={item.id} className="containers text-heading xs regular-16">
+                    <p className="text-left">{item.name}</p>
+                    <input
+                      type="radio"
+                      checked={product === item.values}
+                      onChange={handleProductChange}
+                      name="product"
+                      value={item.values}
+                    />
+                    <span className="radios"></span>
+                    <div className="dividing"></div>
+                  </label>
+                ))}
+              </div>
+            )}
 
             {/* Menu Cleaning Service */}
             <label className="containers text-heading xs semibold-16">
@@ -605,46 +398,24 @@ export const FilterProduk = () => {
             <div className="dividing" />
 
             {/* Submenu Cleaning Service */}
-            <div className={`pl-9 ${isCleaningDrop ? '' : 'hidden'}`}>
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Manpower CS</p>
-                <input
-                  type="radio"
-                  checked={product === 'manpowerCS'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="manpowerCS"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Penilaian CS</p>
-                <input
-                  type="radio"
-                  checked={product === 'penilaianCS'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="penilaianCS"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-
-              <label className="containers text-heading xs regular-16">
-                <p className="text-left">Cleaning Service Guidance</p>
-                <input
-                  type="radio"
-                  checked={product === 'cleaningServiceGuidance'}
-                  onChange={handleProductChange}
-                  name="product"
-                  value="cleaningServiceGuidance"
-                />
-                <span className="radios" />
-                <div className="dividing" />
-              </label>
-            </div>
+            {isCleaningDrop && (
+              <div className={`pl-9 transition-all duration-300`}>
+                {cleaningService.map(item => (
+                  <label key={item.id} className="containers text-heading xs regular-16">
+                    <p className="text-left">{item.name}</p>
+                    <input
+                      type="radio"
+                      checked={product === item.values}
+                      onChange={handleProductChange}
+                      name="product"
+                      value={item.values}
+                    />
+                    <span className="radios"></span>
+                    <div className="dividing"></div>
+                  </label>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </Modal>

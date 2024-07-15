@@ -1,7 +1,10 @@
-import IconClose from '@assets/icons/IconClose'
+'use client'
+
 import { useState } from 'react'
-import { Modal } from '../ModalCustom'
+
+import IconClose from '@assets/icons/IconClose'
 import IconChevronBottom from '@assets/icons/IconChevronBottom'
+import { Modal } from '../ModalCustom'
 import './style.css'
 
 export const FilterLocation = () => {
@@ -20,7 +23,7 @@ export const FilterLocation = () => {
         className="w-full h-9 border border-[#D5D5D5] text-left py-2.5 px-3 rounded-3xl flex items-center space-x-4"
       >
         <div className={`flex-1 text-paragraph regular-14 `}>Semua Lokasi</div>
-        <IconChevronBottom></IconChevronBottom>
+        <IconChevronBottom />
       </button>
 
       <Modal isOpen={isOpen} isFloating={false} backdropClick={() => setIsOpen(false)}>
