@@ -1,3 +1,5 @@
+'use client'
+
 import IconClose from '@assets/icons/IconClose'
 import { useState } from 'react'
 import { Modal } from '../ModalCustom'

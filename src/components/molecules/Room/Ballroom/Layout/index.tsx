@@ -7,10 +7,8 @@ import { useForm, useWatch } from 'react-hook-form'
 import { useState } from 'react'
 
 // import './style.css';
-// import { SubmitLayout } from '@components/atoms/Room/SubmitLayout';
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
 import IconCloudDownload from '@assets/icons/IconCloudDownload'
-import IconCloudUpload from '@assets/icons/IconCloudUpload'
 import BannerBallroomLayout from '@assets/images/BannerBallroomLayout.png'
 import IconCalendar from '@assets/icons/IconCalendar'
 import IconTime from '@assets/icons/IconTime'
@@ -21,6 +19,7 @@ import { monthsData } from '@components/atoms/DateRangeInput/data'
 import { TimeRangeInputCustom } from '@components/atoms/TimeRangeInput'
 import { DateInput } from '@interfaces/date-input'
 import { TimeInput } from '@interfaces/time-input'
+import FileInput from '@components/atoms/FileInput'
 
 export function LayoutUpload() {
   const router = useRouter()
@@ -85,6 +84,12 @@ export function LayoutUpload() {
     return 'Pilih Jam'
   }
 
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
+
+  const handleFileChange = (file: File) => {
+    setSelectedFile(file)
+  }
+
   return (
     <div className="relative">
       <Image
@@ -119,15 +124,23 @@ export function LayoutUpload() {
           <div>
             <p className="text-paragraph regular-14 mb-2">Upload layout Anda dengan file PDF</p>
 
-            <button
-              className="flex gap-1 items-center justify-center bg-[#fafafa] hover:bg-[#d1e9f9] text-[#626262] text-paragraph regular-14 py-2 px-4 rounded-md shadow-md w-full border-dashed border border-[#0072BB] mb-6 h-[45px]"
-              type="button"
-            >
-              <div className="mr-2">
-                <IconCloudUpload />
-              </div>
-              Klik <span className="text-[#0089CF] text-paragraph semibold-14 ">di sini</span> untuk pilih file
-            </button>
+            {/* <button
+							className='flex gap-1 items-center justify-center bg-[#fafafa] hover:bg-[#d1e9f9] text-[#626262] text-paragraph regular-14 py-2 px-4 rounded-md shadow-md w-full border-dashed border border-[#0072BB] mb-6 h-[45px]'
+							type='button'
+						>
+							<div className='mr-2'>
+								<IconCloudUpload />
+							</div>
+							Klik{' '}
+							<span className='text-[#0089CF] text-paragraph semibold-14 '>
+								di sini
+							</span>{' '}
+							untuk pilih file
+						</button> */}
+
+            <div>
+              <FileInput onChangeFile={handleFileChange} value={selectedFile} />
+            </div>
           </div>
 
           <div className="grid grid-cols-1 gap-6 mt-2">
