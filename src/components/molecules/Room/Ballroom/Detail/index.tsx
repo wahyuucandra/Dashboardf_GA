@@ -1,6 +1,6 @@
 'use client'
 
-import { RoomBannerImage, RoomDescription, RoomFacility, RoomTerms, RoomBooking } from '@components/atoms/Room'
+import { RoomBannerImage, RoomDescription, RoomFacility, RoomTerms, BookingBallroom } from '@components/atoms/Room'
 
 import Link from 'next/link'
 import { photos, room } from './data'
@@ -32,7 +32,7 @@ export function BallroomDetail() {
           <RoomTerms room={room}></RoomTerms>
         </div>
       </div>
-      <RoomBooking></RoomBooking>
+      <BookingBallroom></BookingBallroom>
     </>
   )
 }

@@ -1,6 +1,9 @@
+import IconCloudUpload from '@assets/icons/IconCloudUpload'
+import IconEdit from '@assets/icons/IconEdit'
 import { joinClass } from '@utils/common'
-import React, { ChangeEvent, ComponentPropsWithRef, FC, forwardRef, useEffect, useState } from 'react'
+import React, { ChangeEvent, ComponentPropsWithRef, FC, forwardRef, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
+import IconDelete from '../../../assets/icons/IconDelete'
 
 export interface FileInputProps extends ComponentPropsWithRef<'input'> {
   isLoading?: boolean
@@ -13,8 +16,9 @@ export interface FileInputProps extends ComponentPropsWithRef<'input'> {
 }
 
 const FileInput: FC<FileInputProps> = forwardRef(
-  ({ className, isDisabled, isInvalid, labels = '', onChangeFile = () => {}, ...props }, ref) => {
-    const [selectedImage, setSelectedImage] = useState<string | undefined>('')
+  ({ className, isDisabled, isInvalid, labels = '', onChangeFile = () => {}, ...props }) => {
+    const [selectedDocument, setSelectedDocument] = useState<string | undefined>('')
+    const fileInputRef = useRef<HTMLInputElement>(null)
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0]
@@ -26,23 +30,38 @@ const FileInput: FC<FileInputProps> = forwardRef(
         }
 
         onChangeFile(file)
-        setSelectedImage(file.name)
+        setSelectedDocument(file.name)
+      }
+    }
+
+    const handleFileReset = () => {
+      onChangeFile(null as any)
+      setSelectedDocument('')
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '' // Clear the input value
       }
     }
 
     useEffect(() => {
-      setSelectedImage(props?.value?.name || '')
+      setSelectedDocument(props?.value?.name || '')
     }, [props.value])
+
+    const displayDocumentName = (name: string) => {
+      if (name.length > 45) {
+        return name.substring(0, 42) + '...'
+      }
+      return name
+    }
 
     return (
       <>
         <div className={joinClass('relative', className)}>
           <input
             type="file"
-            ref={ref}
+            ref={fileInputRef}
             disabled={isDisabled}
             className={joinClass(
-              'file-input file-input-bordered w-full file-input-md',
+              'flex items-center justify-center bg-[#fafafa] text-[#626262] text-paragraph regular-14 py-2 px-4 rounded-md shadow-md w-full border-dashed border border-[#0072BB] mb-6 h-[45px]',
               isInvalid ? 'file-input-error' : ''
             )}
             onChange={handleFileChange}
@@ -50,14 +69,50 @@ const FileInput: FC<FileInputProps> = forwardRef(
             accept="application/pdf"
             onBlur={props.onBlur}
           />
-          <div className="absolute inset-0 flex items-center pl-[136px] pointer-events-none">
+          <div className="absolute inset-0 flex items-center pointer-events-none h-[45px]">
             <p
-              className={joinClass('text-sm w-[calc(100%-2px)] line-clamp-2', isDisabled ? 'bg-[#ededed]' : 'bg-white')}
+              className={joinClass(
+                `items-center flex mx-2 line-clamp-2 justify-center h-[calc(100%-8px)] bg-[#fafafa] text-left ${
+                  selectedDocument ? 'w-[calc(100%-8px)] pr-10' : 'w-[calc(100%-8px)]'
+                }`,
+                isDisabled ? 'bg-[#ededed]' : 'bg-[#fafafa] hover:bg-[#d1e9f9]'
+              )}
             >
-              {selectedImage ?? 'No file chosen'}
+              {selectedDocument ? (
+                <span className="text-paragraph regular-14 text-[#626262] text-left">
+                  {displayDocumentName(selectedDocument)}
+                </span>
+              ) : (
+                <div className="flex items-center justify-center">
+                  <div className="mr-2">
+                    <IconCloudUpload />
+                  </div>
+                  <p className="flex gap-1 items-center justify-center text-paragraph regular-14 text-[#626262] py-2">
+                    Klik <span className="text-[#0089CF] text-paragraph semibold-14"> di sini</span> untuk pilih file
+                  </p>
+                </div>
+              )}
             </p>
           </div>
         </div>
+        {selectedDocument ? (
+          <div className="flex items-center absolute top-[140px] right-0 mx-2 gap-2 z-[999]">
+            <button
+              className="relative flex"
+              type="button"
+              onClick={() => {
+                if (fileInputRef.current) {
+                  fileInputRef.current.click()
+                }
+              }}
+            >
+              <IconEdit />
+            </button>
+            <button className="relative flex" type="button" onClick={handleFileReset}>
+              <IconDelete />
+            </button>
+          </div>
+        ) : null}
         {labels ? (
           <label className="label">
             <span className="label-text-alt w-[calc(100%-2px)]">{labels}</span>

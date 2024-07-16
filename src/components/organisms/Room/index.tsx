@@ -8,6 +8,7 @@ import { BallroomListPage } from './Ballroom/List/index'
 import { KaraokeSchedulePage } from './Karaoke/Schedule/index'
 import { KaraokeSuccessPage } from './Karaoke/Success/index'
 import { BallroomDetailPage } from './Ballroom/Detail/index'
+import { BallroomLayoutPage } from './Ballroom/Layout/index'
 
 export {
   RoomMenuPage,
@@ -20,4 +21,5 @@ export {
   KaraokeSchedulePage,
   KaraokeSuccessPage,
   BallroomDetailPage,
+  BallroomLayoutPage,
 }
