@@ -4,6 +4,6 @@ export const metadata = {
   title: 'Ballroom Detail',
 }
 
-export default function MeetingRoomDetail() {
+export default function BallroomDetails() {
   return <BallroomDetailPage></BallroomDetailPage>
 }
