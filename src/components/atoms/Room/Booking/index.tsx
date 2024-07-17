@@ -66,7 +66,7 @@ export function Booking() {
 
   return (
     <>
-      <div className="fixed z-[101] bg-white bottom-0 left-0 w-full border border-t-[#F6F6F6] shadow-[2px_4px_12px_0_rgba(0,0,0,0.1)] px-6 py-4">
+      <div className="fixed z-[101] bg-white bottom-0 w-full max-container border border-t-[#F6F6F6] shadow-[2px_4px_12px_0_rgba(0,0,0,0.1)] px-6 py-4">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="text-heading xs semibold-16 text-[#101010] mb-4">Reservation Date</div>
           <div className="text-room-detail badge-time text-[#0089CF] flex items-center space-x-3 mb-4">

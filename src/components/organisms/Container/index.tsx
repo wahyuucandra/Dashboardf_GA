@@ -3,10 +3,10 @@ import Navigation from '@components/molecules/Navigation'
 
 export default function Container({ children }: { readonly children: React.ReactNode }) {
   return (
-    <section className="bg-[#FFFFFF] h-screen w-screen">
-      <div className="flex flex-row h-[92vh]">
+    <section className="bg-[#FFFFFF] h-screen">
+      <div className="flex flex-row justify-center h-[92vh]">
         {/* <Menu /> */}
-        <div className="flex-1 ">{children}</div>
+        <div className="flex-1 max-container">{children}</div>
       </div>
       <Navigation />
     </section>

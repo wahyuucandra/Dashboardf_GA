@@ -31,7 +31,7 @@ export function Modal({
         className={`${
           isFloating ? '' : 'hidden'
         } z-[1000] h-1/2 duration-300 transition-transform fixed bottom-0 w-full max-container flex items-center justify-center ${
-          isOpen ? '-translate-y-[55%]' : 'translate-y-full'
+          isOpen ? '-translate-y-[55%]' : 'translate-y-[500%]'
         }`}
       >
         <div onKeyDown={() => {}} onClick={e => e.stopPropagation()}>
