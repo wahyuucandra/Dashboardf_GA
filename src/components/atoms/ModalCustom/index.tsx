@@ -21,7 +21,7 @@ export function Modal({
         onClick={() => backdropClick()}
         className={`${
           !backdropDismiss || !isOpen ? 'hidden' : ''
-        } z-[999] fixed top-0 left-0 h-screen w-screen bg-gray-950 opacity-40`}
+        } z-[999] fixed top-0 h-screen w-full max-container bg-gray-950 opacity-40`}
       ></div>
       <div
         onKeyDown={() => {}}
@@ -30,8 +30,8 @@ export function Modal({
         }}
         className={`${
           isFloating ? '' : 'hidden'
-        } z-[1000] h-1/2 duration-300 transition-transform fixed bottom-0 left-0 right-0 w-full flex items-center justify-center ${
-          isOpen ? '-translate-y-1/2' : 'translate-y-full'
+        } z-[1000] h-1/2 duration-300 transition-transform fixed bottom-0 w-full max-container flex items-center justify-center ${
+          isOpen ? '-translate-y-[55%]' : 'translate-y-[500%]'
         }`}
       >
         <div onKeyDown={() => {}} onClick={e => e.stopPropagation()}>

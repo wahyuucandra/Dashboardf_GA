@@ -14,12 +14,12 @@ export default function Navigation() {
   }
 
   return (
-    <>
-      <div className="md:hidden bg-primary fixed z-[100] bottom-0 left-0 w-screen shadow-[0px_0px_20px_0px_#00000024] px-4 py-2 grid grid-cols-4">
-        {MENU_HEADER.map((item, index) => (
-          <MenuNav key={item.id} item={item} index={index} />
-        ))}
+      <div className="md:hidden fixed z-[100] bottom-0 left-0 flex justify-center w-full">
+        <div className='max-container mx-auto shadow-[0px_0px_20px_0px_#00000024] px-4 py-2 grid grid-cols-4 bg-primary'>
+          {MENU_HEADER.map((item, index) => (
+            <MenuNav key={item.id} item={item} index={index} />
+          ))}
+        </div>
       </div>
-    </>
   )
 }
