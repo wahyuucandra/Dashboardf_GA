@@ -1,7 +1,12 @@
-import IconClose from '@assets/icons/IconClose'
+'use client'
+
+'use client'
+
 import { useState } from 'react'
-import { Modal } from '../ModalCustom'
+
+import IconClose from '@assets/icons/IconClose'
 import IconChevronBottom from '@assets/icons/IconChevronBottom'
+import { Modal } from '../ModalCustom'
 import './style.css'
 
 export const FilterLocation = () => {
@@ -20,7 +25,7 @@ export const FilterLocation = () => {
         className="w-full h-9 border border-[#D5D5D5] text-left py-2.5 px-3 rounded-3xl flex items-center space-x-4"
       >
         <div className={`flex-1 text-paragraph regular-14 `}>Semua Lokasi</div>
-        <IconChevronBottom></IconChevronBottom>
+        <IconChevronBottom />
       </button>
 
       <Modal isOpen={isOpen} isFloating={false} backdropClick={() => setIsOpen(false)}>
@@ -44,8 +49,8 @@ export const FilterLocation = () => {
             <div className="divider"></div>
           </div>
           <div>
-            <label className="container text-heading xs semibold-16">
-              Semua Lokasi{' '}
+            <label className="containers text-heading xs semibold-16">
+              <p className="text-left">Semua Lokasi</p>
               <input
                 type="radio"
                 checked={location === 'all'}
@@ -53,12 +58,12 @@ export const FilterLocation = () => {
                 name="location"
                 value="all"
               />
-              <span className="radio"></span>
+              <span className="radios"></span>
             </label>
             <div className="divider"></div>
 
-            <label className="container text-heading xs semibold-16">
-              ACC HO{' '}
+            <label className="containers text-heading xs semibold-16">
+              <p className="text-left">ACC HO</p>
               <input
                 type="radio"
                 checked={location === 'HO'}
@@ -66,12 +71,12 @@ export const FilterLocation = () => {
                 name="location"
                 value="HO"
               />
-              <span className="radio"></span>
+              <span className="radios"></span>
             </label>
             <div className="divider"></div>
 
-            <label className="container text-heading xs semibold-16">
-              Berijalan{' '}
+            <label className="containers text-heading xs semibold-16">
+              <p className="text-left">Berijalan</p>
               <input
                 type="radio"
                 checked={location === 'Berijalan'}
@@ -79,7 +84,7 @@ export const FilterLocation = () => {
                 name="location"
                 value="Berijalan"
               />
-              <span className="radio"></span>
+              <span className="radios"></span>
             </label>
           </div>
         </div>
