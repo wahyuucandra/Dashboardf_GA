@@ -20,3 +20,8 @@ export interface ResetPasswordCredentials {
   password: string
   confPassword: string
 }
+
+export interface OTPCredential {
+  email: string
+  otp: number
+}

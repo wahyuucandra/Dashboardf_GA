@@ -1,8 +1,8 @@
-import { APIKey } from '@utils/environment'
-import axios from 'axios'
+import { API } from '@utils/common/constants'
+import axios, { AxiosError } from 'axios'
 
 const satellite = axios.create({
-  baseURL: APIKey,
+  baseURL: API,
   timeout: 5000, // in millisecond
   headers: {
     'Content-Type': 'application/json',
@@ -16,6 +16,15 @@ satellite.interceptors.response.use(
   },
   function (error) {
     return Promise.reject(error)
+  }
+)
+
+satellite.interceptors.response.use(
+  response => {
+    return response.data
+  },
+  (error: Error | AxiosError) => {
+    return Promise.reject(error as AxiosError)
   }
 )
 

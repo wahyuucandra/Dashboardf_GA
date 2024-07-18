@@ -2,15 +2,20 @@
 
 import * as Yup from 'yup'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { toast } from 'react-toastify'
 
 import { LoginCredentials } from '@interfaces/auth'
 import { Button } from '@components/atoms/button'
 import { useRouter } from 'next/navigation'
 import { IconLogo } from '@components/atoms/Icon'
 import TextForm from '@components/atoms/Form/TextForm'
+import satellite from '@services/satellite'
+import { postLoginAPI } from '@services/api/apiLogin'
+import { setItem } from '@store/storage'
+// import { encryptAES } from '@utils/helper/CryptoJS'
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -23,31 +28,69 @@ export default function LoginPage() {
   const router = useRouter()
 
   const [isLoading, setIsLoading] = useState(false)
-  const [passwords] = useState('password')
 
-  const { handleSubmit, getValues, setError, control } = useForm<LoginCredentials>({
+  const { handleSubmit, getValues, control } = useForm<LoginCredentials>({
     resolver: yupResolver(schema),
     mode: 'all',
   })
 
-  const onSubmit = () => {
+  useEffect(() => {
+    delete satellite.defaults?.headers?.common?.Authorization
+  }, [])
+
+  const onSubmit = async () => {
     setIsLoading(true)
 
     const formValues = getValues()
 
-    if (formValues && formValues.password !== passwords) {
-      setError('password', { type: 'custom', message: 'Kata sandi yang Anda masukkan salah' })
-      setIsLoading(false)
-    } else {
-      setTimeout(() => {
+    const dataLogin = {
+      email: formValues.email,
+      password: formValues.password,
+    }
+
+    // console.log('Data Login:', dataLogin) // Log dataLogin untuk memastikan data sudah benar
+
+    try {
+      const resss : any = await postLoginAPI(dataLogin)
+      // console.log('API Response:', resss) // Log response dari API
+
+      if (resss.status === 'T') {
+        setItem('noHP_user', resss.data)
+
+        const expirationTime = Date.now()
+        sessionStorage.setItem('tokenExpiration', expirationTime.toString())
         setIsLoading(false)
         router.push('/login/otp')
-      }, 1000)
+        window.location.reload()
+      } else {
+        setIsLoading(false)
+        toast.error(resss.res)
+      }
+    } catch (error) {
+      // console.error('Error during login:', error) // Log error jika ada masalah dengan API call
+      setIsLoading(false)
+      toast.error('Login failed, please try again.')
     }
   }
 
+  // const onSubmit = () => {
+  //   setIsLoading(true)
+
+  //   const formValues = getValues()
+  //   console.log(formValues)
+
+  //   if (formValues && formValues.password !== passwords) {
+  //     setError('password', { type: 'custom', message: 'Kata sandi yang Anda masukkan salah' })
+  //     setIsLoading(false)
+  //   } else {
+  //     setTimeout(() => {
+  //       setIsLoading(false)
+  //       router.push('/login/otp')
+  //     }, 1000)
+  //   }
+  // }
+
   return (
-    // Test
     <div className="flex flex-col items-center mt-5">
       <div className="w-full max-w-md px-12">
         <div className="flex justify-center">
