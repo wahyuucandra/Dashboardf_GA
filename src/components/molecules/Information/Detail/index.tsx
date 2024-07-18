@@ -10,7 +10,7 @@ export function Detail() {
   return (
     <>
       <Header prevLink="/informations" title="Detail Informasi" key={'header'}></Header>
-      <div className="pt-16 h-screen">
+      <div className="pt-16 h-screen bg-[#FFFFFF]">
         <Image
           width={0}
           height={0}

@@ -44,16 +44,20 @@ export function BannerCarousel() {
   }, [])
 
   return (
-    <div className="w-screen">
+    <div className="bg-[#FFFFFF]">
       <div ref={carouselRef} className={`whitespace-nowrap overflow-x-auto transition-all duration-300`}>
         {banners.map((val, index) => {
           return (
-            <Link key={val.alt} href={`/informations/banner${index}`} className="w-screen h-[198px] inline-block">
+            <Link
+              key={val.alt}
+              href={`/informations/banner${index}`}
+              className="w-full max-container h-[198px] inline-block"
+            >
               <Image
                 key={val.alt}
                 width={0}
                 height={0}
-                sizes="100vw"
+                sizes="100"
                 className="w-full h-full object-cover"
                 src={val.src}
                 alt={val.alt}

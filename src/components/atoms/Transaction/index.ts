@@ -1,5 +1,6 @@
-import { AssetSuccessCard } from './Cards/AssetSuccessCard'
-import { AssetFailedCard } from './Cards/AssetFailedCard'
-import { AssetReturnCard } from './Cards/AssetReturnCard'
+import { AssetCard } from './Cards/AssetCard'
+import { ManpowerCard } from './Cards/ManpowerCard'
+import { RoomCard } from './Cards/RoomCard'
+import { VehicleCard } from './Cards/VehicleCard'
 
-export { AssetSuccessCard, AssetFailedCard, AssetReturnCard }
+export { AssetCard, ManpowerCard, RoomCard, VehicleCard }

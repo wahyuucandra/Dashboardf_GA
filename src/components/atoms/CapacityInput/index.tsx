@@ -56,7 +56,7 @@ const CapacityInput: React.FC<CapacityInputProps> = ({
       >
         <div className="h-[120px] w-full bg-[#FFFFFF] p-3 mt-2 border border-[#D5D5D5] rounded-md overflow-y-scroll">
           {data?.map((val, index) => (
-            <span
+            <div
               onKeyDown={() => {}}
               key={val}
               onClick={() => {
@@ -66,7 +66,7 @@ const CapacityInput: React.FC<CapacityInputProps> = ({
               className={`text-heading xs regular-16 text-[#333333]  ${data?.length - 1 != index ? 'mb-3' : ''}`}
             >
               {val} kursi
-            </span>
+            </div>
           ))}
         </div>
       </div>

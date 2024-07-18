@@ -82,7 +82,7 @@ export function List() {
             Ubah
           </button>
         </div>
-        <div className="w-screen whitespace-nowrap overflow-x-auto mb-6 px-6 -mx-6">
+        <div className="w-full max-container whitespace-nowrap overflow-x-auto mb-6 -pr-6">
           {roomTypes?.map(val => (
             <div
               onKeyDown={() => {}}
@@ -94,7 +94,7 @@ export function List() {
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-4 pb-20">
           {rooms?.map(room => (
             <Link
               key={room.id}

@@ -3,8 +3,15 @@
 import IconAsset from '@assets/icons/IconAsset'
 import IconDotsVertical from '@assets/icons/IconDotsVertical'
 import './style.css'
+import { AssetStatus, AssetStatusClassEnum } from '@interfaces/asset-enum'
 
-export function AssetSuccessCard() {
+export function AssetCard({ status, onButtonClicked }: { status: AssetStatus; onButtonClicked?: () => void }) {
+  const enums = new AssetStatusClassEnum()
+
+  // const handleBadgeColor = (statusVal: AssetStatus) => {
+  //   console.log(enums?.find(statusVal)?.badgeClass)
+  //   return enums?.find(statusVal)?.badgeClass
+  // }
   return (
     <div className={`rounded-xl overflow-hidden border border-[#D5D5D5]`}>
       {/* Item Vehicle */}
@@ -15,16 +22,21 @@ export function AssetSuccessCard() {
             <div className="text-paragraph regular-14 text-[#909090]">14 Mei 2024</div>
           </div>
           <div className="text-right">
-            <div className="inline text-extra-small semibold-12 bg-[#D3FED7] text-[#4EC558] px-2 py-[1.5px] rounded">
-              Berhasil
+            <div className={`${enums?.find(status)?.badgeClass}`}>{enums.find(status)?.text}</div>
+            <div
+              className={`${status === AssetStatus.RETURN ? '' : 'hidden'} mt-1 text-extra-small regular-12 text-[#909090]`}
+            >
+              Pengembalian 19 Okt, 18:00
             </div>
-            <div className="mt-1 text-extra-small regular-12 text-[#909090]">Ambil Barang 19 Okt, 18:00</div>
+            <div
+              className={`${status === AssetStatus.SUCCESS ? '' : 'hidden'} mt-1 text-extra-small regular-12 text-[#909090]`}
+            >
+              Ambil Barang pada tanggal 31 Des
+            </div>
           </div>
-          <div className="flex-shrink-0">
-            <button>
-              <IconDotsVertical></IconDotsVertical>
-            </button>
-          </div>
+          <button onClick={onButtonClicked}>
+            <IconDotsVertical></IconDotsVertical>
+          </button>
         </div>
 
         <hr className="my-3 border-b border-[#E6E5E6]" />
@@ -37,7 +49,7 @@ export function AssetSuccessCard() {
             <div className="text-extra-small regular-12 text-[#909090]">Proyektor</div>
             <div className="text-extra-small regular-12 text-[#909090]">Kamera</div>
             <div className="text-extra-small regular-12 text-[#909090]">Kabel HDMI</div>
-            <div className="text-extra-small regular-12 text-[#909090]">More 4 items</div>
+            <div className="text-extra-small regular-12 text-[#909090]">More 4 items*</div>
           </div>
         </div>
       </div>

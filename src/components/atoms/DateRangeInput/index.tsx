@@ -184,7 +184,7 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({ value, maxRange 
       </button>
 
       <Modal isOpen={isOpen} isFloating={false} backdropClick={() => setIsOpen(false)}>
-        <div className="w-screen h-4/5 bg-white relative px-4 py-6 text-center rounded-xl">
+        <div className="w-screen max-container h-3/5 bg-white relative px-4 py-6 text-center rounded-xl">
           <div className="pb-6">
             <div className="flex items-center space-x-4 mb-6">
               <button onClick={() => setIsOpen(false)}>
@@ -388,7 +388,7 @@ export const DateRangeInputCustom: React.FC<DateRangeInputCustomProps> = ({
 
   return (
     <Modal isOpen={isOpen} isFloating={false} backdropClick={onCloseClick}>
-      <div className="w-screen h-4/5 bg-white relative px-4 py-6 text-center rounded-xl">
+      <div className="w-screen max-container h-4/5 bg-white relative px-4 py-6 text-center rounded-xl">
         <div className="pb-6">
           <div className="flex items-center space-x-4 mb-6">
             <button onClick={onCloseClick}>

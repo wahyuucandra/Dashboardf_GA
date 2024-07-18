@@ -13,19 +13,19 @@ export function BannerImage({ photos }: Readonly<{ photos: Photo[] }>) {
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-full bg-white">
+      <div className="fixed top-0 bg-white">
         <Image
           width={0}
           height={0}
           sizes="100"
-          className="object-cover w-full h-[188px] mb-0.5"
+          className="object-cover w-full max-container h-[188px] mb-0.5"
           onClick={() => setIsOpen(true)}
           onKeyDown={() => {}}
           src={photos[0].image}
           alt="Banner 1"
         />
 
-        <div className="grid grid-cols-3 gap-0.5">
+        <div className="grid grid-cols-3 gap-0.5 max-container">
           <Image
             width={0}
             height={0}
@@ -69,7 +69,7 @@ export function BannerImage({ photos }: Readonly<{ photos: Photo[] }>) {
       </div>
 
       <Modal isOpen={isOpen} isFloating={false} backdropClick={() => setIsOpen(false)}>
-        <div className="w-screen h-4/5 bg-[#1C2931] relative rounded-t-xl">
+        <div className="w-screen max-container h-4/5 bg-[#1C2931] relative rounded-t-xl">
           <div className="relative pt-4">
             <div className="flex text-center items-center justify-center">
               <div className="text-banner-image modal-title text-white">Photos</div>
@@ -101,7 +101,7 @@ export function BannerImage({ photos }: Readonly<{ photos: Photo[] }>) {
               </div>
             </div>
 
-            <div className="w-screen whitespace-nowrap overflow-x-auto pb-6">
+            <div className="whitespace-nowrap overflow-x-auto pb-6">
               {photos?.map((val, index) => (
                 <div onClick={() => setPhoto(val)} onKeyDown={() => {}} key={index} className={`inline-block pr-0.5`}>
                   <Image
