@@ -72,5 +72,5 @@
 }
 
 .max-container{
-	@apply max-w-[375px];
+	@apply max-w-full sm:max-w-[375px];
 }

@@ -48,7 +48,7 @@ export function BannerCarousel() {
       <div ref={carouselRef} className={`whitespace-nowrap overflow-x-auto transition-all duration-300`}>
         {banners.map((val, index) => {
           return (
-            <Link key={val.alt} href={`/informations/banner${index}`} className="w-[375px] h-[198px] inline-block">
+            <Link key={val.alt} href={`/informations/banner${index}`} className="w-full max-container h-[198px] inline-block">
               <Image
                 key={val.alt}
                 width={0}
