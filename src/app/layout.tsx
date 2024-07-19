@@ -1,9 +1,10 @@
 import '@assets/styles/globals.scss'
 import 'react-toastify/dist/ReactToastify.css'
 
+import Container from '@components/organisms/Container'
+import ContainerProvider from '@components/organisms/Provider'
 import type { Metadata, Viewport } from 'next'
 import { Source_Sans_3 } from 'next/font/google'
-import Container from '@components/organisms/Container'
 
 const inter = Source_Sans_3({ subsets: ['latin'] })
 export const viewport: Viewport = {
@@ -28,7 +29,9 @@ export default function RootLayout({ children }: { readonly children: React.Reac
   return (
     <html lang="en">
       <body className={`${inter.className} bg-grey-dark`}>
-        <Container>{children}</Container>
+        <ContainerProvider>
+          <Container>{children}</Container>
+        </ContainerProvider>
       </body>
     </html>
   )

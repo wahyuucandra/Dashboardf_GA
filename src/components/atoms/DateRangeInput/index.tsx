@@ -7,14 +7,23 @@ import { Modal } from '../ModalCustom'
 import { daysData, daysSplit, handleFetchDaysInMonth, monthsData } from './data'
 import './style.css'
 import IconCalendar from '@assets/icons/IconCalendar'
+import { Control, Controller } from 'react-hook-form'
 
 export interface DateRangeInputProps {
   maxRange?: number
   value?: { start: DateInput | undefined; end: DateInput | undefined }
   onButtonClick?: (val: { start: DateInput | undefined; end: DateInput | undefined } | undefined) => void | undefined
+  control: Control<any>
+  name?: string
 }
 
-export const DateRangeInput: React.FC<DateRangeInputProps> = ({ value, maxRange = 7, onButtonClick }) => {
+export const DateRangeInput: React.FC<DateRangeInputProps> = ({
+  value,
+  control,
+  maxRange = 7,
+  onButtonClick,
+  name = 'date',
+}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const daysInit: DateInput[] = handleFetchDaysInMonth(
@@ -172,22 +181,35 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({ value, maxRange 
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setIsOpen(true)}
-        className="w-full h-11 border border-[#D5D5D5] text-left py-2.5 px-3 rounded flex items-center space-x-4"
-      >
-        <IconCalendar></IconCalendar>
-        <div className={`flex-1 text-paragraph regular-14 -mb-1 ${handleActiveText(value)}`}>
-          {handleBindDate(value)}
-        </div>
-      </button>
+      <Controller
+        defaultValue={''}
+        control={control}
+        name={name}
+        render={({ formState: { errors } }) => (
+          <>
+            <button
+              type="button"
+              onClick={() => setIsOpen(true)}
+              className="w-full h-11 border border-[#D5D5D5] text-left py-2.5 px-3 rounded flex items-center space-x-4"
+            >
+              <IconCalendar></IconCalendar>
+              <div className={`flex-1 text-paragraph regular-14 -mb-1 ${handleActiveText(value)}`}>
+                {handleBindDate(value)}
+              </div>
+            </button>
+
+            {errors?.[name]?.message && (
+              <div className="text-xs text-error mt-1">{errors?.[name]?.message?.toString()}</div>
+            )}
+          </>
+        )}
+      />
 
       <Modal isOpen={isOpen} isFloating={false} backdropClick={() => setIsOpen(false)}>
         <div className="w-screen max-container h-3/5 bg-white relative px-4 py-6 text-center rounded-xl">
           <div className="pb-6">
             <div className="flex items-center space-x-4 mb-6">
-              <button onClick={() => setIsOpen(false)}>
+              <button type="button" onClick={() => setIsOpen(false)}>
                 <IconClose width={24} height={24} color="#252525"></IconClose>
               </button>
               <div className="text-heading s semibold-18">Pilih Tanggal</div>
@@ -195,6 +217,7 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({ value, maxRange 
 
             <div className="flex items-center justify-between space-x-3 mb-6">
               <button
+                type="button"
                 onClick={() => {
                   handlePrev()
                 }}
@@ -205,6 +228,7 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({ value, maxRange 
                 {handleFindMonth()?.text} {year}
               </div>
               <button
+                type="button"
                 onClick={() => {
                   handleNext()
                 }}
@@ -391,7 +415,7 @@ export const DateRangeInputCustom: React.FC<DateRangeInputCustomProps> = ({
       <div className="w-screen max-container h-4/5 bg-white relative px-4 py-6 text-center rounded-xl">
         <div className="pb-6">
           <div className="flex items-center space-x-4 mb-6">
-            <button onClick={onCloseClick}>
+            <button type="button" onClick={onCloseClick}>
               <IconClose width={24} height={24} color="#252525"></IconClose>
             </button>
             <div className="text-heading s semibold-18">Pilih Tanggal</div>
@@ -399,6 +423,7 @@ export const DateRangeInputCustom: React.FC<DateRangeInputCustomProps> = ({
 
           <div className="flex items-center justify-between space-x-3 mb-6">
             <button
+              type="button"
               onClick={() => {
                 handlePrev()
               }}
@@ -409,6 +434,7 @@ export const DateRangeInputCustom: React.FC<DateRangeInputCustomProps> = ({
               {handleFindMonth()?.text} {year}
             </div>
             <button
+              type="button"
               onClick={() => {
                 handleNext()
               }}

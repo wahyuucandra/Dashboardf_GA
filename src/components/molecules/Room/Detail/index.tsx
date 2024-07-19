@@ -24,7 +24,7 @@ export function Detail() {
           </Link>
         </div>
 
-        <div className="px-6 pt-[290px] overflow-y-auto pb-[400px]">
+        <div className="px-6 py-[290px] overflow-y-auto">
           <RoomDescription room={room}></RoomDescription>
           <br />
           <RoomFacility room={room} onButtonClick={handleShowMoreFacility}></RoomFacility>

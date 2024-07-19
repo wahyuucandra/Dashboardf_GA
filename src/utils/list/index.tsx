@@ -9,7 +9,7 @@ const MENU_HEADER = [
     name: 'Home',
     href: '/',
     icon: 'IconHomeFill',
-    submenu: ['/booking-asset', '/room', '/schedule', '/schedule-room'],
+    submenu: ['/booking-asset', '/room', '/schedule', '/schedule-room', '/meeting-room'],
   },
   {
     id: 'Notification-02',

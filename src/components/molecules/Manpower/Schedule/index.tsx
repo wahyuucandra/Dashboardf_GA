@@ -109,6 +109,7 @@ export function Schedule() {
               Pilih tanggal <span className="text-[#E15241]">*</span>
             </div>
             <DateRangeInput
+              control={control}
               value={date}
               onButtonClick={val => {
                 setValue('date', val)
@@ -122,6 +123,7 @@ export function Schedule() {
               Jam <span className="text-[#E15241]">*</span>
             </div>
             <TimeRangeInput
+              control={control}
               value={time}
               onButtonClick={val => {
                 setValue('time', val)
@@ -135,6 +137,7 @@ export function Schedule() {
               Keperluan <span className="text-[#E15241]">*</span>
             </div>
             <ReasonInputArea
+              control={control}
               value={reason}
               onChangeInput={val => {
                 setValue('reason', val)
@@ -149,6 +152,8 @@ export function Schedule() {
             </div>
 
             <CapacityInput
+              name="manpower"
+              control={control}
               data={[1, 2, 3, 4, 5]}
               value={manpower}
               onButtonClick={val => {

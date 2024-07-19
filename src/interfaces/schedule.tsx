@@ -2,10 +2,10 @@ import { DateInput } from './date-input'
 import { TimeInput } from './time-input'
 
 export interface ScheduleForm {
-  date: { start: DateInput | undefined; end: DateInput | undefined } | undefined
-  time: { start: TimeInput | undefined; end: TimeInput | undefined } | undefined
-  capacity: number | undefined
-  reason: string | undefined
+  date: { start: DateInput; end: DateInput }
+  time: { start: TimeInput; end: TimeInput }
+  capacity: number
+  reason: string
 }
 
 export const DefaulScheduleForm = {

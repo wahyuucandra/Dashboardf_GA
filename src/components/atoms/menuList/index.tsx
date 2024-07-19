@@ -34,6 +34,9 @@ export function MenuList({ item, index }: Readonly<ListInterface>) {
 
 export function MenuNav({ item, index }: Readonly<ListInterface>) {
   const pathname = usePathname()
+  const pathSplit = pathname.split('/')
+  const lastPath = '/' + pathSplit[pathSplit?.length - 1]
+
   const ListMenu = ICON_MENU[item.icon as keyof typeof ICON_MENU]
 
   const [isHovering, setIsHovering] = useState(false)
@@ -45,18 +48,14 @@ export function MenuNav({ item, index }: Readonly<ListInterface>) {
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
           className={`${
-            pathname === item.href || item?.submenu?.join('')?.includes(pathname)
+            pathname === item.href || item?.submenu?.includes(lastPath)
               ? ' rounded-lg text-[#2C598D] font-semibold'
               : 'text-teksBlack'
           } text-sm my-1 py-2 px-3 hover:rounded-lg hover:text-[#2C598D] flex flex-col justify-center items-center`}
         >
           <div className="mb-2">
             <ListMenu
-              color={
-                pathname === item.href || item?.submenu?.join('')?.includes(pathname) || isHovering
-                  ? '#2C598D'
-                  : '#0A0A0A'
-              }
+              color={pathname === item.href || item?.submenu?.includes(lastPath) || isHovering ? '#2C598D' : '#0A0A0A'}
             />
           </div>
           {item.name}
