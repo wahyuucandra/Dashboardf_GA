@@ -6,7 +6,7 @@ import Image from 'next/image'
 import './style.css'
 import { VehicleStatus, VehicleStatusClassEnum } from '@interfaces/vehicle-enum'
 
-export function VehicleCard({ status }: { status: VehicleStatus }) {
+export function VehicleCard({ status, onButtonClicked }: { status: VehicleStatus; onButtonClicked?: () => void }) {
   const enums = new VehicleStatusClassEnum()
 
   return (
@@ -36,7 +36,7 @@ export function VehicleCard({ status }: { status: VehicleStatus }) {
               Ambil Barang pada tanggal 31 Des
             </div>
           </div>
-          <button>
+          <button onClick={onButtonClicked}>
             <IconDotsVertical></IconDotsVertical>
           </button>
         </div>

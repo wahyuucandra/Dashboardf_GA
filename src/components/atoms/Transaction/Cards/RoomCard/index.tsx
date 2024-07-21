@@ -6,7 +6,7 @@ import Image from 'next/image'
 import './style.css'
 import { RoomStatus, RoomStatusClassEnum } from '@interfaces/room-enum'
 
-export function RoomCard({ status }: { status: RoomStatus }) {
+export function RoomCard({ status, onButtonClicked }: { status: RoomStatus; onButtonClicked?: () => void }) {
   const enums = new RoomStatusClassEnum()
 
   return (
@@ -21,7 +21,7 @@ export function RoomCard({ status }: { status: RoomStatus }) {
           <div className="text-right">
             <div className={enums.find(status)?.badgeClass}>{enums.find(status)?.text}</div>
           </div>
-          <button>
+          <button onClick={onButtonClicked}>
             <IconDotsVertical></IconDotsVertical>
           </button>
         </div>

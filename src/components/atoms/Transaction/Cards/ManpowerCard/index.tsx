@@ -5,7 +5,7 @@ import IconManpowerCleaning from '@assets/icons/IconManpowerCleaning'
 import './style.css'
 import { ManpowerStatus, ManpowerStatusClassEnum } from '@interfaces/manpower-enum'
 
-export function ManpowerCard({ status }: { status: ManpowerStatus }) {
+export function ManpowerCard({ status, onButtonClicked }: { status: ManpowerStatus; onButtonClicked?: () => void }) {
   const enums = new ManpowerStatusClassEnum()
 
   return (
@@ -20,7 +20,7 @@ export function ManpowerCard({ status }: { status: ManpowerStatus }) {
           <div className="text-right">
             <div className={enums.find(status)?.badgeClass}>{enums.find(status)?.text}</div>
           </div>
-          <button>
+          <button onClick={onButtonClicked}>
             <IconDotsVertical></IconDotsVertical>
           </button>
         </div>

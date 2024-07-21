@@ -18,6 +18,9 @@ export function List() {
   const filterTypes = ['Semua Status', 'Semua Produk', 'Semua Tanggal']
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isRescheduleModalOpen, setIsRescheduleModalOpen] = useState<boolean>(false)
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState<boolean>(false)
+
   return (
     <>
       <Header prevLink="/booking-asset" title="Booking Transaction" key={'header'}></Header>
@@ -109,6 +112,7 @@ export function List() {
             <button
               onClick={() => {
                 setIsOpen(false)
+                setIsCancelModalOpen(true)
               }}
               type="button"
               className={`h-11 w-full py-2.5 text-heading xs semibold-16 rounded-lg flex items-center space-x-4`}
@@ -122,12 +126,69 @@ export function List() {
             <button
               onClick={() => {
                 setIsOpen(false)
+                setIsRescheduleModalOpen(true)
               }}
               type="button"
               className={`h-11 w-full py-2.5 text-heading xs semibold-16 rounded-lg flex items-center space-x-4`}
             >
               <IconRevision></IconRevision>
               <span>Revisi Schedule</span>
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal isOpen={isRescheduleModalOpen} backdropClick={() => setIsRescheduleModalOpen(!isRescheduleModalOpen)}>
+        <div className="max-w-[350px] bg-white relative px-6 pb-6 pt-8 text-center rounded-xl">
+          <div className="text-heading s semibold-18 text-[#252525] mb-1">Yakin ingin reschedule?</div>
+          <div className="text-paragraph regular-14 text-[#909090] mb-8 px-3">Konfirmasi reschedule</div>
+
+          <div className="grid grid-cols-2 gap-2 justify-items-center">
+            <button
+              onClick={() => {
+                setIsRescheduleModalOpen(false)
+              }}
+              type="button"
+              className="exit-button w-full text-center text-[#00376A] rounded-md overflow-hidden h-11"
+            >
+              <div className="py-2.5 px-6 text-heading xs semibold-16">Kembali</div>
+            </button>
+            <button
+              onClick={() => {
+                setIsRescheduleModalOpen(false)
+              }}
+              type="button"
+              className="cancel-button whitespace-nowrap w-full text-center text-white rounded-xl overflow-hidden h-11"
+            >
+              <div className="py-2.5 px-6 text-heading xs semibold-16">Ya, Reschedule</div>
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal isOpen={isCancelModalOpen} backdropClick={() => setIsCancelModalOpen(!isCancelModalOpen)}>
+        <div className="max-w-[350px] bg-white relative px-6 pb-6 pt-8 text-center rounded-xl">
+          <div className="text-heading s semibold-18 text-[#252525] mb-1">Yakin ingin batalkan transaksi?</div>
+          <div className="text-paragraph regular-14 text-[#909090] mb-8 px-3">Konfirmasi pembatalan pengajuan</div>
+
+          <div className="grid grid-cols-2 gap-2 justify-items-center">
+            <button
+              onClick={() => {
+                setIsCancelModalOpen(false)
+              }}
+              type="button"
+              className="exit-button w-full text-center text-[#00376A] rounded-md overflow-hidden h-11"
+            >
+              <div className="py-2.5 px-6 text-heading xs semibold-16">Kembali</div>
+            </button>
+            <button
+              onClick={() => {
+                setIsCancelModalOpen(false)
+              }}
+              type="button"
+              className="cancel-button whitespace-nowrap w-full text-center text-white rounded-xl overflow-hidden h-11"
+            >
+              <div className="py-2.5 px-6 text-heading xs semibold-16">Ya, Batalkan</div>
             </button>
           </div>
         </div>

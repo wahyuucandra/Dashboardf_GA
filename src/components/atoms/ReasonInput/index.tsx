@@ -45,6 +45,7 @@ export interface ReasonInputAreaProps {
   onChangeInput?: (val: string | undefined) => void | undefined
   control?: Control<any>
   name?: string
+  bgColor?: string
 }
 
 export const ReasonInputArea: React.FC<ReasonInputAreaProps> = ({
@@ -57,6 +58,7 @@ export const ReasonInputArea: React.FC<ReasonInputAreaProps> = ({
   onChangeInput,
   control,
   name = 'reason',
+  bgColor,
 }) => {
   const handleActiveText = (input: string | undefined) => {
     return input != undefined ? 'text-[#505050]' : 'text-[#909090'
@@ -71,7 +73,7 @@ export const ReasonInputArea: React.FC<ReasonInputAreaProps> = ({
           name={name}
           render={({ formState: { errors } }) => (
             <>
-              <div className="border input-textarea py-4 px-3 rounded">
+              <div className={`border input-textarea py-4 px-3 rounded ${bgColor}`}>
                 <textarea
                   disabled={disabled}
                   value={value}
@@ -99,7 +101,7 @@ export const ReasonInputArea: React.FC<ReasonInputAreaProps> = ({
     }
 
     return (
-      <div className="border input-textarea py-4 px-3 rounded">
+      <div className={`border input-textarea py-4 px-3 rounded ${bgColor}`}>
         <textarea
           disabled={disabled}
           value={value}
