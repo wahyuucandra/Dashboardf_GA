@@ -5,6 +5,7 @@ import TextForm from '@components/atoms/Form/TextForm'
 import { IconLeftArrow } from '@components/atoms/Icon'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ForgotPasswordCredentials } from '@interfaces/auth'
+import { apiPostSendOTPForgot } from '@services/authentication/api'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -26,11 +27,33 @@ export default function ForgotPasswordPage() {
 
   const onSubmit = async (data: any) => {
     setIsLoading(true)
-    data.phoneNumber = '62' + data.phoneNumber.replace(/^0+/, '')
-    setTimeout(() => {
+
+    try {
+      // Format nomor telepon
+      const nomor = '62' + data.phoneNumber.replace(/^0+/, '')
+      const dataSendOTP = {
+        noHp: nomor,
+      }
+
+      // Kirim permintaan OTP
+      const response = await apiPostSendOTPForgot(dataSendOTP)
+
+      if (response.status === 'T') {
+        router.push('/forgot-password/otp')
+      } else {
+        // Handle jika status tidak 'T'
+        // console.error('Gagal mengirim OTP:', response)
+        // Tampilkan pesan kesalahan ke pengguna (misalnya, menggunakan alert atau toast)
+        alert('Terjadi kesalahan saat mengirim OTP. Silakan coba lagi.')
+      }
+    } catch (error) {
       setIsLoading(false)
-      router.push('/forgot-password/otp')
-    }, 1000)
+      // console.error('Terjadi kesalahan:', error)
+      // Tampilkan pesan kesalahan umum ke pengguna
+      alert('Terjadi kesalahan. Silakan coba lagi nanti.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const handlePhoneNumberChange = (e: any) => {

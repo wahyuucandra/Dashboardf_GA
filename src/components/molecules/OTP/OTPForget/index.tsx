@@ -6,6 +6,9 @@ import { useCallback, useEffect, useState } from 'react'
 import { Button } from '@components/atoms/button'
 import { IconLeftArrow } from '@components/atoms/Icon'
 import { useCountDownTimer } from '@utils/hooks/useCountDownTimer'
+import { apiPostVerifyOTPForgot } from '@services/authentication/api'
+import { toast } from 'react-toastify'
+import { SetStorage } from '@store/storage'
 import Modals from '@components/atoms/modal/Modals'
 import OTPInput from '@components/atoms/OTPInput'
 
@@ -15,25 +18,9 @@ export default function OPTForget() {
   const [timeOutOTP, setTimeOutOTP] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isModalOpen2, setIsModalOpen2] = useState(false)
-  const [otp, setOTP] = useState('')
   const [inputOTP, setInputOTP] = useState('')
   const [clearOtp, setClearOtp] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-
-  const onSubmit = () => {
-    setIsLoading(true)
-    if (inputOTP !== otp) {
-      setIsLoading(false)
-      setIsModalOpen(true)
-    } else {
-      setIsLoading(false)
-      router.push('/forgot-password/set-password')
-    }
-  }
-
-  const handleComplete = (otp: any) => {
-    setInputOTP(otp)
-  }
 
   const { countDownTime, startCountDownTime, setCountDownTimeInMilliseconds } = useCountDownTimer({
     countDownTimeInMilliseconds: 2 * 60 * 1000, // 2 menit
@@ -45,13 +32,56 @@ export default function OPTForget() {
 
   useEffect(() => {
     startCountDownTime()
-    setOTP('111111')
   }, [])
+
+  const handleComplete = (otp: any) => {
+    setInputOTP(otp)
+  }
 
   // Handle tombol back ke dashboard
   const handleBack = useCallback(() => {
     router.back()
   }, [])
+
+  const onSubmit = async () => {
+    setIsLoading(true)
+
+    const dataOTP = {
+      noHp: '081748238473', // Replace with the actual input value
+      otpCode: inputOTP,
+    }
+
+    try {
+      const response: any = await apiPostVerifyOTPForgot(dataOTP)
+
+      if (response.status === 'T') {
+        // Assuming response.data is the correct object containing the email, and response is properly typed
+        const email = typeof response.data === 'object' ? response.data.email : null
+
+        if (email) {
+          SetStorage('email', email) // Store the email if it exists
+          setIsLoading(false)
+          router.push('/forgot-password/set-password')
+        } else {
+          // Handle case where 'email' is missing in the response
+          // console.error('Missing email in response:', response)
+          toast.error('Unexpected response format. Please contact support.')
+        }
+      } else {
+        toast.error('OTP verification failed. Please try again.') // More specific error message
+      }
+    } catch (error: any) {
+      setIsLoading(false)
+
+      if (error?.response?.data?.message) {
+        toast.error(error.response.data.message) // Handle server-side errors
+      } else if (error.request) {
+        toast.error('No response from server. Check your internet connection.')
+      } else {
+        toast.error('An unexpected error occurred. Please try again later.')
+      }
+    }
+  }
 
   return (
     <div className="flex flex-col items-center mt-5">

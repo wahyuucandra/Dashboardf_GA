@@ -8,32 +8,21 @@ import { IconLeftArrow } from '@components/atoms/Icon'
 import { useCountDownTimer } from '@utils/hooks/useCountDownTimer'
 import Modals from '@components/atoms/modal/Modals'
 import OTPInput from '@components/atoms/OTPInput'
+import { apiPostOTPLogin } from '@services/authentication/api'
+import { toast } from 'react-toastify'
+import { SetCookie } from '@store/storage'
 
 export default function OTPLogin() {
   const router = useRouter()
+  const [userEmail, setUserEmail] = useState<string>('')
 
+  // const [otp, setOTP] = useState('')
   const [timeOutOTP, setTimeOutOTP] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isModalOpen2, setIsModalOpen2] = useState(false)
-  const [otp, setOTP] = useState('')
   const [inputOTP, setInputOTP] = useState('')
   const [clearOtp, setClearOtp] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-
-  const onSubmit = () => {
-    setIsLoading(true)
-    if (inputOTP !== otp) {
-      setIsLoading(false)
-      setIsModalOpen(true)
-    } else {
-      setIsLoading(false)
-      router.push('/')
-    }
-  }
-
-  const handleComplete = (otp: any) => {
-    setInputOTP(otp)
-  }
 
   const { countDownTime, startCountDownTime, setCountDownTimeInMilliseconds } = useCountDownTimer({
     countDownTimeInMilliseconds: 2 * 60 * 1000, // 2 menit
@@ -45,13 +34,62 @@ export default function OTPLogin() {
 
   useEffect(() => {
     startCountDownTime()
-    setOTP('111111')
+    // setOTP('123456')
+
+    const email = sessionStorage.getItem('email')
+    if (!email) {
+      // Handle case when email is not found, e.g., redirect back to login
+      router.push('/login')
+    } else {
+      // console.log('Email:', email) // Gunakan email sesuai kebutuhan
+      setUserEmail(email)
+    }
   }, [])
 
   // Handle tombol back ke dashboard
   const handleBack = useCallback(() => {
     router.back()
   }, [])
+
+  const handleComplete = (otp: any) => {
+    setInputOTP(otp)
+  }
+
+  const onSubmit = () => {
+    setIsLoading(true)
+
+    const dataOTP = {
+      email: userEmail,
+      otpCode: inputOTP,
+    }
+
+    apiPostOTPLogin(dataOTP)
+      .then(response => {
+        if (response.status === 'T') {
+          toast.success('Berhasil Login.')
+          setTimeout(() => {
+            setIsLoading(false)
+            SetCookie('data_user', response.data)
+            router.push('/')
+          }, 3000)
+        } else {
+          toast.error('Terjadi kesalahan saat login. Silakan coba lagi.')
+        }
+      })
+      .catch(error => {
+        if (error?.response?.data?.message) {
+          // Handling error response from server
+          toast.error(error.response.data.message)
+        } else if (error.request) {
+          // Handling no response from server
+          toast.error('Gagal terhubung ke server. Periksa koneksi internet Anda.')
+        } else {
+          // Handling other errors
+          toast.error('Terjadi kesalahan saat mengirim permintaan. Silakan coba lagi.')
+        }
+        setIsLoading(false)
+      })
+  }
 
   return (
     <div className="flex flex-col items-center mt-5">

@@ -5,9 +5,11 @@ import TextForm from '@components/atoms/Form/TextForm'
 import { IconLeftArrow } from '@components/atoms/Icon'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ResetPasswordCredentials } from '@interfaces/auth'
+import { apiPostForgotPassword } from '@services/authentication/api'
+import { GetStorage } from '@store/storage'
 import { passwordPattern } from '@utils/regex'
 import { useRouter } from 'next/navigation'
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
@@ -27,21 +29,56 @@ const schema = yup.object().shape({
 export default function AturUlangKataSandi() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
+  const [userEmail, setUserEmail] = useState<string | null>('')
 
   const { handleSubmit, control, watch } = useForm<ResetPasswordCredentials>({
     resolver: yupResolver(schema),
     mode: 'all',
   })
 
-  const onSubmit = () => {
-    setIsLoading(true)
-    setTimeout(() => {
+  // useEffect(() => {
+  //   const email = sessionStorage.getItem('email')
+  //   if (!email) {
+  //     // Handle case when email is not found, e.g., redirect back to login
+  //     router.push('/login')
+  //   } else {
+  //     // console.log('Email:', email) // Gunakan email sesuai kebutuhan
+  //     setUserEmail(email)
+  //   }
+  // }, [])
+
+  useEffect(() => {
+    const email = GetStorage('email')
+    setUserEmail(email)
+  }, [])
+
+  const onSubmit = async (value: any) => {
+    try {
+      setIsLoading(true)
+
+      const dataForgot = {
+        email: userEmail,
+        newPassword: value.password,
+      }
+
+      const response = await apiPostForgotPassword(dataForgot)
+
+      if (response.status !== 'T') {
+        throw new Error('Forgot password request failed. Please check your email or try again later.')
+      }
+
       setIsLoading(false)
       router.push('/forgot-password/success')
-    }, 1000)
+    } catch (error) {
+      setIsLoading(false)
+      // console.error('Error during forgot password request:', error) // Log the error for debugging
+
+      alert('There was an error processing your request. Please try again later.')
+    } finally {
+      // Optional cleanup or actions regardless of success or error (e.g., reset form fields)
+    }
   }
 
-  // Handle tombol back ke dashboard
   const handleBack = useCallback(() => {
     router.back()
   }, [])
@@ -54,7 +91,7 @@ export default function AturUlangKataSandi() {
         </button>
         <h1 className="text-[28px] font-bold text-black mt-[12px]">Atur Ulang Kata Sandi</h1>
         <p className="mb-8 text-[#6B7280] text-[14px] font-normal">
-          Buat kata sandi barumu untuk akun dengan email <span className="text-[#6cb8e0]">bikomaryono@gmail.com</span>
+          Buat kata sandi barumu untuk akun dengan email <span className="text-[#6cb8e0]">{userEmail}</span>
         </p>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-3">

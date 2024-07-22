@@ -13,6 +13,10 @@ import { RegisterCredentials } from '@interfaces/auth'
 import { Button } from '@components/atoms/button'
 import TextForm from '@components/atoms/Form/TextForm'
 import DatePickerForm from '@components/atoms/Form/DatePickerForm'
+import { apiPostRegister } from '@services/authentication/api'
+import { toast } from 'react-toastify'
+import { encryptAES } from '@utils/helper/CryptoJS'
+import { SetStorage } from '@store/storage'
 
 const schema = yup.object().shape({
   fullName: yup.string().required('Nama Lengkap diperlukan'),
@@ -45,12 +49,15 @@ export default function RegisterPage() {
     mode: 'all',
   })
 
-  const onSubmit = () => {
-    setIsLoading(true)
-    setTimeout(() => {
-      setIsLoading(false)
-      router.push('/register/otp')
-    }, 1000)
+  function convertToDesiredFormat(dateString: any) {
+    const date = new Date(dateString)
+
+    const year = date.getFullYear()
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const day = String(date.getDate()).padStart(2, '0')
+
+    const formattedDate = `${year}-${month}-${day}`
+    return formattedDate
   }
 
   const isDisabled = () => {
@@ -71,6 +78,54 @@ export default function RegisterPage() {
   const handleBack = useCallback(() => {
     router.back()
   }, [])
+
+  // const onSubmit = (value: RegisterCredentials) => {
+  //   const convertDate = convertToDesiredFormat(value.dateOfBirth)
+  //   console.log(value)
+  //   console.log(convertDate)
+  // }
+
+  const onSubmit = (value: RegisterCredentials) => {
+    setIsLoading(true)
+    const convertDate = convertToDesiredFormat(value.dateOfBirth)
+
+    const registerData = {
+      nameUser: value.fullName,
+      email: value.email,
+      birthofDate: convertDate,
+      noHp: value.phoneNumber,
+      password: encryptAES(value.password),
+    }
+
+    if (value.password === value.confPassword) {
+      apiPostRegister(registerData)
+        .then(response => {
+          if (response.status === 'T') {
+            toast.success('Berhasil meregister akun baru. Silakan verifikasi nomor terlebih dahulu.')
+            setTimeout(() => {
+              setIsLoading(false)
+              SetStorage('email', value.email)
+              router.push('/register/otp')
+            }, 3000)
+          } else {
+            toast.error('Terjadi kesalahan saat mendaftar. Silakan coba lagi.')
+          }
+        })
+        .catch(error => {
+          if (error?.response?.data?.message) {
+            toast.error(error.response.data.message)
+          } else if (error.request) {
+            toast.error('Gagal terhubung ke server. Periksa koneksi internet Anda.')
+          } else {
+            toast.error('Terjadi kesalahan saat mengirim permintaan. Silakan coba lagi.')
+          }
+          setIsLoading(false)
+        })
+    } else {
+      toast.error('Password dan konfirmasi password tidak sama.')
+      setIsLoading(false)
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

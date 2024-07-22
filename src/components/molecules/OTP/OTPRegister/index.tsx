@@ -8,28 +8,20 @@ import { IconLeftArrow } from '@components/atoms/Icon'
 import { useCountDownTimer } from '@utils/hooks/useCountDownTimer'
 import Modals from '@components/atoms/modal/Modals'
 import OTPInput from '@components/atoms/OTPInput'
+import { apiPostOTPRegister } from '@services/authentication/api'
+import { toast } from 'react-toastify'
+import { GetStorage } from '@store/storage';
 
 export default function OTPRegister() {
   const router = useRouter()
+  const [userEmail, setUserEmail] = useState<string>('')
 
   const [timeOutOTP, setTimeOutOTP] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isModalOpen2, setIsModalOpen2] = useState(false)
-  const [otp, setOTP] = useState('')
   const [inputOTP, setInputOTP] = useState('')
   const [clearOtp, setClearOtp] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-
-  const onSubmit = () => {
-    setIsLoading(true)
-    if (inputOTP !== otp) {
-      setIsLoading(false)
-      setIsModalOpen(true)
-    } else {
-      setIsLoading(false)
-      router.push('/login')
-    }
-  }
 
   const handleComplete = (otp: any) => {
     setInputOTP(otp)
@@ -45,13 +37,51 @@ export default function OTPRegister() {
 
   useEffect(() => {
     startCountDownTime()
-    setOTP('111111')
+
+    const email = GetStorage('email')
+    if (!email) {
+      router.push('/login')
+    } else {
+      setUserEmail(email)
+    }
   }, [])
 
   // Handle tombol back ke dashboard
   const handleBack = useCallback(() => {
     router.back()
   }, [])
+
+  const onSubmit = () => {
+    setIsLoading(true)
+
+    const dataOTP = {
+      email: userEmail,
+      otpCode: inputOTP,
+    }
+
+    apiPostOTPRegister(dataOTP)
+      .then(response => {
+        if (response.status === 'T') {
+          toast.success('Berhasil meregister akun baru. Silakan verifikasi nomor terlebih dahulu.')
+          setTimeout(() => {
+            setIsLoading(false)
+            router.push('/login');
+          }, 3000)
+        } else {
+          toast.error('Terjadi kesalahan saat mendaftar. Silakan coba lagi.')
+        }
+      })
+      .catch(error => {
+        if (error?.response?.data?.message) {
+          toast.error(error.response.data.message)
+        } else if (error.request) {
+          toast.error('Gagal terhubung ke server. Periksa koneksi internet Anda.')
+        } else {
+          toast.error('Terjadi kesalahan saat mengirim permintaan. Silakan coba lagi.')
+        }
+        setIsLoading(false)
+      })
+  }
 
   return (
     <div className="flex flex-col items-center mt-5">

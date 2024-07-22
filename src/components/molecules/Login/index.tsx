@@ -2,7 +2,7 @@
 
 import * as Yup from 'yup'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -10,7 +10,10 @@ import { LoginCredentials } from '@interfaces/auth'
 import { Button } from '@components/atoms/button'
 import { useRouter } from 'next/navigation'
 import { IconLogo } from '@components/atoms/Icon'
+import { apiPostLogin } from '@services/authentication/api'
+import { encryptAES } from '@utils/helper/CryptoJS'
 import TextForm from '@components/atoms/Form/TextForm'
+import satellite from '@services/satellite'
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -23,31 +26,59 @@ export default function LoginPage() {
   const router = useRouter()
 
   const [isLoading, setIsLoading] = useState(false)
-  const [passwords] = useState('password')
 
-  const { handleSubmit, getValues, setError, control } = useForm<LoginCredentials>({
+  const { handleSubmit, control } = useForm<LoginCredentials>({
     resolver: yupResolver(schema),
     mode: 'all',
   })
 
-  const onSubmit = () => {
+  useEffect(() => {
+    delete satellite.defaults?.headers?.common?.Authorization
+  }, [])
+
+  // const onSubmit = async (value: LoginCredentials) => {
+  //   const enc = encryptAES(value.email)
+  //   console.log(decryptAES(enc))
+  //   console.log(value.password)
+  //   const dataLogin = {
+  //     email: value.email,
+  //     password: decryptAES(value.password),
+  //   }
+  //   console.log(dataLogin)
+  // }
+
+  const onSubmit = async (value: LoginCredentials) => {
     setIsLoading(true)
 
-    const formValues = getValues()
+    const dataLogin = {
+      email: value.email,
+      password: encryptAES(value.password),
+    }
 
-    if (formValues && formValues.password !== passwords) {
-      setError('password', { type: 'custom', message: 'Kata sandi yang Anda masukkan salah' })
-      setIsLoading(false)
-    } else {
-      setTimeout(() => {
+    try {
+      const response = await apiPostLogin(dataLogin)
+
+      if (response.status === 'T') {
+        const expirationTime = Date.now()
+        sessionStorage.setItem('tokenExpiration', expirationTime.toString())
+        sessionStorage.setItem('email', value.email)
         setIsLoading(false)
         router.push('/login/otp')
-      }, 1000)
+      } else {
+        throw new Error(`API returned status code: ${response.status}`)
+      }
+    } catch (error) {
+      // setError(error.message || 'An error occurred during login. Please try again.') // Assuming `setError` is a state setter
+      // toast.error('Terjadi kesalahan silahkan coba lagi')
+
+      setIsLoading(false)
+    } finally {
+      // (optional, e.g., clear loading state)
+      setIsLoading(false)
     }
   }
 
   return (
-    // Test
     <div className="flex flex-col items-center mt-5">
       <div className="w-full max-w-md px-12">
         <div className="flex justify-center">
@@ -105,6 +136,10 @@ export default function LoginPage() {
           </div>
         </form>
       </div>
+
+      {/* <button onClick={() => LoginAccount()} type="button">
+        Login Button
+      </button> */}
 
       <div className="mt-4 text-center ">
         <span className="text-sm font-normal">Belum memiliki akun? </span>
