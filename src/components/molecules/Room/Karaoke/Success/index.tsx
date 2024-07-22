@@ -10,7 +10,7 @@ export function KaraokeSuccess() {
 
   useEffect(() => {
     setTimeout(() => {
-      router.push('/booking-asset')
+      router.push('/')
     }, 3000)
   }, [])
 

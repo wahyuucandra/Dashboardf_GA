@@ -7,7 +7,6 @@ import { useForm, useWatch } from 'react-hook-form'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import './style.css'
 import bookingAsset from '@assets/images/BookingAsset.png'
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
 import { DateRangeInput } from '@components/atoms/DateRangeInput'
@@ -70,7 +69,7 @@ export function KaraokeSchedule() {
 
       <div className="bg-white w-full fixed bottom-0 top-0 z-[101] px-4 mt-[216px]">
         <form className="relative h-full" onSubmit={handleSubmit(onSubmit)}>
-          <div className="text-2xl font-semibold text-[#2C598D] mb-6">Schedule Manpower</div>
+          <div className="text-2xl font-semibold text-[#2C598D] mb-6">Schedule Karaoke</div>
 
           {/* Date Input */}
           <div className="mb-5">
