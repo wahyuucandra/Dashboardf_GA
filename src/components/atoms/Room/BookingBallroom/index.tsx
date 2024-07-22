@@ -104,7 +104,9 @@ export function BookingBallroom() {
         onCloseClick={() => setIsDateModalOpen(false)}
         onButtonClick={val => {
           setIsDateModalOpen(false)
-          setValue('date', val)
+          if (val?.start && val?.end) {
+            setValue('date', { start: val?.start, end: val?.end })
+          }
         }}
       ></DateRangeInputCustom>
 
@@ -114,7 +116,9 @@ export function BookingBallroom() {
         onCloseClick={() => setIsTimeModalOpen(false)}
         onButtonClick={val => {
           setIsTimeModalOpen(false)
-          setValue('time', val)
+          if (val?.start && val?.end) {
+            setValue('time', { start: val?.start, end: val?.end })
+          }
         }}
       ></TimeRangeInputCustom>
     </>
