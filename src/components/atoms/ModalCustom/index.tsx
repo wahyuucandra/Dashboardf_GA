@@ -1,5 +1,7 @@
 'use client'
 
+import './style.css'
+
 export function Modal({
   children,
   isOpen,
@@ -21,8 +23,9 @@ export function Modal({
         onClick={() => backdropClick()}
         className={`${
           !backdropDismiss || !isOpen ? 'hidden' : ''
-        } z-[999] fixed top-0 h-screen w-full max-container bg-gray-950 opacity-40`}
+        } z-[999] modal-center h-screen w-screen max-container bg-gray-950 opacity-40`}
       ></div>
+
       <div
         onKeyDown={() => {}}
         onClick={() => {

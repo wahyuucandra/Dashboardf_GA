@@ -134,6 +134,7 @@ export function BallroomSchedule() {
                 Pilih tanggal <span className="text-[#E15241]">*</span>
               </div>
               <DateRangeInput
+                control={control}
                 value={date}
                 onButtonClick={val => {
                   setValue('date', val)
@@ -147,6 +148,7 @@ export function BallroomSchedule() {
                 Jam <span className="text-[#E15241]">*</span>
               </div>
               <TimeRangeInput
+                control={control}
                 value={time}
                 onButtonClick={val => {
                   setValue('time', val)
@@ -160,6 +162,7 @@ export function BallroomSchedule() {
                 Jumlah orang <span className="text-[#E15241]">*</span>
               </div>
               <CapacityInput
+                control={control}
                 data={[1, 2, 3, 4, 5]}
                 value={capacity}
                 onButtonClick={val => {
@@ -240,6 +243,7 @@ export function BallroomSchedule() {
                 Keperluan <span className="text-[#E15241]">*</span>
               </div>
               <ReasonInputArea
+                control={control}
                 value={reason}
                 onChangeInput={val => {
                   setValue('reason', val)
