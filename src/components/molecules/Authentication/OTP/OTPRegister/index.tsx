@@ -8,21 +8,24 @@ import { IconLeftArrow } from '@components/atoms/Icon'
 import { useCountDownTimer } from '@utils/hooks/useCountDownTimer'
 import Modals from '@components/atoms/modal/Modals'
 import OTPInput from '@components/atoms/OTPInput'
-import { apiPostOTPLogin } from '@services/authentication/api'
+import { apiPostOTPRegister } from '@services/authentication/api'
 import { toast } from 'react-toastify'
-import { SetCookie } from '@store/storage'
+import { GetStorage } from '@store/storage'
 
-export default function OTPLogin() {
+export default function OTPRegister() {
   const router = useRouter()
-  const [userEmail, setUserEmail] = useState<string>('')
+  const [dataRegister, setDataRegister] = useState<any>()
 
-  // const [otp, setOTP] = useState('')
   const [timeOutOTP, setTimeOutOTP] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isModalOpen2, setIsModalOpen2] = useState(false)
   const [inputOTP, setInputOTP] = useState('')
   const [clearOtp, setClearOtp] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+
+  const handleComplete = (otp: any) => {
+    setInputOTP(otp)
+  }
 
   const { countDownTime, startCountDownTime, setCountDownTimeInMilliseconds } = useCountDownTimer({
     countDownTimeInMilliseconds: 2 * 60 * 1000, // 2 menit
@@ -34,15 +37,12 @@ export default function OTPLogin() {
 
   useEffect(() => {
     startCountDownTime()
-    // setOTP('123456')
 
-    const email = sessionStorage.getItem('email')
-    if (!email) {
-      // Handle case when email is not found, e.g., redirect back to login
+    const data = GetStorage('data_register')
+    if (!data) {
       router.push('/login')
     } else {
-      // console.log('Email:', email) // Gunakan email sesuai kebutuhan
-      setUserEmail(email)
+      setDataRegister(data)
     }
   }, [])
 
@@ -51,40 +51,32 @@ export default function OTPLogin() {
     router.back()
   }, [])
 
-  const handleComplete = (otp: any) => {
-    setInputOTP(otp)
-  }
-
   const onSubmit = () => {
     setIsLoading(true)
 
     const dataOTP = {
-      email: userEmail,
+      email: dataRegister?.email,
       otpCode: inputOTP,
     }
 
-    apiPostOTPLogin(dataOTP)
+    apiPostOTPRegister(dataOTP)
       .then(response => {
         if (response.status === 'T') {
-          toast.success('Berhasil Login.')
+          toast.success('Berhasil meregister akun baru. Silakan verifikasi nomor terlebih dahulu.')
           setTimeout(() => {
             setIsLoading(false)
-            SetCookie('data_user', response.data)
-            router.push('/')
+            router.push('/login')
           }, 3000)
         } else {
-          toast.error('Terjadi kesalahan saat login. Silakan coba lagi.')
+          toast.error('Terjadi kesalahan saat mendaftar. Silakan coba lagi.')
         }
       })
       .catch(error => {
         if (error?.response?.data?.message) {
-          // Handling error response from server
           toast.error(error.response.data.message)
         } else if (error.request) {
-          // Handling no response from server
           toast.error('Gagal terhubung ke server. Periksa koneksi internet Anda.')
         } else {
-          // Handling other errors
           toast.error('Terjadi kesalahan saat mengirim permintaan. Silakan coba lagi.')
         }
         setIsLoading(false)
@@ -97,7 +89,7 @@ export default function OTPLogin() {
         <button onClick={handleBack}>
           <IconLeftArrow height={24} width={24} className="cursor-pointer" />
         </button>
-        <h1 className="text-[28px] font-bold text-black mt-[12px]">Atur Ulang Kata Sandi</h1>
+        <h1 className="text-[28px] font-bold text-black mt-[12px]">Masukkan Kode OTP</h1>
         <p className="text-sm font-normal text-[#6B7280] mb-5">
           Kode verifikasi telah dikirimkan ke <span className="text-[#0089cf]">08******123</span>
         </p>

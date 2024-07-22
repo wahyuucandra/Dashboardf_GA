@@ -36,17 +36,6 @@ export default function AturUlangKataSandi() {
     mode: 'all',
   })
 
-  // useEffect(() => {
-  //   const email = sessionStorage.getItem('email')
-  //   if (!email) {
-  //     // Handle case when email is not found, e.g., redirect back to login
-  //     router.push('/login')
-  //   } else {
-  //     // console.log('Email:', email) // Gunakan email sesuai kebutuhan
-  //     setUserEmail(email)
-  //   }
-  // }, [])
-
   useEffect(() => {
     const email = GetStorage('email')
     setUserEmail(email)

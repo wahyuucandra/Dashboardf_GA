@@ -8,11 +8,11 @@ import { IconLeftArrow } from '@components/atoms/Icon'
 import { useCountDownTimer } from '@utils/hooks/useCountDownTimer'
 import Modals from '@components/atoms/modal/Modals'
 import OTPInput from '@components/atoms/OTPInput'
-import { apiPostOTPRegister } from '@services/authentication/api'
+import { apiPostOTPLogin } from '@services/authentication/api'
 import { toast } from 'react-toastify'
-import { GetStorage } from '@store/storage';
+import { SetCookie } from '@store/storage'
 
-export default function OTPRegister() {
+export default function OTPLogin() {
   const router = useRouter()
   const [userEmail, setUserEmail] = useState<string>('')
 
@@ -22,10 +22,6 @@ export default function OTPRegister() {
   const [inputOTP, setInputOTP] = useState('')
   const [clearOtp, setClearOtp] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-
-  const handleComplete = (otp: any) => {
-    setInputOTP(otp)
-  }
 
   const { countDownTime, startCountDownTime, setCountDownTimeInMilliseconds } = useCountDownTimer({
     countDownTimeInMilliseconds: 2 * 60 * 1000, // 2 menit
@@ -38,7 +34,7 @@ export default function OTPRegister() {
   useEffect(() => {
     startCountDownTime()
 
-    const email = GetStorage('email')
+    const email = sessionStorage.getItem('email')
     if (!email) {
       router.push('/login')
     } else {
@@ -51,7 +47,11 @@ export default function OTPRegister() {
     router.back()
   }, [])
 
-  const onSubmit = () => {
+  const handleComplete = (otp: any) => {
+    setInputOTP(otp)
+  }
+
+  const onSubmit = async () => {
     setIsLoading(true)
 
     const dataOTP = {
@@ -59,28 +59,31 @@ export default function OTPRegister() {
       otpCode: inputOTP,
     }
 
-    apiPostOTPRegister(dataOTP)
-      .then(response => {
-        if (response.status === 'T') {
-          toast.success('Berhasil meregister akun baru. Silakan verifikasi nomor terlebih dahulu.')
-          setTimeout(() => {
-            setIsLoading(false)
-            router.push('/login');
-          }, 3000)
-        } else {
-          toast.error('Terjadi kesalahan saat mendaftar. Silakan coba lagi.')
-        }
-      })
-      .catch(error => {
-        if (error?.response?.data?.message) {
-          toast.error(error.response.data.message)
-        } else if (error.request) {
-          toast.error('Gagal terhubung ke server. Periksa koneksi internet Anda.')
-        } else {
-          toast.error('Terjadi kesalahan saat mengirim permintaan. Silakan coba lagi.')
-        }
-        setIsLoading(false)
-      })
+    try {
+      const response: any = await apiPostOTPLogin(dataOTP)
+
+      if (response.status === 'T') {
+        toast.success('Berhasil Login.')
+        setIsLoading(false) // Set loading state to false immediately
+
+        SetCookie('data_user', response.data)
+        SetCookie('token', response?.data?.token) // Use optional chaining for safer access
+
+        router.push('/')
+      } else {
+        toast.error('Terjadi kesalahan saat login. Silakan coba lagi.')
+      }
+    } catch (error: any) {
+      setIsLoading(false) // Set loading state to false on errors
+
+      if (error?.response?.data?.message) {
+        toast.error(error.response.data.message) // Handle server-side errors
+      } else if (error.request) {
+        toast.error('Gagal terhubung ke server. Periksa koneksi internet Anda.')
+      } else {
+        toast.error('Terjadi kesalahan saat mengirim permintaan. Silakan coba lagi.')
+      }
+    }
   }
 
   return (

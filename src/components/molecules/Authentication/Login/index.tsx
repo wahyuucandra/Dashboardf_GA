@@ -36,17 +36,6 @@ export default function LoginPage() {
     delete satellite.defaults?.headers?.common?.Authorization
   }, [])
 
-  // const onSubmit = async (value: LoginCredentials) => {
-  //   const enc = encryptAES(value.email)
-  //   console.log(decryptAES(enc))
-  //   console.log(value.password)
-  //   const dataLogin = {
-  //     email: value.email,
-  //     password: decryptAES(value.password),
-  //   }
-  //   console.log(dataLogin)
-  // }
-
   const onSubmit = async (value: LoginCredentials) => {
     setIsLoading(true)
 

@@ -79,12 +79,6 @@ export default function RegisterPage() {
     router.back()
   }, [])
 
-  // const onSubmit = (value: RegisterCredentials) => {
-  //   const convertDate = convertToDesiredFormat(value.dateOfBirth)
-  //   console.log(value)
-  //   console.log(convertDate)
-  // }
-
   const onSubmit = (value: RegisterCredentials) => {
     setIsLoading(true)
     const convertDate = convertToDesiredFormat(value.dateOfBirth)
@@ -92,8 +86,8 @@ export default function RegisterPage() {
     const registerData = {
       nameUser: value.fullName,
       email: value.email,
-      birthofDate: convertDate,
-      noHp: value.phoneNumber,
+      birthOfDate: convertDate,
+      noHp: `0${value.phoneNumber.replace(/^0+/, '')}`,
       password: encryptAES(value.password),
     }
 
@@ -104,7 +98,7 @@ export default function RegisterPage() {
             toast.success('Berhasil meregister akun baru. Silakan verifikasi nomor terlebih dahulu.')
             setTimeout(() => {
               setIsLoading(false)
-              SetStorage('email', value.email)
+              SetStorage('data_register', registerData)
               router.push('/register/otp')
             }, 3000)
           } else {
