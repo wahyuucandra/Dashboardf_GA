@@ -1,6 +1,6 @@
 import rootReducer from '@store/reducers'
 import { configureStore } from '@reduxjs/toolkit'
-import { setCookie, getCookie } from 'cookies-next';
+import { { setCookie, getCookie } } from 'cookies-next';
 
 export const store = configureStore({
   reducer: rootReducer,

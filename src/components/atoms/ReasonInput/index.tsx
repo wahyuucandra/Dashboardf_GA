@@ -1,3 +1,4 @@
+import { Control, Controller } from 'react-hook-form'
 import './style.css'
 
 export interface ReasonInputProps {
@@ -42,6 +43,9 @@ export interface ReasonInputAreaProps {
   rows?: number
   placeholder?: string
   onChangeInput?: (val: string | undefined) => void | undefined
+  control?: Control<any>
+  name?: string
+  bgColor?: string
 }
 
 export const ReasonInputArea: React.FC<ReasonInputAreaProps> = ({
@@ -52,29 +56,71 @@ export const ReasonInputArea: React.FC<ReasonInputAreaProps> = ({
   showCounter = true,
   placeholder = 'Isi keperluan',
   onChangeInput,
+  control,
+  name = 'reason',
+  bgColor,
 }) => {
   const handleActiveText = (input: string | undefined) => {
     return input != undefined ? 'text-[#505050]' : 'text-[#909090'
   }
 
-  return (
-    <div className="border input-textarea py-4 px-3 rounded">
-      <textarea
-        disabled={disabled}
-        value={value}
-        rows={rows}
-        maxLength={max}
-        onChange={e => {
-          onChangeInput && onChangeInput(e?.target?.value)
-        }}
-        name="reason"
-        id="reason"
-        className={`w-full text-paragraph regular-14 ${handleActiveText(value)}`}
-        placeholder={placeholder}
-      ></textarea>
-      <div className={`${showCounter ? '' : 'hidden'} flex justify-end text-[#909090] text-input-counter`}>
-        {value?.length ?? '0'}/{max}
+  const handleBinding = () => {
+    if (control) {
+      return (
+        <Controller
+          defaultValue={''}
+          control={control}
+          name={name}
+          render={({ formState: { errors } }) => (
+            <>
+              <div className={`border input-textarea py-4 px-3 rounded ${bgColor}`}>
+                <textarea
+                  disabled={disabled}
+                  value={value}
+                  rows={rows}
+                  maxLength={max}
+                  onChange={e => {
+                    onChangeInput && onChangeInput(e?.target?.value)
+                  }}
+                  name="reason"
+                  id="reason"
+                  className={`w-full text-paragraph regular-14 ${handleActiveText(value)}`}
+                  placeholder={placeholder}
+                ></textarea>
+                <div className={`${showCounter ? '' : 'hidden'} flex justify-end text-[#909090] text-input-counter`}>
+                  {value?.length ?? '0'}/{max}
+                </div>
+              </div>
+              {errors?.[name]?.message && (
+                <div className="text-xs text-error mt-1">{errors?.[name]?.message?.toString()}</div>
+              )}
+            </>
+          )}
+        />
+      )
+    }
+
+    return (
+      <div className={`border input-textarea py-4 px-3 rounded ${bgColor}`}>
+        <textarea
+          disabled={disabled}
+          value={value}
+          rows={rows}
+          maxLength={max}
+          onChange={e => {
+            onChangeInput && onChangeInput(e?.target?.value)
+          }}
+          name="reason"
+          id="reason"
+          className={`w-full text-paragraph regular-14 ${handleActiveText(value)}`}
+          placeholder={placeholder}
+        ></textarea>
+        <div className={`${showCounter ? '' : 'hidden'} flex justify-end text-[#909090] text-input-counter`}>
+          {value?.length ?? '0'}/{max}
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
+
+  return handleBinding()
 }

@@ -29,7 +29,7 @@ export function Menu() {
         </Link>
       </div>
 
-      <div className="px-3 pt-[200px]">
+      <div className="px-3 pt-[200px] pb-[400px] h-screen overflow-y-auto">
         <div className="flex items-center space-x-3 mb-4">
           <IconRoom width={32} height={32}></IconRoom>
           <div>

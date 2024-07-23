@@ -5,13 +5,16 @@ import { Modal } from '../ModalCustom'
 import { handleFetchTimesInDay } from './data'
 import './style.css'
 import IconTime from '@assets/icons/IconTime'
+import { Control, Controller } from 'react-hook-form'
 
 export interface TimeRangeInputProps {
   value?: { start: TimeInput | undefined; end: TimeInput | undefined }
   onButtonClick?: (val: { start: TimeInput | undefined; end: TimeInput | undefined } | undefined) => void | undefined
+  control: Control<any>
+  name?: string
 }
 
-export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({ value, onButtonClick }) => {
+export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({ value, control, name = 'time', onButtonClick }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const times = handleFetchTimesInDay()
@@ -91,21 +94,34 @@ export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({ value, onButtonC
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setIsOpen(true)}
-        className="w-full h-11 border border-[#D5D5D5] text-left py-2.5 px-3 rounded flex items-center space-x-4"
-      >
-        <IconTime></IconTime>
-        <div className={`flex-1 text-paragraph regular-14 -mb-1 ${handleActiveText(value)} `}>
-          {handleBindTime(value)}
-        </div>
-      </button>
+      <Controller
+        defaultValue={''}
+        control={control}
+        name={name}
+        render={({ formState: { errors } }) => (
+          <>
+            <button
+              type="button"
+              onClick={() => setIsOpen(true)}
+              className="w-full h-11 border border-[#D5D5D5] text-left py-2.5 px-3 rounded flex items-center space-x-4"
+            >
+              <IconTime></IconTime>
+              <div className={`flex-1 text-paragraph regular-14 -mb-1 ${handleActiveText(value)} `}>
+                {handleBindTime(value)}
+              </div>
+            </button>
+            {errors?.[name]?.message && (
+              <div className="text-xs text-error mt-1">{errors?.[name]?.message?.toString()}</div>
+            )}
+          </>
+        )}
+      />
+
       <Modal isOpen={isOpen} isFloating={false} backdropClick={() => setIsOpen(false)}>
-        <div className="w-screen h-4/5 bg-white relative px-4 py-6 text-center rounded-xl">
+        <div className="w-screen max-container h-4/5 bg-white relative px-4 py-6 text-center rounded-t-xl">
           <div className="pb-6">
             <div className="flex items-center space-x-4 mb-6">
-              <button onClick={() => setIsOpen(false)}>
+              <button type="button" onClick={() => setIsOpen(false)}>
                 <IconClose className="w-6 h-6"></IconClose>
               </button>
               <div className="text-xl font-semibold">Pilih Waktu</div>
@@ -226,10 +242,10 @@ export const TimeRangeInputCustom: React.FC<TimeRangeInputCustomProps> = ({
 
   return (
     <Modal isOpen={isOpen} isFloating={false} backdropClick={onCloseClick}>
-      <div className="w-screen h-4/5 bg-white relative px-4 py-6 text-center rounded-xl">
+      <div className="w-screen max-container h-4/5 bg-white relative px-4 py-6 text-center rounded-t-xl">
         <div className="pb-6">
           <div className="flex items-center space-x-4 mb-6">
-            <button onClick={onCloseClick}>
+            <button type="button" onClick={onCloseClick}>
               <IconClose className="w-6 h-6"></IconClose>
             </button>
             <div className="text-xl font-semibold">Pilih Waktu</div>

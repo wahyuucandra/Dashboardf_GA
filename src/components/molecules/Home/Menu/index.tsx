@@ -20,7 +20,7 @@ export function Menu() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   return (
-    <div className="w-screen">
+    <div className="bg-[#FFFFFF]">
       <div className="p-3">
         <div className="text-heading xs semibold-16 text-[#2C598D] mb-4">Pilih Kebutuhan</div>
         <div className="grid grid-cols-3 gap-2">

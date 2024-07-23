@@ -257,6 +257,7 @@ export function OrderSummary() {
         <div className="mb-6">
           <div className="text-heading xs semibold-16 mb-6">Notes</div>
           <ReasonInputArea
+            control={control}
             value={reason}
             showCounter={false}
             max={200}

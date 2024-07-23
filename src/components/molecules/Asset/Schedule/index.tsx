@@ -62,6 +62,7 @@ export function Schedule() {
                 Pilih tanggal <span className="text-[#E15241]">*</span>
               </div>
               <DateRangeInput
+                control={control}
                 value={date}
                 onButtonClick={val => {
                   setValue('date', val)
@@ -73,6 +74,7 @@ export function Schedule() {
                 Jam <span className="text-[#E15241]">*</span>
               </div>
               <TimeRangeInput
+                control={control}
                 value={time}
                 onButtonClick={val => {
                   setValue('time', val)

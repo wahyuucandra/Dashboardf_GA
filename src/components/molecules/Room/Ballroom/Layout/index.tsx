@@ -151,7 +151,9 @@ export function LayoutUpload() {
               <ReasonInputArea
                 value={reason}
                 onChangeInput={val => {
-                  setValue('reason', val)
+                  if (val) {
+                    setValue('reason', val)
+                  }
                 }}
                 placeholder="Contoh: Layout di buat letter L dan juga siapkan 2 proyektor"
               />
@@ -196,7 +198,9 @@ export function LayoutUpload() {
         onCloseClick={() => setIsDateModalOpen(false)}
         onButtonClick={val => {
           setIsDateModalOpen(false)
-          setValue('date', val)
+          if (val?.start && val?.end) {
+            setValue('date', { start: val?.start, end: val?.end })
+          }
         }}
       ></DateRangeInputCustom>
 
@@ -206,7 +210,9 @@ export function LayoutUpload() {
         onCloseClick={() => setIsTimeModalOpen(false)}
         onButtonClick={val => {
           setIsTimeModalOpen(false)
-          setValue('time', val)
+          if (val?.start && val?.end) {
+            setValue('time', { start: val?.start, end: val?.end })
+          }
         }}
       ></TimeRangeInputCustom>
     </div>

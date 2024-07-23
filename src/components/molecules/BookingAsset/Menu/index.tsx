@@ -30,7 +30,7 @@ export function Menu() {
         </Link>
       </div>
 
-      <div className="px-3 pt-[200px]">
+      <div className="px-3 py-[200px] h-screen overflow-y-auto">
         <div className="flex items-center space-x-3 mb-4">
           <IconBookingAsset width={32} height={32}></IconBookingAsset>
           <div>
