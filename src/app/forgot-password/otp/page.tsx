@@ -1,4 +1,4 @@
-import OPTForget from '@components/molecules/OTP/OTPForget'
+import OPTForget from '@components/molecules/Authentication/OTP/OTPForget'
 
 export const metadata = {
   title: 'Forgot Password',

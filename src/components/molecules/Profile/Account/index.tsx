@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Modal } from '@components/atoms/ModalCustom'
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
@@ -10,10 +10,18 @@ import IconHistory from '@assets/icons/IconHistory'
 import IconLogout from '@assets/icons/IconLogout'
 import IconNotification from '@assets/icons/IconNotification'
 import IconModalLogout from '@assets/icons/IconModalLogout'
+import { GetCookie, SetCookie, SetStorage } from '@store/storage'
 
 export function Account() {
   const router = useRouter()
+
   const [isConfimationModalOpen, setIsConfimationModalOpen] = useState<boolean>(false)
+  const [dataUser, setDataUser] = useState<any>({})
+
+  useEffect(() => {
+    const data = GetCookie('data_user')
+    setDataUser(data)
+  }, [])
 
   return (
     <div className="bg-[#f6f6f6] px-3 pt-2 h-full w-full">
@@ -24,7 +32,7 @@ export function Account() {
       <div className="flex flex-row items-center bg-white px-4 py-4 mb-2">
         <div className="w-14 h-14 rounded-full bg-[#D9D9D9] mr-2"></div>
         <div>
-          <p className="font-semibold text-[18px]">Bimo Maryono</p>
+          <p className="font-semibold text-[18px]">{dataUser.namaUser}</p>
           <div
             className="flex flex-row"
             onClick={() => {
@@ -43,7 +51,7 @@ export function Account() {
         onKeyDown={() => {}}
       >
         <div className="flex flex-row items-center">
-          <IconHistory width={24} height={24}></IconHistory>
+          <IconHistory width={24} height={24} />
           <p className="font-normal text-[14px] ml-2">History</p>
         </div>
         <IconChevronRight width={16} height={16} />
@@ -54,7 +62,7 @@ export function Account() {
         onKeyDown={() => {}}
       >
         <div className="flex flex-row items-center">
-          <IconNotification width={24} height={24}></IconNotification>
+          <IconNotification width={24} height={24} />
           <p className="font-normal text-[14px] ml-2">Notification</p>
         </div>
         <IconChevronRight width={16} height={16} />
@@ -67,7 +75,7 @@ export function Account() {
         onKeyDown={() => {}}
       >
         <div className="flex flex-row items-center">
-          <IconLogout width={24} height={24} color="red"></IconLogout>
+          <IconLogout width={24} height={24} color="red" />
           <p className="font-normal text-[14px] ml-2 text-red-700">Log out</p>
         </div>
         <IconChevronRight width={16} height={16} />
@@ -85,6 +93,9 @@ export function Account() {
             <button
               onClick={() => {
                 setIsConfimationModalOpen(false)
+                SetStorage('email', '')
+                SetStorage('data_user', '')
+                SetCookie('data_user', '')
                 router.push(`/login`, { scroll: false })
               }}
               type="button"

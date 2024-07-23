@@ -1,4 +1,4 @@
-import RegisterPage from '@components/molecules/Register'
+import RegisterPage from '@components/molecules/Authentication/Register'
 
 export const metadata = {
   title: 'Register',

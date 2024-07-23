@@ -20,3 +20,29 @@ export interface ResetPasswordCredentials {
   password: string
   confPassword: string
 }
+
+export interface OTPCredential {
+  email: string
+  otpCode: string
+}
+
+export interface ILoginResponse {
+  noHp: string
+}
+
+export interface IOTPLoginResponse {
+  idUser: string
+  nameUser: string
+  groupUser: string
+  cdSp: string
+  email: string
+  noHp: string
+  npk: string
+  dateOfBirth: string
+  tokenSession: string
+}
+
+export interface IForgotPassword {
+  email: string
+  newPasseord: string
+}
