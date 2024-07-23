@@ -32,13 +32,7 @@ const httpRequest = (baseURL: string) => {
   instance.interceptors.response.use(
     response => response.data, // Return only the data from the response
     (error: Error | AxiosError) => {
-      if (axios.isAxiosError(error)) {
-        // Handle Axios specific errors (e.g., network errors)
-        return Promise.reject(error)
-      } else {
-        // Handle other types of errors
-        return Promise.reject(error)
-      }
+      return Promise.reject(error) // Reject the promise without console log
     }
   )
 
