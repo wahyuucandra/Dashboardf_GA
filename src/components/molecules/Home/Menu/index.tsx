@@ -13,8 +13,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export function Menu() {
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   return (
@@ -23,15 +25,18 @@ export function Menu() {
         <div className="text-heading xs semibold-16 text-[#2C598D] mb-4">Pilih Kebutuhan</div>
         <div className="grid grid-cols-3 gap-2">
           <button onClick={() => setIsOpen(true)} className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-md">
-            <IconBookingAsset className="mx-auto"></IconBookingAsset>
+            <IconBookingAsset className="mx-auto" />
             <span className="text-[#2C598D] text-extra-small regular-12 mx-auto">Booking Asset</span>
           </button>
-          <button className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-md">
-            <IconBuildingMaintenance className="mx-auto"></IconBuildingMaintenance>
+          <button
+            className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-md"
+            onClick={() => router.push('/building-maintenance-management')}
+          >
+            <IconBuildingMaintenance className="mx-auto" />
             <span className="text-[#2C598D] text-extra-small regular-12 mx-auto">Building Maintenance Management</span>
           </button>
           <button className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-md">
-            <IconAboutUs className="mx-auto"></IconAboutUs>
+            <IconAboutUs className="mx-auto" />
             <span className="text-[#2C598D] text-extra-small regular-12 mx-auto">About Us</span>
           </button>
         </div>
@@ -40,7 +45,7 @@ export function Menu() {
       <Modal isOpen={isOpen} backdropClick={() => setIsOpen(!isOpen)}>
         <div className="max-w-[350px] bg-white relative p-5 text-center rounded-xl">
           <button className="absolute top-5 right-5" onClick={() => setIsOpen(!isOpen)}>
-            <IconClose></IconClose>
+            <IconClose />
           </button>
           <div className="text-modal title mb-1">Pilih lokasi</div>
           <div className="text-modal desc text-[#717171] mb-6 px-10">
@@ -64,7 +69,7 @@ export function Menu() {
                     src={logoAcc.src}
                     className="w-[82px] h-[103px] mx-auto"
                     alt="ACC"
-                  ></Image>
+                  />
                 </div>
                 <div className="bg-[#2C598D] text-modal button py-5">ACC</div>
               </button>
