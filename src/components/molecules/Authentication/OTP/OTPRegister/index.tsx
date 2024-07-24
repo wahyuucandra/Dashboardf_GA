@@ -51,36 +51,38 @@ export default function OTPRegister() {
     router.back()
   }, [])
 
-  const onSubmit = () => {
-    setIsLoading(true)
+  const onSubmit = async () => {
+    try {
+      setIsLoading(true)
 
-    const dataOTP = {
-      email: dataRegister?.email,
-      otpCode: inputOTP,
+      const dataOTP = {
+        email: dataRegister?.email,
+        otpCode: inputOTP,
+      }
+
+      const response = await apiPostOTPRegister(dataOTP)
+
+      if (response.status === 'T') {
+        toast.success('Berhasil meregister akun baru. Silakan verifikasi nomor terlebih dahulu.')
+        setTimeout(() => {
+          setIsLoading(false)
+          router.push('/login')
+        }, 3000)
+      } else {
+        toast.error('Terjadi kesalahan saat mendaftar. Silakan coba lagi.')
+      }
+    } catch (error: any) {
+      if (error?.response?.data?.message) {
+        toast.error(error.response.data.message)
+      } else if (error.request) {
+        toast.error('Gagal terhubung ke server. Periksa koneksi internet Anda.')
+      } else {
+        toast.error('Terjadi kesalahan saat mengirim permintaan. Silakan coba lagi.')
+      }
+    } finally {
+      sessionStorage.removeItem('data_register')
+      setIsLoading(false)
     }
-
-    apiPostOTPRegister(dataOTP)
-      .then(response => {
-        if (response.status === 'T') {
-          toast.success('Berhasil meregister akun baru. Silakan verifikasi nomor terlebih dahulu.')
-          setTimeout(() => {
-            setIsLoading(false)
-            router.push('/login')
-          }, 3000)
-        } else {
-          toast.error('Terjadi kesalahan saat mendaftar. Silakan coba lagi.')
-        }
-      })
-      .catch(error => {
-        if (error?.response?.data?.message) {
-          toast.error(error.response.data.message)
-        } else if (error.request) {
-          toast.error('Gagal terhubung ke server. Periksa koneksi internet Anda.')
-        } else {
-          toast.error('Terjadi kesalahan saat mengirim permintaan. Silakan coba lagi.')
-        }
-        setIsLoading(false)
-      })
   }
 
   return (

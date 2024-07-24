@@ -1,13 +1,18 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-// This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
-  const cookieAUth = request.cookies.get('TOKEN')
+  const cookieAUth = request.cookies.get('access_token')
   const response = NextResponse.next()
 
-  if (!cookieAUth) {
-    // return NextResponse.redirect(new URL('/login', request.url))
+  // Redirect unauthenticated users to login (except login and excluded paths)
+  if (!cookieAUth && !request.nextUrl.pathname.startsWith('/login')) {
+    return NextResponse.redirect(new URL('/login', request.url))
+  }
+
+  // Redirect authenticated users to home if they try to access login
+  if (cookieAUth && request.nextUrl.pathname.startsWith('/login')) {
+    return NextResponse.redirect(new URL('/', request.url))
   }
 
   return response

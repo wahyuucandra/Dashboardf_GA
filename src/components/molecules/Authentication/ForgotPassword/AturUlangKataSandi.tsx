@@ -6,7 +6,8 @@ import { IconLeftArrow } from '@components/atoms/Icon'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ResetPasswordCredentials } from '@interfaces/auth'
 import { apiPostForgotPassword } from '@services/authentication/api'
-import { GetStorage } from '@store/storage'
+import { GetStorage, SetStorage } from '@store/storage'
+import { encryptAES } from '@utils/helper/CryptoJS'
 import { passwordPattern } from '@utils/regex'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState, useEffect } from 'react'
@@ -44,27 +45,22 @@ export default function AturUlangKataSandi() {
   const onSubmit = async (value: any) => {
     try {
       setIsLoading(true)
-
       const dataForgot = {
         email: userEmail,
-        newPassword: value.password,
+        newPassword: encryptAES(value.password),
       }
-
       const response = await apiPostForgotPassword(dataForgot)
-
       if (response.status !== 'T') {
-        throw new Error('Forgot password request failed. Please check your email or try again later.')
+        throw new Error('Forgot password request failed. Please try again later.')
       }
-
       setIsLoading(false)
       router.push('/forgot-password/success')
     } catch (error) {
       setIsLoading(false)
-      // console.error('Error during forgot password request:', error) // Log the error for debugging
-
       alert('There was an error processing your request. Please try again later.')
     } finally {
       // Optional cleanup or actions regardless of success or error (e.g., reset form fields)
+      SetStorage('email', '')
     }
   }
 

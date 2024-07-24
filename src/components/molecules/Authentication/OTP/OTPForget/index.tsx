@@ -8,7 +8,7 @@ import { IconLeftArrow } from '@components/atoms/Icon'
 import { useCountDownTimer } from '@utils/hooks/useCountDownTimer'
 import { apiPostVerifyOTPForgot } from '@services/authentication/api'
 import { toast } from 'react-toastify'
-import { SetStorage } from '@store/storage'
+import { GetStorage, SetStorage } from '@store/storage'
 import Modals from '@components/atoms/modal/Modals'
 import OTPInput from '@components/atoms/OTPInput'
 
@@ -21,6 +21,7 @@ export default function OPTForget() {
   const [inputOTP, setInputOTP] = useState('')
   const [clearOtp, setClearOtp] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [noHP, setNoHP] = useState('')
 
   const { countDownTime, startCountDownTime, setCountDownTimeInMilliseconds } = useCountDownTimer({
     countDownTimeInMilliseconds: 2 * 60 * 1000, // 2 menit
@@ -32,6 +33,12 @@ export default function OPTForget() {
 
   useEffect(() => {
     startCountDownTime()
+    const getNoHP = GetStorage('nomorHP')
+    if (!getNoHP) {
+      router.push('/login')
+    } else {
+      setNoHP(getNoHP)
+    }
   }, [])
 
   const handleComplete = (otp: any) => {
@@ -47,7 +54,7 @@ export default function OPTForget() {
     setIsLoading(true)
 
     const dataOTP = {
-      noHp: '081748238473', // Replace with the actual input value
+      noHp: noHP,
       otpCode: inputOTP,
     }
 
@@ -55,7 +62,6 @@ export default function OPTForget() {
       const response: any = await apiPostVerifyOTPForgot(dataOTP)
 
       if (response.status === 'T') {
-        // Assuming response.data is the correct object containing the email, and response is properly typed
         const email = typeof response.data === 'object' ? response.data.email : null
 
         if (email) {
@@ -63,8 +69,6 @@ export default function OPTForget() {
           setIsLoading(false)
           router.push('/forgot-password/set-password')
         } else {
-          // Handle case where 'email' is missing in the response
-          // console.error('Missing email in response:', response)
           toast.error('Unexpected response format. Please contact support.')
         }
       } else {
