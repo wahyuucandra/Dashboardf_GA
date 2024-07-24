@@ -4,19 +4,14 @@ import IconAboutUs from '@assets/icons/IconAboutUs'
 import IconBookingAsset from '@assets/icons/IconBookingAsset'
 import IconBuildingMaintenance from '@assets/icons/IconBuildingMaintenance'
 import IconClose from '@assets/icons/IconClose'
-
 import logoAcc from '@assets/images/logoAcc.png'
 import logoBerijalan from '@assets/images/logoBerijalan.png'
-
 import { Modal } from '@components/atoms/ModalCustom'
 import Link from 'next/link'
 import Image from 'next/image'
-
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 export function Menu() {
-  const router = useRouter()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [linkState, setLinkState] = useState<string>()
 
