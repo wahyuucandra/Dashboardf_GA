@@ -1,9 +1,9 @@
-import { APIKey } from '@utils/environment'
+import { API } from '@utils/environment'
 import axios from 'axios'
 
 const satellite = axios.create({
-  baseURL: APIKey,
-  timeout: 5000, // in millisecond
+  baseURL: API,
+  timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
   },

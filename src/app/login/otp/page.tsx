@@ -1,4 +1,4 @@
-import OTPLogin from '@components/molecules/OTP/OTPLogin'
+import OTPLogin from '@components/molecules/Authentication/OTP/OTPLogin'
 
 export const metadata = {
   title: 'Login',

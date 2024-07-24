@@ -38,7 +38,7 @@ const DatePickerForm: React.FC<DatePickerFormProps> = ({
           <>
             <DatePicker
               name={name}
-              className="!mt-1 w-full"
+              className="w-full"
               value={value}
               onBlur={onBlur}
               ref={ref}

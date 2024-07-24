@@ -3,9 +3,16 @@
 import { Button } from '@components/atoms/button'
 import { useRouter } from 'next/navigation'
 import { IconSuccess } from '@components/atoms/Icon'
+import { useEffect } from 'react';
 
 export default function AturKataSandiBerhasil() {
   const router = useRouter()
+
+  useEffect(() => {
+    setTimeout(() => {
+      router.push('/login')
+    }, 3000)
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">

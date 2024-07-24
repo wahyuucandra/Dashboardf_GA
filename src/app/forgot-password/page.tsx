@@ -1,4 +1,4 @@
-import ForgotPasswordPage from '@components/molecules/ForgotPassword'
+import ForgotPasswordPage from '@components/molecules/Authentication/ForgotPassword'
 
 export const metadata = {
   title: 'Forgot Password',
