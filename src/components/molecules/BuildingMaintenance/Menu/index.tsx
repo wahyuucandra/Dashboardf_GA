@@ -1,21 +1,14 @@
 'use client'
 
-import IconAsset from '@assets/icons/IconAsset'
-import IconChevronLeft from '@assets/icons/IconChevronLeft'
-import IconManpower from '@assets/icons/IconManpower'
-import IconRoom from '@assets/icons/IconRoom'
-import IconVehicle from '@assets/icons/IconVehicle'
-import IconBookingAsset from '@assets/icons/IconBookingAsset'
-
-import bookingAsset from '@assets/images/BookingAsset.png'
-
-import Link from 'next/link'
-import Image from 'next/image'
 import IconBuildingMaintenance from '@assets/icons/IconBuildingMaintenance'
 import IconBuildingMaintenanceDesc from '@assets/icons/IconBuildingMaintenanceDesc'
+import IconChevronLeft from '@assets/icons/IconChevronLeft'
+import IconCleaningService from '@assets/icons/IconCleaningService'
 import IconEHS from '@assets/icons/IconEHS'
 import IconSecurityGuard from '@assets/icons/IconSecurityGuard'
-import IconCleaningService from '@assets/icons/IconCleaningService'
+import bookingAsset from '@assets/images/BookingAsset.png'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export function Menu() {
   return (
