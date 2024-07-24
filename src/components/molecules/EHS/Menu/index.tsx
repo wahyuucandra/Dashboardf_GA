@@ -1,21 +1,16 @@
 'use client'
 
-import IconAsset from '@assets/icons/IconAsset'
 import IconBookingAsset from '@assets/icons/IconBookingAsset'
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
-import IconManpower from '@assets/icons/IconManpower'
-import IconVehicle from '@assets/icons/IconVehicle'
-
-import bookingAsset from '@assets/images/BookingAsset.png'
-
+import IconEHSAGC from '@assets/icons/IconEHSAGC'
+import IconEHSElectricity from '@assets/icons/IconEHSElectricity'
+import IconEHSFuel from '@assets/icons/IconEHSFuel'
+import IconEHSP2LK3 from '@assets/icons/IconEHSP2LK3'
 import IconEHSWaste from '@assets/icons/IconEHSWaste'
+import IconEHSWater from '@assets/icons/IconEHSWater'
+import bookingAsset from '@assets/images/BookingAsset.png'
 import Image from 'next/image'
 import Link from 'next/link'
-import IconEHSWater from '@assets/icons/IconEHSWater'
-import IconEHSFuel from '@assets/icons/IconEHSFuel'
-import IconEHSElectricity from '@assets/icons/IconEHSElectricity'
-import IconEHSAGC from '@assets/icons/IconEHSAGC'
-import IconEHSP2LK3 from '@assets/icons/IconEHSP2LK3'
 
 export function Menu() {
   return (
