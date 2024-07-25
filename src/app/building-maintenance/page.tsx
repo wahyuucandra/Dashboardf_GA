@@ -4,6 +4,6 @@ export const metadata = {
   title: 'Building Maintenance',
 }
 
-export default function BMManagement() {
+export default function BuildingMaintenance() {
   return <BuildingMaintenancePage></BuildingMaintenancePage>
 }

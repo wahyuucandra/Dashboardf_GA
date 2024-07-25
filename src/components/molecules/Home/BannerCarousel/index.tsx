@@ -45,7 +45,7 @@ export function BannerCarousel() {
 
   return (
     <div className="bg-[#FFFFFF]">
-      <div ref={carouselRef} className={`whitespace-nowrap overflow-x-auto transition-all duration-300`}>
+      <div ref={carouselRef} className={`whitespace-nowrap overflow-x-auto transition-all duration-300 hide-scrollbar`}>
         {banners.map((val, index) => {
           return (
             <Link

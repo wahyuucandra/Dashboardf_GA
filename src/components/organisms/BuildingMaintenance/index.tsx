@@ -1,3 +1,9 @@
-import { BuildingMaintenanceManagementMenuPage } from './Menu/index'
+import { BuildingMaintenanceMenu } from '@components/molecules/BuildingMaintenance'
 
-export { BuildingMaintenanceManagementMenuPage }
+export default function BuildingMaintenance() {
+  return (
+    <>
+      <BuildingMaintenanceMenu></BuildingMaintenanceMenu>
+    </>
+  )
+}

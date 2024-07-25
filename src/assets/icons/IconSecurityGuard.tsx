@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function IconSecurityGuard({
   width = 51,
   height = 51,

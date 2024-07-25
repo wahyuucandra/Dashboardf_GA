@@ -6,19 +6,20 @@
 @import './partials/text';
 @import './partials/custom-checkbox';
 @import './partials/custom-radio';
+@import './partials/badge-option';
 
 @layer components {
-	.menu-selection {
-		@apply bg-[#E8F6FF] text-[#008DEB] font-bold;
-	}
+  .menu-selection {
+    @apply bg-[#E8F6FF] text-[#008DEB] font-bold;
+  }
 
-	.custom-shadow {
-		@apply shadow-black;
-	}
+  .custom-shadow {
+    @apply shadow-black;
+  }
 
-	.navigation-menu {
-		@apply min-w-[100px] py-5 flex hover:menu-selection px-5 items-center;
-	}
+  .navigation-menu {
+    @apply min-w-[100px] py-5 flex hover:menu-selection px-5 items-center;
+  }
 }
 
 .dividers {
@@ -28,69 +29,76 @@
 }
 
 .status-button {
-	background: linear-gradient(0deg, #2c598d, #2c598d),
-		linear-gradient(
-			180deg,
-			rgba(255, 255, 255, 0.12) 0%,
-			rgba(255, 255, 255, 0) 100%
-		);
-	border: 1px solid;
-	border-image-source: linear-gradient(
-		180deg,
-		rgba(255, 255, 255, 0.12) 0%,
-		rgba(255, 255, 255, 0) 100%
-	);
-	box-shadow: 0px 0px 0px 1px #375dfb;
-	box-shadow: 0px 1px 2px 0px #253ea77a;
+  background: linear-gradient(0deg, #2c598d, #2c598d),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%);
+  border: 1px solid;
+  border-image-source: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%);
+  box-shadow: 0px 0px 0px 1px #375dfb;
+  box-shadow: 0px 1px 2px 0px #253ea77a;
 }
 
 .cancel-button {
-	background: linear-gradient(0deg, #2c598d, #2c598d),
-		linear-gradient(
-			180deg,
-			rgba(255, 255, 255, 0.12) 0%,
-			rgba(255, 255, 255, 0) 100%
-		);
+  background: linear-gradient(0deg, #2c598d, #2c598d),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%);
 
-	border: 1px solid;
-	border-image-source: linear-gradient(
-		180deg,
-		rgba(255, 255, 255, 0.12) 0%,
-		rgba(255, 255, 255, 0) 100%
-	);
+  border: 1px solid;
+  border-image-source: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%);
 
-	box-shadow: 0px 0px 0px 1px #375dfb;
-	box-shadow: 0px 1px 2px 0px #253ea77a;
+  box-shadow: 0px 0px 0px 1px #375dfb;
+  box-shadow: 0px 1px 2px 0px #253ea77a;
 }
 
 .exit-button {
-	border: 1px solid #00376a;
+  border: 1px solid #00376a;
 }
 
 .logout-button {
-	border: 1px solid #ff0000;
-}
-
-.max-container{
-	@apply max-w-full sm:max-w-[375px];
-}
-.booking-button {
-	background: linear-gradient(0deg, #2c598d, #2c598d),
-		linear-gradient(
-			180deg,
-			rgba(255, 255, 255, 0.12) 0%,
-			rgba(255, 255, 255, 0) 100%
-		);
-	border: 1px solid;
-	border-image-source: linear-gradient(
-		180deg,
-		rgba(255, 255, 255, 0.12) 0%,
-		rgba(255, 255, 255, 0) 100%
-	);
-	box-shadow: 0px 0px 0px 1px #1c233e;
-	box-shadow: 0px 1px 2px 0px #253ea77a;
+  border: 1px solid #ff0000;
 }
 
 .max-container {
   @apply max-w-full sm:max-w-[375px];
+}
+
+.booking-button {
+  background: linear-gradient(0deg, #2c598d, #2c598d),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%);
+  border: 1px solid;
+  border-image-source: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%);
+  box-shadow: 0px 0px 0px 1px #1c233e;
+  box-shadow: 0px 1px 2px 0px #253ea77a;
+}
+
+.save-button {
+  background: linear-gradient(0deg, #2c598d, #2c598d),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%);
+  border: 1px solid;
+  border-image-source: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%);
+  box-shadow: 0px 0px 0px 1px #1c233e;
+  box-shadow: 0px 1px 2px 0px #253ea77a;
+}
+
+.max-container {
+  @apply max-w-full sm:max-w-[640px];
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Chrome, Safari, Edge, Opera */
+.hide-arrow::-webkit-outer-spin-button,
+.hide-arrow::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.hide-arrow[type='number'] {
+  -moz-appearance: textfield;
 }

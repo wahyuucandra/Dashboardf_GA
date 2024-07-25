@@ -4,35 +4,40 @@ import IconAboutUs from '@assets/icons/IconAboutUs'
 import IconBookingAsset from '@assets/icons/IconBookingAsset'
 import IconBuildingMaintenance from '@assets/icons/IconBuildingMaintenance'
 import IconClose from '@assets/icons/IconClose'
-
 import logoAcc from '@assets/images/logoAcc.png'
 import logoBerijalan from '@assets/images/logoBerijalan.png'
-
 import { Modal } from '@components/atoms/ModalCustom'
 import Link from 'next/link'
 import Image from 'next/image'
-
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 export function Menu() {
-  const router = useRouter()
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [linkState, setLinkState] = useState<string>()
 
   return (
     <div className="bg-[#FFFFFF]">
       <div className="p-3">
         <div className="text-heading xs semibold-16 text-[#2C598D] mb-4">Pilih Kebutuhan</div>
         <div className="grid grid-cols-3 gap-2">
-          <button onClick={() => setIsOpen(true)} className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-md">
-            <IconBookingAsset className="mx-auto" />
+          <button
+            onClick={() => {
+              setIsOpen(true)
+              setLinkState('/booking-asset')
+            }}
+            className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-md"
+          >
+            <IconBookingAsset className="mx-auto"></IconBookingAsset>
             <span className="text-[#2C598D] text-extra-small regular-12 mx-auto">Booking Asset</span>
           </button>
           <button
+            onClick={() => {
+              setIsOpen(true)
+              setLinkState('/building-maintenance')
+            }}
             className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-md"
-            onClick={() => router.push('/building-maintenance-management')}
           >
-            <IconBuildingMaintenance className="mx-auto" />
+            <IconBuildingMaintenance className="mx-auto"></IconBuildingMaintenance>
             <span className="text-[#2C598D] text-extra-small regular-12 mx-auto">Building Maintenance Management</span>
           </button>
           <button className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-md">
@@ -53,7 +58,7 @@ export function Menu() {
           </div>
 
           <div className="grid grid-cols-2 gap-4 justify-items-center">
-            <Link href={`/booking-asset`} className="justify-self-stretch w-full">
+            <Link href={`${linkState}`} className="justify-self-stretch w-full">
               <button
                 onClick={() => {
                   setIsOpen(false)
@@ -75,7 +80,7 @@ export function Menu() {
               </button>
             </Link>
 
-            <Link href={`/booking-asset`} className="justify-self-stretch w-full">
+            <Link href={`${linkState}`} className="justify-self-stretch w-full">
               <button
                 onClick={() => {
                   setIsOpen(false)
