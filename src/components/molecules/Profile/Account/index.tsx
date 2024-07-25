@@ -25,28 +25,28 @@ export function Account() {
 
   return (
     <div className="bg-[#f6f6f6] px-3 pt-2 h-full w-full">
-      <div className="flex flex-row mb-2">
+      <div className="flex flex-row mb-2 cursor-pointer">
         <IconChevronLeft width={24} height={24} className="mr-2" />
         <span className="font-semibold text-[18px]">Akun Saya</span>
       </div>
-      <div className="flex flex-row items-center bg-white px-4 py-4 mb-2">
-        <div className="w-14 h-14 rounded-full bg-[#D9D9D9] mr-2"></div>
+      <div
+        className="flex flex-row items-center bg-white px-4 py-4 mb-2 cursor-pointer "
+        onClick={() => {
+          router.push('/profile/detail')
+        }}
+        onKeyDown={() => {}}
+      >
+        <div className="w-14 h-14 rounded-full bg-[#D9D9D9] mr-2" />
         <div>
-          <p className="font-semibold text-[18px]">{dataUser.namaUser}</p>
-          <div
-            className="flex flex-row"
-            onClick={() => {
-              router.push('/profile/detail')
-            }}
-            onKeyDown={() => {}}
-          >
+          <p className="font-semibold text-[18px]">{dataUser.nameUser ? dataUser.nameUser : 'Not Login'}</p>
+          <div className="flex flex-row">
             <p className=" font-normal text-[14px] text-[#909090]">View my profile</p>
             <IconChevronRight width={18} height={18} color="#909090" />
           </div>
         </div>
       </div>
       <div
-        className="flex flex-row items-center bg-white px-4 py-4 justify-between"
+        className="flex flex-row items-center bg-white px-4 py-4 justify-between cursor-pointer"
         onClick={() => router.push('/history')}
         onKeyDown={() => {}}
       >
@@ -57,7 +57,7 @@ export function Account() {
         <IconChevronRight width={16} height={16} />
       </div>
       <div
-        className="flex flex-row items-center bg-white px-4 py-4 justify-between mb-2"
+        className="flex flex-row items-center bg-white px-4 py-4 justify-between mb-2 cursor-pointer"
         onClick={() => router.push('/notification')}
         onKeyDown={() => {}}
       >
@@ -68,13 +68,13 @@ export function Account() {
         <IconChevronRight width={16} height={16} />
       </div>
       <div
-        className="flex flex-row items-center bg-white px-4 py-4 justify-between rounded-md"
+        className="flex flex-row items-center bg-white px-4 py-4 justify-between rounded-md cursor-pointer"
         onClick={() => {
           setIsConfimationModalOpen(true)
         }}
         onKeyDown={() => {}}
       >
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center cursor-pointer">
           <IconLogout width={24} height={24} color="red" />
           <p className="font-normal text-[14px] ml-2 text-red-700">Log out</p>
         </div>
@@ -94,8 +94,8 @@ export function Account() {
               onClick={() => {
                 setIsConfimationModalOpen(false)
                 SetStorage('email', '')
-                SetStorage('data_user', '')
                 SetCookie('data_user', '')
+                SetCookie('access_token', '')
                 router.push(`/login`, { scroll: false })
               }}
               type="button"

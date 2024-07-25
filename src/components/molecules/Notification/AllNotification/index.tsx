@@ -110,7 +110,7 @@ export function AllNotification() {
   }
 
   return (
-    <div className="bg-white w-[430px] bottom-0 top-0 z-[101]">
+    <div className="bg-white max-container bottom-0 top-0 z-[101]">
       <div className="relative flex flex-row items-center px-4 pt-4">
         <div className="relative flex">
           <Link href={'/'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">

@@ -1,4 +1,4 @@
-import { VehicleSecurityVehicleExit } from '@components/molecules/VehicleSecurity'
+import { VehicleSecurityVehicleExit } from '@components/molecules/Transaction/VehicleSecurity'
 
 export function VehicleExitPage() {
   return (
