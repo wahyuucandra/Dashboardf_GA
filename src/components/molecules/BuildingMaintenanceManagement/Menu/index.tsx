@@ -19,11 +19,11 @@ export function BuildingMaintenanceManagementMenu() {
         className="fixed top-0 object-cover w-full max-container h-[188px] rounded-b"
         src={bookingAsset.src}
         alt="Booking Asset"
-      ></Image>
+      />
 
       <div className="fixed top-4 ml-4">
         <Link href={'/'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
-          <IconChevronLeft></IconChevronLeft>
+          <IconChevronLeft />
         </Link>
       </div>
 
