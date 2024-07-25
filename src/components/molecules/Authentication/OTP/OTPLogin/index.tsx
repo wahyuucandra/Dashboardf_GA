@@ -2,19 +2,20 @@
 
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
+import OTPInput from '@components/atoms/OTPInput'
+import Modals from '@components/atoms/modal/Modals'
 import { Button } from '@components/atoms/button'
 import { IconLeftArrow } from '@components/atoms/Icon'
 import { useCountDownTimer } from '@utils/hooks/useCountDownTimer'
-import Modals from '@components/atoms/modal/Modals'
-import OTPInput from '@components/atoms/OTPInput'
 import { apiPostOTPLogin } from '@services/authentication/api'
-import { toast } from 'react-toastify'
-import { SetCookie } from '@store/storage'
+import { GetStorage, SetCookie } from '@store/storage'
 
 export default function OTPLogin() {
   const router = useRouter()
   const [userEmail, setUserEmail] = useState<string>('')
+  const [noHP, setNoHP] = useState<string>('')
 
   const [timeOutOTP, setTimeOutOTP] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -34,11 +35,13 @@ export default function OTPLogin() {
   useEffect(() => {
     startCountDownTime()
 
-    const email = sessionStorage.getItem('email')
+    const email = GetStorage('email')
+    const noHP = GetStorage('noHp')
     if (!email) {
       router.push('/login')
     } else {
       setUserEmail(email)
+      setNoHP(noHP)
     }
   }, [])
 
@@ -63,19 +66,16 @@ export default function OTPLogin() {
       const response: any = await apiPostOTPLogin(dataOTP)
 
       if (response.status === 'T') {
-        toast.success('Berhasil Login.')
-        setIsLoading(false) // Set loading state to false immediately
+        toast.success('Berhasil Login')
 
         SetCookie('data_user', response.data)
-        SetCookie('token', response?.data?.token) // Use optional chaining for safer access
+        SetCookie('access_token', response?.data?.tokenSession)
 
         router.push('/')
       } else {
         toast.error('Terjadi kesalahan saat login. Silakan coba lagi.')
       }
     } catch (error: any) {
-      setIsLoading(false) // Set loading state to false on errors
-
       if (error?.response?.data?.message) {
         toast.error(error.response.data.message) // Handle server-side errors
       } else if (error.request) {
@@ -83,6 +83,8 @@ export default function OTPLogin() {
       } else {
         toast.error('Terjadi kesalahan saat mengirim permintaan. Silakan coba lagi.')
       }
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -94,7 +96,7 @@ export default function OTPLogin() {
         </button>
         <h1 className="text-[28px] font-bold text-black mt-[12px]">Atur Ulang Kata Sandi</h1>
         <p className="text-sm font-normal text-[#6B7280] mb-5">
-          Kode verifikasi telah dikirimkan ke <span className="text-[#0089cf]">08******123</span>
+          Kode verifikasi telah dikirimkan ke <span className="text-[#0089cf]">{noHP}</span>
         </p>
         <div className="flex flex-col items-center justify-center mb-5">
           <div className="mb-5">
