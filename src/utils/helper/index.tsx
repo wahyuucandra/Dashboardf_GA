@@ -1,12 +1,10 @@
-// import { API_KEY } from '@utils/environment'
-
-// import { getCookie } from 'cookies-next'
 import { APIKey } from '@utils/environment'
 import axios, { AxiosError } from 'axios'
+import { getCookie } from 'cookies-next'
 
-const httpRequest = (baseURL: string) => {
+const httpRequest = (baseURL: string, token?: string) => {
   // Construct the access token string using template literal
-  // const accessToken = token ?? (getCookie('access_token') || '')
+  const accessToken = token ?? (getCookie('access_token') || '')
 
   // Create the Axios instance with the configured headers
   const instance = axios.create({
@@ -18,7 +16,7 @@ const httpRequest = (baseURL: string) => {
       'X-Frame-Options': 'SAMEORIGIN',
       'X-XSS-Protection': '1; mode=block',
       APIKey: APIKey,
-      // Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${accessToken}`,
     },
   })
 
