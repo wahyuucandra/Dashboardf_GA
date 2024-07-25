@@ -1,9 +1,9 @@
-import BuildingMaintenancePage from '@components/organisms/BuildingMaintenance'
+import { MaintenanceManagementMenuPage } from '@components/organisms/BuildingMaintenanceManagement'
 
 export const metadata = {
   title: 'Building Maintenance',
 }
 
 export default function BuildingMaintenance() {
-  return <BuildingMaintenancePage></BuildingMaintenancePage>
+  return <MaintenanceManagementMenuPage />
 }

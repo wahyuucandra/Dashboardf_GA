@@ -1,3 +1,4 @@
-import { Menu as BuildingMaintenanceMenu } from './Menu/index'
+import { Menu as MaintenanceMenu } from './Menu/index'
+import { Management as MaintenanceManagement } from './Management/index'
 
-export { BuildingMaintenanceMenu }
+export { MaintenanceMenu, MaintenanceManagement }
