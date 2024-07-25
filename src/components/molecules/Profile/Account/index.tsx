@@ -38,7 +38,7 @@ export function Account() {
       >
         <div className="w-14 h-14 rounded-full bg-[#D9D9D9] mr-2" />
         <div>
-          <p className="font-semibold text-[18px]">{dataUser.nameUser ? dataUser.nameUser : 'Not Login'}</p>
+          <p className="font-semibold text-[18px]">{dataUser?.nameUser || 'Not Login'}</p>
           <div className="flex flex-row">
             <p className=" font-normal text-[14px] text-[#909090]">View my profile</p>
             <IconChevronRight width={18} height={18} color="#909090" />

@@ -19,8 +19,10 @@ import IconBudgetTimeline from '@assets/icons/IconBudgetTimeline'
 import IconReportKondisi from '@assets/icons/IconReportKondisi'
 import IconHistory from '@assets/icons/IconHistory'
 import IconStandarCabang from '@assets/icons/IconStandarCabang'
+import { useRouter } from 'next/navigation'
 
 export function AllNotification() {
+  const router = useRouter()
   const handleNotificationStatus = (status: any) => {
     if (status) {
       return 'bg-[#e5f2fc]'
@@ -115,8 +117,8 @@ export function AllNotification() {
   }
 
   return (
-    <div className="bg-white w-[430px] bottom-0 top-0 z-[101]">
-      <Header prevLink="/" title="Notification" key={'header'} useLink={false} />
+    <div className="bg-white z-[101]">
+      <Header prevLink="/" title="Notification" key={'header'} useLink={false} onBack={() => router.back()} />
       <div className="flex flex-row items-center mb-2 px-4 pt-16">
         <div className="w-[150px] mr-2">
           <FilterLocation />

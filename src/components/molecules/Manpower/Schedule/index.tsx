@@ -16,6 +16,7 @@ import { TimeRangeInput } from '@components/atoms/TimeRangeInput'
 import { ReasonInputArea } from '@components/atoms/ReasonInput'
 import { DefaulManpowerScheduleForm, ManpowerScheduleForm } from '@interfaces/schedule'
 import CapacityInput from '@components/atoms/CapacityInput'
+import Footer from '@components/atoms/Footer'
 
 // const schema = Yup.object().shape({
 //   gender: Yup.string().required('Jenis kelamin wajib diisi'),
@@ -56,7 +57,6 @@ export function Schedule() {
   })
 
   const onSubmit = async () => {
-    // console.log(formData) // Menggunakan formData untuk mendapatkan nilai yang di-submit
     router.push('/booking-asset/manpower/process')
   }
 
@@ -69,110 +69,114 @@ export function Schedule() {
       <Image
         width={0}
         height={0}
-        className="fixed top-0 object-cover w-full h-[188px] rounded-b"
+        className="fixed z-[102] top-0 object-cover w-full max-container h-[188px] rounded-b"
         src={bookingAsset}
         alt="Booking Asset"
       />
 
-      <div className="fixed top-4 left-4">
+      <div className="fixed z-[102] top-4 ml-4">
         <Link href={'/booking-asset/manpower'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
-          <IconChevronLeft></IconChevronLeft>
+          <IconChevronLeft />
         </Link>
       </div>
 
-      <div className="bg-white w-full fixed bottom-0 top-0 z-[101] px-4 mt-[216px]">
-        <form className="relative h-full" onSubmit={handleSubmit(onSubmit)}>
-          <div className="text-2xl font-semibold text-[#2C598D] mb-6">Schedule Manpower</div>
-          {/* Gender Input */}
-          <div className="mb-5">
-            <div className="text-paragraph regular-14 mb-1">
-              Jenis Kelamin: <span className="text-[#E15241] -mt-1">*</span>
-            </div>
-            <div className="grid grid-cols-2 gap-6">
-              <label className="container">
-                Laki-Laki{' '}
-                <input type="radio" checked={gender === 'L'} onChange={handleGenderChange} name="gender" value="L" />
-                <span className="radio"></span>
-              </label>
+      <div className="bg-white py-[216px] h-screen overflow-y-auto ">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <p className="mb-6 px-4 text-heading m semibold-21 text-[#2C598D]">Schedule Manpower</p>
+          <div className="grid grid-cols-1 gap-6 pb-[150px] px-4">
+            {/* Gender Input */}
+            <div>
+              <div className="text-paragraph regular-14 mb-1">
+                Jenis Kelamin: <span className="text-[#E15241] -mt-1">*</span>
+              </div>
+              <div className="grid grid-cols-2 gap-6">
+                <label className="container">
+                  Laki-Laki{' '}
+                  <input type="radio" checked={gender === 'L'} onChange={handleGenderChange} name="gender" value="L" />
+                  <span className="radio"></span>
+                </label>
 
-              <label className="container">
-                Perempuan{' '}
-                <input type="radio" checked={gender === 'P'} onChange={handleGenderChange} name="gender" value="P" />
-                <span className="radio"></span>
-              </label>
-            </div>
-          </div>
-
-          {/* Date Input */}
-          <div className="mb-5">
-            <div className="text-paragraph regular-14 mb-1">
-              Pilih tanggal <span className="text-[#E15241]">*</span>
-            </div>
-            <DateRangeInput
-              control={control}
-              value={date}
-              onButtonClick={val => {
-                setValue('date', val)
-              }}
-            ></DateRangeInput>
-          </div>
-
-          {/* Time Input */}
-          <div className="mb-5">
-            <div className="text-paragraph regular-14 mb-1">
-              Jam <span className="text-[#E15241]">*</span>
-            </div>
-            <TimeRangeInput
-              control={control}
-              value={time}
-              onButtonClick={val => {
-                setValue('time', val)
-              }}
-            />
-          </div>
-
-          {/* Keperluan Input */}
-          <div className="mb-5">
-            <div className="text-paragraph regular-14 mb-1">
-              Keperluan <span className="text-[#E15241]">*</span>
-            </div>
-            <ReasonInputArea
-              control={control}
-              value={reason}
-              onChangeInput={val => {
-                setValue('reason', val)
-              }}
-            />
-          </div>
-
-          {/* Manpower Input */}
-          <div className="mb-5">
-            <div className="text-paragraph regular-14 mb-1">
-              Kebutuhan Manpower <span className="text-[#E15241]">*</span>
+                <label className="container">
+                  Perempuan{' '}
+                  <input type="radio" checked={gender === 'P'} onChange={handleGenderChange} name="gender" value="P" />
+                  <span className="radio"></span>
+                </label>
+              </div>
             </div>
 
-            <CapacityInput
-              name="manpower"
-              control={control}
-              data={[1, 2, 3, 4, 5]}
-              value={manpower}
-              onButtonClick={val => {
-                setValue('manpower', val)
-              }}
-              label="orang"
-              placeholder="Masukan kebutuhan"
-            />
+            {/* Date Input */}
+            <div>
+              <div className="text-paragraph regular-14 mb-1">
+                Pilih tanggal <span className="text-[#E15241]">*</span>
+              </div>
+              <DateRangeInput
+                control={control}
+                value={date}
+                onButtonClick={val => {
+                  setValue('date', val)
+                }}
+              ></DateRangeInput>
+            </div>
+
+            {/* Time Input */}
+            <div>
+              <div className="text-paragraph regular-14 mb-1">
+                Jam <span className="text-[#E15241]">*</span>
+              </div>
+              <TimeRangeInput
+                control={control}
+                value={time}
+                onButtonClick={val => {
+                  setValue('time', val)
+                }}
+              />
+            </div>
+
+            {/* Keperluan Input */}
+            <div>
+              <div className="text-paragraph regular-14 mb-1">
+                Keperluan <span className="text-[#E15241]">*</span>
+              </div>
+              <ReasonInputArea
+                control={control}
+                value={reason}
+                onChangeInput={val => {
+                  setValue('reason', val)
+                }}
+              />
+            </div>
+
+            {/* Manpower Input */}
+            <div>
+              <div className="text-paragraph regular-14 mb-1">
+                Kebutuhan Manpower <span className="text-[#E15241]">*</span>
+              </div>
+
+              <CapacityInput
+                name="manpower"
+                control={control}
+                data={[1, 2, 3, 4, 5]}
+                value={manpower}
+                onButtonClick={val => {
+                  setValue('manpower', val)
+                }}
+                label="orang"
+                placeholder="Masukan kebutuhan"
+              />
+            </div>
           </div>
 
           {/* Button submit */}
-          <div className="absolute bottom-12 w-full">
-            <button
-              type="submit"
-              className="next-button h-11 rounded-lg w-full text-heading xs semibold-16 text-[#FFFFFF]"
-            >
-              Lanjutkan
-            </button>
-          </div>
+          <Footer>
+            <div className="bg-white pt-3 pb-12 px-3 w-full">
+              <button
+                type="submit"
+                className="next-button h-11 rounded-lg w-full text-heading xs semibold-16 text-[#FFFFFF]"
+              >
+                Lanjutkan
+              </button>
+            </div>
+          </Footer>
         </form>
       </div>
     </div>

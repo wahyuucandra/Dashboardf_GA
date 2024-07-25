@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 export function Process() {
   const router = useRouter()
   return (
-    <div className="bg-white fixed z-[102] bottom-0 right-4 left-4  h-screen">
+    <div className="bg-white z-[102] h-screen max-container relative px-4">
       <div className="flex flex-col items-center h-full justify-center">
         <Image
           width={0}
