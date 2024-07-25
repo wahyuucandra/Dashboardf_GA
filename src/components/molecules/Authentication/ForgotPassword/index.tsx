@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { ForgotPasswordCredentials } from '@interfaces/auth'
 import { apiPostSendOTPForgot } from '@services/authentication/api'
 import * as yup from 'yup'
+import { SetStorage } from '@store/storage'
 
 const schema = yup.object().shape({
   phoneNumber: yup.string().required('Nomor Telepon diperlukan').min(9, 'No Handphone minimal 9 digit'),
@@ -31,7 +32,7 @@ export default function ForgotPasswordPage() {
 
     try {
       // Format nomor telepon
-      const nomor = '62' + data.phoneNumber.replace(/^0+/, '')
+      const nomor = '0' + data.phoneNumber.replace(/^0+/, '')
       const dataSendOTP = {
         noHp: nomor,
       }
@@ -41,16 +42,12 @@ export default function ForgotPasswordPage() {
 
       if (response.status === 'T') {
         router.push('/forgot-password/otp')
+        SetStorage('nomorHP', nomor)
       } else {
-        // Handle jika status tidak 'T'
-        // console.error('Gagal mengirim OTP:', response)
-        // Tampilkan pesan kesalahan ke pengguna (misalnya, menggunakan alert atau toast)
         alert('Terjadi kesalahan saat mengirim OTP. Silakan coba lagi.')
       }
     } catch (error) {
       setIsLoading(false)
-      // console.error('Terjadi kesalahan:', error)
-      // Tampilkan pesan kesalahan umum ke pengguna
       alert('Terjadi kesalahan. Silakan coba lagi nanti.')
     } finally {
       setIsLoading(false)
