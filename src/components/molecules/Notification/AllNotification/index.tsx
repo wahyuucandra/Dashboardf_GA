@@ -1,11 +1,8 @@
 'use client'
 
-import Link from 'next/link'
-
 import { FilterLocation } from '@components/atoms/FilterLocation'
 import { FilterProduk } from '@components/atoms/FilterProduk'
 import { dataNotification } from './data'
-import IconChevronLeft from '@assets/icons/IconChevronLeft'
 import IconMeetingRoom from '@assets/icons/IconMeetingRoom'
 import IconBallroom from '@assets/icons/IconBallroom'
 import IconVehicle from '@assets/icons/IconVehicle'
@@ -14,8 +11,18 @@ import IconKaraoke from '@assets/icons/IconKaraoke'
 import IconManpowerSecurity from '@assets/icons/IconManpowerSecurity'
 import IconManpowerMaintenance from '@assets/icons/IconManpowerMaintanance'
 import IconManpowerReceptionist from '@assets/icons/IconManpowerReceptionist'
+import Header from '@components/atoms/Header'
+import IconVehicleSpecialOperation from '@assets/icons/IconVehicleSpecialOperation'
+import IconVehicleOfficeOperation from '@assets/icons/IconVehicleOfficeOperation'
+import IconPengajuanPerbaikan from '@assets/icons/IconPengajuanPerbaikan'
+import IconBudgetTimeline from '@assets/icons/IconBudgetTimeline'
+import IconReportKondisi from '@assets/icons/IconReportKondisi'
+import IconHistory from '@assets/icons/IconHistory'
+import IconStandarCabang from '@assets/icons/IconStandarCabang'
+import { useRouter } from 'next/navigation'
 
 export function AllNotification() {
+  const router = useRouter()
   const handleNotificationStatus = (status: any) => {
     if (status) {
       return 'bg-[#e5f2fc]'
@@ -60,24 +67,24 @@ export function AllNotification() {
         return <IconManpowerSecurity width={size} height={size} />
       case 'Receptionist':
         return <IconManpowerReceptionist width={size} height={size} />
-      // case 'Operational Khusus':
-      // 	return <IconOperationalKhusus width={size} height={size} />;
-      // case 'Operational Kantor':
-      // 	return <IconOperationalKantor width={size} height={size} />;
+      case 'Operational Khusus':
+        return <IconVehicleSpecialOperation width={size} height={size} />
+      case 'Operational Kantor':
+        return <IconVehicleOfficeOperation width={size} height={size} />
+      case 'Pengajuan Perbaikan':
+        return <IconPengajuanPerbaikan width={size} height={size} />
+      case 'Budget & Timeline':
+        return <IconBudgetTimeline width={size} height={size} />
+      case 'Report Kondisi Cabang':
+        return <IconReportKondisi width={size} height={size} />
+      case 'History Perbaikan':
+        return <IconHistory width={size} height={size} />
+      case 'Standar Cabang':
+        return <IconStandarCabang width={size} height={size} />
       // case 'Cleaning Service':
       // 	return <IconCleaningService width={size} height={size} />;
       // case 'Urgent Action':
       // 	return <IconUrgentAction width={size} height={size} />;
-      // case 'Pengajuan Perbaikan':
-      // 	return <IconPengajuanPerbaikan width={size} height={size} />;
-      // case 'Budget & Timeline':
-      // 	return <IconBudgetTimeline width={size} height={size} />;
-      // case 'Report Kondisi Cabang':
-      // 	return <IconReportKondisiCabang width={size} height={size} />;
-      // case 'History Perbaikan':
-      // 	return <IconHistoryPerbaikan width={size} height={size} />;
-      // case 'Standar Cabang':
-      // 	return <IconStandarCabang width={size} height={size} />;
       // case 'Waste Management':
       // 	return <IconWasteManagement width={size} height={size} />;
       // case 'Penggunaan Air':
@@ -110,19 +117,9 @@ export function AllNotification() {
   }
 
   return (
-    <div className="bg-white max-container bottom-0 top-0 z-[101]">
-      <div className="relative flex flex-row items-center px-4 pt-4">
-        <div className="relative flex">
-          <Link href={'/'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
-            <IconChevronLeft />
-          </Link>
-        </div>
-        <div className="flex-1 flex justify-center">
-          <span className="font-semibold text-[18px] text-[#2C598D]">Notifikasi</span>
-        </div>
-      </div>
-
-      <div className="flex flex-row items-center mb-2 px-4 pt-4">
+    <div className="bg-white z-[101]">
+      <Header prevLink="/" title="Notification" key={'header'} useLink={false} onBack={() => router.back()} />
+      <div className="flex flex-row items-center mb-2 px-4 pt-16">
         <div className="w-[150px] mr-2">
           <FilterLocation />
         </div>

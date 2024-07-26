@@ -1,14 +1,16 @@
 'use client'
 
-import IconBuildingMaintenance from '@assets/icons/IconBuildingMaintenance'
-import IconBuildingMaintenanceDesc from '@assets/icons/IconBuildingMaintenanceDesc'
-import IconChevronLeft from '@assets/icons/IconChevronLeft'
-import IconCleaningService from '@assets/icons/IconCleaningService'
-import IconEHS from '@assets/icons/IconEHS'
-import IconSecurityGuard from '@assets/icons/IconSecurityGuard'
-import bookingAsset from '@assets/images/BookingAsset.png'
-import Image from 'next/image'
 import Link from 'next/link'
+import Image from 'next/image'
+
+import bookingAsset from '@assets/images/BookingAsset.png'
+import IconChevronLeft from '@assets/icons/IconChevronLeft'
+import IconRoom from '@assets/icons/IconRoom'
+import IconMaintenancePengajuan from '@assets/icons/IconMaintenancePengajuan'
+import IconMaintenanceBudget from '@assets/icons/IconMaintenanceBudget'
+import IconMaintenanceStandar from '@assets/icons/IconMaintenanceStandar'
+import IconMaintenanceReport from '@assets/icons/IconMaintenanceReport'
+import IconMaintenanceHistory from '@assets/icons/IconMaintenanceHistory'
 
 export function Menu() {
   return (
@@ -20,53 +22,61 @@ export function Menu() {
         className="fixed top-0 object-cover w-full max-container h-[188px] rounded-b"
         src={bookingAsset.src}
         alt="Booking Asset"
-      ></Image>
+      />
 
       <div className="fixed top-4 ml-4">
-        <Link href={'/'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
-          <IconChevronLeft></IconChevronLeft>
+        <Link href={'/building-maintenance'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
+          <IconChevronLeft />
         </Link>
       </div>
 
-      <div className="px-3 py-[200px] h-screen overflow-y-auto">
+      <div className="px-3 pt-[200px]">
         <div className="flex items-center space-x-3 mb-4">
-          <IconBuildingMaintenance width={32} height={32}></IconBuildingMaintenance>
+          <IconRoom width={32} height={32} />
           <div>
-            <div className="text-heading xs semibold-16 text-[#2C598D]">Building Maintenance Managament</div>
+            <div className="text-heading xs semibold-16 text-[#2C598D]">Building Maintenance</div>
             <div className="text-[#809BB5] -mt-1">
               <span className="text-extra-small regular-12">Pilih request yang Anda butuhkan di lokasi </span>
               <span className="text-extra-small semibold-12">ACC HO</span>
             </div>
           </div>
         </div>
+
         <div className="grid grid-cols-2 gap-4 text-center">
           <Link
-            href={'/building-maintenance/s'}
+            href={'/building-maintenance/maintenance/management'}
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
-            <IconBuildingMaintenanceDesc className="mx-auto"></IconBuildingMaintenanceDesc>
-            <span className="text-paragraph semibold-14 text-[#2C598D]">Building Maintenance</span>
+            <IconMaintenancePengajuan className="mx-auto" />
+            <span className="text-paragraph semibold-14 text-[#2C598D]">Pengajuan Perbaikan</span>
           </Link>
           <Link
-            href={'/building-maintenance/ehs'}
+            href={'/building-maintenance/maintenance/management'}
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
-            <IconEHS className="mx-auto"></IconEHS>
-            <span className="text-paragraph semibold-14 text-[#2C598D]">EHS Management System</span>
+            <IconMaintenanceBudget className="mx-auto" />
+            <span className="text-paragraph semibold-14 text-[#2C598D]">Budget & Timeline</span>
           </Link>
           <Link
-            href={'/building-maintenance/security'}
+            href={'/building-maintenance/maintenance/management'}
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
-            <IconSecurityGuard className="mx-auto"></IconSecurityGuard>
-            <span className="text-paragraph semibold-14 text-[#2C598D]">Security Guard</span>
+            <IconMaintenanceStandar className="mx-auto" />
+            <span className="text-paragraph semibold-14 text-[#2C598D]">Standar Cabang</span>
           </Link>
           <Link
-            href={'/building-maintenance/cleaning-service'}
+            href={'/building-maintenance/maintenance/management'}
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
-            <IconCleaningService className="mx-auto"></IconCleaningService>
-            <span className="text-paragraph semibold-14 text-[#2C598D]">Cleaning Service</span>
+            <IconMaintenanceReport className="mx-auto" />
+            <span className="text-paragraph semibold-14 text-[#2C598D]">Report Kondisi Cabang</span>
+          </Link>
+          <Link
+            href={'/building-maintenance/maintenance/management'}
+            className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
+          >
+            <IconMaintenanceHistory className="mx-auto" />
+            <span className="text-paragraph semibold-14 text-[#2C598D]">History Perbaikan</span>
           </Link>
         </div>
       </div>

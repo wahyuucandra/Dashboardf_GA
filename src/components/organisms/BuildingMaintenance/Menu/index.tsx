@@ -1,9 +1,9 @@
-import { BuildingMaintenanceManagementMenu } from '@components/molecules/BuildingMaintenanceManagement'
+import { MaintenanceMenu } from '@components/molecules/BuildingMaintenance'
 
-export function BuildingMaintenanceManagementMenuPage() {
+export function MaintenanceMenuPage() {
   return (
     <>
-      <BuildingMaintenanceManagementMenu></BuildingMaintenanceManagementMenu>
+      <MaintenanceMenu />
     </>
   )
 }
