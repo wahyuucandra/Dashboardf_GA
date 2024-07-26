@@ -17,6 +17,36 @@ import './style.css'
 export function Booking() {
   const router = useRouter()
 
+  // const paramsPage = useParams<{ meetingRoom: string }>()
+
+  // const [loadingAction, setLoadingAction] = useState<boolean>(false)
+
+  // const handleSubmitBookingRoom = async () => {
+  //   const payload: ISubmitBookingRoomPayload = {
+  //     area: 'Jakarta',
+  //     cdSp: 'cdSp',
+  //     tipeBooking: 'tipe 1',
+  //     startBookingTime: '19:22:22',
+  //     startBookingDate: '2000-05-02',
+  //     endBookingTime: '19:22:22',
+  //     endBookingDate: '2000-05-02',
+  //     kapasitas: 10,
+  //     bookingMeetingRoom: 'Yes',
+  //     deskripsi: 'deskripsi booking',
+  //     itemId: paramsPage.meetingRoom,
+  //   }
+
+  //   try {
+  //     setLoadingAction(true)
+  //     // const response = await apiSubmitBookingRoom(payload)
+  //     // if (response.status == 'T')
+  //   } catch (error) {
+  //     setLoadingAction(false)
+  //   } finally {
+  //     setLoadingAction(false)
+  //   }
+  // }
+
   const [isDateModalOpen, setIsDateModalOpen] = useState<boolean>(false)
   const [isTimeModalOpen, setIsTimeModalOpen] = useState<boolean>(false)
 
@@ -33,6 +63,7 @@ export function Booking() {
   })
 
   const onSubmit = async () => {
+    // handleSubmitBookingRoom()
     router.push('/booking-asset/room/meeting-room/success')
   }
 
@@ -66,6 +97,7 @@ export function Booking() {
 
   return (
     <>
+      {/* {loadingAction && <div className="hidden"></div>} */}
       <div className="fixed z-[101] bg-white bottom-0 w-full max-container border border-t-[#F6F6F6] shadow-[0px_4px_0px_0_rgba(0,0,0,0.1)] px-6 py-4">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="text-heading xs semibold-16 text-[#101010] mb-4">Reservation Date</div>

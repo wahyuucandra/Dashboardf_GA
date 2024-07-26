@@ -1,12 +1,12 @@
 import { API_MASTER } from '@utils/environment'
 import { APIBaseResponse } from '@interfaces/api'
-import { BookLocationResponse, BookMenuResponse } from '@interfaces/booking-asset'
+import { IBookLocation, IBookMenu } from '@interfaces/booking-asset'
 import httpRequest from '@utils/helper'
 
 const api = httpRequest(API_MASTER)
 
-export function apiBookLocation(): Promise<APIBaseResponse<BookLocationResponse[]>> {
-  // const response: APIBaseResponse<BookLocationResponse[]> = {
+export function apiBookLocation(): Promise<APIBaseResponse<IBookLocation[]>> {
+  // const response: APIBaseResponse<IBookLocation[]> = {
   //   reqId: 'a',
   //   error: null,
   //   message: 'Berhasil',
@@ -34,11 +34,11 @@ export function apiBookLocation(): Promise<APIBaseResponse<BookLocationResponse[
   //   }, 500)
   // })
 
-  return api.get<BookLocationResponse[], APIBaseResponse<BookLocationResponse[]>>('/bookLocation')
+  return api.get<IBookLocation[], APIBaseResponse<IBookLocation[]>>('/bookLocation')
 }
 
-export function apiBookMenu(): Promise<APIBaseResponse<BookMenuResponse[]>> {
-  // const response: APIBaseResponse<BookMenuResponse[]> = {
+export function apiBookMenu(): Promise<APIBaseResponse<IBookMenu[]>> {
+  // const response: APIBaseResponse<IBookMenu[]> = {
   //   reqId: 'a',
   //   error: null,
   //   message: 'Berhasil',
@@ -69,5 +69,5 @@ export function apiBookMenu(): Promise<APIBaseResponse<BookMenuResponse[]>> {
   //   }, 500)
   // })
 
-  return api.get<BookMenuResponse[], APIBaseResponse<BookMenuResponse[]>>('/bookMenu')
+  return api.get<IBookMenu[], APIBaseResponse<IBookMenu[]>>('/bookMenu')
 }

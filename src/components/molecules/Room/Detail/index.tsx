@@ -1,18 +1,52 @@
 'use client'
 
-import { RoomBannerImage, RoomDescription, RoomFacility, RoomTerms, RoomBooking } from '@components/atoms/Room'
-
+import IconChevronLeft from '@assets/icons/IconChevronLeft'
+import { RoomBannerImage, RoomBooking, RoomDescription, RoomFacility, RoomTerms } from '@components/atoms/Room'
+import { IRoom, IRoomDetailParams } from '@interfaces/room'
+import { apiGetDetailRoom } from '@services/room/api'
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
 import { photos, room } from './data'
 
-import IconChevronLeft from '@assets/icons/IconChevronLeft'
-
 export function Detail() {
+  const initialRef = useRef(false)
+
+  const paramsPage = useParams<{ meetingRoom: string }>()
+
+  const [loading, setLoading] = useState<boolean>(false)
+  const [roomApi, setRoomApi] = useState<IRoom>()
+
+  const handleFetchDetailRoom = async () => {
+    const params: IRoomDetailParams = {
+      roomId: paramsPage.meetingRoom,
+    }
+
+    try {
+      setLoading(true)
+      const response = await apiGetDetailRoom(params)
+      if (response.status == 'T') setRoomApi(response.data)
+    } catch (error) {
+      setLoading(false)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (initialRef.current === false) {
+      handleFetchDetailRoom()
+      initialRef.current = true
+    }
+  }, [])
+
   const handleShowMoreFacility = () => {}
 
   return (
     <>
       <div className="relative">
+        {roomApi && <div className="hidden"></div>}
+        {loading && <div className="hidden"></div>}
         <RoomBannerImage photos={photos}></RoomBannerImage>
 
         <div className="fixed top-4 ml-4">

@@ -11,7 +11,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { apiBookLocation, apiBookMenu } from '@services/booking-asset/api'
-import { BookLocationResponse, BookMenuResponse } from '@interfaces/booking-asset'
+import { IBookLocation, IBookMenu } from '@interfaces/booking-asset'
 
 export function Menu() {
   const initialRef = useRef(false)
@@ -21,8 +21,8 @@ export function Menu() {
 
   const [loadingMenu, setLoadingMenu] = useState<boolean>(false)
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false)
-  const [bookMenu, setBookMenu] = useState<BookMenuResponse[]>()
-  const [bookLocation, setBookLocation] = useState<BookLocationResponse[]>()
+  const [bookMenu, setBookMenu] = useState<IBookMenu[]>()
+  const [bookLocation, setBookLocation] = useState<IBookLocation[]>()
 
   const handleFetchBookMenu = async () => {
     try {

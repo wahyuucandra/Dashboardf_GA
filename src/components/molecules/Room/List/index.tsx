@@ -3,24 +3,59 @@
 import IconScheduleRoom from '@assets/icons/IconScheduleRoom'
 import confirmationDanger from '@assets/images/ConfirmationDanger.png'
 import Header from '@components/atoms/Header'
-
+import { Modal } from '@components/atoms/ModalCustom'
+import { RoomCard } from '@components/atoms/Room'
+import { IRoom, IRoomListParams, Room, RoomType } from '@interfaces/room'
+import { apiGetListRoom } from '@services/room/api'
 import Image from 'next/image'
 import Link from 'next/link'
-import { RoomCard } from '@components/atoms/Room'
-import { Room, RoomType } from '@interfaces/room'
-import { Modal } from '@components/atoms/ModalCustom'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { roomTypes, roomsData } from './data'
 import './style.css'
 
 export function List() {
+  const initialRef = useRef(false)
+
   const router = useRouter()
 
   const [rooms] = useState<Room[]>(roomsData)
 
+  const [loading, setLoading] = useState<boolean>(false)
+  const [roomsApi, setRoomsApi] = useState<IRoom[]>()
+
   const [isConfimationModalOpen, setIsConfimationModalOpen] = useState<boolean>(false)
   const [selectedTypes, setSelectedTypes] = useState<RoomType[]>()
+
+  const handleFetchListRoom = async () => {
+    const params: IRoomListParams = {
+      flagACCBerijalan: 'ACC',
+      kapasitas: 10,
+      kategoriMenu: 'Meeting Room',
+      location: 'ACC TB Simatupang',
+      timeOpen: 8,
+      timeClose: 10,
+      page: 1,
+      size: 10,
+    }
+
+    try {
+      setLoading(true)
+      const response = await apiGetListRoom(params)
+      if (response.status == 'T') setRoomsApi(response.data)
+    } catch (error) {
+      setLoading(false)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (initialRef.current === false) {
+      handleFetchListRoom()
+      initialRef.current = true
+    }
+  }, [])
 
   const handleRoomTypeIsActive = (input: RoomType) => {
     return selectedTypes?.includes(input)
@@ -62,6 +97,8 @@ export function List() {
         useLink={false}
         onBack={() => setIsConfimationModalOpen(true)}
       ></Header>
+      {roomsApi && <div className="hidden"></div>}
+      {loading && <div className="hidden"></div>}
       <div className="px-6 pt-16 h-screen">
         <div className="flex items-center space-x-3 py-3">
           <div className="flex-1">

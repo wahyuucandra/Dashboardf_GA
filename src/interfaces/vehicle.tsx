@@ -1,3 +1,48 @@
+import { IPaginationParam } from './api'
+
+// Vehicle
+export interface IVehicleBookingTime {
+  time: string
+  timeStart: string
+  timeEnd: string
+  stockAvailability: number
+}
+
+export interface IVehicleListParams extends IPaginationParam {
+  lokasi: string
+  kategori: string
+  timeOpen: number
+  timeClose: number
+  flagACCBerijalan: string
+  kapasitas: number
+}
+
+export interface IVehicleDetailParams {
+  vehicleId: string
+}
+
+export interface IVehicleSecurityDetailParams {
+  bookingId: string
+}
+
+export interface IVehicleSecurityDetailParams {
+  bookingId: string
+}
+
+export interface IVehicle {
+  idVehicle: string
+  pathImage: string
+  brand: string
+  tipe: string
+  tahun: string
+  nomorPolisi: string
+  tipeOpen: string
+  kapasitas: string
+  flagACCBerijalan: string
+  flagActive: string
+}
+// Vehicle
+
 export interface Vehicle {
   id: number
   operationType: OperationType
