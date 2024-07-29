@@ -16,7 +16,7 @@ const TextInput: FC<TextInputProps> = forwardRef(
         ref={ref}
         disabled={isDisabled}
         className={joinClass(
-          'w-full py-2 px-3 border rounded-lg outline-none focus:border-accent/60',
+          'w-full py-2 px-3 border rounded outline-none focus:border-accent/60',
           'disabled:bg-gray-200 disabled:text-gray-400',
           isInvalid ? 'border-error' : isValid ? 'border-accent' : 'border-gray-300',
           className
