@@ -16,11 +16,12 @@ import { encryptAES } from '@utils/helper/CryptoJS'
 import { SetStorage } from '@store/storage'
 import TextForm from '@components/atoms/Form/TextForm'
 import satellite from '@services/satellite'
+import { emailPatterns } from '@utils/regex'
 
 const schema = Yup.object().shape({
   email: Yup.string()
     .required('Email wajib diisi')
-    .email('Masukkan alamat email Anda menggunakan format: bikomaryono@acc.co.id'),
+    .matches(emailPatterns, 'Masukkan alamat email Anda menggunakan format: bikomaryono@acc.co.id'),
   password: Yup.string().required('Kata sandi wajib diisi'),
 })
 

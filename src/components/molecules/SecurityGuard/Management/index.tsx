@@ -2,8 +2,8 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-// import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { useRouter } from 'next/navigation'
+// import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 
 import { IBuildingMaintenanceService, IBuildingMaintenanceServiceType } from '@interfaces/building-maintenance'
 import {
@@ -17,8 +17,9 @@ import { Modal } from '@components/atoms/ModalCustom'
 import Header from '@components/atoms/Header'
 import IconScheduleRoom from '@assets/icons/IconScheduleRoom'
 import confirmationDanger from '@assets/images/ConfirmationDanger.png'
+import { ISecurityGuardService } from '@interfaces/security-guard'
 
-export const serviceMaintenanceType: IBuildingMaintenanceService[] = [
+export const serviceMaintenanceType: ISecurityGuardService[] = [
   {
     id: 'pengajuan-perbaikan',
     text: 'Pengajuan Perbaikan',

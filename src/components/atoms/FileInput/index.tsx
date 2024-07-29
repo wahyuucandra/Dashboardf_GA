@@ -55,7 +55,7 @@ const FileInput: FC<FileInputProps> = forwardRef(
 
     return (
       <>
-        <div className={joinClass('relative', className)}>
+        <div className={joinClass('relative mt-1', className)}>
           <input
             type="file"
             ref={fileInputRef}

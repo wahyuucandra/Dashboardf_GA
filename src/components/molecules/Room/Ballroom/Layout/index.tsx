@@ -96,18 +96,18 @@ export function LayoutUpload() {
         width={0}
         height={0}
         sizes="100"
-        className="fixed top-0 right-0 w-full h-[225px] rounded-b bg-[#e6e6e6]"
+        className="fixed top-0 object-cover w-full max-container h-[188px] rounded-b"
         src={BannerBallroomLayout.src}
         alt="Layout Ballroom"
-      ></Image>
+      />
 
-      <div className="fixed top-4 left-4">
+      <div className="fixed top-4 ml-4">
         <Link href={'/booking-asset/room'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
-          <IconChevronLeft></IconChevronLeft>
+          <IconChevronLeft />
         </Link>
       </div>
 
-      <div className="bg-white w-full fixed bottom-0 top-0 z-[101] px-4 mt-[253px] ">
+      <div className="bg-white bottom-0 top-0 max-container z-[101] px-4 mt-[253px] ">
         <form className="relative h-full" onSubmit={handleSubmit(onSubmit)}>
           <button
             className="h-[45px] flex gap-1 items-center justify-center bg-[#e9f9fe] hover:bg-[#d1e9f9] text-[#626262] text-paragraph regular-14 py-2 px-4 rounded shadow-md w-full border border-[#0072BB] mb-6"
@@ -159,37 +159,36 @@ export function LayoutUpload() {
               />
             </div>
           </div>
-
-          <div className="fixed z-[101] bg-white bottom-0 left-0 w-full border border-t-[#F6F6F6] shadow-[2px_4px_12px_0_rgba(0,0,0,0.1)] px-6 py-4">
-            <div className="text-heading xs semibold-16 text-[#101010] mb-4">Reservation Date</div>
-            <div className="text-room-detail badge-time text-[#0089CF] flex items-center space-x-3 mb-4">
-              <button
-                type="button"
-                onClick={() => setIsDateModalOpen(true)}
-                className="rounded-full flex items-center space-x-2 px-4 py-2 bg-[#E5F2FC]"
-              >
-                <IconCalendar color="#0089CF"></IconCalendar>
-                <span className="mt-0.5">{handleBindDate(date)}</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setIsTimeModalOpen(true)}
-                className="rounded-full flex items-center space-x-2 px-4 py-2 bg-[#E5F2FC]"
-              >
-                <IconTime color="#0089CF"></IconTime>
-                <span className="mt-0.5">{handleBindTime(time)}</span>
-              </button>
-            </div>
+        </form>
+        <div className="fixed z-[101] bg-white bottom-0 w-full max-container border border-t-[#F6F6F6] shadow-[2px_4px_12px_0_rgba(0,0,0,0.1)] px-6 py-4">
+          <div className="text-heading xs semibold-16 text-[#101010] mb-4">Reservation Date</div>
+          <div className="text-room-detail badge-time text-[#0089CF] flex items-center space-x-3 mb-4">
+            <button
+              type="button"
+              onClick={() => setIsDateModalOpen(true)}
+              className="rounded-full flex items-center space-x-2 px-4 py-2 bg-[#E5F2FC]"
+            >
+              <IconCalendar color="#0089CF" />
+              <span className="mt-0.5">{handleBindDate(date)}</span>
+            </button>
 
             <button
-              type="submit"
-              className="booking-button w-full text-[#FFFFFF] py-2.5 rounded-lg text-heading xs semibold-16 mb-6"
+              type="button"
+              onClick={() => setIsTimeModalOpen(true)}
+              className="rounded-full flex items-center space-x-2 px-4 py-2 bg-[#E5F2FC]"
             >
-              Submit
+              <IconTime color="#0089CF" />
+              <span className="mt-0.5">{handleBindTime(time)}</span>
             </button>
           </div>
-        </form>
+
+          <button
+            type="submit"
+            className="booking-button w-full text-[#FFFFFF] py-2.5 rounded-lg text-heading xs semibold-16 mb-6"
+          >
+            Submit
+          </button>
+        </div>
       </div>
 
       <DateRangeInputCustom
@@ -202,7 +201,7 @@ export function LayoutUpload() {
             setValue('date', { start: val?.start, end: val?.end })
           }
         }}
-      ></DateRangeInputCustom>
+      />
 
       <TimeRangeInputCustom
         isOpen={isTimeModalOpen}
@@ -214,7 +213,7 @@ export function LayoutUpload() {
             setValue('time', { start: val?.start, end: val?.end })
           }
         }}
-      ></TimeRangeInputCustom>
+      />
     </div>
   )
 }
