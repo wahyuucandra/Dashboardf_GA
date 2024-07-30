@@ -12,7 +12,7 @@ import SelectForm from '@components/atoms/Form/SelectForm'
 const staticSchema = {
   area: Yup.string().required('Area wajib diisi'),
   cabang: Yup.string().required('Cabang wajib diisi'),
-  submissionDate: Yup.date().required('Tanggal asessment wajib diisi'),
+  submissionDate: Yup.object().required('Tanggal asessment wajib diisi'),
 }
 
 // Data forms

@@ -7,6 +7,7 @@ import * as Yup from 'yup'
 
 import TextAreaForm from '@components/atoms/Form/TextAreaForm'
 import TextForm from '@components/atoms/Form/TextForm'
+import DatePickerForm from '@components/atoms/Form/DatePickerForm'
 
 const schema = Yup.object().shape({
   area: Yup.string().required('Area wajib diisi'),
@@ -28,7 +29,7 @@ export function MaintenanceBudget() {
           <p className="text-heading xs regular-16">Area</p>
           <TextForm
             fieldInput={{
-              placeholder: 'Misalnya: Jakarta',
+              placeholder: 'Masukkan area',
             }}
             name="area"
             control={control}
@@ -38,20 +39,27 @@ export function MaintenanceBudget() {
           <p className="text-heading xs regular-16">Cabang</p>
           <TextForm
             fieldInput={{
-              placeholder: 'Misalnya: Jakarta',
+              placeholder: 'Masukkan cabang',
             }}
-            name="area"
+            name="cabang"
             control={control}
           />
         </div>
         <div className="mb-4">
           <p className="text-heading xs regular-16">Timeline Perbaikan</p>
-          <TextForm
+          {/* <TextForm
             fieldInput={{
-              placeholder: 'Misalnya: Jakarta',
+              placeholder: 'Masukkan timeline perbaikan',
             }}
-            name="area"
+            name="timelinePerbaikan"
             control={control}
+          /> */}
+          <DatePickerForm
+            control={control}
+            name="timelinePerbaikan"
+            disablePast
+            placeholder="Pilih timeline perbaikan"
+            className="mt-1"
           />
         </div>
         <div className="mb-4">
@@ -68,9 +76,9 @@ export function MaintenanceBudget() {
           <p className="text-heading xs regular-16">Budget</p>
           <TextForm
             fieldInput={{
-              placeholder: 'Misalnya: Jakarta',
+              placeholder: 'Masukkan budget',
             }}
-            name="area"
+            name="budget"
             control={control}
           />
         </div>

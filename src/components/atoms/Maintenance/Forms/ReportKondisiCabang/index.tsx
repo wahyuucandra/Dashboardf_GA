@@ -7,10 +7,12 @@ import * as Yup from 'yup'
 
 import TextForm from '@components/atoms/Form/TextForm'
 import { ButtonUpload } from '@components/atoms/button'
+import DatePickerForm from '@components/atoms/Form/DatePickerForm'
 
 const schema = Yup.object().shape({
-  area: Yup.string().required('Area wajib diisi'),
-  password: Yup.string().required('Kata sandi wajib diisi'),
+  area: Yup.string().required('Area wajib diisi'), // Required field with validation message
+  cabang: Yup.string().required('Cabang wajib diisi'), // Required field with validation message
+  timelinePerbaikan: Yup.object().required('Timeline perbaikan wajib diisi'), // Required field with validation message
 })
 
 export function MaintenanceReport() {
@@ -53,7 +55,7 @@ export function MaintenanceReport() {
           <p className="text-heading xs regular-16">Area</p>
           <TextForm
             fieldInput={{
-              placeholder: 'Misalnya: Jakarta',
+              placeholder: 'Masukkan area',
             }}
             name="area"
             control={control}
@@ -63,7 +65,7 @@ export function MaintenanceReport() {
           <p className="text-heading xs regular-16">Cabang</p>
           <TextForm
             fieldInput={{
-              placeholder: 'Misalnya: Jakarta',
+              placeholder: 'Masukkan cabang',
             }}
             name="cabang"
             control={control}
@@ -71,14 +73,16 @@ export function MaintenanceReport() {
         </div>
         <div className="mb-4">
           <p className="text-heading xs regular-16">Timeline Perbaikan</p>
-          <TextForm
-            fieldInput={{
-              placeholder: 'Misalnya: Jakarta',
-            }}
-            name="timelinePerbaikan"
+          <DatePickerForm
             control={control}
+            name="timelinePerbaikan"
+            disablePast
+            placeholder="Pilih timeline perbaikan"
+            className="mt-1"
           />
         </div>
+
+        {/* Foto - foto kondisi cabang */}
         <div className="mb-4 gap-2">
           <div className="mb-4">
             <p className="text-heading s semibold-18">Foto Kondisi Cabang</p>

@@ -12,7 +12,7 @@ import SelectForm from '@components/atoms/Form/SelectForm'
 const schema = Yup.object().shape({
   area: Yup.string().required('Area wajib diisi'),
   cabang: Yup.string().required('Cabang wajib diisi'),
-  submissionDate: Yup.date().required('Tanggal pengajuan wajib diisi'),
+  submissionDate: Yup.object().required('Tanggal pengajuan wajib diisi'),
   selectedOption: Yup.object().required('Kategori pengajuan wajib dipilih'),
   namaManpowerExisting: Yup.string().required('Nama manpower existing wajib diisi'),
   tahun: Yup.string().required('Lama tahun bekerja wajib diisi'),

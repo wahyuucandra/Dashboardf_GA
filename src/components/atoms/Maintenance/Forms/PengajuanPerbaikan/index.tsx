@@ -74,7 +74,7 @@ export function MaintenancePengajuan({ onSubmitForm }: { onSubmitForm: (formValu
           /> */}
           <DatePickerForm
             control={control}
-            name="submissionDate"
+            name="lastUpdate"
             disablePast
             placeholder="Pilih tanggal pengajuan"
             className="mt-1"
