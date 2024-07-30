@@ -2,7 +2,7 @@ import { MaintenanceMenuPage } from '@components/organisms/BuildingMaintenance/M
 import React from 'react'
 
 export const metadata = {
-  title: 'Building Maintenance',
+  title: 'Building Maintenance Menu',
 }
 
 export default function BMMenu() {

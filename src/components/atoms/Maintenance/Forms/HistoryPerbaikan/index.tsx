@@ -1,5 +1,5 @@
 import React from 'react'
 
-export default function MaintenanceHistory() {
+export function MaintenanceHistory() {
   return <div>MaintenanceHistory</div>
 }
