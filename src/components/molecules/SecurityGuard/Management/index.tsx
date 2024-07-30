@@ -5,63 +5,41 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 // import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 
-import { IBuildingMaintenanceService, IBuildingMaintenanceServiceType } from '@interfaces/building-maintenance'
-import {
-  MaintenancePengajuan,
-  MaintenanceBudget,
-  MaintenanceHistory,
-  MaintenanceReport,
-  MaintenanceStandar,
-} from '@components/atoms/Maintenance'
-import { Modal } from '@components/atoms/ModalCustom'
 import Header from '@components/atoms/Header'
 import IconScheduleRoom from '@assets/icons/IconScheduleRoom'
 import confirmationDanger from '@assets/images/ConfirmationDanger.png'
-import { ISecurityGuardService } from '@interfaces/security-guard'
+import { Modal } from '@components/atoms/ModalCustom'
+import { IBuildingMaintenanceService } from '@interfaces/building-maintenance'
+import { ISecurityGuardService, ISecurityGuardServiceType } from '@interfaces/security-guard'
+import { FormASMS, FormManpowerSG, FormSOI } from '@components/atoms/SecurityGuard'
 
-export const serviceMaintenanceType: ISecurityGuardService[] = [
+export const SecurityGuardServices: ISecurityGuardService[] = [
   {
-    id: 'pengajuan-perbaikan',
-    text: 'Pengajuan Perbaikan',
+    id: 'form-manpower',
+    text: 'Manpower SG',
   },
   {
-    id: 'budget-timeline',
-    text: 'Budget & Timeline',
+    id: 'form-asms',
+    text: 'ASMS',
   },
   {
-    id: 'report-kondisi-cabang',
-    text: 'Report Kondisi Cabang',
-  },
-  {
-    id: 'history-perbaikan',
-    text: 'History Perbaikan',
-  },
-  {
-    id: 'standar-cabang',
-    text: 'Standar Cabang',
+    id: 'form-soi',
+    text: 'SOI',
   },
 ]
 
-export const maintenanceTypes: IBuildingMaintenanceServiceType[] = [
+export const SecurityGuardTypes: ISecurityGuardServiceType[] = [
   {
-    links: ['pengajuan-perbaikan', ''],
-    text: 'Pengajuan Perbaikan',
+    links: ['form-manpower', ''],
+    text: 'Manpower SG',
   },
   {
-    links: ['budget-timeline'],
-    text: 'Budget & Timeline',
+    links: ['form-asms'],
+    text: 'ASMS',
   },
   {
-    links: ['report-kondisi-cabang'],
-    text: 'Report Kondisi Cabang',
-  },
-  {
-    links: ['history-perbaikan'],
-    text: 'History Perbaikan',
-  },
-  {
-    links: ['standar-cabang'],
-    text: 'Standar Cabang',
+    links: ['form-soi'],
+    text: 'SOI',
   },
 ]
 
@@ -79,9 +57,9 @@ export function Management() {
   //   return links.includes(queryType ?? '')
   // }
 
-  const [selectedType, setSelectedType] = useState<IBuildingMaintenanceService | null>(null)
+  const [selectedType, setSelectedType] = useState<ISecurityGuardService | null>(null)
 
-  const handleSelectServiceType = (input: IBuildingMaintenanceService) => {
+  const handleSelectServiceType = (input: ISecurityGuardService) => {
     setSelectedType((prev: any) => (prev && prev.id === input.id ? null : input))
   }
 
@@ -93,22 +71,12 @@ export function Management() {
 
   const renderSelectedComponent = () => {
     switch (selectedType?.id) {
-      case 'pengajuan-perbaikan':
-        return (
-          <MaintenancePengajuan
-            onSubmitForm={() => {
-              // action here
-            }}
-          />
-        )
-      case 'budget-timeline':
-        return <MaintenanceBudget />
-      case 'report-kondisi-cabang':
-        return <MaintenanceReport />
-      case 'history-perbaikan':
-        return <MaintenanceHistory />
-      case 'standar-cabang':
-        return <MaintenanceStandar />
+      case 'form-manpower':
+        return <FormManpowerSG />
+      case 'form-asms':
+        return <FormASMS />
+      case 'form-soi':
+        return <FormSOI />
       default:
         return null
     }
@@ -118,8 +86,8 @@ export function Management() {
     <>
       {/* Header navigation */}
       <Header
-        prevLink="/building-maintenance/maintenance"
-        title="Building Maintenance"
+        prevLink="/building-maintenance/security"
+        title="Security Guard"
         key={'header'}
         useLink={false}
         onBack={() => setIsConfimationModalOpen(true)}
@@ -146,7 +114,7 @@ export function Management() {
 
         {/* Filter */}
         <div className="w-screen max-container whitespace-nowrap overflow-x-auto mb-6 px-6 -mx-6">
-          {serviceMaintenanceType?.map(val => (
+          {SecurityGuardServices?.map(val => (
             <div
               onClick={() => handleSelectServiceType(val)}
               onKeyDown={() => {}}
@@ -173,36 +141,22 @@ export function Management() {
         {/* Forms content */}
         <div>{renderSelectedComponent()}</div>
         {/* <div>
-          {handleShowForm(['pengajuan-perbaikan', '']) && (
-            <MaintenancePengajuan
+          {handleShowForm(['form-manpower', '']) && (
+            <FormManpowerSG
               onSubmitForm={() => {
                 // action here
               }}
             />
           )}
-          {handleShowForm(['budget-timeline']) && (
-            <MaintenanceBudget
+          {handleShowForm(['form-asms']) && (
+            <FormASMS
             // onSubmitForm={() => {
               // action here
             // }}
             />
           )}
-          {handleShowForm(['report-kondisi-cabang']) && (
-            <MaintenanceReport
-            // onSubmitForm={() => {
-              // action here
-            // }}
-            />
-          )}
-          {handleShowForm(['history-perbaikan']) && (
-            <MaintenanceHistory
-            // onSubmitForm={() => {
-              // action here
-            // }}
-            />
-          )}
-          {handleShowForm(['standar-cabang']) && (
-            <MaintenanceStandar
+          {handleShowForm(['form-soi']) && (
+            <FormSOI
             // onSubmitForm={() => {
               // action here
             // }}
@@ -233,7 +187,7 @@ export function Management() {
             <button
               onClick={() => {
                 setIsConfimationModalOpen(false)
-                router.push(`/building-maintenance/maintenance`, { scroll: false })
+                router.push(`/building-maintenance/security`, { scroll: false })
               }}
               type="button"
               className="exit-button w-full text-center text-[#00376A] rounded-md overflow-hidden h-11"

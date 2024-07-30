@@ -17,7 +17,7 @@ input::placeholder {
 
 .input-suffix {
   span:last-child {
-    @apply bg-accent h-[38px] px-2 rounded-r-md flex items-center justify-center text-white mt-1;
+    @apply bg-[#f6f8fa] h-[38px] px-2 rounded-r-md flex items-center justify-center text-[#404040] mt-1 border;
   }
 
   input {
