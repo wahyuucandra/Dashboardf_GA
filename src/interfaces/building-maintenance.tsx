@@ -13,3 +13,12 @@ export const DefaulWasteManagementForm = {
   existWeight: 100,
   updateWeight: undefined,
 }
+
+export interface IBuildingMaintenanceService {
+  id: string
+  text: string
+}
+export interface IBuildingMaintenanceServiceType {
+  links: string[]
+  text: string
+}

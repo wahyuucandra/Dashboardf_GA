@@ -117,7 +117,7 @@ export function Schedule() {
 
       <div className="fixed z-[2] top-4 ml-4">
         <Link href={'/booking-asset/room'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
-          <IconChevronLeft></IconChevronLeft>
+          <IconChevronLeft />
         </Link>
       </div>
 
