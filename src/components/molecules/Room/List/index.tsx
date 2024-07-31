@@ -13,6 +13,8 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { roomTypes, roomsData } from './data'
 import './style.css'
+import { store } from '@store/storage'
+import { setShowNavbar } from '@store/actions/actionContainer'
 
 export function List() {
   const initialRef = useRef(false)
@@ -88,6 +90,12 @@ export function List() {
     return selectedTypes?.includes(input.type) ? '' : 'hidden'
   }
 
+  useEffect(() => {
+    const { dispatch } = store
+
+    dispatch(setShowNavbar(true))
+  }, [])
+
   return (
     <>
       <Header
@@ -119,19 +127,19 @@ export function List() {
             Ubah
           </button>
         </div>
-        <div className="w-full max-container whitespace-nowrap overflow-x-auto mb-6 -pr-6">
+        <div className="w-full max-container whitespace-nowrap hide-scrollbar overflow-x-auto mb-6 -pr-6">
           {roomTypes?.map(val => (
             <div
               onKeyDown={() => {}}
               onClick={() => handleSelectRoomType(val)}
               key={val.id}
-              className={`inline-block rounded-full  py-2 px-4 text-badge mr-2 ${handleRoomTypeIsActive(val)}`}
+              className={`inline-block rounded-full py-2 px-4 text-badge mr-2 ${handleRoomTypeIsActive(val)}`}
             >
               {val.text}
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-4 pb-20">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-4 pb-40">
           {rooms?.map(room => (
             <Link
               key={room.id}

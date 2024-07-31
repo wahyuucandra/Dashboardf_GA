@@ -13,9 +13,16 @@ const formSchema = yup.object().shape({
   updateFuelUsage: yup.number().required('Fuel meter update wajib diisi'),
 })
 
-export function EHSFuelManagementForm({ onSubmitForm }: { onSubmitForm: (formValue: FuelManagementForm) => void }) {
+export function EHSFuelManagementForm({
+  type = 'User',
+
+  onSubmitForm,
+}: {
+  type?: 'Admin' | 'User'
+  onSubmitForm: (formValue: FuelManagementForm) => void
+}) {
   const { handleSubmit, control } = useForm<FuelManagementForm>({
-    defaultValues: defaulFuelManagementForm,
+    defaultValues: { ...defaulFuelManagementForm, updateFuelUsage: type === 'User' ? 0 : 75 },
     resolver: yupResolver(formSchema),
     mode: 'onChange',
   })
@@ -128,14 +135,23 @@ export function EHSFuelManagementForm({ onSubmitForm }: { onSubmitForm: (formVal
           name={'updateFuelUsage'}
           render={({ field, formState: { errors } }) => (
             <>
-              <div className="text-heading xs regular-16 text-[#0C0C0C] mb-1">Penggunaan BBM Exsiting</div>
-              <div className="h-10 overflow-hidden border border-[#D5D5D5] bg-[#FFFFFF] rounded pt-1 px-4 flex items-center space-x-1">
+              <div className="text-heading xs regular-16 text-[#0C0C0C] mb-1">Penggunaan BBM Update</div>
+              <div
+                className={`h-10 overflow-hidden border border-[#D5D5D5] ${type === 'User' ? 'bg-[#FFFFFF]' : 'bg-[#F6F6F6]'} rounded pt-1 px-4 flex items-center space-x-1`}
+              >
+                <span className={`${type == 'User' ? 'hidden' : ''} text-paragraph regular-14 text-[#909090]`}>
+                  {field?.value}
+                </span>
+                <span className={`${type == 'User' ? 'hidden' : ''} text-paragraph regular-14 text-[#909090]`}>m3</span>
                 <input
                   {...field}
                   type="number"
-                  className="w-full hide-arrow bg-[#FFFFFF] outline-none text-paragraph regular-14 text-[#0A0A0A]"
+                  disabled={type == 'Admin'}
+                  className={`${type == 'User' ? '' : 'hidden'} w-full hide-arrow bg-[#FFFFFF] outline-none text-paragraph regular-14 text-[#0A0A0A]`}
                 />
-                <span className="text-paragraph regular-14 text-[#404040] border-l border-[#D5D5D5] -pr-4 py-4 pl-4">
+                <span
+                  className={`${type == 'User' ? '' : 'hidden'} text-paragraph regular-14 text-[#404040] border-l border-[#D5D5D5] -pr-4 py-4 pl-4`}
+                >
                   m3
                 </span>
               </div>
@@ -145,9 +161,13 @@ export function EHSFuelManagementForm({ onSubmitForm }: { onSubmitForm: (formVal
             </>
           )}
         />
+
         <br />
         <br />
-        <button type="submit" className="save-button h-11 rounded-lg w-full text-heading xs semibold-16 text-[#FFFFFF]">
+        <button
+          type="submit"
+          className={`${type === 'Admin' ? 'hidden' : ''} save-button h-11 rounded-lg w-full text-heading xs semibold-16 text-[#FFFFFF]`}
+        >
           Submit
         </button>
       </form>

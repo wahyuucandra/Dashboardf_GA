@@ -54,7 +54,7 @@ export const monthsData = [
   },
 ]
 
-export const handleFetchDaysInMonth = (monthInput: number, yearInput: number) => {
+export const handleFetchDaysInMonth = (monthInput: number, yearInput: number, min?: Date, max?: Date) => {
   let date = new Date(yearInput, monthInput, 1)
   let days: DateInput[] = []
   const currDate = new Date()
@@ -64,7 +64,7 @@ export const handleFetchDaysInMonth = (monthInput: number, yearInput: number) =>
       date,
       dateNumber: date.getDate(),
       day: date.getDay(),
-      include: true,
+      include: (min && date < min) || (max && date > max) ? false : true,
       now: date.toDateString() === currDate.toDateString(),
     })
     date = new Date(yearInput, monthInput, date.getDate() + 1)

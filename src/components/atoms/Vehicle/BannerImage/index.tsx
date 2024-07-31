@@ -17,7 +17,7 @@ export function BannerImage({ photos }: Readonly<{ photos: Photo[] }>) {
           width={0}
           height={0}
           sizes="100"
-          className="object-cover w-full h-[188px] mb-0.5"
+          className="cursor-pointer object-cover w-full h-[188px] mb-0.5"
           onClick={() => setIsOpen(true)}
           onKeyDown={() => {}}
           src={photos[0].image}
@@ -29,7 +29,7 @@ export function BannerImage({ photos }: Readonly<{ photos: Photo[] }>) {
             width={0}
             height={0}
             sizes="100"
-            className="object-cover w-full h-[74px]"
+            className="cursor-pointer object-cover w-full h-[74px]"
             onClick={() => setIsOpen(true)}
             onKeyDown={() => {}}
             src={photos[1].image}
@@ -40,7 +40,7 @@ export function BannerImage({ photos }: Readonly<{ photos: Photo[] }>) {
             width={0}
             height={0}
             sizes="100"
-            className="object-cover w-full h-[74px]"
+            className="cursor-pointer object-cover w-full h-[74px]"
             onClick={() => setIsOpen(true)}
             onKeyDown={() => {}}
             src={photos[2].image}
@@ -52,7 +52,7 @@ export function BannerImage({ photos }: Readonly<{ photos: Photo[] }>) {
               width={0}
               height={0}
               sizes="100"
-              className="object-cover w-full h-[74px]"
+              className="cursor-pointer object-cover w-full h-[74px]"
               onClick={() => setIsOpen(true)}
               src={photos[3].image}
               alt="Banner 4"
@@ -86,7 +86,7 @@ export function BannerImage({ photos }: Readonly<{ photos: Photo[] }>) {
                 width={0}
                 height={0}
                 sizes="100"
-                className="w-full object-cover"
+                className="w-full cursor-pointer object-cover"
                 src={photo?.image}
                 alt="Banner Detail"
               />
@@ -106,7 +106,7 @@ export function BannerImage({ photos }: Readonly<{ photos: Photo[] }>) {
                     width={0}
                     height={0}
                     sizes="100"
-                    className="w-16 h-16 object-cover"
+                    className="w-16 h-16 cursor-pointer object-cover"
                     src={val?.image}
                     alt={`Banner ${index}`}
                   />
