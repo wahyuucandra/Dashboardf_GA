@@ -1,42 +1,41 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import FileInput from '@components/atoms/FileInput'
-import DatePickerForm from '@components/atoms/Form/DatePickerForm'
 import TextAreaForm from '@components/atoms/Form/TextAreaForm'
 import TextForm from '@components/atoms/Form/TextForm'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { FuelManagementForm, defaulFuelManagementForm } from '@interfaces/ehs'
+import { defaultImprovementProposalForm, ImprovementProposalForm } from '@interfaces/building-maintenance'
 
 const formSchema = yup.object().shape({
   area: yup.string().required('Area wajib diisi'),
   branch: yup.string().required('Cabang wajib diisi'),
-  lastUpdate: yup.date().required('Update terakhir wajib diisi'),
-  existFuelUsage: yup.number().required('Fuel meter existing wajib diisi'),
-  updateFuelUsage: yup.number().required('Fuel meter update wajib diisi'),
+  submissionDate: yup.date().required('Update terakhir wajib diisi'),
+  description: yup.string().required('Deskripsi pengajuan wajib diisi'),
+  estCost: yup.string().required('Estimation cost wajib diisi'),
 })
 
-export function MaintenancePengajuan({ onSubmitForm }: { onSubmitForm: (formValue: FuelManagementForm) => void }) {
-  const { handleSubmit, control } = useForm<FuelManagementForm>({
-    defaultValues: defaulFuelManagementForm,
+export function MaintenancePengajuan({ onSubmitForm }: { onSubmitForm: (formValue: ImprovementProposalForm) => void }) {
+  const { handleSubmit, control } = useForm<ImprovementProposalForm>({
+    defaultValues: defaultImprovementProposalForm,
     resolver: yupResolver(formSchema),
     mode: 'onChange',
   })
 
-  // const handleMappingDate = (date: Date) => {
-  //   return `${date?.getFullYear()}-${date?.getMonth() + 1 >= 10 ? date?.getMonth() + 1 : '0' + (date?.getMonth() + 1)}-${date?.getDate()}`
-  // }
-
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
+
+  const handleMappingDate = (date: Date) => {
+    return `${date?.getFullYear()}-${date?.getMonth() + 1 >= 10 ? date?.getMonth() + 1 : '0' + (date?.getMonth() + 1)}-${date?.getDate()}`
+  }
 
   const handleFileChange = (file: File) => {
     setSelectedFile(file)
   }
 
-  const onSubmit = (formValue: FuelManagementForm) => {
+  const onSubmit = (formValue: ImprovementProposalForm) => {
     onSubmitForm(formValue)
   }
 
@@ -48,6 +47,7 @@ export function MaintenancePengajuan({ onSubmitForm }: { onSubmitForm: (formValu
           <TextForm
             fieldInput={{
               placeholder: 'Masukkan Area',
+              disabled: true,
             }}
             name="area"
             control={control}
@@ -58,26 +58,34 @@ export function MaintenancePengajuan({ onSubmitForm }: { onSubmitForm: (formValu
           <TextForm
             fieldInput={{
               placeholder: 'Masukkan Cabang',
+              disabled: true,
             }}
             name="branch"
             control={control}
           />
         </div>
         <div className="mb-4">
-          <p className="text-heading xs regular-16">Tanggal Pengajuan</p>
-          {/* <TextForm
-            fieldInput={{
-              placeholder: 'Masukkan Tanggal Pengajuan',
-            }}
-            name="lastUpdate"
+          <Controller
+            defaultValue={undefined}
             control={control}
-          /> */}
-          <DatePickerForm
-            control={control}
-            name="lastUpdate"
-            disablePast
-            placeholder="Pilih tanggal pengajuan"
-            className="mt-1"
+            name={'submissionDate'}
+            render={({ field, formState: { errors } }) => (
+              <>
+                <div className="text-heading xs regular-16 text-[#0C0C0C] mb-1">Tanggal Pengajuan</div>
+                <div className="h-[38px] border border-[#D5D5D5] bg-[#F6F6F6] rounded pt-1 px-4 flex items-center">
+                  <input
+                    type="date"
+                    value={handleMappingDate(field?.value)}
+                    disabled={true}
+                    className="w-full bg-[#F6F6F6] outline-none text-paragraph regular-14 text-[#909090]"
+                  />
+                </div>
+
+                {errors?.['submissionDate']?.message && (
+                  <span className="text-xs text-error">{errors?.['submissionDate']?.message?.toString()}</span>
+                )}
+              </>
+            )}
           />
         </div>
         <div className="mb-4">
@@ -86,7 +94,7 @@ export function MaintenancePengajuan({ onSubmitForm }: { onSubmitForm: (formValu
             control={control}
             name="description"
             fieldLabel={{ children: 'Description' }}
-            fieldInput={{ rows: 5 }}
+            fieldInput={{ rows: 5, disabled: true }}
             counter
           />
         </div>
@@ -95,8 +103,9 @@ export function MaintenancePengajuan({ onSubmitForm }: { onSubmitForm: (formValu
           <TextForm
             fieldInput={{
               placeholder: 'Masukkan perkiraan biaya yang diperlukan',
+              disabled: true,
             }}
-            name="costEstimation"
+            name="estCost"
             control={control}
           />
         </div>

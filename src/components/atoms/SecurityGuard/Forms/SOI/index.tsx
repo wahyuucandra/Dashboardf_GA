@@ -1,18 +1,17 @@
 import React from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 
 import { Button } from '@components/atoms/button'
-import DatePickerForm from '@components/atoms/Form/DatePickerForm'
 import TextForm from '@components/atoms/Form/TextForm'
 import SelectForm from '@components/atoms/Form/SelectForm'
 
 // Skema statis
 const staticSchema = {
   area: Yup.string().required('Area wajib diisi'),
-  cabang: Yup.string().required('Cabang wajib diisi'),
-  submissionDate: Yup.object().required('Tanggal asessment wajib diisi'),
+  branch: Yup.string().required('Cabang wajib diisi'),
+  submissionDate: Yup.date().required('Tanggal asessment wajib diisi'),
 }
 
 // Data forms
@@ -55,6 +54,11 @@ const schema = Yup.object().shape({
 
 export default function FormSOI() {
   const { handleSubmit, control, setValue, watch } = useForm<any>({
+    defaultValues: {
+      area: 'Jakarta Pusat',
+      branch: 'Cabang A',
+      submissionDate: new Date(),
+    },
     resolver: yupResolver(schema),
     mode: 'all',
   })
@@ -72,6 +76,10 @@ export default function FormSOI() {
     { label: '10', value: 10 },
   ]
 
+  const handleMappingDate = (date: Date) => {
+    return `${date?.getFullYear()}-${date?.getMonth() + 1 >= 10 ? date?.getMonth() + 1 : '0' + (date?.getMonth() + 1)}-${date?.getDate()}`
+  }
+
   const onSubmit = () => {}
 
   return (
@@ -82,6 +90,7 @@ export default function FormSOI() {
             <p className="text-heading xs regular-16">Area</p>
             <TextForm
               fieldInput={{
+                disabled: true,
                 placeholder: 'Masukkan area',
               }}
               name="area"
@@ -93,19 +102,34 @@ export default function FormSOI() {
             <TextForm
               fieldInput={{
                 placeholder: 'Masukkan cabang',
+                disabled: true,
               }}
-              name="cabang"
+              name="branch"
               control={control}
             />
           </div>
           <div className="mb-4">
-            <p className="text-heading xs regular-16">Tanggal Pengajuan</p>
-            <DatePickerForm
+            <Controller
+              defaultValue={undefined}
               control={control}
-              name="submissionDate"
-              disablePast
-              placeholder="Pilih tanggal pengajuan"
-              className="mt-1"
+              name={'submissionDate'}
+              render={({ field, formState: { errors } }) => (
+                <>
+                  <div className="text-heading xs regular-16 text-[#0C0C0C] mb-1">Tanggal Pengajuan</div>
+                  <div className="h-[38px] border border-[#D5D5D5] bg-[#F6F6F6] rounded pt-1 px-4 flex items-center">
+                    <input
+                      type="date"
+                      value={handleMappingDate(field?.value)}
+                      disabled={true}
+                      className="w-full bg-[#F6F6F6] outline-none text-paragraph regular-14 text-[#909090]"
+                    />
+                  </div>
+
+                  {errors?.['submissionDate']?.message && (
+                    <span className="text-xs text-error">{errors?.['submissionDate']?.message?.toString()}</span>
+                  )}
+                </>
+              )}
             />
           </div>
           <div className="mb-4">
@@ -148,6 +172,7 @@ export default function FormSOI() {
                       <TextForm
                         fieldInput={{
                           placeholder: `Score ${form.name.toLowerCase()}`,
+                          disabled: true,
                         }}
                         name={form.name
                           .toLowerCase()
@@ -155,7 +180,6 @@ export default function FormSOI() {
                           .map((word: any) => word.charAt(0).toUpperCase() + word.slice(1))
                           .join('')}
                         control={control}
-                        disabled={true}
                       />
                     </div>
                   )}

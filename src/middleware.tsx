@@ -4,10 +4,10 @@ import type { NextRequest } from 'next/server'
 export function middleware(request: NextRequest) {
   const cookieAuth = request.cookies.get('access_token')
 
-  // Redirect unauthenticated users to login (except login and excluded paths)
-  if (!cookieAuth && !['/login', '/excluded-path'].includes(request.nextUrl.pathname)) {
-    return NextResponse.redirect(new URL('/login', request.url))
-  }
+  // // Redirect unauthenticated users to login (except login and excluded paths)
+  // if (!cookieAuth && !['/login', '/excluded-path'].includes(request.nextUrl.pathname)) {
+  //   return NextResponse.redirect(new URL('/login', request.url))
+  // }
 
   // Redirect authenticated users to home if they try to access login
   if (cookieAuth && request.nextUrl.pathname.startsWith('/login')) {
