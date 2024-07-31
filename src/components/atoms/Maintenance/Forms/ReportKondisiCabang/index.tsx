@@ -1,26 +1,28 @@
 'use client'
 
 import React from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 
-import TextForm from '@components/atoms/Form/TextForm'
 import { ButtonUpload } from '@components/atoms/button'
-import DatePickerForm from '@components/atoms/Form/DatePickerForm'
+import { BranchConditionReportForm, defaultBranchConditionReportForm } from '@interfaces/building-maintenance'
+import TextForm from '@components/atoms/Form/TextForm'
 
 const schema = Yup.object().shape({
-  area: Yup.string().required('Area wajib diisi'), // Required field with validation message
-  cabang: Yup.string().required('Cabang wajib diisi'), // Required field with validation message
-  timelinePerbaikan: Yup.object().required('Timeline perbaikan wajib diisi'), // Required field with validation message
+  area: Yup.string().required('Area wajib diisi'),
+  branch: Yup.string().required('Cabang wajib diisi'),
+  updateDate: Yup.date().required('Timeline perbaikan wajib diisi'),
 })
 
 export function MaintenanceReport() {
-  const { handleSubmit, control } = useForm<any>({
+  const { handleSubmit, control } = useForm<BranchConditionReportForm>({
+    defaultValues: defaultBranchConditionReportForm,
     resolver: yupResolver(schema),
     mode: 'all',
   })
 
+  // const onSubmit = (value: BranchConditionReportForm) => {}
   const onSubmit = () => {}
 
   interface Condition {
@@ -41,6 +43,10 @@ export function MaintenanceReport() {
     { id: 'area-atap-rooftop', name: 'Area Atap/Rooftop' },
   ]
 
+  const handleMappingDate = (date: Date) => {
+    return `${date?.getFullYear()}-${date?.getMonth() + 1 >= 10 ? date?.getMonth() + 1 : '0' + (date?.getMonth() + 1)}-${date?.getDate()}`
+  }
+
   const handleConditionClick = (id: any) => {
     const condition = conditionsData.find(c => c.id === id)
     if (condition) {
@@ -56,6 +62,7 @@ export function MaintenanceReport() {
           <TextForm
             fieldInput={{
               placeholder: 'Masukkan area',
+              disabled: true,
             }}
             name="area"
             control={control}
@@ -66,19 +73,34 @@ export function MaintenanceReport() {
           <TextForm
             fieldInput={{
               placeholder: 'Masukkan cabang',
+              disabled: true,
             }}
-            name="cabang"
+            name="branch"
             control={control}
           />
         </div>
         <div className="mb-4">
-          <p className="text-heading xs regular-16">Timeline Perbaikan</p>
-          <DatePickerForm
+          <Controller
+            defaultValue={undefined}
             control={control}
-            name="timelinePerbaikan"
-            disablePast
-            placeholder="Pilih timeline perbaikan"
-            className="mt-1"
+            name={'updateDate'}
+            render={({ field, formState: { errors } }) => (
+              <>
+                <div className="text-heading xs regular-16 text-[#0C0C0C] mb-1">Tanggal Update</div>
+                <div className="h-[38px] border border-[#D5D5D5] bg-[#F6F6F6] rounded pt-1 px-4 flex items-center">
+                  <input
+                    type="date"
+                    value={handleMappingDate(field?.value)}
+                    disabled={true}
+                    className="w-full bg-[#F6F6F6] outline-none text-paragraph regular-14 text-[#909090]"
+                  />
+                </div>
+
+                {errors?.['updateDate']?.message && (
+                  <span className="text-xs text-error">{errors?.['updateDate']?.message?.toString()}</span>
+                )}
+              </>
+            )}
           />
         </div>
 
@@ -90,9 +112,6 @@ export function MaintenanceReport() {
               Silahkan lengkapi konfirmasi di bawah ini dengan memfoto kondisi pada bangunan cabang
             </p>
           </div>
-          {/* {conditions.map(condition => (
-            <ButtonUpload key={condition} mainText={condition} onClick={() => handleClick} containerClass="mb-4" />
-          ))} */}
           {conditionsData.map(condition => (
             <ButtonUpload
               key={condition.id}

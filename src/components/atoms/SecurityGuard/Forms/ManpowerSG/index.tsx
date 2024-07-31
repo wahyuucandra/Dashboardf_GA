@@ -1,27 +1,28 @@
 import React from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 
 import { Button } from '@components/atoms/button'
-import DatePickerForm from '@components/atoms/Form/DatePickerForm'
 import TextAreaForm from '@components/atoms/Form/TextAreaForm'
 import TextForm from '@components/atoms/Form/TextForm'
 import SelectForm from '@components/atoms/Form/SelectForm'
+import { formManpowerSGValues, IFormManpowerSG } from '@interfaces/security-guard'
 
 const schema = Yup.object().shape({
   area: Yup.string().required('Area wajib diisi'),
-  cabang: Yup.string().required('Cabang wajib diisi'),
-  submissionDate: Yup.object().required('Tanggal pengajuan wajib diisi'),
+  branch: Yup.string().required('Cabang wajib diisi'),
+  submissionDate: Yup.date().required('Tanggal pengajuan wajib diisi'),
   selectedOption: Yup.object().required('Kategori pengajuan wajib dipilih'),
-  namaManpowerExisting: Yup.string().required('Nama manpower existing wajib diisi'),
-  tahun: Yup.string().required('Lama tahun bekerja wajib diisi'),
-  bulan: Yup.string().required('Lama bulan bekerja wajib diisi'),
-  description: Yup.string().required('Alasan wajib diisi'),
+  manpowerExistingName: Yup.string().required('Nama manpower existing wajib diisi'),
+  year: Yup.string().required('Lama year bekerja wajib diisi'),
+  month: Yup.string().required('Lama month bekerja wajib diisi'),
+  reason: Yup.string().required('Alasan wajib diisi'),
 })
 
 export default function FormManpowerSG() {
-  const { handleSubmit, control, setValue } = useForm<any>({
+  const { handleSubmit, control, setValue } = useForm<IFormManpowerSG>({
+    defaultValues: formManpowerSGValues,
     resolver: yupResolver(schema),
     mode: 'all',
   })
@@ -34,6 +35,10 @@ export default function FormManpowerSG() {
     { label: 'K9 Unit', value: 5 },
   ]
 
+  const handleMappingDate = (date: Date) => {
+    return `${date?.getFullYear()}-${date?.getMonth() + 1 >= 10 ? date?.getMonth() + 1 : '0' + (date?.getMonth() + 1)}-${date?.getDate()}`
+  }
+
   const onSubmit = () => {}
 
   return (
@@ -44,6 +49,7 @@ export default function FormManpowerSG() {
           <TextForm
             fieldInput={{
               placeholder: 'Masukkan area',
+              disabled: true,
             }}
             name="area"
             control={control}
@@ -54,19 +60,34 @@ export default function FormManpowerSG() {
           <TextForm
             fieldInput={{
               placeholder: 'Masukkan cabang',
+              disabled: true,
             }}
-            name="cabang" // Change name to 'cabang'
+            name="branch"
             control={control}
           />
         </div>
         <div className="mb-4">
-          <p className="text-heading xs regular-16">Tanggal Pengajuan</p>
-          <DatePickerForm
+          <Controller
+            defaultValue={undefined}
             control={control}
-            name="submissionDate"
-            disablePast
-            placeholder="Pilih tanggal pengajuan"
-            className="mt-1"
+            name={'submissionDate'}
+            render={({ field, formState: { errors } }) => (
+              <>
+                <div className="text-heading xs regular-16 text-[#0C0C0C] mb-1">Tanggal Pengajuan</div>
+                <div className="h-[38px] border border-[#D5D5D5] bg-[#F6F6F6] rounded pt-1 px-4 flex items-center">
+                  <input
+                    type="date"
+                    value={handleMappingDate(field?.value)}
+                    disabled={true}
+                    className="w-full bg-[#F6F6F6] outline-none text-paragraph regular-14 text-[#909090]"
+                  />
+                </div>
+
+                {errors?.['submissionDate']?.message && (
+                  <span className="text-xs text-error">{errors?.['submissionDate']?.message?.toString()}</span>
+                )}
+              </>
+            )}
           />
         </div>
         <div className="mb-4">
@@ -85,7 +106,7 @@ export default function FormManpowerSG() {
             fieldInput={{
               placeholder: 'Masukkan nama manpower existing',
             }}
-            name="namaManpowerExisting"
+            name="manpowerExistingName"
             control={control}
           />
         </div>
@@ -95,7 +116,7 @@ export default function FormManpowerSG() {
             <div className="w-6/12">
               <TextForm
                 fieldInput={{ type: 'tel', placeholder: 'Tahun' }}
-                name="tahun"
+                name="year"
                 control={control}
                 suffix="Tahun"
               />
@@ -103,7 +124,7 @@ export default function FormManpowerSG() {
             <div className="w-6/12">
               <TextForm
                 fieldInput={{ type: 'tel', placeholder: 'Bulan' }}
-                name="bulan"
+                name="month"
                 control={control}
                 suffix="Bulan"
               />
@@ -114,7 +135,7 @@ export default function FormManpowerSG() {
           <p className="text-heading xs regular-16">Alasan</p>
           <TextAreaForm
             control={control}
-            name="description"
+            name="reason"
             fieldLabel={{ children: 'Description' }}
             fieldInput={{ rows: 5 }}
             counter
