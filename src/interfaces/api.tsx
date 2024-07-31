@@ -1,9 +1,14 @@
-export interface Pagination {
+export interface IPagination {
   totalRecords: number
   currentPage: number
   totalPage: number
   nextPage: number | null
   prevPage: number | null
+}
+
+export interface IPaginationParam {
+  page: number
+  size: number
 }
 
 export interface APIBaseResponse<T = undefined> {
@@ -12,5 +17,5 @@ export interface APIBaseResponse<T = undefined> {
   message: string
   error: string | null
   data?: T extends undefined ? never : T
-  pagination?: Pagination | undefined
+  pagination?: IPagination | undefined
 }

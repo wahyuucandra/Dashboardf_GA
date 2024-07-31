@@ -1,3 +1,3 @@
-import { BuildingMaintenanceManagementMenu } from './Menu/index';
+import { BuildingMaintenanceManagementMenu } from './Menu/index'
 
 export { BuildingMaintenanceManagementMenu }

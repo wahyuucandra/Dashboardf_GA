@@ -1,3 +1,9 @@
+export interface IEHSList {
+  id: number
+  title: string
+  type: string
+}
+
 export interface ManagementType {
   links: string[]
   text: string

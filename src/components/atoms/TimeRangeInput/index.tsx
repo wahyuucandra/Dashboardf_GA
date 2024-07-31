@@ -40,10 +40,26 @@ export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({ value, control, 
       }
 
       if (start && timeInput?.startTime?.getTime() < start?.startTime?.getTime()) {
+        const filteredTimes = times?.filter(
+          val =>
+            val?.startTime?.getTime() <= start.startTime.getTime() &&
+            val?.startTime?.getTime() >= timeInput?.startTime?.getTime()
+        )
+        if (filteredTimes.some(val => !val.availabel)) {
+          return { ...prev }
+        }
         return { ...prev, start: timeInput }
       }
 
       if (start && timeInput?.startTime?.getTime() > start?.startTime?.getTime()) {
+        const filteredTimes = times?.filter(
+          val =>
+            val?.startTime?.getTime() >= start.startTime.getTime() &&
+            val?.startTime?.getTime() <= timeInput?.startTime?.getTime()
+        )
+        if (filteredTimes.some(val => !val.availabel)) {
+          return { ...prev }
+        }
         return { ...prev, end: timeInput }
       }
     })
@@ -129,14 +145,14 @@ export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({ value, control, 
             <div className="h-[40vh] overflow-y-auto">
               <div className="grid grid-cols-2 gap-3 mb-6 ">
                 {timesInDay?.map((val, index) => (
-                  <div
-                    onKeyDown={() => {}}
+                  <button
+                    type="button"
                     onClick={() => handleSelectTime(val)}
                     key={index}
                     className={`rounded-lg border ${handleClassSelectedTimes(val)} text-sm p-2`}
                   >
                     {val.startText} - {val.endText}
-                  </div>
+                  </button>
                 ))}
               </div>
             </div>

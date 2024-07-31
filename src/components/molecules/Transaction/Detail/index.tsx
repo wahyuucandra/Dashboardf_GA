@@ -41,7 +41,7 @@ export function Detail() {
             <span className="text-[#505050]">F-2468623081</span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-[#0C0C0C]">Tanggal Selesai</span>
+            <span className="text-[#0C0C0C]">Tanggal Pengajuan</span>
             <span className="text-[#505050]">Kamis, 24 Mei 2024</span>
           </div>
         </div>

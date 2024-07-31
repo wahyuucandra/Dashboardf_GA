@@ -15,6 +15,8 @@ export interface DateRangeInputProps {
   onButtonClick?: (val: { start: DateInput | undefined; end: DateInput | undefined } | undefined) => void | undefined
   control: Control<any>
   name?: string
+  min?: Date
+  max?: Date
 }
 
 export const DateRangeInput: React.FC<DateRangeInputProps> = ({
@@ -23,12 +25,16 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({
   maxRange = 7,
   onButtonClick,
   name = 'date',
+  min,
+  max,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const daysInit: DateInput[] = handleFetchDaysInMonth(
     new Date(Date.now()).getMonth(),
-    new Date(Date.now()).getFullYear()
+    new Date(Date.now()).getFullYear(),
+    min,
+    max
   )
 
   const [year, setYear] = useState<number>(new Date(Date.now()).getFullYear())
@@ -42,12 +48,12 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({
   const handleNext = () => {
     if (month < 11) {
       setMonth(prev => prev + 1)
-      const fetchData: DateInput[] = handleFetchDaysInMonth(month + 1, year)
+      const fetchData: DateInput[] = handleFetchDaysInMonth(month + 1, year, min, max)
       setDaysInMonth(fetchData)
     } else {
       setMonth(0)
       setYear(prev => prev + 1)
-      const fetchData: DateInput[] = handleFetchDaysInMonth(0, year)
+      const fetchData: DateInput[] = handleFetchDaysInMonth(0, year, min, max)
       setDaysInMonth(fetchData)
     }
   }
@@ -55,12 +61,12 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({
   const handlePrev = () => {
     if (month > 0) {
       setMonth(prev => prev - 1)
-      const fetchData: DateInput[] = handleFetchDaysInMonth(month - 1, year)
+      const fetchData: DateInput[] = handleFetchDaysInMonth(month - 1, year, min, max)
       setDaysInMonth(fetchData)
     } else {
       setMonth(11)
       setYear(prev => prev - 1)
-      const fetchData: DateInput[] = handleFetchDaysInMonth(11, year)
+      const fetchData: DateInput[] = handleFetchDaysInMonth(11, year, min, max)
       setDaysInMonth(fetchData)
     }
   }
@@ -249,12 +255,10 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({
                     type="button"
                     onClick={() => handleSelectedDate(val)}
                     key={val?.date?.getTime()}
-                    className={`${handleClassSelectedDate(val)} ${handleClassBetween(val)}  relative py-2 mb-10`}
+                    className={`${handleClassSelectedDate(val)} ${handleClassBetween(val)} relative py-2 mb-10`}
                   >
                     <span
-                      className={`absolute -top-4 left-2 whitespace-nowrap text-xs text-[#0089CF] ${
-                        val?.now ? '' : 'hidden'
-                      }`}
+                      className={`absolute -top-4 mx-auto left-0 right-0 whitespace-nowrap text-xs text-[#0089CF] ${val?.now ? '' : 'hidden'}`}
                     >
                       Hari ini
                     </span>
@@ -458,7 +462,7 @@ export const DateRangeInputCustom: React.FC<DateRangeInputCustomProps> = ({
                   className={`${handleClassSelectedDate(val)} ${handleClassBetween(val)}  relative py-2 mb-10`}
                 >
                   <span
-                    className={`absolute -top-4 left-2 whitespace-nowrap text-xs text-[#0089CF] ${
+                    className={`absolute -top-4 mx-auto left-0 right-0 whitespace-nowrap text-xs text-[#0089CF] ${
                       val?.now ? '' : 'hidden'
                     }`}
                   >

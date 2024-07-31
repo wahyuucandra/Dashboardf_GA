@@ -3,24 +3,61 @@
 import IconScheduleRoom from '@assets/icons/IconScheduleRoom'
 import confirmationDanger from '@assets/images/ConfirmationDanger.png'
 import Header from '@components/atoms/Header'
-
+import { Modal } from '@components/atoms/ModalCustom'
+import { RoomCard } from '@components/atoms/Room'
+import { IRoom, IRoomListParams, Room, RoomType } from '@interfaces/room'
+import { apiGetListRoom } from '@services/room/api'
 import Image from 'next/image'
 import Link from 'next/link'
-import { RoomCard } from '@components/atoms/Room'
-import { Room, RoomType } from '@interfaces/room'
-import { Modal } from '@components/atoms/ModalCustom'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { roomTypes, roomsData } from './data'
 import './style.css'
+import { store } from '@store/storage'
+import { setShowNavbar } from '@store/actions/actionContainer'
 
 export function List() {
+  const initialRef = useRef(false)
+
   const router = useRouter()
 
   const [rooms] = useState<Room[]>(roomsData)
 
+  const [loading, setLoading] = useState<boolean>(false)
+  const [roomsApi, setRoomsApi] = useState<IRoom[]>()
+
   const [isConfimationModalOpen, setIsConfimationModalOpen] = useState<boolean>(false)
   const [selectedTypes, setSelectedTypes] = useState<RoomType[]>()
+
+  const handleFetchListRoom = async () => {
+    const params: IRoomListParams = {
+      flagACCBerijalan: 'ACC',
+      kapasitas: 10,
+      kategoriMenu: 'Meeting Room',
+      location: 'ACC TB Simatupang',
+      timeOpen: 8,
+      timeClose: 10,
+      page: 1,
+      size: 10,
+    }
+
+    try {
+      setLoading(true)
+      const response = await apiGetListRoom(params)
+      if (response.status == 'T') setRoomsApi(response.data)
+    } catch (error) {
+      setLoading(false)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (initialRef.current === false) {
+      handleFetchListRoom()
+      initialRef.current = true
+    }
+  }, [])
 
   const handleRoomTypeIsActive = (input: RoomType) => {
     return selectedTypes?.includes(input)
@@ -53,6 +90,12 @@ export function List() {
     return selectedTypes?.includes(input.type) ? '' : 'hidden'
   }
 
+  useEffect(() => {
+    const { dispatch } = store
+
+    dispatch(setShowNavbar(true))
+  }, [])
+
   return (
     <>
       <Header
@@ -62,6 +105,8 @@ export function List() {
         useLink={false}
         onBack={() => setIsConfimationModalOpen(true)}
       ></Header>
+      {roomsApi && <div className="hidden"></div>}
+      {loading && <div className="hidden"></div>}
       <div className="px-6 pt-16 h-screen">
         <div className="flex items-center space-x-3 py-3">
           <div className="flex-1">
@@ -82,19 +127,19 @@ export function List() {
             Ubah
           </button>
         </div>
-        <div className="w-full max-container whitespace-nowrap overflow-x-auto mb-6 -pr-6">
+        <div className="w-full max-container whitespace-nowrap hide-scrollbar overflow-x-auto mb-6 -pr-6">
           {roomTypes?.map(val => (
             <div
               onKeyDown={() => {}}
               onClick={() => handleSelectRoomType(val)}
               key={val.id}
-              className={`inline-block rounded-full  py-2 px-4 text-badge mr-2 ${handleRoomTypeIsActive(val)}`}
+              className={`inline-block rounded-full py-2 px-4 text-badge mr-2 ${handleRoomTypeIsActive(val)}`}
             >
               {val.text}
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-4 pb-20">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-4 pb-40">
           {rooms?.map(room => (
             <Link
               key={room.id}

@@ -46,3 +46,11 @@ export interface IForgotPassword {
   email: string
   newPasseord: string
 }
+
+export interface IProfile {
+  npk: string | null
+  nameUser: string
+  email: string
+  dateOfBirth: string
+  noHp: string
+}

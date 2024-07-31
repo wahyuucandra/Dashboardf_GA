@@ -1,6 +1,6 @@
 import { API_ACCOUNT } from '@utils/environment'
 import { APIBaseResponse } from '@interfaces/api'
-import { ILoginResponse, LoginCredentials, OTPCredential, IOTPLoginResponse } from '@interfaces/auth'
+import { ILoginResponse, LoginCredentials, OTPCredential, IOTPLoginResponse, IProfile } from '@interfaces/auth'
 import httpRequest from '@utils/helper'
 
 const api = httpRequest(API_ACCOUNT)
@@ -31,4 +31,35 @@ export function apiPostSendOTPForgot(data: any) {
 
 export function apiPostVerifyOTPForgot(data: any) {
   return api.post<string, APIBaseResponse<string>>('/auth/forgotPasswordMobile/verifyOtp', data)
+}
+
+export function apiProfile(): Promise<APIBaseResponse<IProfile>> {
+  // const response: APIBaseResponse<IProfile> = {
+  //   reqId: 'a',
+  //   error: null,
+  //   message: 'Berhasil',
+  //   status: 'T',
+  //   data: {
+  //     npk: null,
+  //     nameUser: 'Dummx7251',
+  //     email: 'dummx7251@gmail.com',
+  //     dateOfBirth: '2000-01-01',
+  //     noHp: '0817482384788',
+  //   },
+  //   pagination: {
+  //     totalRecords: 2,
+  //     currentPage: 1,
+  //     totalPage: 1,
+  //     nextPage: null,
+  //     prevPage: null,
+  //   },
+  // }
+
+  // return new Promise(resolve => {
+  //   setTimeout(() => {
+  //     resolve(response)
+  //   }, 500)
+  // })
+
+  return api.get<IProfile, APIBaseResponse<IProfile>>('/auth/profile')
 }

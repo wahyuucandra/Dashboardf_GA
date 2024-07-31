@@ -13,9 +13,15 @@ const formSchema = yup.object().shape({
   updateTrashWeight: yup.number().required('Water meter update wajib diisi'),
 })
 
-export function EHSWasteManagementForm({ onSubmitForm }: { onSubmitForm: (formValue: WasteManagementForm) => void }) {
+export function EHSWasteManagementForm({
+  type = 'User',
+  onSubmitForm,
+}: {
+  type?: 'Admin' | 'User'
+  onSubmitForm: (formValue: WasteManagementForm) => void
+}) {
   const { handleSubmit, control } = useForm<WasteManagementForm>({
-    defaultValues: defaulWasteManagementForm,
+    defaultValues: { ...defaulWasteManagementForm, updateTrashWeight: type === 'User' ? 0 : 75 },
     resolver: yupResolver(formSchema),
     mode: 'onChange',
   })
@@ -128,14 +134,24 @@ export function EHSWasteManagementForm({ onSubmitForm }: { onSubmitForm: (formVa
           name={'updateTrashWeight'}
           render={({ field, formState: { errors } }) => (
             <>
-              <div className="text-heading xs regular-16 text-[#0C0C0C] mb-1">Berat Sampah Exsiting</div>
-              <div className="h-10 overflow-hidden border border-[#D5D5D5] bg-[#FFFFFF] rounded pt-1 px-4 flex items-center space-x-1">
+              <div className="text-heading xs regular-16 text-[#0C0C0C] mb-1">Berat Sampah Update</div>
+
+              <div
+                className={`h-10 overflow-hidden border border-[#D5D5D5] ${type === 'User' ? 'bg-[#FFFFFF]' : 'bg-[#F6F6F6]'} rounded pt-1 px-4 flex items-center space-x-1`}
+              >
+                <span className={`${type == 'User' ? 'hidden' : ''} text-paragraph regular-14 text-[#909090]`}>
+                  {field?.value}
+                </span>
+                <span className={`${type == 'User' ? 'hidden' : ''} text-paragraph regular-14 text-[#909090]`}>KG</span>
                 <input
                   {...field}
                   type="number"
-                  className="w-full hide-arrow bg-[#FFFFFF] outline-none text-paragraph regular-14 text-[#0A0A0A]"
+                  disabled={type == 'Admin'}
+                  className={`${type == 'User' ? '' : 'hidden'} w-full hide-arrow bg-[#FFFFFF] outline-none text-paragraph regular-14 text-[#0A0A0A]`}
                 />
-                <span className="text-paragraph regular-14 text-[#404040] border-l border-[#D5D5D5] -pr-4 py-4 pl-4">
+                <span
+                  className={`${type == 'User' ? '' : 'hidden'} text-paragraph regular-14 text-[#404040] border-l border-[#D5D5D5] -pr-4 py-4 pl-4`}
+                >
                   KG
                 </span>
               </div>
@@ -148,7 +164,10 @@ export function EHSWasteManagementForm({ onSubmitForm }: { onSubmitForm: (formVa
         <br />
         <br />
 
-        <button type="submit" className="save-button h-11 rounded-lg w-full text-heading xs semibold-16 text-[#FFFFFF]">
+        <button
+          type="submit"
+          className={`${type === 'Admin' ? 'hidden' : ''} save-button h-11 rounded-lg w-full text-heading xs semibold-16 text-[#FFFFFF]`}
+        >
           Submit
         </button>
       </form>

@@ -13,7 +13,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ title, onBack, prevLink, isBackButtonHide = false, useLink = true }) => {
   return (
     <header className="fixed top-0 w-full z-[100]">
-      <div className="bg-white relative w-full max-container h-12 shadow-[1px_2px_6px_0_rgba(0,0,0,0.1)] flex items-center justify-center">
+      <div className="bg-white relative w-full max-container h-12 shadow-[-1px_2px_6px_0_rgba(0,0,0,0.1)] flex items-center justify-center">
         <Link
           className={`${isBackButtonHide || !useLink ? 'hidden' : 'absolute'}  top-3 left-4`}
           href={prevLink ?? '/'}

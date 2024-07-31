@@ -84,7 +84,7 @@ export function BannerImage({ photos }: Readonly<{ photos: Photo[] }>) {
                 width={0}
                 height={0}
                 sizes="100"
-                className="w-full object-cover"
+                className="w-full object-cover cursor-pointer"
                 src={photo?.image}
                 alt="Banner Detail"
               />
@@ -109,7 +109,7 @@ export function BannerImage({ photos }: Readonly<{ photos: Photo[] }>) {
                     width={0}
                     height={0}
                     sizes="100"
-                    className="w-16 h-16 object-cover"
+                    className="w-16 h-16 object-cover cursor-pointer"
                     src={val?.image}
                     alt={`Banner ${index}`}
                   />

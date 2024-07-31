@@ -43,42 +43,42 @@ export function Menu() {
         </div>
         <div className="grid grid-cols-2 gap-4 text-center">
           <Link
-            href={`/building-maintenance/ehs/waste-management`}
+            href={`/building-maintenance/ehs/management`}
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconEHSWaste className="mx-auto"></IconEHSWaste>
             <span className="text-paragraph semibold-14 text-[#2C598D]">Waste Management</span>
           </Link>
           <Link
-            href={`/building-maintenance/ehs/water-management`}
+            href={`/building-maintenance/ehs/management?type=water-management`}
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconEHSWater className="mx-auto"></IconEHSWater>
             <span className="text-paragraph semibold-14 text-[#2C598D]">Pengunaan Air</span>
           </Link>
           <Link
-            href={`/building-maintenance/ehs/fuel-management`}
+            href={`/building-maintenance/ehs/management?type=fuel-management`}
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconEHSFuel className="mx-auto"></IconEHSFuel>
             <span className="text-paragraph semibold-14 text-[#2C598D]">Pengunaan BBM</span>
           </Link>
           <Link
-            href={`/building-maintenance/ehs/electricity-management`}
+            href={`/building-maintenance/ehs/management?type=electricity-management`}
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconEHSElectricity className="mx-auto"></IconEHSElectricity>
             <span className="text-paragraph semibold-14 text-[#2C598D]">Pengunaan Listrik</span>
           </Link>
           <Link
-            href={`/building-maintenance/ehs/agc`}
+            href={`/building-maintenance/ehs/management?type=agc`}
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconEHSAGC className="mx-auto"></IconEHSAGC>
             <span className="text-paragraph semibold-14 text-[#2C598D]">AGC</span>
           </Link>
           <Link
-            href={`/building-maintenance/ehs/p2lk3`}
+            href={`/building-maintenance/ehs/management?type=p2lk3`}
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconEHSP2LK3 className="mx-auto"></IconEHSP2LK3>

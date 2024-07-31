@@ -16,6 +16,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { DefaulScheduleForm, ScheduleForm } from '@interfaces/schedule'
 import * as yup from 'yup'
 import './style.css'
+import { useEffect } from 'react'
+import { store } from '@store/storage'
+import { setShowNavbar } from '@store/actions/actionContainer'
 
 const dateInputSchema = yup.object().shape({
   day: yup.number().required(),
@@ -57,6 +60,12 @@ const schema = yup.object().shape({
 export function Schedule() {
   const router = useRouter()
 
+  useEffect(() => {
+    const { dispatch } = store
+
+    dispatch(setShowNavbar(false))
+  }, [])
+
   const { handleSubmit, setValue, control, clearErrors, formState } = useForm<ScheduleForm>({
     defaultValues: DefaulScheduleForm,
     resolver: yupResolver(schema),
@@ -84,6 +93,8 @@ export function Schedule() {
     control,
     name: 'reason',
   })
+
+  const min = new Date(new Date().setHours(0, 0, 0, 0))
 
   const onSubmit = async () => {
     // data: ScheduleForm
@@ -120,6 +131,7 @@ export function Schedule() {
                 Pilih tanggal <span className="text-[#E15241]">*</span>
               </div>
               <DateRangeInput
+                min={min}
                 name="date"
                 control={control}
                 value={date}

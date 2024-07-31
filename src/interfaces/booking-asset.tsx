@@ -1,7 +1,7 @@
-export interface BookLocationResponse {
+export interface IBookLocation {
   descGcm: string
 }
 
-export interface BookMenuResponse {
+export interface IBookMenu {
   descGcm: string
 }
