@@ -70,3 +70,65 @@ export const defaultBranchConditionReportForm: BranchConditionReportForm = {
   branch: 'Jakarta Selatan C',
   updateDate: new Date(),
 }
+
+export const dataKondisi: BranchConditionReport = {
+  location: 'ACC TB Simatupang',
+  area: 'DKI 2',
+  branch: 'Harapan Indah',
+  updateDate: '2024-05-24',
+  categories: [
+    {
+      name: 'Kondisi Pagar Luar',
+      photoUrl: 'https://via.placeholder.com/600x400.png?text=Gambar',
+    },
+    {
+      name: 'Kondisi Pos Security',
+      photoUrl: 'https://via.placeholder.com/600x400.png?text=Gambar',
+    },
+    {
+      name: 'Kondisi Bangunan Eksterior',
+      photoUrl: 'https://via.placeholder.com/600x400.png?text=Gambar',
+    },
+    {
+      name: 'Kondisi Fasad',
+      photoUrl: 'https://via.placeholder.com/600x400.png?text=Gambar',
+    },
+    {
+      name: 'Kondisi Lobby',
+      photoUrl: 'https://via.placeholder.com/600x400.png?text=Gambar',
+    },
+    {
+      name: 'Area Service',
+      photoUrl: 'https://via.placeholder.com/600x400.png?text=Gambar',
+    },
+    {
+      name: 'Area Sales',
+      photoUrl: 'https://via.placeholder.com/600x400.png?text=Gambar',
+    },
+    {
+      name: 'Area AR',
+      photoUrl: 'https://via.placeholder.com/600x400.png?text=Gambar',
+    },
+    {
+      name: 'Area Remo',
+      photoUrl: 'https://via.placeholder.com/600x400.png?text=Gambar',
+    },
+    {
+      name: 'Area Atap/Rooftop',
+      photoUrl: 'https://via.placeholder.com/600x400.png?text=Gambar',
+    },
+  ],
+}
+
+export interface BranchConditionReport {
+  location: string
+  area: string
+  branch: string
+  updateDate: string
+  categories: Category[]
+}
+
+export interface Category {
+  name: string
+  photoUrl: string
+}
