@@ -89,34 +89,6 @@ export const dataKondisi: BranchConditionReport = {
       name: 'Kondisi Bangunan Eksterior',
       photoUrl: 'https://via.placeholder.com/600x400.png?text=Gambar',
     },
-    {
-      name: 'Kondisi Fasad',
-      photoUrl: 'https://via.placeholder.com/600x400.png?text=Gambar',
-    },
-    {
-      name: 'Kondisi Lobby',
-      photoUrl: 'https://via.placeholder.com/600x400.png?text=Gambar',
-    },
-    {
-      name: 'Area Service',
-      photoUrl: 'https://via.placeholder.com/600x400.png?text=Gambar',
-    },
-    {
-      name: 'Area Sales',
-      photoUrl: 'https://via.placeholder.com/600x400.png?text=Gambar',
-    },
-    {
-      name: 'Area AR',
-      photoUrl: 'https://via.placeholder.com/600x400.png?text=Gambar',
-    },
-    {
-      name: 'Area Remo',
-      photoUrl: 'https://via.placeholder.com/600x400.png?text=Gambar',
-    },
-    {
-      name: 'Area Atap/Rooftop',
-      photoUrl: 'https://via.placeholder.com/600x400.png?text=Gambar',
-    },
   ],
 }
 
