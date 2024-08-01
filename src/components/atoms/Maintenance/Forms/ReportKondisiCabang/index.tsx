@@ -8,6 +8,7 @@ import * as Yup from 'yup'
 import { ButtonUpload } from '@components/atoms/button'
 import { BranchConditionReportForm, defaultBranchConditionReportForm } from '@interfaces/building-maintenance'
 import TextForm from '@components/atoms/Form/TextForm'
+import { useRouter } from 'next/navigation'
 
 const schema = Yup.object().shape({
   area: Yup.string().required('Area wajib diisi'),
@@ -16,6 +17,7 @@ const schema = Yup.object().shape({
 })
 
 export function MaintenanceReport() {
+  const router = useRouter()
   const { handleSubmit, control } = useForm<BranchConditionReportForm>({
     defaultValues: defaultBranchConditionReportForm,
     resolver: yupResolver(schema),
@@ -50,7 +52,7 @@ export function MaintenanceReport() {
   const handleConditionClick = (id: any) => {
     const condition = conditionsData.find(c => c.id === id)
     if (condition) {
-      return condition
+      router.push(`/building-maintenance/maintenance/management/${condition.id}`) // Access the property of the condition object
     }
   }
 
