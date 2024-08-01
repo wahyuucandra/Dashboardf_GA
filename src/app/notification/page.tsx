@@ -5,5 +5,9 @@ export const metadata = {
 }
 
 export default function Notification() {
-  return <AllNotificationPage></AllNotificationPage>
+  return (
+    <>
+      <AllNotificationPage />
+    </>
+  )
 }

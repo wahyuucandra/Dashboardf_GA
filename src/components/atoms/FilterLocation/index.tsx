@@ -29,8 +29,8 @@ export const FilterLocation = () => {
       </button>
 
       <Modal isOpen={isOpen} isFloating={false} backdropClick={() => setIsOpen(false)}>
-        <div className="w-screen h-4/5 bg-white relative px-4 py-6 text-center rounded-xl">
-          <div className="">
+        <div className="w-screen max-container h-4/5 bg-white relative px-4 py-6 text-center rounded-xl">
+          <div>
             <div className="flex justify-between items-center">
               <div className="flex">
                 <button onClick={() => setIsOpen(false)} className="mr-2">
@@ -60,7 +60,7 @@ export const FilterLocation = () => {
               />
               <span className="radios"></span>
             </label>
-            <div className="divider"></div>
+            <div className="divider" />
 
             <label className="containers text-heading xs semibold-16">
               <p className="text-left">ACC HO</p>
