@@ -67,26 +67,28 @@ export function KondisiCabang() {
             </div>
           ))}
 
-          {/* Add a placeholder or empty state if no categories exist */}
+          {/* Empty state */}
           {dataBranchCondition.categories.length === 0 && (
             <div className="col-span-2 text-center text-gray-400">Belum ada foto kondisi cabang.</div>
           )}
 
-          {/* Tombol tambah foto */}
-          <div className="flex flex-col items-center justify-center">
-            <div
-              className="border border-[#4A90E2] border-dashed rounded grid place-items-center w-full h-[108px] flex items-center justify-center cursor-pointer"
-              onClick={() => {
-                // Your onClick handler here
-              }}
-              onKeyDown={() => {}}
-              role="button"
-              tabIndex={0}
-            >
-              <IconPlus />
+          {/* Add "Tambahkan Foto" button conditionally */}
+          {dataBranchCondition.categories.length < 3 && (
+            <div className="flex flex-col items-center justify-center">
+              <div
+                className="border border-[#4A90E2] border-dashed rounded grid place-items-center w-full h-[108px] flex items-center justify-center cursor-pointer"
+                onClick={() => {
+                  // Your onClick handler here
+                }}
+                onKeyDown={() => {}}
+                role="button"
+                tabIndex={0}
+              >
+                <IconPlus />
+              </div>
+              <p className="mt-2 text-[#4A90E2]">Tambahkan Foto</p>
             </div>
-            <p className="mt-2 text-[#4A90E2]">Tambahkan Foto</p>
-          </div>
+          )}
         </div>
       </div>
 

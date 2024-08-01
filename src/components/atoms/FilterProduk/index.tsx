@@ -82,7 +82,7 @@ export const FilterProduk = () => {
       </button>
 
       <Modal isOpen={isOpen} isFloating={false} backdropClick={() => setIsOpen(false)}>
-        <div className="w-screen h-4/5 bg-white relative px-4 py-6 text-center rounded-xl">
+        <div className="w-screen max-container bg-white relative px-4 py-6 text-center rounded-xl">
           <div>
             <div className="flex justify-between items-center">
               <div className="flex">
@@ -153,7 +153,7 @@ export const FilterProduk = () => {
                       value={item.values}
                     />
                     <span className="radios"></span>
-                    <div className="dividing"></div>
+                    <div className="dividing" />
                   </label>
                 ))}
               </div>
@@ -195,7 +195,7 @@ export const FilterProduk = () => {
                       value={item.values}
                     />
                     <span className="radios"></span>
-                    <div className="dividing"></div>
+                    <div className="dividing" />
                   </label>
                 ))}
               </div>
@@ -243,7 +243,7 @@ export const FilterProduk = () => {
                       value={item.values}
                     />
                     <span className="radios"></span>
-                    <div className="dividing"></div>
+                    <div className="dividing" />
                   </label>
                 ))}
               </div>
@@ -285,7 +285,7 @@ export const FilterProduk = () => {
                       value={item.values}
                     />
                     <span className="radios"></span>
-                    <div className="dividing"></div>
+                    <div className="dividing" />
                   </label>
                 ))}
               </div>
@@ -327,7 +327,7 @@ export const FilterProduk = () => {
                       value={item.values}
                     />
                     <span className="radios"></span>
-                    <div className="dividing"></div>
+                    <div className="dividing" />
                   </label>
                 ))}
               </div>
@@ -369,7 +369,7 @@ export const FilterProduk = () => {
                       value={item.values}
                     />
                     <span className="radios"></span>
-                    <div className="dividing"></div>
+                    <div className="dividing" />
                   </label>
                 ))}
               </div>
@@ -411,7 +411,7 @@ export const FilterProduk = () => {
                       value={item.values}
                     />
                     <span className="radios"></span>
-                    <div className="dividing"></div>
+                    <div className="dividing" />
                   </label>
                 ))}
               </div>
