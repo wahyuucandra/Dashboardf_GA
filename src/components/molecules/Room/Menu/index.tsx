@@ -25,18 +25,18 @@ export function Menu() {
 
       <div className="fixed top-4 ml-4">
         <Link href={'/booking-asset'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
-          <IconChevronLeft></IconChevronLeft>
+          <IconChevronLeft />
         </Link>
       </div>
 
       <div className="px-3 pt-[200px] pb-[400px] h-screen overflow-y-auto">
         <div className="flex items-center space-x-3 mb-4">
-          <IconRoom width={32} height={32}></IconRoom>
+          <IconRoom className="w-10 h-10" />
           <div>
-            <div className="text-heading xs semibold-16 text-[#2C598D]">Booking Asset</div>
-            <div className="text-[#809BB5] -mt-1">
-              <span className="text-extra-small regular-12">Pilih request yang Anda butuhkan di lokasi </span>
-              <span className="text-extra-small semibold-12">ACC HO</span>
+            <div className="font-semibold text-[#2C598D]">Room</div>
+            <div className="text-xs text-[#809BB5]">
+              <span>Pilih request yang Anda butuhkan di lokasi </span>
+              <span className="font-semibold">ACC HO</span>
             </div>
           </div>
         </div>

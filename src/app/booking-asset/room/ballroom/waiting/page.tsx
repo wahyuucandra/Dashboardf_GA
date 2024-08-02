@@ -5,5 +5,9 @@ export const metadata = {
 }
 
 export default function Ballroom() {
-  return <BallroomProcessPage></BallroomProcessPage>
+  return (
+    <>
+      <BallroomProcessPage />
+    </>
+  )
 }

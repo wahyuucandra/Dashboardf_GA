@@ -1,7 +1,8 @@
 'use client'
 
-import IconCalendar from '@assets/icons/IconCalendar'
-import IconTime from '@assets/icons/IconTime'
+import { useForm, useWatch } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 import { DateRangeInputCustom } from '@components/atoms/DateRangeInput'
 import { monthsData } from '@components/atoms/DateRangeInput/data'
@@ -9,9 +10,8 @@ import { TimeRangeInputCustom } from '@components/atoms/TimeRangeInput'
 import { DateInput } from '@interfaces/date-input'
 import { DefaulScheduleForm, ScheduleForm } from '@interfaces/schedule'
 import { TimeInput } from '@interfaces/time-input'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import { useForm, useWatch } from 'react-hook-form'
+import IconCalendar from '@assets/icons/IconCalendar'
+import IconTime from '@assets/icons/IconTime'
 import './style.css'
 
 export function BookingBallroom() {
@@ -66,7 +66,7 @@ export function BookingBallroom() {
 
   return (
     <>
-      <div className="fixed z-[101] bg-white bottom-0 left-0 w-full border border-t-[#F6F6F6] shadow-[2px_4px_12px_0_rgba(0,0,0,0.1)] px-6 py-4">
+      <div className="relative z-[2000] bg-white bottom-0 left-0 w-full border border-t-[#F6F6F6] shadow-[2px_4px_12px_0_rgba(0,0,0,0.1)] px-6 py-4 max-container">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="text-heading xs semibold-16 text-[#101010] mb-4">Reservation Date</div>
           <div className="text-room-detail badge-time text-[#0089CF] flex items-center space-x-3 mb-4">

@@ -51,7 +51,7 @@ export function KaraokeSchedule() {
   }
 
   return (
-    <div className="relative">
+    <div className="relative ">
       <Image
         width={0}
         height={0}
@@ -67,7 +67,7 @@ export function KaraokeSchedule() {
         </Link>
       </div>
 
-      <div className="bg-white py-[216px] h-screen overflow-y-auto">
+      <div className="bg-white py-[216px] h-screen overflow-y-auto px-4">
         <form className="relative h-full" onSubmit={handleSubmit(onSubmit)}>
           <div className="text-2xl font-semibold text-[#2C598D] mb-6">Schedule Karaoke</div>
 

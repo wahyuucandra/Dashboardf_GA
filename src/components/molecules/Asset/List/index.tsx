@@ -181,6 +181,7 @@ export function List() {
 
   return (
     <>
+      {/* Top Navbar */}
       <Header
         prevLink="/booking-asset/asset/schedule"
         title="Asset"
@@ -190,7 +191,9 @@ export function List() {
           setIsItemModalOpen(false)
           setIsConfimationModalOpen(true)
         }}
-      ></Header>
+      />
+
+      {/* Page content */}
       <div className="px-4 pt-16 h-screen">
         <div className="flex items-center space-x-3 py-3 mb-4">
           <div className="flex-1">
@@ -211,7 +214,7 @@ export function List() {
           </button>
         </div>
         <div className="search-input h-[38px] mb-6 px-3 flex items-center justify-center space-x-3 border border-[#D5D5D5] rounded-lg">
-          <IconSearch color="#909090"></IconSearch>
+          <IconSearch color="#909090" />
           <input type="text" placeholder="Cari Assets" className="flex-1 text-paragraph regular-14 mt-1" />
         </div>
         <div>
@@ -236,25 +239,28 @@ export function List() {
         </div>
       </div>
 
-      <div className="fixed bottom-0 z-[101] bg-white pb-10 pt-5 w-full px-4">
-        <button
-          disabled={handleTotalQty() == 0}
-          onClick={() => {
-            // router.push(`/booking-asset/asset/order-summary`, { scroll: false })
-          }}
-          type="button"
-          className={` ${
-            handleTotalQty() == 0 ? 'bg-[#B1B1B1]' : 'save-button'
-          } h-12 w-full text-[#ffffff] py-2.5  rounded-lg`}
-        >
-          {handleTotalQty() == 0 && <span className="text-heading xs semibold-16">Pesan Sekarang</span>}
-          {handleTotalQty() > 0 && (
-            <div className="flex items-center justify-between px-4">
-              <span>{handleTotalQty()} items</span>
-              <span className="text-heading xs semibold-16">Pesan Sekarang</span>
-            </div>
-          )}
-        </button>
+      {/* Button Pesan */}
+      <div className="fixed bottom-0 z-[101] bg-white pb-10 pt-5 w-full px-4 max-container">
+        <div className="max-container">
+          <button
+            disabled={handleTotalQty() == 0}
+            onClick={() => {
+              // router.push(`/booking-asset/asset/order-summary`, { scroll: false })
+            }}
+            type="button"
+            className={` ${
+              handleTotalQty() == 0 ? 'bg-[#B1B1B1]' : 'save-button'
+            } h-12 w-full text-[#ffffff] py-2.5 rounded-lg`}
+          >
+            {handleTotalQty() == 0 && <span className="text-heading xs semibold-16">Pesan Sekarang</span>}
+            {handleTotalQty() > 0 && (
+              <div className="flex items-center justify-between px-4">
+                <span>{handleTotalQty()} items</span>
+                <span className="text-heading xs semibold-16">Pesan Sekarang</span>
+              </div>
+            )}
+          </button>
+        </div>
       </div>
 
       <Modal isOpen={isConfimationModalOpen} backdropClick={() => setIsConfimationModalOpen(!isConfimationModalOpen)}>
@@ -304,7 +310,7 @@ export function List() {
         backdropDismiss={false}
         backdropClick={() => setIsItemModalOpen(!isItemModalOpen)}
       >
-        <div className="w-screen h-[calc(100vh_-_50px)] bg-white relative py-6 px-4">
+        <div className="w-screen max-container h-[calc(100vh_-_50px)] bg-white relative py-6 px-4">
           <div className="text-heading xs semibold-16 mb-4">Pilih Brand {selectedAsset?.name}</div>
 
           <div className="search-input h-[38px] mb-4 px-3 flex items-center justify-center space-x-3 border border-[#D5D5D5] rounded-lg">
@@ -366,7 +372,7 @@ export function List() {
             ))}
           </div>
 
-          <div className="absolute bottom-0 right-0 left-0">
+          <div className="absolute bottom-0 right-0 left-0 max-container">
             <div className="bg-white h-full px-4 py-6">
               <div
                 className={`${handleTotalQty(selectedAsset) ? '' : 'hidden'} text-heading xs semibold-16 flex justify-between mb-6`}
