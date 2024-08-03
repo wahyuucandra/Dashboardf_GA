@@ -1,13 +1,13 @@
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
 import IconChevronRight from '@assets/icons/IconChevronRight'
-import { IPagination } from '@interfaces/api'
+import { IPaginations } from '@interfaces/api'
 
 export default function Pagination({
   pagination,
   onPrevClicked,
   onNextClicked,
 }: {
-  pagination?: IPagination
+  pagination?: IPaginations
   onPrevClicked?: () => void
   onNextClicked?: () => void
 }) {
