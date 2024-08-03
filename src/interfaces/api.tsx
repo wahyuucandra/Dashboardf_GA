@@ -1,4 +1,4 @@
-export interface IPagination {
+export interface IPaginations {
   totalRecords: number
   currentPage: number
   totalPage: number
@@ -6,9 +6,13 @@ export interface IPagination {
   prevPage: number | null
 }
 
-export interface IPaginationParam {
-  page: number
-  size: number
+export interface IPaginationParams {
+  page: number // nomor page yang mau ditampilkan (Contoh: 1)
+  size: number // banyak data yang mau ditampikan dalam satu page (Contoh: 10)
+}
+
+export interface ISearchParams {
+  search?: string // keyword yang akan diisi  (Contoh: Toyota, Bangku)
 }
 
 export interface APIBaseResponse<T = undefined> {
@@ -17,5 +21,5 @@ export interface APIBaseResponse<T = undefined> {
   message: string
   error: string | null
   data?: T extends undefined ? never : T
-  pagination?: IPagination | undefined
+  pagination?: IPaginations | undefined
 }

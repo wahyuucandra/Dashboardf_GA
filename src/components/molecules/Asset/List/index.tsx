@@ -6,18 +6,76 @@ import Header from '@components/atoms/Header'
 import { Modal } from '@components/atoms/ModalCustom'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { assetsData, brandsData } from './data'
 import './style.css'
-import { Asset, AssetForm, Brand, DefaulAssetForm } from '@interfaces/asset'
+import {
+  Asset,
+  AssetForm,
+  Brand,
+  DefaulAssetForm,
+  IListAsset,
+  IListAssetBrand,
+  IListAssetBrandParams,
+  IListAssetParams,
+} from '@interfaces/asset'
 import IconSearch from '@assets/icons/IconSearch'
 import { AssetItem } from '@components/atoms/Asset'
 import { useForm, useWatch } from 'react-hook-form'
 import IconPlus from '@assets/icons/IconPlus'
 import IconMinus from '@assets/icons/IconMinus'
+import { apiGetListAsset, apiGetListAssetBrand } from '@services/asset/api'
 
 export function List() {
+  const initialRef = useRef(false)
+
   const router = useRouter()
+
+  const [assetLoading, setAssetLoading] = useState<boolean>(false)
+  const [assetData, setAssetData] = useState<IListAsset[]>()
+
+  const [assetBrandLoading, setAssetBrandLoading] = useState<boolean>(false)
+  const [assetBrandData, setAssetBrandData] = useState<IListAssetBrand[]>()
+
+  const handleFetchListAsset = async () => {
+    const params: IListAssetParams = {
+      page: 1,
+      size: 10,
+    }
+
+    try {
+      setAssetLoading(true)
+      const response = await apiGetListAsset(params)
+      if (response.status == 'T') setAssetData(response.data)
+    } catch (error) {
+      setAssetLoading(false)
+    } finally {
+      setAssetLoading(false)
+    }
+  }
+
+  const handleFetchListAssetBrand = async (noIdAsset: string) => {
+    const params: IListAssetBrandParams = {
+      noIdAsset,
+    }
+
+    try {
+      setAssetBrandLoading(true)
+      const response = await apiGetListAssetBrand(params)
+      if (response.status == 'T') setAssetBrandData(response.data)
+    } catch (error) {
+      setAssetBrandLoading(false)
+    } finally {
+      setAssetBrandLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (initialRef.current === false) {
+      handleFetchListAsset()
+      initialRef.current = true
+    }
+  }, [])
 
   const [assets] = useState<Asset[]>(assetsData)
   const [brands, setBrands] = useState<Brand[]>([{ ...brandsData[0] }, { ...brandsData[1] }, { ...brandsData[2] }])

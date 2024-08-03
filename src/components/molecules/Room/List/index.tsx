@@ -35,8 +35,8 @@ export function List() {
       kapasitas: 10,
       kategoriMenu: 'Meeting Room',
       location: 'ACC TB Simatupang',
-      timeOpen: 8,
-      timeClose: 10,
+      timeOpen: '18:00:00',
+      timeClose: '20:00:00',
       page: 1,
       size: 10,
     }
