@@ -1,25 +1,34 @@
 import IconClose from '@assets/icons/IconClose'
+import IconTime from '@assets/icons/IconTime'
+import { IBookingTime } from '@interfaces/time'
 import { TimeInput } from '@interfaces/time-input'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Control, Controller } from 'react-hook-form'
 import { Modal } from '../ModalCustom'
 import { handleFetchTimesInDay } from './data'
 import './style.css'
-import IconTime from '@assets/icons/IconTime'
-import { Control, Controller } from 'react-hook-form'
 
 export interface TimeRangeInputProps {
+  availableTimes?: IBookingTime[]
+  useRange?: boolean
   value?: { start: TimeInput | undefined; end: TimeInput | undefined }
   onButtonClick?: (val: { start: TimeInput | undefined; end: TimeInput | undefined } | undefined) => void | undefined
   control: Control<any>
+
   name?: string
 }
 
-export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({ value, control, name = 'time', onButtonClick }) => {
+export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({
+  availableTimes,
+  useRange = true,
+  value,
+  control,
+  name = 'time',
+  onButtonClick,
+}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  const times = handleFetchTimesInDay()
-
-  const [timesInDay] = useState<TimeInput[]>(times)
+  const [timesInDay, setTimesInDay] = useState<TimeInput[]>()
   const [selectedTimes, setSelectedTimes] = useState<
     { start: TimeInput | undefined; end: TimeInput | undefined } | undefined
   >(value)
@@ -35,29 +44,33 @@ export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({ value, control, 
         return { ...prev, start: timeInput, end: timeInput }
       }
 
+      if (!useRange) {
+        return { ...prev, start: timeInput, end: timeInput }
+      }
+
       if (start?.startTime.getTime() != end?.startTime.getTime()) {
         return { ...prev, start: timeInput, end: timeInput }
       }
 
       if (start && timeInput?.startTime?.getTime() < start?.startTime?.getTime()) {
-        const filteredTimes = times?.filter(
+        const filteredTimes = timesInDay?.filter(
           val =>
             val?.startTime?.getTime() <= start.startTime.getTime() &&
             val?.startTime?.getTime() >= timeInput?.startTime?.getTime()
         )
-        if (filteredTimes.some(val => !val.availabel)) {
+        if (filteredTimes?.some(val => !val.availabel)) {
           return { ...prev }
         }
         return { ...prev, start: timeInput }
       }
 
       if (start && timeInput?.startTime?.getTime() > start?.startTime?.getTime()) {
-        const filteredTimes = times?.filter(
+        const filteredTimes = timesInDay?.filter(
           val =>
             val?.startTime?.getTime() >= start.startTime.getTime() &&
             val?.startTime?.getTime() <= timeInput?.startTime?.getTime()
         )
-        if (filteredTimes.some(val => !val.availabel)) {
+        if (filteredTimes?.some(val => !val.availabel)) {
           return { ...prev }
         }
         return { ...prev, end: timeInput }
@@ -89,7 +102,7 @@ export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({ value, control, 
   }
 
   const handleActiveText = (input: { start: TimeInput | undefined; end: TimeInput | undefined } | undefined) => {
-    if (input != undefined) {
+    if (input?.start || input?.end) {
       return 'text-[#505050]'
     }
 
@@ -108,13 +121,18 @@ export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({ value, control, 
     return 'Pilih Jam'
   }
 
+  useEffect(() => {
+    const times = handleFetchTimesInDay(availableTimes)
+    setTimesInDay(times)
+  }, [availableTimes])
+
   return (
     <>
       <Controller
         defaultValue={''}
         control={control}
         name={name}
-        render={({ formState: { errors } }) => (
+        render={({ field, formState: { errors } }) => (
           <>
             <button
               type="button"
@@ -122,8 +140,8 @@ export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({ value, control, 
               className="w-full h-11 border border-[#D5D5D5] text-left py-2.5 px-3 rounded flex items-center space-x-4"
             >
               <IconTime></IconTime>
-              <div className={`flex-1 text-paragraph regular-14 -mb-1 ${handleActiveText(value)} `}>
-                {handleBindTime(value)}
+              <div className={`flex-1 text-paragraph regular-14 -mb-1 ${handleActiveText(field?.value)} `}>
+                {handleBindTime(field?.value)}
               </div>
             </button>
             {errors?.[name]?.message && (

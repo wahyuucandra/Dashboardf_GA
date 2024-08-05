@@ -2,12 +2,7 @@
 
 import IconScheduleRoom from '@assets/icons/IconScheduleRoom'
 import confirmationDanger from '@assets/images/ConfirmationDanger.png'
-import {
-  EHSElectricityManagementForm,
-  EHSFuelManagementForm,
-  EHSWasteManagementForm,
-  EHSWaterManagementForm,
-} from '@components/atoms/EHS'
+import { CleaningServiceManpowerForm, CleaningServiceRatingForm } from '@components/atoms/CleaningService'
 import Header from '@components/atoms/Header'
 import { Modal } from '@components/atoms/ModalCustom'
 import { ManagementType } from '@interfaces/ehs'
@@ -15,7 +10,6 @@ import Image from 'next/image'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import './style.css'
-import { CleaningServiceManpowerForm, CleaningServiceRatingForm } from '@components/atoms/CleaningService'
 
 export function Management() {
   const searchParams = useSearchParams()
