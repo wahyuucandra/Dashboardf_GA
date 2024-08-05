@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
 
   // Redirect unauthenticated users to login (except login and excluded paths)
   if (!cookieAuth && !['/login', '/excluded-path'].includes(request.nextUrl.pathname)) {
-    return NextResponse.redirect(new URL('/login', request.url))
+    // return NextResponse.redirect(new URL('/login', request.url))
   }
 
   // Redirect authenticated users to home if they try to access login
