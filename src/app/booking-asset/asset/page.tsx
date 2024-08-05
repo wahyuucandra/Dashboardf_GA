@@ -5,5 +5,9 @@ export const metadata = {
 }
 
 export default function Vehicle() {
-  return <AssetListPage></AssetListPage>
+  return (
+    <>
+      <AssetListPage />;
+    </>
+  )
 }
