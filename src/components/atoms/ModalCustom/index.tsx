@@ -103,6 +103,7 @@ export function Modal({
       </div>
 
       <div
+        onKeyDown={() => {}}
         onClick={backdropClick}
         className={`${
           isFloating ? 'hidden' : ''
