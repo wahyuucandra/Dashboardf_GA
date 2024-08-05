@@ -1,4 +1,4 @@
-import { IPaginationParam } from './api'
+import { IPaginationParams } from './api'
 
 // Room
 export interface IRoomBookingTime {
@@ -8,11 +8,11 @@ export interface IRoomBookingTime {
   stockAvailability: number
 }
 
-export interface IRoomListParams extends IPaginationParam {
+export interface IRoomListParams extends IPaginationParams {
   kategoriMenu: string
   location: string
-  timeOpen: number
-  timeClose: number
+  timeOpen: string
+  timeClose: string
   flagACCBerijalan: string
   kapasitas: number
 }
@@ -45,7 +45,7 @@ export interface IRoom {
 // Room
 
 // Ballroom
-export interface IBallroomListParams extends IPaginationParam {
+export interface IBallroomListParams extends IPaginationParams {
   search: string
 }
 

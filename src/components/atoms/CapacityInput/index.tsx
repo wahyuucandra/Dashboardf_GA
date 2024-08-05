@@ -1,30 +1,31 @@
 import IconChevronTop from '@assets/icons/IconChevronTop'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Control, Controller } from 'react-hook-form'
 
 export interface CapacityInputProps {
   data: number[]
-  value?: number
   label?: string
   placeholder?: string
   onButtonClick?: (val: number | undefined) => void | undefined
   control: Control<any>
+  value?: any
   name?: string
 }
 
 const CapacityInput: React.FC<CapacityInputProps> = ({
   data,
-  value,
   label = 'kursi',
   placeholder = 'Masukan kapasitas',
   onButtonClick,
   control,
   name = 'capacity',
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null)
+
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const handleActiveText = (input: number | undefined) => {
-    if (input != undefined) {
+    if (input) {
       return 'text-[#505050]'
     }
 
@@ -39,21 +40,35 @@ const CapacityInput: React.FC<CapacityInputProps> = ({
     return `${placeholder}`
   }
 
+  useEffect(() => {
+    const handleClick = (event: any) => {
+      if (!containerRef?.current?.contains(event?.target)) {
+        setIsOpen(false)
+      }
+    }
+
+    window.addEventListener('click', handleClick)
+
+    return () => {
+      window.removeEventListener('click', handleClick)
+    }
+  }, [isOpen])
+
   return (
     <Controller
       defaultValue={''}
       control={control}
       name={name}
-      render={({ formState: { errors } }) => (
+      render={({ field, formState: { errors } }) => (
         <>
-          <div className="relative">
+          <div ref={containerRef} className="relative">
             <div
               onKeyDown={() => {}}
               onClick={() => setIsOpen(!isOpen)}
               className={`h-11 border ${isOpen ? 'border-[#4994EC]' : 'border-[#D5D5D5]'}  py-2.5 px-3 rounded flex items-center space-x-4`}
             >
-              <div className={`flex-1 text-paragraph regular-14 -mb-1 ${handleActiveText(value)}`}>
-                {handleBindCapacity(value)}
+              <div className={`flex-1 text-paragraph regular-14 -mb-1 ${handleActiveText(field?.value)}`}>
+                {handleBindCapacity(field?.value)}
               </div>
               <IconChevronTop
                 className={`transition-all ${isOpen ? 'rotate-0' : 'rotate-180'}`}

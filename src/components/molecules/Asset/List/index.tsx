@@ -1,23 +1,82 @@
 'use client'
 
+import IconMinus from '@assets/icons/IconMinus'
+import IconPlus from '@assets/icons/IconPlus'
 import IconScheduleRoom from '@assets/icons/IconScheduleRoom'
+import IconSearch from '@assets/icons/IconSearch'
 import confirmationDanger from '@assets/images/ConfirmationDanger.png'
+import { AssetItem } from '@components/atoms/Asset'
 import Header from '@components/atoms/Header'
 import { Modal } from '@components/atoms/ModalCustom'
+import {
+  Asset,
+  AssetForm,
+  Brand,
+  DefaulAssetForm,
+  IListAsset,
+  IListAssetBrand,
+  IListAssetBrandParams,
+  IListAssetParams,
+} from '@interfaces/asset'
+import { apiGetListAsset, apiGetListAssetBrand } from '@services/asset/api'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useForm, useWatch } from 'react-hook-form'
 import { assetsData, brandsData } from './data'
 import './style.css'
-import { Asset, AssetForm, Brand, DefaulAssetForm } from '@interfaces/asset'
-import IconSearch from '@assets/icons/IconSearch'
-import { AssetItem } from '@components/atoms/Asset'
-import { useForm, useWatch } from 'react-hook-form'
-import IconPlus from '@assets/icons/IconPlus'
-import IconMinus from '@assets/icons/IconMinus'
 
 export function List() {
+  const initialRef = useRef(false)
+
   const router = useRouter()
+
+  const [assetLoading, setAssetLoading] = useState<boolean>(false)
+  const [assetData, setAssetData] = useState<IListAsset[]>()
+
+  const [assetBrandLoading, setAssetBrandLoading] = useState<boolean>(false)
+  const [assetBrandData, setAssetBrandData] = useState<IListAssetBrand[]>()
+
+  const handleFetchListAsset = async () => {
+    const params: IListAssetParams = {
+      page: 1,
+      size: 10,
+    }
+
+    try {
+      setAssetLoading(true)
+      const response = await apiGetListAsset(params)
+      if (response.status == 'T') setAssetData(response.data)
+    } catch (error) {
+      setAssetLoading(false)
+    } finally {
+      setAssetLoading(false)
+    }
+  }
+
+  const handleFetchListAssetBrand = async (noIdAsset: string) => {
+    const params: IListAssetBrandParams = {
+      noIdAsset,
+    }
+
+    try {
+      setAssetBrandLoading(true)
+      const response = await apiGetListAssetBrand(params)
+      if (response.status == 'T') setAssetBrandData(response.data)
+    } catch (error) {
+      setAssetBrandLoading(false)
+    } finally {
+      setAssetBrandLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (initialRef.current === false) {
+      handleFetchListAsset()
+      handleFetchListAssetBrand('1')
+      initialRef.current = true
+    }
+  }, [])
 
   const [assets] = useState<Asset[]>(assetsData)
   const [brands, setBrands] = useState<Brand[]>([{ ...brandsData[0] }, { ...brandsData[1] }, { ...brandsData[2] }])
@@ -191,9 +250,12 @@ export function List() {
           setIsItemModalOpen(false)
           setIsConfimationModalOpen(true)
         }}
-      />
+      ></Header>
+      {assetLoading && <div className="hidden"></div>}
+      {assetBrandLoading && <div className="hidden"></div>}
+      {assetData && <div className="hidden"></div>}
+      {assetBrandData && <div className="hidden"></div>}
 
-      {/* Page content */}
       <div className="px-4 pt-16 h-screen">
         <div className="flex items-center space-x-3 py-3 mb-4">
           <div className="flex-1">

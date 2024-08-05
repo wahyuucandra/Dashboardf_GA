@@ -1,13 +1,13 @@
+import IconCalendar from '@assets/icons/IconCalendar'
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
 import IconChevronRight from '@assets/icons/IconChevronRight'
 import IconClose from '@assets/icons/IconClose'
 import { DateInput } from '@interfaces/date-input'
 import { useState } from 'react'
+import { Control, Controller } from 'react-hook-form'
 import { Modal } from '../ModalCustom'
 import { daysData, daysSplit, handleFetchDaysInMonth, monthsData } from './data'
 import './style.css'
-import IconCalendar from '@assets/icons/IconCalendar'
-import { Control, Controller } from 'react-hook-form'
 
 export interface DateRangeInputProps {
   maxRange?: number
@@ -178,7 +178,7 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({
   }
 
   const handleActiveText = (input: { start: DateInput | undefined; end: DateInput | undefined } | undefined) => {
-    if (input != undefined) {
+    if (input?.start || input?.end) {
       return 'text-[#505050]'
     }
 
@@ -191,7 +191,7 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({
         defaultValue={''}
         control={control}
         name={name}
-        render={({ formState: { errors } }) => (
+        render={({ field, formState: { errors } }) => (
           <>
             <button
               type="button"
@@ -199,8 +199,8 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({
               className="w-full h-11 border border-[#D5D5D5] text-left py-2.5 px-3 rounded flex items-center space-x-4"
             >
               <IconCalendar></IconCalendar>
-              <div className={`flex-1 text-paragraph regular-14 -mb-1 ${handleActiveText(value)}`}>
-                {handleBindDate(value)}
+              <div className={`flex-1 text-paragraph regular-14 -mb-1 ${handleActiveText(field?.value)}`}>
+                {handleBindDate(field?.value)}
               </div>
             </button>
 
@@ -270,7 +270,7 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({
                 ))}
               </div>
               <div className={`${handleAlertValidator() ? 'hidden' : ''} text-red-600 text-left text-xs mb-1`}>
-                * Range tanggal tidak boleh lebih dari 7 hari
+                * Range tanggal tidak boleh lebih dari {maxRange} hari
               </div>
 
               <button
@@ -293,6 +293,8 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({
     </>
   )
 }
+
+// aaaa
 
 export interface DateRangeInputCustomProps {
   isOpen: boolean

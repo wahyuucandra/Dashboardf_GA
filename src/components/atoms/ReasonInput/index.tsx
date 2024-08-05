@@ -5,6 +5,9 @@ export interface ReasonInputProps {
   value?: string
   max?: number
   placeholder?: string
+  name?: string
+  disabled?: boolean
+  control?: Control<any>
   onChangeInput?: (val: string | undefined) => void | undefined
 }
 
@@ -12,27 +15,61 @@ export const ReasonInput: React.FC<ReasonInputProps> = ({
   value,
   max = 200,
   placeholder = 'Isi keperluan',
+  name = 'reason',
+  control,
+  disabled,
   onChangeInput,
 }) => {
   const handleActiveText = (input: string | undefined) => {
     return input != undefined ? 'text-[#505050]' : 'text-[#909090]'
   }
 
-  return (
-    <div className="border input-textarea py-2.5 px-3 rounded">
-      <input
-        value={value}
-        maxLength={max}
-        onChange={e => {
-          onChangeInput && onChangeInput(e?.target?.value)
-        }}
-        name="reason"
-        id="reason"
-        className={`w-full text-paragraph regular-14 ${handleActiveText(value)}`}
-        placeholder={placeholder}
-      />
-    </div>
-  )
+  const handleBinding = () => {
+    if (control) {
+      return (
+        <Controller
+          defaultValue={''}
+          control={control}
+          name={name}
+          disabled={disabled}
+          render={({ field, formState: { errors } }) => (
+            <>
+              <div className="border input-textarea py-2.5 px-3 rounded">
+                <input
+                  {...field}
+                  maxLength={max}
+                  className={`w-full text-paragraph regular-14 ${handleActiveText(field?.value)}`}
+                  placeholder={placeholder}
+                />
+              </div>
+
+              {errors?.[name]?.message && (
+                <div className="text-xs text-error mt-1">{errors?.[name]?.message?.toString()}</div>
+              )}
+            </>
+          )}
+        />
+      )
+    }
+
+    return (
+      <div className="border input-textarea py-2.5 px-3 rounded">
+        <input
+          value={value}
+          maxLength={max}
+          onChange={e => {
+            onChangeInput && onChangeInput(e?.target?.value)
+          }}
+          name="reason"
+          id="reason"
+          className={`w-full text-paragraph regular-14 ${handleActiveText(value)}`}
+          placeholder={placeholder}
+        />
+      </div>
+    )
+  }
+
+  return handleBinding()
 }
 
 export interface ReasonInputAreaProps {
