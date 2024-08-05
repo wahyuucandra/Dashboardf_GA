@@ -70,7 +70,7 @@ const FileInput: FC<FileInputProps> = forwardRef(
             onBlur={props.onBlur}
           />
           <div className="absolute inset-0 flex items-center pointer-events-none h-[45px]">
-            <p
+            <div
               className={joinClass(
                 `items-center flex mx-2 line-clamp-2 justify-center h-[calc(100%-8px)] bg-[#fafafa] text-left ${
                   selectedDocument ? 'w-[calc(100%-8px)] pr-10' : 'w-[calc(100%-8px)]'
@@ -92,11 +92,11 @@ const FileInput: FC<FileInputProps> = forwardRef(
                   </p>
                 </div>
               )}
-            </p>
+            </div>
           </div>
         </div>
         {selectedDocument ? (
-          <div className="flex items-center absolute top-[140px] right-0 mx-2 gap-2 z-[999]">
+          <div className="flex items-center absolute top-[140px] right-0 mx-2 gap-2 z-[999] max-container">
             <button
               className="relative flex"
               type="button"

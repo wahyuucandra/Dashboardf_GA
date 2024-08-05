@@ -112,7 +112,7 @@ export function BallroomSchedule() {
         width={0}
         height={0}
         sizes="100"
-        className=" top-0 right-0 object-cover w-full h-[188px] rounded-b"
+        className="top-0 right-0 object-cover w-full h-[188px] rounded-b"
         src={bookingAsset.src}
         alt="Booking Asset"
       />

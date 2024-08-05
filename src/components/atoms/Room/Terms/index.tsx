@@ -9,7 +9,7 @@ export function Terms({ room }: Readonly<{ room?: RoomDetail }>) {
         <div className="text-room-detail title flex-1 text-[#101010]">Terms & Conditions</div>
       </div>
 
-      <div className="text-room-detail list text-[#878787]">
+      <div className="text-room-detail list text-[#878787] mb-4">
         <div className="mb-1">Kebijakan peminjaman untuk ruangan ini:</div>
         <ul className="text-room-detail list list-disc pl-5">
           {room?.terms?.map((val, index) => <li key={val ?? index}>{val}</li>)}
