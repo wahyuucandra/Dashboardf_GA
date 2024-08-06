@@ -20,7 +20,7 @@ import {
 } from '@interfaces/asset'
 import { apiGetListAsset, apiGetListAssetBrand } from '@services/asset/api'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { assetsData, brandsData } from './data'
@@ -28,6 +28,9 @@ import './style.css'
 
 export function List() {
   const initialRef = useRef(false)
+
+  const searchParams = useSearchParams()
+  const queryForm = searchParams.get('queryForm')
 
   const router = useRouter()
 
@@ -307,7 +310,7 @@ export function List() {
           <button
             disabled={handleTotalQty() == 0}
             onClick={() => {
-              // router.push(`/booking-asset/asset/order-summary`, { scroll: false })
+              router.push(`/booking-asset/asset/order-summary?${queryForm}`)
             }}
             type="button"
             className={` ${
@@ -391,7 +394,7 @@ export function List() {
                 key={brand.id}
                 className={`${brand?.asset != selectedAsset ? 'hidden' : ''} flex items-center space-x-6 mb-6 px-4`}
               >
-                <label className="flex-1 flex items-center custom-checkbox text-paragraph regular-14">
+                <label className="flex-1 flex custom-checkbox text-paragraph regular-14">
                   <span
                     className={`${brand.isAvailabel ? 'text-[#000000]' : 'text-[#D5D5D5]'} text-heading xs regular-16  mr-2`}
                   >

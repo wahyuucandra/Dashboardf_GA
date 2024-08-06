@@ -1,4 +1,6 @@
 import { IPaginationParams, ISearchParams } from './api'
+import { DateInput } from './date-input'
+import { TimeInput } from './time-input'
 
 // Asset
 export interface IListAssetParams extends IPaginationParams, ISearchParams {}
@@ -27,6 +29,12 @@ export interface IAssetBookingTime {
   timeStart: string // Contoh : '08:00'
   timeEnd: string // Contoh : '08:30'
   stockAvailability: number // Contoh : 5
+}
+
+export interface IAssetScheduleForm {
+  date: { start: DateInput; end: DateInput }
+  time: { start: TimeInput; end: TimeInput }
+  reason: string
 }
 
 export interface ISubmitBookingAssetPayload {
