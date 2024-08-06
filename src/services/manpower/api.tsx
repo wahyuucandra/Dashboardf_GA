@@ -46,5 +46,5 @@ export function apiGetBookingTime(): Promise<APIBaseResponse<IBookingTime[]>> {
 }
 
 export function apiSubmitBookingManpower(payload: IManpowerSchedulePayload): Promise<APIBaseResponse> {
-  return api.post<undefined, APIBaseResponse>('/room/ballroom/submitBooking', payload)
+  return api.post<undefined, APIBaseResponse>('/manpower/submitBooking', payload)
 }
