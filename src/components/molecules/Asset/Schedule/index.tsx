@@ -1,39 +1,88 @@
 'use client'
 
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
+import IconSpinner from '@assets/icons/IconSpinner'
 import bookingAsset from '@assets/images/BookingAsset.png'
 import { DateRangeInput } from '@components/atoms/DateRangeInput'
 import { ReasonInput } from '@components/atoms/ReasonInput'
 import { TimeRangeInput } from '@components/atoms/TimeRangeInput'
-import { DefaulAssetScheduleForm, AssetScheduleForm } from '@interfaces/schedule'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { IAssetScheduleForm } from '@interfaces/asset'
+import { IBookingTime } from '@interfaces/time'
+import { apiGetAssetBookingTime } from '@services/asset/api'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useForm, useWatch } from 'react-hook-form'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
 import './style.css'
+
+const dateInputSchema = yup.object().shape({
+  day: yup.number().required(),
+  date: yup.date().required(),
+  dateNumber: yup.number().required(),
+  include: yup.boolean().required(),
+  now: yup.boolean().required(),
+})
+
+const timeInputSchema = yup.object().shape({
+  startText: yup.string().required(),
+  endText: yup.string().required(),
+  startTime: yup.date().required(),
+  endTime: yup.date().required(),
+  availabel: yup.boolean().required(),
+})
+
+const schema = yup.object().shape({
+  date: yup
+    .object()
+    .shape({
+      start: dateInputSchema.required(),
+      end: dateInputSchema.required(),
+    })
+    .required()
+    .typeError('Tanggal wajib diisi'),
+  time: yup
+    .object()
+    .shape({
+      start: timeInputSchema.required(),
+      end: timeInputSchema.required(),
+    })
+    .required()
+    .typeError('Waktu wajib diisi'),
+  reason: yup.string().required('Alasan wajib diisi'),
+})
 
 export function Schedule() {
   const router = useRouter()
 
-  const { handleSubmit, setValue, control } = useForm<AssetScheduleForm>({ defaultValues: DefaulAssetScheduleForm })
+  const [availableTimes, setAvailabelTimes] = useState<IBookingTime[]>()
+  const [isLoading, setIsLoading] = useState<boolean>()
+  const min = new Date(new Date().setHours(0, 0, 0, 0))
 
-  const date = useWatch({
-    control,
-    name: 'date',
+  const { handleSubmit, setValue, clearErrors, control } = useForm<IAssetScheduleForm>({
+    resolver: yupResolver(schema),
+    mode: 'all',
   })
 
-  const time = useWatch({
-    control,
-    name: 'time',
-  })
+  const handleFetchBookingTime = async () => {
+    const response = await apiGetAssetBookingTime()
+    if (response.status == 'T') setAvailabelTimes(response.data)
+  }
 
-  const reason = useWatch({
-    control,
-    name: 'reason',
-  })
+  useEffect(() => {
+    handleFetchBookingTime()
+  }, [])
 
-  const onSubmit = async () => {
-    router.push('/booking-asset/asset')
+  const onSubmit = async (payload: IAssetScheduleForm) => {
+    setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+      const stringify = JSON.stringify(payload).toString()
+      const queryParams = new URLSearchParams({ queryForm: stringify }).toString()
+      router.push(`/booking-asset/asset?${queryParams}`)
+    }, 500)
   }
 
   return (
@@ -62,10 +111,14 @@ export function Schedule() {
                 Pilih tanggal <span className="text-[#E15241]">*</span>
               </div>
               <DateRangeInput
+                min={min}
+                maxRange={1}
                 control={control}
-                value={date}
                 onButtonClick={val => {
-                  setValue('date', val)
+                  if (val?.start && val?.end) {
+                    clearErrors('date')
+                    setValue('date', { start: val.start, end: val.end })
+                  }
                 }}
               ></DateRangeInput>
             </div>
@@ -74,10 +127,13 @@ export function Schedule() {
                 Jam <span className="text-[#E15241]">*</span>
               </div>
               <TimeRangeInput
+                availableTimes={availableTimes}
                 control={control}
-                value={time}
                 onButtonClick={val => {
-                  setValue('time', val)
+                  if (val?.start && val?.end) {
+                    clearErrors('time')
+                    setValue('time', { start: val.start, end: val.end })
+                  }
                 }}
               ></TimeRangeInput>
             </div>
@@ -87,9 +143,13 @@ export function Schedule() {
                 Keperluan <span className="text-[#E15241]">*</span>
               </div>
               <ReasonInput
-                value={reason}
+                name="reason"
+                control={control}
                 onChangeInput={val => {
-                  setValue('reason', val)
+                  if (val) {
+                    clearErrors('reason')
+                    setValue('reason', val)
+                  }
                 }}
               ></ReasonInput>
             </div>
@@ -97,10 +157,12 @@ export function Schedule() {
 
           <div className="absolute bottom-12 w-full">
             <button
+              disabled={isLoading}
               type="submit"
-              className="next-button h-11 rounded-lg w-full text-heading xs semibold-16 text-[#FFFFFF]"
+              className="next-button h-11 rounded-lg w-full text-heading xs semibold-16 text-[#FFFFFF] flex items-center justify-center"
             >
-              Lanjutkan
+              {isLoading && <IconSpinner className="animate-spin"></IconSpinner>}
+              {!isLoading && 'Lanjutkan'}
             </button>
           </div>
         </form>
