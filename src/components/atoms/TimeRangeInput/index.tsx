@@ -14,7 +14,7 @@ export interface TimeRangeInputProps {
   value?: { start: TimeInput | undefined; end: TimeInput | undefined }
   onButtonClick?: (val: { start: TimeInput | undefined; end: TimeInput | undefined } | undefined) => void | undefined
   control: Control<any>
-
+  disabled?: boolean
   name?: string
 }
 
@@ -23,6 +23,7 @@ export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({
   useRange = true,
   value,
   control,
+  disabled = false,
   name = 'time',
   onButtonClick,
 }) => {
@@ -135,6 +136,7 @@ export const TimeRangeInput: React.FC<TimeRangeInputProps> = ({
         render={({ field, formState: { errors } }) => (
           <>
             <button
+              disabled={disabled}
               type="button"
               onClick={() => setIsOpen(true)}
               className="w-full h-11 border border-[#D5D5D5] text-left py-2.5 px-3 rounded flex items-center space-x-4"

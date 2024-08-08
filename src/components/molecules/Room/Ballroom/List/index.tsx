@@ -4,11 +4,10 @@ import IconScheduleRoom from '@assets/icons/IconScheduleRoom'
 import confirmationDanger from '@assets/images/ConfirmationDanger.png'
 import Header from '@components/atoms/Header'
 
+import { Modal } from '@components/atoms/ModalCustom'
+import { Room, RoomType } from '@interfaces/room'
 import Image from 'next/image'
 import Link from 'next/link'
-import { RoomCard } from '@components/atoms/Room'
-import { Room, RoomType } from '@interfaces/room'
-import { Modal } from '@components/atoms/ModalCustom'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { roomTypes, roomsData } from './data'
@@ -100,7 +99,7 @@ export function BallroomList() {
               href={`/booking-asset/room/meeting-room/${room.id}`}
               className={`${handleIsSelectTypeSame(room)}`}
             >
-              <RoomCard room={room}></RoomCard>
+              {/* <RoomCard room={room}></RoomCard> */}
             </Link>
           ))}
         </div>

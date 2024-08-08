@@ -50,21 +50,21 @@ export function Menu() {
             <span className="text-paragraph semibold-14 text-[#2C598D]">Cleaning Service</span>
           </Link>
           <Link
-            href="/booking-asset/manpower/maintenance"
+            href="/booking-asset/manpower/maintenance/schedule"
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconManpowerMaintenance className="w-10 h-10 mx-auto text-[#2C598D]"></IconManpowerMaintenance>
             <span className="text-paragraph semibold-14 text-[#2C598D]">Maintenance</span>
           </Link>
           <Link
-            href="/booking-asset/manpower/security"
+            href="/booking-asset/manpower/security/schedule"
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconManpowerSecurity className="w-10 h-10 mx-auto text-[#2C598D]"></IconManpowerSecurity>
             <span className="text-paragraph semibold-14 text-[#2C598D]">Security</span>
           </Link>
           <Link
-            href="/booking-asset/manpower/receptionist"
+            href="/booking-asset/manpower/receptionist/schedule"
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconManpowerReceptionist className="w-10 h-10 mx-auto text-[#2C598D]"></IconManpowerReceptionist>

@@ -1,16 +1,16 @@
 'use client'
 
-import { BookingAssetMenu } from '@components/molecules/BookingAsset'
+import { RoomSchedule } from '@components/molecules/Room'
 import { RootState } from '@store/reducers'
 import { redirect } from 'next/navigation'
 import { useSelector } from 'react-redux'
 
-export default function BookingAsset() {
+export function PodsScheduleFormPage() {
   const bookingLocation = useSelector((state: RootState) => state.dataBookingAsset.bookingLocation)
 
   if (!bookingLocation) {
     redirect('/')
   }
 
-  return <BookingAssetMenu></BookingAssetMenu>
+  return <RoomSchedule title="Pods" category="Pods"></RoomSchedule>
 }

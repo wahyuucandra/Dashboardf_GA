@@ -3,7 +3,7 @@
 import { RoomBannerImage, RoomDescription, RoomFacility, RoomTerms, BookingBallroom } from '@components/atoms/Room'
 
 import Link from 'next/link'
-import { photos, room } from './data'
+import { photos } from './data'
 
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
 
@@ -24,11 +24,11 @@ export function BallroomDetail() {
       </div>
 
       <div className="px-6 pt-[290px]">
-        <RoomDescription room={room} />
+        <RoomDescription />
         <br />
-        <RoomFacility room={room} onButtonClick={handleShowMoreFacility} />
+        <RoomFacility onButtonClick={handleShowMoreFacility} />
         <br />
-        <RoomTerms room={room} />
+        <RoomTerms />
       </div>
 
       <BookingBallroom />

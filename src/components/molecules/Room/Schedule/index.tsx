@@ -1,10 +1,5 @@
 'use client'
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useForm, useWatch } from 'react-hook-form'
-
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
 import bookingAsset from '@assets/images/BookingAsset.png'
 import CapacityInput from '@components/atoms/CapacityInput'
@@ -13,12 +8,23 @@ import Footer from '@components/atoms/Footer'
 import { ReasonInputArea } from '@components/atoms/ReasonInput'
 import { TimeRangeInput } from '@components/atoms/TimeRangeInput'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { DefaulScheduleForm, ScheduleForm } from '@interfaces/schedule'
+import { IRoomListParams, IRoomScheduleForm, IRoomScheduleFormEntity } from '@interfaces/room'
+import { ScheduleForm } from '@interfaces/schedule'
+import { IBookingTime } from '@interfaces/time'
+import { apiGetRoomBookingTime } from '@services/room/api'
+import { setShowNavbar } from '@store/actions/actionContainer'
+import { setRoomListParams, setRoomScheduleForm } from '@store/actions/actionRoom'
+import { RootState } from '@store/reducers'
+import { store } from '@store/storage'
+import moment from 'moment'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useSelector } from 'react-redux'
 import * as yup from 'yup'
 import './style.css'
-import { useEffect } from 'react'
-import { store } from '@store/storage'
-import { setShowNavbar } from '@store/actions/actionContainer'
 
 const dateInputSchema = yup.object().shape({
   day: yup.number().required(),
@@ -57,52 +63,82 @@ const schema = yup.object().shape({
   reason: yup.string().required('Alasan wajib diisi'),
 })
 
-export function Schedule() {
+export function Schedule({ title = 'Meeting Room', category = 'Meeting Room' }: { title?: string; category?: string }) {
   const router = useRouter()
 
-  useEffect(() => {
-    const { dispatch } = store
+  const { dispatch } = store
 
-    dispatch(setShowNavbar(false))
-  }, [])
+  const min = new Date(new Date().setHours(0, 0, 0, 0))
+  const capacities = Array.from({ length: 10 }, (_, i) => i + 1)
+  const bookingLocation = useSelector((state: RootState) => state.dataBookingAsset.bookingLocation)
+
+  const [availableTimes, setAvailabelTimes] = useState<IBookingTime[]>()
+  const [availableTimesLoading, setAvailableTimesLoading] = useState<boolean>()
 
   const { handleSubmit, setValue, control, clearErrors, formState } = useForm<ScheduleForm>({
-    defaultValues: DefaulScheduleForm,
     resolver: yupResolver(schema),
     mode: 'onChange',
   })
 
   const { isValid } = formState
 
-  const capacity = useWatch({
-    control,
-    name: 'capacity',
-  })
+  const handleSubmitForm = (form: IRoomScheduleForm) => {
+    const formDateStart = form?.date?.start?.date
+    const formDateEnd = form?.date?.end?.date
+    const formTimeStart = form?.time?.start?.startTime
+    const formTimeEnd = form?.time?.end?.endTime
 
-  const date = useWatch({
-    control,
-    name: 'date',
-  })
+    const startBookingDate = `${moment(formDateStart).format('YYYY-MM-DD')}`
+    const endBookingDate = `${moment(formDateEnd).format('YYYY-MM-DD')}`
+    const timeOpen = `${moment(formTimeStart).format('HH:mm:ss')}`
+    const timeClose = `${moment(formTimeEnd).format('HH:mm:ss')}`
 
-  const time = useWatch({
-    control,
-    name: 'time',
-  })
+    const params: IRoomListParams = {
+      flagACCBerijalan: 'ACC',
+      kategoriMenu: category,
+      location: bookingLocation ?? '',
+      timeOpen,
+      timeClose,
+      startBookingDate,
+      endBookingDate,
+      kapasitas: form.capacity,
+    }
 
-  const reason = useWatch({
-    control,
-    name: 'reason',
-  })
+    const entityForm: IRoomScheduleFormEntity = {
+      capacity: form.capacity,
+      reason: form.reason,
+    }
 
-  const min = new Date(new Date().setHours(0, 0, 0, 0))
+    dispatch(setRoomListParams(params))
+    dispatch(setRoomScheduleForm(entityForm))
+    router.push('/booking-asset/room/meeting-room')
+  }
 
-  const onSubmit = async () => {
-    // data: ScheduleForm
-    // Action Here
-    if (isValid) {
-      router.push('/booking-asset/room/meeting-room')
+  const handleFetchBookingTime = async () => {
+    try {
+      setAvailableTimesLoading(true)
+      const response = await apiGetRoomBookingTime()
+      if (response.status == 'T') setAvailabelTimes(response.data)
+    } catch (error) {
+      setAvailableTimesLoading(false)
+    } finally {
+      setAvailableTimesLoading(false)
     }
   }
+
+  const onSubmit = async (form: IRoomScheduleForm) => {
+    if (isValid) {
+      handleSubmitForm(form)
+    }
+  }
+
+  useEffect(() => {
+    dispatch(setShowNavbar(false))
+  }, [])
+
+  useEffect(() => {
+    handleFetchBookingTime()
+  }, [])
 
   return (
     <div className="relative">
@@ -123,7 +159,7 @@ export function Schedule() {
 
       <div className="bg-white py-[216px] h-screen overflow-y-auto">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="text-heading m semibold-21 text-[#2C598D] mb-6 px-4">Schedule Meeting Room</div>
+          <div className="text-heading m semibold-21 text-[#2C598D] mb-6 px-4">Schedule {title}</div>
 
           <div className="grid grid-cols-1 gap-6 pb-[150px] px-4">
             <div>
@@ -132,9 +168,7 @@ export function Schedule() {
               </div>
               <DateRangeInput
                 min={min}
-                name="date"
                 control={control}
-                value={date}
                 onButtonClick={val => {
                   if (val?.start && val?.end) {
                     clearErrors('date')
@@ -149,9 +183,9 @@ export function Schedule() {
                 Jam <span className="text-[#E15241]">*</span>
               </div>
               <TimeRangeInput
-                name="time"
+                disabled={availableTimesLoading}
+                availableTimes={availableTimes}
                 control={control}
-                value={time}
                 onButtonClick={val => {
                   if (val?.start && val?.end) {
                     clearErrors('time')
@@ -166,10 +200,8 @@ export function Schedule() {
                 Kapasitas <span className="text-[#E15241]">*</span>
               </div>
               <CapacityInput
-                data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-                value={capacity}
+                data={capacities}
                 control={control}
-                name="capacity"
                 onButtonClick={val => {
                   if (val) {
                     clearErrors('capacity')
@@ -184,9 +216,7 @@ export function Schedule() {
                 Keperluan <span className="text-[#E15241]">*</span>
               </div>
               <ReasonInputArea
-                name="reason"
                 control={control}
-                value={reason}
                 onChangeInput={val => {
                   if (val) {
                     clearErrors('reason')

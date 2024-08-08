@@ -7,14 +7,18 @@ import IconClose from '@assets/icons/IconClose'
 import logoAcc from '@assets/images/logoAcc.png'
 import logoBerijalan from '@assets/images/logoBerijalan.png'
 import { Modal } from '@components/atoms/ModalCustom'
-import Link from 'next/link'
-import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
-import { apiBookLocation, apiBookMenu } from '@services/booking-asset/api'
 import { IBookLocation, IBookMenu } from '@interfaces/booking-asset'
+import { apiBookLocation, apiBookMenu } from '@services/booking-asset/api'
+import { setBookingLocation } from '@store/actions/actionBookingAsset'
+import { store } from '@store/storage'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
 
 export function Menu() {
   const initialRef = useRef(false)
+
+  const { dispatch } = store
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [linkState, setLinkState] = useState<string>()
@@ -142,6 +146,7 @@ export function Menu() {
               <Link href={`${linkState}`} className="justify-self-stretch w-full">
                 <button
                   onClick={() => {
+                    dispatch(setBookingLocation('ACC'))
                     setIsOpen(false)
                   }}
                   type="button"

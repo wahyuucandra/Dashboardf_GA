@@ -1,23 +1,19 @@
-import { API_MASTER } from '@utils/environment'
 import { APIBaseResponse } from '@interfaces/api'
-import httpRequest from '@utils/helper'
 import {
-  IBallroomDetail,
-  IBallroomDetailParams,
-  IBallroomList,
-  IBallroomListParams,
-  IRoomBookingTime,
-  IRoom,
-  IRoomDetailParams,
-  IRoomListParams,
-  ISubmitBookingBallroomPayload,
-  ISubmitBookingRoomPayload,
-} from '@interfaces/room'
+  // ISubmitBookingVehiclePayload,
+  // ISubmitBookingRoomPayload,
+  IVehicle,
+  IVehicleBookingTime,
+  IVehicleDetailParams,
+  IVehicleListParams,
+} from '@interfaces/vehicle'
+import { API_MASTER } from '@utils/environment'
+import httpRequest from '@utils/helper'
 
 const api = httpRequest(API_MASTER)
 
-export function apiGetListRoom(params: IRoomListParams): Promise<APIBaseResponse<IRoom[]>> {
-  // const response: APIBaseResponse<IRoom[]> = {
+export function apiGetListRoom(params: IVehicleListParams): Promise<APIBaseResponse<IVehicle[]>> {
+  // const response: APIBaseResponse<IVehicle[]> = {
   //   reqId: 'a',
   //   error: null,
   //   message: 'Berhasil',
@@ -53,11 +49,11 @@ export function apiGetListRoom(params: IRoomListParams): Promise<APIBaseResponse
   //   }, 500)
   // })
 
-  return api.get<IRoom[], APIBaseResponse<IRoom[]>>('/room', { params })
+  return api.get<IVehicle[], APIBaseResponse<IVehicle[]>>('/room', { params })
 }
 
-export function apiGetDetailRoom(params: IRoomDetailParams): Promise<APIBaseResponse<IRoom>> {
-  // const response: APIBaseResponse<IRoom> = {
+export function apiGetDetailRoom(params: IVehicleDetailParams): Promise<APIBaseResponse<IVehicle>> {
+  // const response: APIBaseResponse<IVehicle> = {
   //   reqId: 'a',
   //   error: null,
   //   message: 'Berhasil',
@@ -84,28 +80,28 @@ export function apiGetDetailRoom(params: IRoomDetailParams): Promise<APIBaseResp
   //   }, 500)
   // })
 
-  return api.get<IRoom, APIBaseResponse<IRoom>>('/room/detail', { params })
+  return api.get<IVehicle, APIBaseResponse<IVehicle>>('/room/detail', { params })
 }
 
-export function apiSubmitBookingRoom(payload: ISubmitBookingRoomPayload): Promise<APIBaseResponse> {
-  // const response: APIBaseResponse = {
-  //   reqId: 'a',
-  //   error: null,
-  //   message: 'Berhasil',
-  //   status: 'T',
-  // }
+// export function apiSubmitBookingRoom(payload: ISubmitBookingRoomPayload): Promise<APIBaseResponse> {
+//   // const response: APIBaseResponse = {
+//   //   reqId: 'a',
+//   //   error: null,
+//   //   message: 'Berhasil',
+//   //   status: 'T',
+//   // }
 
-  // return new Promise(resolve => {
-  //   setTimeout(() => {
-  //     resolve(response)
-  //   }, 500)
-  // })
+//   // return new Promise(resolve => {
+//   //   setTimeout(() => {
+//   //     resolve(response)
+//   //   }, 500)
+//   // })
 
-  return api.post<undefined, APIBaseResponse>('/room/submitBooking', payload)
-}
+//   return api.post<undefined, APIBaseResponse>('/room/submitBooking', payload)
+// }
 
-export function apiGetRoomBookingTime(): Promise<APIBaseResponse<IRoomBookingTime[]>> {
-  // const response: APIBaseResponse<IRoomBookingTime[]> = {
+export function apiGetRoomBookingTime(): Promise<APIBaseResponse<IVehicleBookingTime[]>> {
+  // const response: APIBaseResponse<IVehicleBookingTime[]> = {
   //   reqId: 'a',
   //   error: null,
   //   message: 'Berhasil',
@@ -144,85 +140,22 @@ export function apiGetRoomBookingTime(): Promise<APIBaseResponse<IRoomBookingTim
   //   }, 500)
   // })
 
-  return api.get<IRoomBookingTime[], APIBaseResponse<IRoomBookingTime[]>>('/room/bookingTime')
+  return api.get<IVehicleBookingTime[], APIBaseResponse<IVehicleBookingTime[]>>('/room/bookingTime')
 }
 
-export function apiGetListBallroomAsset(params: IBallroomListParams): Promise<APIBaseResponse<IBallroomList[]>> {
-  // const response: APIBaseResponse<IBallroomList[]> = {
-  //   reqId: 'a',
-  //   error: null,
-  //   message: 'Berhasil',
-  //   status: 'T',
-  //   data: [
-  //     {
-  //       noIdAsset: 1,
-  //       assetName: 'Kursi',
-  //       stock: 1,
-  //     },
-  //   ],
-  //   pagination: {
-  //     totalRecords: 1,
-  //     currentPage: 1,
-  //     totalPage: 1,
-  //     nextPage: null,
-  //     prevPage: null,
-  //   },
-  // }
+// export function apiSubmitBookingBallroom(payload: ISubmitBookingBallroomPayload): Promise<APIBaseResponse> {
+//   // const response: APIBaseResponse = {
+//   //   reqId: 'a',
+//   //   error: null,
+//   //   message: 'Berhasil',
+//   //   status: 'T',
+//   // }
 
-  // return new Promise(resolve => {
-  //   setTimeout(() => {
-  //     resolve(response)
-  //   }, 500)
-  // })
+//   // return new Promise(resolve => {
+//   //   setTimeout(() => {
+//   //     resolve(response)
+//   //   }, 500)
+//   // })
 
-  return api.get<IBallroomList[], APIBaseResponse<IBallroomList[]>>('/room/ballroom/asset/list', { params })
-}
-
-export function apiGetBallroomDetail(params: IBallroomDetailParams): Promise<APIBaseResponse<IBallroomDetail>> {
-  // const response: APIBaseResponse<IBallroomDetail> = {
-  //   reqId: 'a',
-  //   error: null,
-  //   message: 'Berhasil',
-  //   status: 'T',
-  //   data: {
-  //     lantaiRuangan: '1',
-  //     noRoomId: '101',
-  //     deskripsi: 'Meeting room pada kantor ACC TB Simatupang dengan kapasitas 6 orang',
-  //     fasilitas: ['Kursi', 'Spidol', 'Papan tulis', 'TV'],
-  //     termsCondition: 'Wajib menghubungi CS 1 Jam Sebelumnya',
-  //     thumbnailUrl: '',
-  //   },
-  //   pagination: {
-  //     totalRecords: 2,
-  //     currentPage: 1,
-  //     totalPage: 1,
-  //     nextPage: null,
-  //     prevPage: null,
-  //   },
-  // }
-
-  // return new Promise(resolve => {
-  //   setTimeout(() => {
-  //     resolve(response)
-  //   }, 500)
-  // })
-
-  return api.get<IBallroomDetail, APIBaseResponse<IBallroomDetail>>('/room/ballroom/detail', { params })
-}
-
-export function apiSubmitBookingBallroom(payload: ISubmitBookingBallroomPayload): Promise<APIBaseResponse> {
-  // const response: APIBaseResponse = {
-  //   reqId: 'a',
-  //   error: null,
-  //   message: 'Berhasil',
-  //   status: 'T',
-  // }
-
-  // return new Promise(resolve => {
-  //   setTimeout(() => {
-  //     resolve(response)
-  //   }, 500)
-  // })
-
-  return api.post<undefined, APIBaseResponse>('/room/ballroom/submitBooking', payload)
-}
+//   return api.post<undefined, APIBaseResponse>('/room/ballroom/submitBooking', payload)
+// }
