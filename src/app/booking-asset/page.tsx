@@ -4,6 +4,10 @@ export const metadata = {
   title: 'Booking Asset',
 }
 
-export default function BookingAsset() {
-  return <BookingAssetPage></BookingAssetPage>
+export default function BookingAsset () {
+  return (
+    <>
+      <BookingAssetPage />
+    </>
+  )
 }

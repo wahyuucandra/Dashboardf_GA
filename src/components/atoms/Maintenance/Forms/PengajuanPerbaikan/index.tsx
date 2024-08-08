@@ -18,7 +18,7 @@ const formSchema = yup.object().shape({
   estCost: yup.string().required('Estimation cost wajib diisi'),
 })
 
-export function MaintenancePengajuan({ onSubmitForm }: { onSubmitForm: (formValue: ImprovementProposalForm) => void }) {
+export function MaintenancePengajuan ({ onSubmitForm }: { onSubmitForm: (formValue: ImprovementProposalForm) => void }) {
   const { handleSubmit, control } = useForm<ImprovementProposalForm>({
     defaultValues: defaultImprovementProposalForm,
     resolver: yupResolver(formSchema),
@@ -28,7 +28,9 @@ export function MaintenancePengajuan({ onSubmitForm }: { onSubmitForm: (formValu
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
   const handleMappingDate = (date: Date) => {
-    return `${date?.getFullYear()}-${date?.getMonth() + 1 >= 10 ? date?.getMonth() + 1 : '0' + (date?.getMonth() + 1)}-${date?.getDate()}`
+    return `${date?.getFullYear()}-${
+      date?.getMonth() + 1 >= 10 ? date?.getMonth() + 1 : '0' + (date?.getMonth() + 1)
+    }-${date?.getDate()}`
   }
 
   const handleFileChange = (file: File | null) => {
@@ -42,79 +44,83 @@ export function MaintenancePengajuan({ onSubmitForm }: { onSubmitForm: (formValu
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-4">
-          <p className="text-heading xs regular-16">Area</p>
+        <div className='mb-4'>
+          <p className='text-heading xs regular-16'>Area</p>
           <TextForm
             fieldInput={{
               placeholder: 'Masukkan Area',
               disabled: true,
             }}
-            name="area"
+            name='area'
             control={control}
           />
         </div>
-        <div className="mb-4">
-          <p className="text-heading xs regular-16">Cabang</p>
+        <div className='mb-4'>
+          <p className='text-heading xs regular-16'>Cabang</p>
           <TextForm
             fieldInput={{
               placeholder: 'Masukkan Cabang',
               disabled: true,
             }}
-            name="branch"
+            name='branch'
             control={control}
           />
         </div>
-        <div className="mb-4">
+        <div className='mb-4'>
           <Controller
             defaultValue={undefined}
             control={control}
             name={'submissionDate'}
             render={({ field, formState: { errors } }) => (
               <>
-                <div className="text-heading xs regular-16 text-[#0C0C0C] mb-1">Tanggal Pengajuan</div>
-                <div className="h-[38px] border border-[#D5D5D5] bg-[#F6F6F6] rounded pt-1 px-4 flex items-center">
+                <div className='text-heading xs regular-16 text-[#0C0C0C] mb-1'>Tanggal Pengajuan</div>
+                <div className='h-[38px] border border-[#D5D5D5] bg-[#F6F6F6] rounded pt-1 px-4 flex items-center'>
                   <input
-                    type="date"
+                    type='date'
                     value={handleMappingDate(field?.value)}
                     disabled={true}
-                    className="w-full bg-[#F6F6F6] outline-none text-paragraph regular-14 text-[#909090]"
+                    className='w-full bg-[#F6F6F6] outline-none text-paragraph regular-14 text-[#909090]'
                   />
                 </div>
 
                 {errors?.['submissionDate']?.message && (
-                  <span className="text-xs text-error">{errors?.['submissionDate']?.message?.toString()}</span>
+                  <span className='text-xs text-error'>{errors?.['submissionDate']?.message?.toString()}</span>
                 )}
               </>
             )}
           />
         </div>
-        <div className="mb-4">
-          <p className="text-heading xs regular-16">Deskripsi Pengajuan</p>
+        <div className='mb-4'>
+          <p className='text-heading xs regular-16'>Deskripsi Pengajuan</p>
           <TextAreaForm
             control={control}
-            name="description"
+            name='description'
             fieldLabel={{ children: 'Description' }}
             fieldInput={{ rows: 5 }}
             counter
           />
         </div>
-        <div className="mb-4">
-          <p className="text-heading xs regular-16">Estimasi Cost</p>
+        <div className='mb-4'>
+          <p className='text-heading xs regular-16'>Estimasi Cost</p>
           <TextForm
             fieldInput={{
               placeholder: 'Masukkan perkiraan biaya yang diperlukan',
             }}
-            name="estCost"
+            name='estCost'
             control={control}
           />
         </div>
-        <div className="mb-4">
-          <p className="text-heading xs regular-16">
-            Upload File dalam bentuk PDF/JPG/PNG<span className="text-red-500">*</span>
+        <div className='mb-4'>
+          <p className='text-heading xs regular-16'>
+            Upload File dalam bentuk PDF/JPG/PNG<span className='text-red-500'>*</span>
           </p>
-          <FileInput onChangeFile={handleFileChange} value={selectedFile} />
+          <FileInput
+            onChangeFile={handleFileChange}
+            value={selectedFile}
+            accept='image/png, image/jpg, application/pdf'
+          />
         </div>
-        <button type="submit" className="save-button h-11 rounded-lg w-full text-heading xs semibold-16 text-[#FFFFFF]">
+        <button type='submit' className='save-button h-11 rounded-lg w-full text-heading xs semibold-16 text-[#FFFFFF]'>
           Submit
         </button>
       </form>
