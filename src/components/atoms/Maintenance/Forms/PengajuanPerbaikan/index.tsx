@@ -31,7 +31,7 @@ export function MaintenancePengajuan({ onSubmitForm }: { onSubmitForm: (formValu
     return `${date?.getFullYear()}-${date?.getMonth() + 1 >= 10 ? date?.getMonth() + 1 : '0' + (date?.getMonth() + 1)}-${date?.getDate()}`
   }
 
-  const handleFileChange = (file: File) => {
+  const handleFileChange = (file: File | null) => {
     setSelectedFile(file)
   }
 
@@ -94,7 +94,7 @@ export function MaintenancePengajuan({ onSubmitForm }: { onSubmitForm: (formValu
             control={control}
             name="description"
             fieldLabel={{ children: 'Description' }}
-            fieldInput={{ rows: 5, disabled: true }}
+            fieldInput={{ rows: 5 }}
             counter
           />
         </div>
@@ -103,7 +103,6 @@ export function MaintenancePengajuan({ onSubmitForm }: { onSubmitForm: (formValu
           <TextForm
             fieldInput={{
               placeholder: 'Masukkan perkiraan biaya yang diperlukan',
-              disabled: true,
             }}
             name="estCost"
             control={control}

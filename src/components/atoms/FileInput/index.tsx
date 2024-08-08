@@ -1,23 +1,32 @@
+import React, {
+  ChangeEvent,
+  ComponentPropsWithoutRef, // Import the correct type
+  forwardRef,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
+import { toast } from 'react-toastify'
 import IconCloudUpload from '@assets/icons/IconCloudUpload'
 import IconEdit from '@assets/icons/IconEdit'
-import { joinClass } from '@utils/common'
-import React, { ChangeEvent, ComponentPropsWithRef, FC, forwardRef, useEffect, useRef, useState } from 'react'
-import { toast } from 'react-toastify'
 import IconDelete from '../../../assets/icons/IconDelete'
+import { joinClass } from '@utils/common'
 
-export interface FileInputProps extends ComponentPropsWithRef<'input'> {
+// Updated FileInputProps interface
+interface FileInputProps extends ComponentPropsWithoutRef<'input'> {
   isLoading?: boolean
   isDisabled?: boolean
   isInvalid?: boolean
   isValid?: boolean
   labels?: string
-  onChangeFile?: (val: File) => void
-  value?: any
+  onChangeFile?: (val: File | null) => void
+  value?: any // Keep the 'any' type for now to handle the potential type mismatch
 }
 
-const FileInput: FC<FileInputProps> = forwardRef(
-  ({ className, isDisabled, isInvalid, labels = '', onChangeFile = () => {}, ...props }) => {
-    const [selectedDocument, setSelectedDocument] = useState<string | undefined>('')
+const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
+  ({ className, isDisabled, isInvalid, labels = '', onChangeFile = () => {}, value, ...props }, ref) => {
+    const [selectedDocument, setSelectedDocument] = useState<string | undefined>(value?.name || '')
+
     const fileInputRef = useRef<HTMLInputElement>(null)
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -35,16 +44,16 @@ const FileInput: FC<FileInputProps> = forwardRef(
     }
 
     const handleFileReset = () => {
-      onChangeFile(null as any)
+      onChangeFile(null)
       setSelectedDocument('')
       if (fileInputRef.current) {
-        fileInputRef.current.value = '' // Clear the input value
+        fileInputRef.current.value = ''
       }
     }
 
     useEffect(() => {
-      setSelectedDocument(props?.value?.name || '')
-    }, [props.value])
+      setSelectedDocument(value?.name ?? '')
+    }, [value])
 
     const displayDocumentName = (name: string) => {
       if (name.length > 45) {
@@ -58,7 +67,7 @@ const FileInput: FC<FileInputProps> = forwardRef(
         <div className={joinClass('relative mt-1', className)}>
           <input
             type="file"
-            ref={fileInputRef}
+            ref={ref} // Attach the ref here
             disabled={isDisabled}
             className={joinClass(
               'flex items-center justify-center bg-[#fafafa] text-[#626262] text-paragraph regular-14 py-2 px-4 rounded-md shadow-md w-full border-dashed border border-[#0072BB] mb-6 h-[45px]',

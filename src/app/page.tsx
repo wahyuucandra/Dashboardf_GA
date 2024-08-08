@@ -1,3 +1,4 @@
+import Container from '@components/organisms/Container'
 import HomePage from '@components/organisms/Home'
 
 export const metadata = {
@@ -5,5 +6,9 @@ export const metadata = {
 }
 
 export default function Home() {
-  return <HomePage></HomePage>
+  return (
+    <Container>
+      <HomePage />
+    </Container>
+  )
 }

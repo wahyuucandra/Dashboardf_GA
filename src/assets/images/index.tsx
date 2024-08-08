@@ -1,4 +1,6 @@
-// const API = process.env.NEXT_PUBLIC_API_URL
-const images = {}
+const images = {
+  DELETE_ICON: '/img/Trash.png',
+  ERASE_IMAGE: '/img/buttonCross.png',
+}
 
 export default images

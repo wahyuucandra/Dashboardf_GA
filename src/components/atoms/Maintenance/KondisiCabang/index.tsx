@@ -77,9 +77,7 @@ export function KondisiCabang() {
             <div className="flex flex-col items-center justify-center">
               <div
                 className="border border-[#4A90E2] border-dashed rounded grid place-items-center w-full h-[108px] flex items-center justify-center cursor-pointer"
-                onClick={() => {
-                  // Your onClick handler here
-                }}
+                onClick={() => {}}
                 onKeyDown={() => {}}
                 role="button"
                 tabIndex={0}

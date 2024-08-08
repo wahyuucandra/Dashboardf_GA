@@ -1,4 +1,9 @@
-import { AllNotification } from '../../../molecules/Notification/AllNotification/index'
+import { AllNotification } from '@components/molecules/Notification'
+
 export function AllNotificationPage() {
-  return <AllNotification></AllNotification>
+  return (
+    <>
+      <AllNotification />
+    </>
+  )
 }
