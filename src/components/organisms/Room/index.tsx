@@ -1,7 +1,10 @@
 import { MenuPage as RoomMenuPage } from './Menu/index'
-import { ListPage as RoomListPage } from './List/index'
-import { DetailPage as RoomDetailPage } from './Detail/index'
-import { SchedulePage as RoomSchedulePage } from './Schedule/index'
+import { MeetingRoomListPage } from './List/MeetingRoomList'
+import { PodsListPage } from './List/PodsList'
+import { MeetingRoomDetailPage } from './Detail/MeetingRoomDetail'
+import { PodsDetailPage } from './Detail/PodsDetail'
+import { MeetingRoomScheduleFormPage } from './Schedule/MeetingRoomScheduleForm'
+import { PodsScheduleFormPage } from './Schedule/PodsScheduleForm'
 import { SuccessPage as RoomSuccessPage } from './Success/index'
 import { BallroomSchedulePage } from './Ballroom/Schedule/index'
 import { BallroomListPage } from './Ballroom/List/index'
@@ -12,9 +15,12 @@ import { BallroomLayoutPage } from './Ballroom/Layout/index'
 
 export {
   RoomMenuPage,
-  RoomListPage,
-  RoomDetailPage,
-  RoomSchedulePage,
+  MeetingRoomListPage,
+  PodsListPage,
+  MeetingRoomDetailPage,
+  PodsDetailPage,
+  MeetingRoomScheduleFormPage,
+  PodsScheduleFormPage,
   RoomSuccessPage,
   BallroomSchedulePage,
   BallroomListPage,

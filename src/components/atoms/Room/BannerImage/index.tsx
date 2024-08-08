@@ -7,12 +7,13 @@ import IconClose from '@assets/icons/IconClose'
 import { Modal } from '@components/atoms/ModalCustom'
 import { Photo } from '@interfaces/photo'
 
-export function BannerImage({ photos }: Readonly<{ photos: Photo[] }>) {
+export function BannerImage({ isLoading, photos }: Readonly<{ isLoading?: boolean; photos: Photo[] }>) {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [photo, setPhoto] = useState<Photo>(photos[0])
 
   return (
     <>
+      {isLoading}
       <div className="fixed top-0 bg-white">
         <Image
           width={0}

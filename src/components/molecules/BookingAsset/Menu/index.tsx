@@ -1,18 +1,20 @@
 'use client'
 
 import IconAsset from '@assets/icons/IconAsset'
+import IconBookingAsset from '@assets/icons/IconBookingAsset'
 import IconChevronLeft from '@assets/icons/IconChevronLeft'
 import IconManpower from '@assets/icons/IconManpower'
 import IconRoom from '@assets/icons/IconRoom'
 import IconVehicle from '@assets/icons/IconVehicle'
-import IconBookingAsset from '@assets/icons/IconBookingAsset'
-
 import bookingAsset from '@assets/images/BookingAsset.png'
-
-import Link from 'next/link'
+import { RootState } from '@store/reducers'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useSelector } from 'react-redux'
 
 export function Menu() {
+  const bookingLocation = useSelector((state: RootState) => state.dataBookingAsset.bookingLocation)
+
   return (
     <div className="relative">
       <Image
@@ -37,7 +39,7 @@ export function Menu() {
             <div className="text-heading xs semibold-16 text-[#2C598D]">Booking Asset</div>
             <div className="text-[#809BB5] -mt-1">
               <span className="text-extra-small regular-12">Pilih request yang Anda butuhkan di lokasi </span>
-              <span className="text-extra-small semibold-12">ACC HO</span>
+              <span className="text-extra-small semibold-12">{bookingLocation}</span>
             </div>
           </div>
         </div>

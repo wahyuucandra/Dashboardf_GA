@@ -5,73 +5,75 @@ import confirmationDanger from '@assets/images/ConfirmationDanger.png'
 import Header from '@components/atoms/Header'
 import { Modal } from '@components/atoms/ModalCustom'
 import { RoomCard } from '@components/atoms/Room'
-import { IRoom, IRoomListParams, Room, RoomType } from '@interfaces/room'
+import { IRoomList, IRoomType } from '@interfaces/room'
 import { apiGetListRoom } from '@services/room/api'
+import { setShowNavbar } from '@store/actions/actionContainer'
+import { RootState } from '@store/reducers'
+import { store } from '@store/storage'
+import moment from 'moment'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
-import { roomTypes, roomsData } from './data'
-import './style.css'
-import { store } from '@store/storage'
-import { setShowNavbar } from '@store/actions/actionContainer'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
-export function List() {
-  const initialRef = useRef(false)
+export function List({ category = 'Meeting Room' }: { category?: string }) {
+  const { dispatch } = store
+
+  const bookingLocation = useSelector((state: RootState) => state.dataBookingAsset.bookingLocation)
+  const roomListParams = useSelector((state: RootState) => state.dataRoom.roomListParams)
 
   const router = useRouter()
 
-  const [rooms] = useState<Room[]>(roomsData)
-
-  const [loading, setLoading] = useState<boolean>(false)
-  const [roomsApi, setRoomsApi] = useState<IRoom[]>()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [rooms, setRooms] = useState<IRoomList[]>()
+  const [roomTypes, setRoomTypes] = useState<IRoomType[]>()
 
   const [isConfimationModalOpen, setIsConfimationModalOpen] = useState<boolean>(false)
-  const [selectedTypes, setSelectedTypes] = useState<RoomType[]>()
+  const [selectedTypes, setSelectedTypes] = useState<IRoomType[]>()
 
-  const handleFetchListRoom = async () => {
-    const params: IRoomListParams = {
-      flagACCBerijalan: 'ACC',
-      kapasitas: 10,
-      kategoriMenu: 'Meeting Room',
-      location: 'ACC TB Simatupang',
-      timeOpen: '18:00:00',
-      timeClose: '20:00:00',
-      page: 1,
-      size: 10,
+  const dummies = Array.from({ length: 10 }, (_, i) => i + 1)
+
+  const handleMappingDate = () => {
+    if (roomListParams?.startBookingDate && roomListParams?.endBookingDate) {
+      const startDate = moment(roomListParams?.startBookingDate)
+      const endDate = moment(roomListParams?.endBookingDate)
+
+      if (startDate == endDate) {
+        return `${startDate.format('D MMM').toString()}`
+      }
+
+      if (startDate != endDate) {
+        if (startDate.format('YYYY') != endDate.format('YYYY')) {
+          return `${startDate.format('D MMM YYYY').toString()} - ${endDate.format('D MMM YYYY').toString()}`
+        }
+        return `${startDate.format('D MMM').toString()} - ${endDate.format('D MMM').toString()}`
+      }
     }
 
+    return null
+  }
+
+  const handleFetchListRoom = async (params?: any) => {
     try {
-      setLoading(true)
-      const response = await apiGetListRoom(params)
-      if (response.status == 'T') setRoomsApi(response.data)
+      setIsLoading(true)
+      const response = await apiGetListRoom({ ...roomListParams, ...params })
+      if (response.status == 'T') setRooms(response.data)
     } catch (error) {
-      setLoading(false)
+      setIsLoading(false)
     } finally {
-      setLoading(false)
+      setIsLoading(false)
     }
   }
 
-  useEffect(() => {
-    if (initialRef.current === false) {
-      handleFetchListRoom()
-      initialRef.current = true
-    }
-  }, [])
-
-  const handleRoomTypeIsActive = (input: RoomType) => {
-    return selectedTypes?.includes(input)
-      ? 'bg-[#E5F2FC] border-[1.2px] border-[#0089CF] text-[#0089CF]'
-      : 'border border-[#D5D5D5] text-[#000000]'
-  }
-
-  const handleSelectRoomType = (input: RoomType) => {
+  const handleSelectRoomType = (input: IRoomType) => {
     setSelectedTypes(prev => {
       if (prev) {
         const data = prev
 
-        if (data?.includes(input)) {
-          const newData = data.filter(val => val != input)
+        if (data?.find(val => val.id === input.id)) {
+          const newData = data.filter(val => val?.id != input?.id)
+
           return [...newData]
         }
 
@@ -82,41 +84,105 @@ export function List() {
     })
   }
 
-  const handleIsSelectTypeSame = (input: Room) => {
-    if (!selectedTypes?.length) {
-      return ''
+  const handleMappingRoomTypes = () => {
+    if (bookingLocation === 'ACC') {
+      setRoomTypes([
+        {
+          id: 'meeting-room',
+          text: 'Meeting Room',
+        },
+        {
+          id: 'pods',
+          text: 'Pods',
+        },
+      ])
     }
 
-    return selectedTypes?.includes(input.type) ? '' : 'hidden'
+    if (bookingLocation === 'BERIJALAN') {
+      setRoomTypes([
+        {
+          id: 'meeting-room',
+          text: 'Meeting Room',
+        },
+        {
+          id: 'ballroom',
+          text: 'Ballroom',
+        },
+        {
+          id: 'karaoke',
+          text: 'Karaoke',
+        },
+      ])
+    }
+  }
+
+  const handleSelectRoomTypeByCategory = () => {
+    if (category === 'Meeting Room') {
+      handleSelectRoomType({
+        id: 'meeting-room',
+        text: 'Meeting Room',
+      })
+    }
+
+    if (category === 'Pods') {
+      handleSelectRoomType({
+        id: 'pods',
+        text: 'Pods',
+      })
+    }
+  }
+
+  const handleMappingPrevLink = () => {
+    switch (category) {
+      case 'Meeting Room':
+        return '/booking-asset/room/meeting-room/schedule'
+      case 'Pods':
+        return '/booking-asset/room/pods/schedule'
+
+      default:
+        break
+    }
   }
 
   useEffect(() => {
-    const { dispatch } = store
+    handleMappingRoomTypes()
+  }, [])
 
+  useEffect(() => {
+    handleSelectRoomTypeByCategory()
+  }, [roomTypes])
+
+  useEffect(() => {
+    if (selectedTypes && selectedTypes?.length == 1) {
+      handleFetchListRoom({ kategoriMenu: selectedTypes[0].text })
+    } else {
+      handleFetchListRoom({ kategoriMenu: '' })
+    }
+  }, [selectedTypes])
+
+  useEffect(() => {
     dispatch(setShowNavbar(true))
   }, [])
 
   return (
     <>
       <Header
-        prevLink="/booking-asset/room/schedule"
+        prevLink={handleMappingPrevLink()}
         title="Schedule Ruangan"
         key={'header'}
         useLink={false}
         onBack={() => setIsConfimationModalOpen(true)}
       ></Header>
-      {roomsApi && <div className="hidden"></div>}
-      {loading && <div className="hidden"></div>}
       <div className="px-6 pt-16 h-screen">
         <div className="flex items-center space-x-3 py-3">
           <div className="flex-1">
             <div className="flex items-center space-x-3 mb-1">
               <IconScheduleRoom></IconScheduleRoom>
-              <span className="text-information">ACC TB Simatupang</span>
+              <span className="text-information">{bookingLocation}</span>
             </div>
             <div className="text-desc flex items-center space-x-2">
-              <span>13 Mar - 16 Mar</span> <div className="w-2 h-2 rounded-full bg-[#000000]"></div>{' '}
-              <span>10 Kursi</span>
+              <span>{handleMappingDate()}</span> <div className="w-2 h-2 rounded-full bg-[#000000]"></div>{' '}
+              <span>{roomListParams?.kapasitas} Kursi</span>
             </div>
           </div>
           <button
@@ -133,25 +199,30 @@ export function List() {
               onKeyDown={() => {}}
               onClick={() => handleSelectRoomType(val)}
               key={val.id}
-              className={`inline-block rounded-full py-2 px-4 text-badge mr-2 ${handleRoomTypeIsActive(val)}`}
+              className={`${selectedTypes?.find(selected => selected.id === val.id) ? 'badge-option-active' : 'badge-option-not-active'}`}
             >
               {val.text}
             </div>
           ))}
         </div>
         <div className="grid grid-cols-2 gap-x-6 gap-y-4 pb-40">
-          {rooms?.map(room => (
-            <Link
-              key={room.id}
-              href={`/booking-asset/room/meeting-room/${room.id}`}
-              className={`${handleIsSelectTypeSame(room)}`}
-            >
-              <RoomCard room={room}></RoomCard>
-            </Link>
-          ))}
+          {isLoading &&
+            dummies?.map(dummy => (
+              <div key={dummy}>
+                <RoomCard isLoading={true}></RoomCard>
+              </div>
+            ))}
+
+          {!isLoading &&
+            rooms?.map(room => (
+              <Link key={room.idRoom} href={`/booking-asset/room/meeting-room/${room.idRoom}`}>
+                <RoomCard room={room}></RoomCard>
+              </Link>
+            ))}
         </div>
       </div>
 
+      {/* Modal Confirmation */}
       <Modal isOpen={isConfimationModalOpen} backdropClick={() => setIsConfimationModalOpen(!isConfimationModalOpen)}>
         <div className="max-w-[350px] bg-white relative p-6 text-center rounded-xl">
           <div>
@@ -173,7 +244,7 @@ export function List() {
             <button
               onClick={() => {
                 setIsConfimationModalOpen(false)
-                router.push(`/booking-asset/room/meeting-room/schedule`, { scroll: false })
+                router.push(handleMappingPrevLink() ?? '', { scroll: false })
               }}
               type="button"
               className="exit-button w-full text-center text-[#00376A] rounded-md overflow-hidden h-11"

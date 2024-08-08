@@ -1,17 +1,30 @@
 'use client'
 
-import Link from 'next/link'
-import Image from 'next/image'
-
-import bookingAsset from '@assets/images/BookingAsset.png'
-
-import IconMeetingRoom from '@assets/icons/IconMeetingRoom'
-import IconChevronLeft from '@assets/icons/IconChevronLeft'
-import IconRoom from '@assets/icons/IconRoom'
 import IconBallroom from '@assets/icons/IconBallroom'
+import IconChevronLeft from '@assets/icons/IconChevronLeft'
 import IconKaraoke from '@assets/icons/IconKaraoke'
+import IconMeetingRoom from '@assets/icons/IconMeetingRoom'
+import IconPod from '@assets/icons/IconPod'
+import IconRoom from '@assets/icons/IconRoom'
+import bookingAsset from '@assets/images/BookingAsset.png'
+import { deleteRoomListParams, deleteRoomScheduleForm } from '@store/actions/actionRoom'
+import { RootState } from '@store/reducers'
+import { store } from '@store/storage'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 export function Menu() {
+  const bookingLocation = useSelector((state: RootState) => state.dataBookingAsset.bookingLocation)
+
+  const { dispatch } = store
+
+  useEffect(() => {
+    dispatch(deleteRoomListParams())
+    dispatch(deleteRoomScheduleForm())
+  }, [])
+
   return (
     <div className="relative">
       <Image
@@ -36,33 +49,51 @@ export function Menu() {
             <div className="font-semibold text-[#2C598D]">Room</div>
             <div className="text-xs text-[#809BB5]">
               <span>Pilih request yang Anda butuhkan di lokasi </span>
-              <span className="font-semibold">ACC HO</span>
+              <span className="font-semibold">{bookingLocation}</span>
             </div>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4 text-center">
-          <Link
-            href={'/booking-asset/room/meeting-room/schedule'}
-            className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
-          >
-            <IconMeetingRoom className="mx-auto"></IconMeetingRoom>
-            <span className="text-paragraph semibold-14 text-[#2C598D]">Meeting Room</span>
-          </Link>
-          <Link
-            href={'/booking-asset/room/ballroom/schedule'}
-            className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
-          >
-            <IconBallroom className="mx-auto mb-2"></IconBallroom>
-            <span className="text-paragraph semibold-14 text-[#2C598D]">Ballroom</span>
-          </Link>
-          <Link
-            href={'/booking-asset/room/karaoke/schedule'}
-            className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
-          >
-            <IconKaraoke className="mx-auto mb-2"></IconKaraoke>
-            <span className="text-paragraph semibold-14 text-[#2C598D]">Karaoke</span>
-          </Link>
+          {(bookingLocation === 'ACC' || bookingLocation === 'BERIJALAN') && (
+            <Link
+              href={'/booking-asset/room/meeting-room/schedule'}
+              className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
+            >
+              <IconMeetingRoom className="mx-auto"></IconMeetingRoom>
+              <span className="text-paragraph semibold-14 text-[#2C598D]">Meeting Room</span>
+            </Link>
+          )}
+
+          {bookingLocation === 'ACC' && (
+            <Link
+              href={'/booking-asset/room/pods/schedule'}
+              className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
+            >
+              <IconPod className="mx-auto mb-2"></IconPod>
+              <span className="text-paragraph semibold-14 text-[#2C598D]">Pods</span>
+            </Link>
+          )}
+
+          {bookingLocation === 'BERIJALAN' && (
+            <Link
+              href={'/booking-asset/room/ballroom/schedule'}
+              className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
+            >
+              <IconBallroom className="mx-auto mb-2"></IconBallroom>
+              <span className="text-paragraph semibold-14 text-[#2C598D]">Ballroom</span>
+            </Link>
+          )}
+
+          {bookingLocation === 'BERIJALAN' && (
+            <Link
+              href={'/booking-asset/room/karaoke/schedule'}
+              className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
+            >
+              <IconKaraoke className="mx-auto mb-2"></IconKaraoke>
+              <span className="text-paragraph semibold-14 text-[#2C598D]">Karaoke</span>
+            </Link>
+          )}
         </div>
       </div>
     </div>

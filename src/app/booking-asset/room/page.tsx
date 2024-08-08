@@ -1,4 +1,4 @@
-import { RoomMenuPage } from '@components/organisms/Room/index'
+import { RoomMenuPage } from '@components/organisms/Room'
 
 export const metadata = {
   title: 'Room Menu',

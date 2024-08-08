@@ -1,23 +1,24 @@
-import { API_MASTER } from '@utils/environment'
 import { APIBaseResponse } from '@interfaces/api'
-import httpRequest from '@utils/helper'
 import {
   IBallroomDetail,
   IBallroomDetailParams,
   IBallroomList,
   IBallroomListParams,
-  IRoomBookingTime,
-  IRoom,
+  IRoomList,
+  IRoomDetail,
   IRoomDetailParams,
   IRoomListParams,
   ISubmitBookingBallroomPayload,
   ISubmitBookingRoomPayload,
 } from '@interfaces/room'
+import { IBookingTime } from '@interfaces/time'
+import { API_MASTER } from '@utils/environment'
+import httpRequest from '@utils/helper'
 
 const api = httpRequest(API_MASTER)
 
-export function apiGetListRoom(params: IRoomListParams): Promise<APIBaseResponse<IRoom[]>> {
-  // const response: APIBaseResponse<IRoom[]> = {
+export function apiGetListRoom(params?: IRoomListParams): Promise<APIBaseResponse<IRoomList[]>> {
+  // const response: APIBaseResponse<IRoomList[]> = {
   //   reqId: 'a',
   //   error: null,
   //   message: 'Berhasil',
@@ -25,21 +26,25 @@ export function apiGetListRoom(params: IRoomListParams): Promise<APIBaseResponse
   //   data: [
   //     {
   //       idRoom: '1',
-  //       pathImage: '',
-  //       deskripsi: 'Meeting room pada kantor ACC TB Simatupang dengan kapasitas 6 orang',
-  //       fasilitas: 'Kursi, Spidol, Papan tulis, TV',
-  //       termsCondition: 'Wajib menghubungi CS 1 Jam Sebelumnya',
+  //       pathImage: ['', ''],
+  //       kapasitas: '6 kursi',
+  //       room: 'Lantai 1 - 101',
   //     },
   //     {
   //       idRoom: '2',
-  //       pathImage: '',
-  //       deskripsi: 'Meeting room pada kantor ACC TB Simatupang dengan kapasitas 6 orang',
-  //       fasilitas: 'Kursi, Spidol, Papan tulis, TV',
-  //       termsCondition: 'Wajib menghubungi CS 1 Jam Sebelumnya',
+  //       pathImage: ['', ''],
+  //       kapasitas: '6 kursi',
+  //       room: 'Lantai 1 - 102',
+  //     },
+  //     {
+  //       idRoom: '3',
+  //       pathImage: ['', ''],
+  //       kapasitas: '6 kursi',
+  //       room: 'Lantai 1 - 103',
   //     },
   //   ],
   //   pagination: {
-  //     totalRecords: 2,
+  //     totalRecords: 3,
   //     currentPage: 1,
   //     totalPage: 1,
   //     nextPage: null,
@@ -50,31 +55,26 @@ export function apiGetListRoom(params: IRoomListParams): Promise<APIBaseResponse
   // return new Promise(resolve => {
   //   setTimeout(() => {
   //     resolve(response)
-  //   }, 500)
+  //   }, 3000)
   // })
 
-  return api.get<IRoom[], APIBaseResponse<IRoom[]>>('/room', { params })
+  return api.get<IRoomList[], APIBaseResponse<IRoomList[]>>('/room', { params })
 }
 
-export function apiGetDetailRoom(params: IRoomDetailParams): Promise<APIBaseResponse<IRoom>> {
-  // const response: APIBaseResponse<IRoom> = {
+export function apiGetDetailRoom(params?: IRoomDetailParams): Promise<APIBaseResponse<IRoomDetail>> {
+  // const response: APIBaseResponse<IRoomDetail> = {
   //   reqId: 'a',
   //   error: null,
   //   message: 'Berhasil',
   //   status: 'T',
   //   data: {
-  //     idRoom: '1',
-  //     pathImage: '',
+  //     pathImage: ['', ''],
+  //     room: 'Lantai 1 - 101',
+  //     dateRequest: '7 Agu - 8 Agu 2024',
+  //     timeRequest: '15:00 - 18:00',
   //     deskripsi: 'Meeting room pada kantor ACC TB Simatupang dengan kapasitas 6 orang',
-  //     fasilitas: 'Kursi, Spidol, Papan tulis, TV',
-  //     termsCondition: 'Wajib menghubungi CS 1 Jam Sebelumnya',
-  //   },
-  //   pagination: {
-  //     totalRecords: 2,
-  //     currentPage: 1,
-  //     totalPage: 1,
-  //     nextPage: null,
-  //     prevPage: null,
+  //     fasilitas: ['Spidol', 'meja'],
+  //     termsCondition: '',
   //   },
   // }
 
@@ -84,10 +84,10 @@ export function apiGetDetailRoom(params: IRoomDetailParams): Promise<APIBaseResp
   //   }, 500)
   // })
 
-  return api.get<IRoom, APIBaseResponse<IRoom>>('/room/detail', { params })
+  return api.get<IRoomDetail, APIBaseResponse<IRoomDetail>>('/room/detail', { params })
 }
 
-export function apiSubmitBookingRoom(payload: ISubmitBookingRoomPayload): Promise<APIBaseResponse> {
+export function apiSubmitBookingRoom(payload: ISubmitBookingRoomPayload, idUser: string): Promise<APIBaseResponse> {
   // const response: APIBaseResponse = {
   //   reqId: 'a',
   //   error: null,
@@ -101,11 +101,15 @@ export function apiSubmitBookingRoom(payload: ISubmitBookingRoomPayload): Promis
   //   }, 500)
   // })
 
-  return api.post<undefined, APIBaseResponse>('/room/submitBooking', payload)
+  const headers = {
+    idUser,
+  }
+
+  return api.post<undefined, APIBaseResponse>('/room/submitBooking', payload, { headers })
 }
 
-export function apiGetRoomBookingTime(): Promise<APIBaseResponse<IRoomBookingTime[]>> {
-  // const response: APIBaseResponse<IRoomBookingTime[]> = {
+export function apiGetRoomBookingTime(): Promise<APIBaseResponse<IBookingTime[]>> {
+  // const response: APIBaseResponse<IBookingTime[]> = {
   //   reqId: 'a',
   //   error: null,
   //   message: 'Berhasil',
@@ -115,25 +119,25 @@ export function apiGetRoomBookingTime(): Promise<APIBaseResponse<IRoomBookingTim
   //       time: '08:30 - 08:30',
   //       timeStart: '08:30',
   //       timeEnd: '08:30',
-  //       stockAvailability: 2,
+  //       stockAvailability: 15,
   //     },
   //     {
   //       time: '09:00 - 09:00',
   //       timeStart: '09:00',
   //       timeEnd: '09:00',
-  //       stockAvailability: 2,
+  //       stockAvailability: 15,
   //     },
   //     {
   //       time: '09:30 - 09:30',
   //       timeStart: '09:30',
   //       timeEnd: '09:30',
-  //       stockAvailability: 2,
+  //       stockAvailability: 15,
   //     },
   //     {
   //       time: '10:00 - 10:00',
   //       timeStart: '10:00',
   //       timeEnd: '10:00',
-  //       stockAvailability: 2,
+  //       stockAvailability: 15,
   //     },
   //   ],
   // }
@@ -144,7 +148,7 @@ export function apiGetRoomBookingTime(): Promise<APIBaseResponse<IRoomBookingTim
   //   }, 500)
   // })
 
-  return api.get<IRoomBookingTime[], APIBaseResponse<IRoomBookingTime[]>>('/room/bookingTime')
+  return api.get<IBookingTime[], APIBaseResponse<IBookingTime[]>>('/room/bookingTime')
 }
 
 export function apiGetListBallroomAsset(params: IBallroomListParams): Promise<APIBaseResponse<IBallroomList[]>> {

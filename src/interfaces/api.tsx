@@ -7,8 +7,8 @@ export interface IPaginations {
 }
 
 export interface IPaginationParams {
-  page: number // nomor page yang mau ditampilkan (Contoh: 1)
-  size: number // banyak data yang mau ditampikan dalam satu page (Contoh: 10)
+  page?: number // nomor page yang mau ditampilkan (Contoh: 1)
+  size?: number // banyak data yang mau ditampikan dalam satu page (Contoh: 10)
 }
 
 export interface ISearchParams {
