@@ -22,7 +22,7 @@ export function Card({ isLoading, room }: Readonly<{ isLoading?: boolean; room?:
 
       {!isLoading && room && (
         <div className={`rounded-xl overflow-hidden border border-[#E1E7EA] shadow-[2px_4px_12px_0_rgba(0,0,0,0.1)]`}>
-          {room.pathImage?.length && room.pathImage[0] && (
+          {room?.pathImage?.length > 0 && room.pathImage[0] && (
             <Image
               width={0}
               height={0}
@@ -33,8 +33,8 @@ export function Card({ isLoading, room }: Readonly<{ isLoading?: boolean; room?:
             ></Image>
           )}
 
-          {!room.pathImage?.length ||
-            (!room.pathImage[0] && <div className="rounded-b-md w-full h-[134px] bg-gray-200"></div>)}
+          {!room?.pathImage?.length ||
+            (!room?.pathImage[0] && <div className="rounded-b-md w-full h-[134px] bg-gray-200"></div>)}
 
           <div className="p-3">
             <div className="text-card title mb-3">{room.room}</div>
