@@ -18,7 +18,7 @@ import {
   SelectAll,
   Underline,
   Undo,
-  EventInfo,
+  EventInfo, // Explicitly import EventInfo
 } from 'ckeditor5'
 
 import 'ckeditor5/ckeditor5.css'
@@ -32,17 +32,14 @@ interface TextEditorProps {
 function TextEditor ({ onChange, initialValue = '' }: TextEditorProps) {
   const editorRef = useRef<ClassicEditor | null>(null)
   const [editorLoaded, setEditorLoaded] = useState(false)
-  const [data, setData] = useState('')
 
   useEffect(() => {
     setEditorLoaded(true)
-    data
   }, [])
 
   const handleEditorChange = (event: EventInfo<string, unknown>, editor: ClassicEditor) => {
     const data = editor.getData()
-    setData(data)
-    onChange?.(data) // Optional chaining to safely call onChange
+    onChange?.(data)
   }
 
   return (
