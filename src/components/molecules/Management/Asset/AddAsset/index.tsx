@@ -141,16 +141,12 @@ export function AddAsset () {
 
           <div className='flex items-center'>
             <p className='text-heading xs regular-16 w-[160px]'>Description</p>
-            {/* <div className='max-w-[650px]'>
-              <TextEditor />
-            </div> */}
+            <div className='max-w-[650px]'>{/* <TextEditor /> */}</div>
           </div>
 
           <div className='flex items-center'>
             <p className='text-heading xs regular-16 w-[160px]'>Terms & Condition</p>
-            {/* <div className='max-w-[650px]'>
-              <TextEditor />
-            </div> */}
+            <div className='max-w-[650px]'>{/* <TextEditor /> */}</div>
           </div>
 
           <div className='flex items-start mt-4'>
