@@ -15,7 +15,7 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV !== 'development',
   },
   images: {
-    domains: ['via.placeholder.com'], // Add 'via.placeholder.com' to the domains array
+    domains: ['via.placeholder.com'],
   },
 
   async headers() {

@@ -29,7 +29,7 @@ export function LayoutUpload() {
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
-  const handleFileChange = (file: File) => {
+  const handleFileChange = (file: File | null) => {
     setSelectedFile(file)
   }
 
