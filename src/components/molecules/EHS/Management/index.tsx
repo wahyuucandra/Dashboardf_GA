@@ -1,5 +1,9 @@
 'use client'
 
+import Image from 'next/image'
+import { useState } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+
 import IconScheduleRoom from '@assets/icons/IconScheduleRoom'
 import confirmationDanger from '@assets/images/ConfirmationDanger.png'
 import {
@@ -11,9 +15,6 @@ import {
 import Header from '@components/atoms/Header'
 import { Modal } from '@components/atoms/ModalCustom'
 import { ManagementType } from '@interfaces/ehs'
-import Image from 'next/image'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
 import './style.css'
 
 export function Management() {
@@ -70,7 +71,7 @@ export function Management() {
       ></Header>
       <div className="px-4 pt-16 overflow-hidden">
         <div className="flex items-center space-x-3 py-3">
-          <IconScheduleRoom></IconScheduleRoom>
+          <IconScheduleRoom />
           <span className="flex-1 text-information">ACC TB Simatupang</span>
           <button
             type="button"
@@ -148,7 +149,7 @@ export function Management() {
             <button
               onClick={() => {
                 setIsConfimationModalOpen(false)
-                router.push(`/booking-asset/room`, { scroll: false })
+                router.push(`/building-maintenance`, { scroll: false })
               }}
               type="button"
               className="exit-button w-full text-center text-[#00376A] rounded-md overflow-hidden h-11"
@@ -178,7 +179,7 @@ export function Management() {
               src={confirmationDanger.src}
               className="mx-auto mb-4 w-28 h-28"
               alt="confirmation"
-            ></Image>
+            />
           </div>
           <div className="text-heading s semibold-18 text-[#252525] mb-1">Tidak Bisa Request!</div>
           <div className="text-paragraph regular-14 text-[#717171] mb-8 px-3">

@@ -1,7 +1,8 @@
+import React, { ComponentPropsWithoutRef, forwardRef } from 'react'
 import { joinClass } from '@utils/common'
-import React, { ComponentPropsWithRef, FC, forwardRef } from 'react'
 
-export interface TextAreaInputProps extends ComponentPropsWithRef<'textarea'> {
+// Adjust the interface to exclude 'ref'
+export interface TextAreaInputProps extends Omit<ComponentPropsWithoutRef<'textarea'>, 'ref'> {
   isLoading?: boolean
   isDisabled?: boolean
   isInvalid?: boolean
@@ -10,8 +11,20 @@ export interface TextAreaInputProps extends ComponentPropsWithRef<'textarea'> {
   maxLength?: number
 }
 
-const TextAreaInput: FC<TextAreaInputProps> = forwardRef(
-  ({ className, isDisabled, isInvalid, counter, maxLength = 200, ...props }, ref) => {
+// Use the correct type for forwardRef
+const TextAreaInput = forwardRef<HTMLTextAreaElement, TextAreaInputProps>(
+  (
+    {
+      className,
+      isDisabled,
+      isInvalid,
+      counter,
+      maxLength = 200,
+      value, // Access the value prop explicitly
+      ...props
+    },
+    ref
+  ) => {
     return (
       <div className="relative">
         <textarea
@@ -23,13 +36,12 @@ const TextAreaInput: FC<TextAreaInputProps> = forwardRef(
             className
           )}
           rows={props.rows ?? 3}
-          {...props}
-        >
-          {props.value}
-        </textarea>
+          {...props} // Spread other props
+          value={value} // Set the value prop explicitly
+        />
         {counter ? (
           <span className="absolute bottom-2 right-2 text-xs">
-            {props.value?.toString()?.length || 0} / {maxLength}
+            {value?.toString()?.length || 0} / {maxLength}
           </span>
         ) : null}
       </div>

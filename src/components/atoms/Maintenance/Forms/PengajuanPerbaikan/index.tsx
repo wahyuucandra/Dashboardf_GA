@@ -28,10 +28,12 @@ export function MaintenancePengajuan({ onSubmitForm }: { onSubmitForm: (formValu
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
   const handleMappingDate = (date: Date) => {
-    return `${date?.getFullYear()}-${date?.getMonth() + 1 >= 10 ? date?.getMonth() + 1 : '0' + (date?.getMonth() + 1)}-${date?.getDate()}`
+    return `${date?.getFullYear()}-${
+      date?.getMonth() + 1 >= 10 ? date?.getMonth() + 1 : '0' + (date?.getMonth() + 1)
+    }-${date?.getDate()}`
   }
 
-  const handleFileChange = (file: File) => {
+  const handleFileChange = (file: File | null) => {
     setSelectedFile(file)
   }
 
@@ -94,7 +96,7 @@ export function MaintenancePengajuan({ onSubmitForm }: { onSubmitForm: (formValu
             control={control}
             name="description"
             fieldLabel={{ children: 'Description' }}
-            fieldInput={{ rows: 5, disabled: true }}
+            fieldInput={{ rows: 5 }}
             counter
           />
         </div>
@@ -103,7 +105,6 @@ export function MaintenancePengajuan({ onSubmitForm }: { onSubmitForm: (formValu
           <TextForm
             fieldInput={{
               placeholder: 'Masukkan perkiraan biaya yang diperlukan',
-              disabled: true,
             }}
             name="estCost"
             control={control}
@@ -113,7 +114,11 @@ export function MaintenancePengajuan({ onSubmitForm }: { onSubmitForm: (formValu
           <p className="text-heading xs regular-16">
             Upload File dalam bentuk PDF/JPG/PNG<span className="text-red-500">*</span>
           </p>
-          <FileInput onChangeFile={handleFileChange} value={selectedFile} />
+          <FileInput
+            onChangeFile={handleFileChange}
+            value={selectedFile}
+            accept="image/png, image/jpg, application/pdf"
+          />
         </div>
         <button type="submit" className="save-button h-11 rounded-lg w-full text-heading xs semibold-16 text-[#FFFFFF]">
           Submit

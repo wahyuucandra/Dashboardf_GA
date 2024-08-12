@@ -42,21 +42,21 @@ export function Menu() {
 
         <div className="grid grid-cols-2 gap-4 text-center">
           <Link
-            href={'/building-maintenance/security/management'}
+            href={'/building-maintenance/security/management?type=form-manpower'}
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconSecurityManpower className="mx-auto" />
             <span className="text-paragraph semibold-14 text-[#2C598D]">Manpower SG</span>
           </Link>
           <Link
-            href={'/building-maintenance/security/management'}
+            href={'/building-maintenance/security/management?type=form-asms'}
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconSecurityASMS className="mx-auto" />
             <span className="text-paragraph semibold-14 text-[#2C598D]">ASMS</span>
           </Link>
           <Link
-            href={'/building-maintenance/security/management'}
+            href={'/building-maintenance/security/management?type=form-soi'}
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconSecuritySOI className="mx-auto" />

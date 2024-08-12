@@ -16,7 +16,9 @@ import './style.css'
 export function Schedule() {
   const router = useRouter()
 
-  const { handleSubmit, setValue, control } = useForm<VehicleScheduleForm>({ defaultValues: DefaulVehicleScheduleForm })
+  const { handleSubmit, setValue, control } = useForm<VehicleScheduleForm>({
+    defaultValues: DefaulVehicleScheduleForm,
+  })
 
   const withDriver = useWatch({
     control,
@@ -53,29 +55,30 @@ export function Schedule() {
   }
 
   return (
-    <div className="relative">
+    <div className="relative max-container">
       <Image
         width={0}
         height={0}
         sizes="100"
-        className="fixed top-0 right-0 object-cover w-full h-[188px] rounded-b"
+        className="fixed top-0 object-cover w-full h-[188px] rounded-b max-container"
         src={bookingAsset.src}
         alt="Booking Asset"
       ></Image>
 
-      <div className="fixed top-4 left-4">
+      <div className="fixed top-4 ml-4">
         <Link href={'/booking-asset/vehicle'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
-          <IconChevronLeft></IconChevronLeft>
+          <IconChevronLeft />
         </Link>
       </div>
 
-      <div className="bg-white w-full fixed bottom-0 top-0 z-[101] px-4 mt-[216px]">
+      <div className="bg-white w-full fixed bottom-0 top-0 z-[101] px-4 mt-[216px] max-container">
         <form className="relative h-full" onSubmit={handleSubmit(onSubmit)}>
           <div className="text-heading m semibold-21 text-[#2C598D] mb-6">Schedule Operation Khusus</div>
           <div className="grid grid-cols-1 gap-6">
             <div>
               <div className="text-paragraph regular-14 mb-2">
-                Dengan driver?<span className="text-[#E15241]">*</span>
+                Dengan driver?
+                <span className="text-[#E15241]">*</span>
               </div>
               <div className="w-2/3 flex items-center space-x-1">
                 <label className="flex-1 flex items-center custom-radio text-paragraph regular-14">
@@ -103,14 +106,20 @@ export function Schedule() {
             </div>
             <div>
               <div className="text-paragraph regular-14 mb-2">
-                Nomor Polisi<span className="text-[#E15241]">*</span>
+                Nomor Polisi
+                <span className="text-[#E15241]">*</span>
               </div>
               <div className="w-2/3 flex items-center space-x-1">
                 <label className="flex-1 flex items-center custom-checkbox text-paragraph regular-14">
                   <span className="text-[#252525]">Ganjil</span>
                   <input
                     type="checkbox"
-                    onChange={e => setValue('plateType', { odd: e.target.checked, even: plateType?.even })}
+                    onChange={e =>
+                      setValue('plateType', {
+                        odd: e.target.checked,
+                        even: plateType?.even,
+                      })
+                    }
                     defaultChecked={plateType?.odd}
                     name="checkmark"
                   />
@@ -121,7 +130,12 @@ export function Schedule() {
                   <span className="text-[#252525]">Genap</span>
                   <input
                     type="checkbox"
-                    onChange={e => setValue('plateType', { odd: plateType?.odd, even: e.target.checked })}
+                    onChange={e =>
+                      setValue('plateType', {
+                        odd: plateType?.odd,
+                        even: e.target.checked,
+                      })
+                    }
                     defaultChecked={plateType?.even}
                     name="checkmark"
                   />

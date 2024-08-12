@@ -17,12 +17,12 @@ export function Menu() {
         width={0}
         height={0}
         sizes="100"
-        className="fixed top-0 object-cover w-full h-[188px] rounded-b"
+        className="fixed top-0 object-cover w-full h-[188px] rounded-b max-container"
         src={bookingAsset.src}
         alt="Booking Asset"
       ></Image>
 
-      <div className="fixed top-4 left-4">
+      <div className="fixed top-4 ml-4">
         <Link href={'/booking-asset'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
           <IconChevronLeft></IconChevronLeft>
         </Link>

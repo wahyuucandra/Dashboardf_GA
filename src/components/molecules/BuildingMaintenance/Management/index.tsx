@@ -2,10 +2,9 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-// import { usePathname, useSearchParams, useRouter } from 'next/navigation'
-import { useRouter } from 'next/navigation'
+import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 
-import { IBuildingMaintenanceService, IBuildingMaintenanceServiceType } from '@interfaces/building-maintenance'
+import { IBuildingMaintenanceServiceType } from '@interfaces/building-maintenance'
 import {
   MaintenancePengajuan,
   MaintenanceBudget,
@@ -17,29 +16,6 @@ import { Modal } from '@components/atoms/ModalCustom'
 import Header from '@components/atoms/Header'
 import IconScheduleRoom from '@assets/icons/IconScheduleRoom'
 import confirmationDanger from '@assets/images/ConfirmationDanger.png'
-
-export const serviceMaintenanceType: IBuildingMaintenanceService[] = [
-  {
-    id: 'pengajuan-perbaikan',
-    text: 'Pengajuan Perbaikan',
-  },
-  {
-    id: 'budget-timeline',
-    text: 'Budget & Timeline',
-  },
-  {
-    id: 'report-kondisi-cabang',
-    text: 'Report Kondisi Cabang',
-  },
-  {
-    id: 'history-perbaikan',
-    text: 'History Perbaikan',
-  },
-  {
-    id: 'standar-cabang',
-    text: 'Standar Cabang',
-  },
-]
 
 export const maintenanceTypes: IBuildingMaintenanceServiceType[] = [
   {
@@ -70,47 +46,12 @@ export function Management() {
   const [isConfimationModalOpen, setIsConfimationModalOpen] = useState<boolean>(false)
   const [isValidationModalOpen, setIsValidationModalOpen] = useState<boolean>(false)
 
-  // const searchParams = useSearchParams()
-  // const pathname = usePathname()
-  // const queryType = searchParams.get('type')
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const queryType = searchParams.get('type')
 
-  // const handleShowForm = (links: string[]) => {
-  //   return links.includes(queryType ?? '')
-  // }
-
-  const [selectedType, setSelectedType] = useState<IBuildingMaintenanceService | null>(null)
-
-  const handleSelectServiceType = (input: IBuildingMaintenanceService) => {
-    setSelectedType((prev: any) => (prev && prev.id === input.id ? null : input))
-  }
-
-  const handleServiceTypeIsActive = (input: IBuildingMaintenanceService) => {
-    return selectedType?.id === input.id
-      ? 'bg-[#E5F2FC] border-[1.2px] border-[#0089CF] text-[#0089CF]'
-      : 'border border-[#D5D5D5] text-[#000000]'
-  }
-
-  const renderSelectedComponent = () => {
-    switch (selectedType?.id) {
-      case 'pengajuan-perbaikan':
-        return (
-          <MaintenancePengajuan
-            onSubmitForm={() => {
-              // action here
-            }}
-          />
-        )
-      case 'budget-timeline':
-        return <MaintenanceBudget />
-      case 'report-kondisi-cabang':
-        return <MaintenanceReport />
-      case 'history-perbaikan':
-        return <MaintenanceHistory />
-      case 'standar-cabang':
-        return <MaintenanceStandar />
-      default:
-        return null
-    }
+  const handleShowForm = (links: string[]) => {
+    return links.includes(queryType ?? '')
   }
 
   return (
@@ -145,17 +86,7 @@ export function Management() {
 
         {/* Filter */}
         <div className="w-screen max-container whitespace-nowrap overflow-x-auto mb-6 px-6 -mx-6">
-          {serviceMaintenanceType?.map(val => (
-            <div
-              onClick={() => handleSelectServiceType(val)}
-              onKeyDown={() => {}}
-              key={val.id}
-              className={`inline-block rounded-full py-2 px-4 text-badge mr-2 ${handleServiceTypeIsActive(val)}`}
-            >
-              {val.text}
-            </div>
-          ))}
-          {/* {maintenanceTypes?.map(val => (
+          {maintenanceTypes?.map(val => (
             <div
               onClick={() => {
                 router.replace(`${pathname}?type=${val.links[0]}`)
@@ -166,12 +97,12 @@ export function Management() {
             >
               {val.text}
             </div>
-          ))} */}
+          ))}
         </div>
 
         {/* Forms content */}
-        <div>{renderSelectedComponent()}</div>
-        {/* <div>
+        {/* <div>{renderSelectedComponent()}</div> */}
+        <div>
           {handleShowForm(['pengajuan-perbaikan', '']) && (
             <MaintenancePengajuan
               onSubmitForm={() => {
@@ -182,32 +113,32 @@ export function Management() {
           {handleShowForm(['budget-timeline']) && (
             <MaintenanceBudget
             // onSubmitForm={() => {
-              // action here
+            // action here
             // }}
             />
           )}
           {handleShowForm(['report-kondisi-cabang']) && (
             <MaintenanceReport
             // onSubmitForm={() => {
-              // action here
+            // action here
             // }}
             />
           )}
           {handleShowForm(['history-perbaikan']) && (
             <MaintenanceHistory
             // onSubmitForm={() => {
-              // action here
+            // action here
             // }}
             />
           )}
           {handleShowForm(['standar-cabang']) && (
             <MaintenanceStandar
             // onSubmitForm={() => {
-              // action here
+            // action here
             // }}
             />
           )}
-        </div> */}
+        </div>
       </div>
 
       {/* Modal Confirmation */}

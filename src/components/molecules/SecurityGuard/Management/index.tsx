@@ -2,31 +2,14 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-// import { usePathname, useSearchParams, useRouter } from 'next/navigation'
+import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 
 import Header from '@components/atoms/Header'
 import IconScheduleRoom from '@assets/icons/IconScheduleRoom'
 import confirmationDanger from '@assets/images/ConfirmationDanger.png'
 import { Modal } from '@components/atoms/ModalCustom'
-import { IBuildingMaintenanceService } from '@interfaces/building-maintenance'
-import { ISecurityGuardService, ISecurityGuardServiceType } from '@interfaces/security-guard'
+import { ISecurityGuardServiceType } from '@interfaces/security-guard'
 import { FormASMS, FormManpowerSG, FormSOI } from '@components/atoms/SecurityGuard'
-
-export const SecurityGuardServices: ISecurityGuardService[] = [
-  {
-    id: 'form-manpower',
-    text: 'Manpower SG',
-  },
-  {
-    id: 'form-asms',
-    text: 'ASMS',
-  },
-  {
-    id: 'form-soi',
-    text: 'SOI',
-  },
-]
 
 export const SecurityGuardTypes: ISecurityGuardServiceType[] = [
   {
@@ -49,37 +32,12 @@ export function Management() {
   const [isConfimationModalOpen, setIsConfimationModalOpen] = useState<boolean>(false)
   const [isValidationModalOpen, setIsValidationModalOpen] = useState<boolean>(false)
 
-  // const searchParams = useSearchParams()
-  // const pathname = usePathname()
-  // const queryType = searchParams.get('type')
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const queryType = searchParams.get('type')
 
-  // const handleShowForm = (links: string[]) => {
-  //   return links.includes(queryType ?? '')
-  // }
-
-  const [selectedType, setSelectedType] = useState<ISecurityGuardService | null>(null)
-
-  const handleSelectServiceType = (input: ISecurityGuardService) => {
-    setSelectedType((prev: any) => (prev && prev.id === input.id ? null : input))
-  }
-
-  const handleServiceTypeIsActive = (input: IBuildingMaintenanceService) => {
-    return selectedType?.id === input.id
-      ? 'bg-[#E5F2FC] border-[1.2px] border-[#0089CF] text-[#0089CF]'
-      : 'border border-[#D5D5D5] text-[#000000]'
-  }
-
-  const renderSelectedComponent = () => {
-    switch (selectedType?.id) {
-      case 'form-manpower':
-        return <FormManpowerSG />
-      case 'form-asms':
-        return <FormASMS />
-      case 'form-soi':
-        return <FormSOI />
-      default:
-        return null
-    }
+  const handleShowForm = (links: string[]) => {
+    return links.includes(queryType ?? '')
   }
 
   return (
@@ -114,17 +72,7 @@ export function Management() {
 
         {/* Filter */}
         <div className="w-screen max-container whitespace-nowrap overflow-x-auto mb-6 px-6 -mx-6">
-          {SecurityGuardServices?.map(val => (
-            <div
-              onClick={() => handleSelectServiceType(val)}
-              onKeyDown={() => {}}
-              key={val.id}
-              className={`inline-block rounded-full py-2 px-4 text-badge mr-2 ${handleServiceTypeIsActive(val)}`}
-            >
-              {val.text}
-            </div>
-          ))}
-          {/* {maintenanceTypes?.map(val => (
+          {SecurityGuardTypes?.map(val => (
             <div
               onClick={() => {
                 router.replace(`${pathname}?type=${val.links[0]}`)
@@ -135,34 +83,33 @@ export function Management() {
             >
               {val.text}
             </div>
-          ))} */}
+          ))}
         </div>
 
         {/* Forms content */}
-        <div>{renderSelectedComponent()}</div>
-        {/* <div>
+        <div>
           {handleShowForm(['form-manpower', '']) && (
             <FormManpowerSG
-              onSubmitForm={() => {
-                // action here
-              }}
+            // onSubmitForm={() => {
+            //   // action here
+            // }}
             />
           )}
           {handleShowForm(['form-asms']) && (
             <FormASMS
             // onSubmitForm={() => {
-              // action here
+            // action here
             // }}
             />
           )}
           {handleShowForm(['form-soi']) && (
             <FormSOI
             // onSubmitForm={() => {
-              // action here
+            // action here
             // }}
             />
           )}
-        </div> */}
+        </div>
       </div>
 
       {/* Modal Confirmation */}

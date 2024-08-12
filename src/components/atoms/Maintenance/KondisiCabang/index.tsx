@@ -1,27 +1,34 @@
 'use client'
 
-import React, { useState } from 'react'
 import Image from 'next/image'
+import React, { ChangeEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { Modal } from '@components/atoms/ModalCustom'
-// import bookingAsset from '@assets/images/BookingAsset.png'
 import IconPlus from '@assets/icons/IconPlus'
 import confirmationDanger from '@assets/images/ConfirmationDanger.png'
 import Header from '@components/atoms/Header'
 import IconClose from '@assets/icons/IconClose'
-import { BranchConditionReport, dataKondisi } from '@interfaces/building-maintenance'
+import { Modal } from '@components/atoms/ModalCustom'
 
 export function KondisiCabang() {
   const router = useRouter()
 
-  const [dataBranchCondition, setDataBranchCondition] = useState<BranchConditionReport>(dataKondisi)
-
   const [isConfimationModalOpen, setIsConfimationModalOpen] = useState<boolean>(false)
   const [isValidationModalOpen, setIsValidationModalOpen] = useState<boolean>(false)
 
-  const handleDeleteImage = (category: any) => {
-    setDataBranchCondition(prev => ({ ...prev, categories: prev.categories.filter(c => c.name !== category.name) }))
+  // State untuk menyimpan gambar yang diunggah pengguna
+  const [uploadedImages, setUploadedImages] = useState<File[]>([])
+
+  const handleDeleteImage = (indexToDelete: number) => {
+    setUploadedImages(prevImages => prevImages.filter((_, i) => i !== indexToDelete))
+  }
+
+  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files
+    if (files) {
+      const newImages = Array.from(files).map(file => file)
+      setUploadedImages(prevImages => [...prevImages, ...newImages])
+    }
   }
 
   return (
@@ -46,20 +53,20 @@ export function KondisiCabang() {
         </div>
 
         <div className="grid grid-cols-2 gap-4">
-          {dataBranchCondition.categories.map(category => (
-            <div key={category.name} className="relative">
+          {/* Menampilkan gambar yang diunggah */}
+          {uploadedImages.map((image, index) => (
+            <div key={index} className="relative">
               <div className="grid place-items-center h-[108px] w-full">
                 <Image
-                  src={category.photoUrl}
-                  alt={category.name}
+                  src={URL.createObjectURL(image)}
+                  alt={`Uploaded Image ${index}`}
                   width={0}
                   height={0}
-                  className="w-full h-[108px] object-fill rounded"
+                  className="w-full h-[108px] object-cover rounded"
                 />
-                {/* Button can be hidden initially and displayed on hover */}
                 <button
                   className="absolute top-0 right-0 bg-[#d8d8d8] rounded-full w-5 h-5 flex items-center justify-center hover:opacity-100 transition duration-200 ease-in-out"
-                  onClick={() => handleDeleteImage(category)}
+                  onClick={() => handleDeleteImage(index)} // Pass the index for deletion
                 >
                   <IconClose color="white" />
                 </button>
@@ -68,25 +75,29 @@ export function KondisiCabang() {
           ))}
 
           {/* Empty state */}
-          {dataBranchCondition.categories.length === 0 && (
+          {uploadedImages.length === 0 && (
             <div className="col-span-2 text-center text-gray-400">Belum ada foto kondisi cabang.</div>
           )}
 
           {/* Add "Tambahkan Foto" button conditionally */}
-          {dataBranchCondition.categories.length < 3 && (
+          {uploadedImages.length < 3 && (
             <div className="flex flex-col items-center justify-center">
-              <div
-                className="border border-[#4A90E2] border-dashed rounded grid place-items-center w-full h-[108px] flex items-center justify-center cursor-pointer"
-                onClick={() => {
-                  // Your onClick handler here
-                }}
-                onKeyDown={() => {}}
-                role="button"
-                tabIndex={0}
-              >
-                <IconPlus />
+              <div className="border border-[#4A90E2] border-dashed rounded grid place-items-center w-full h-[108px] items-center justify-center">
+                <label htmlFor="imageUpload" className="cursor-pointer">
+                  <IconPlus />
+                </label>
+                <input
+                  type="file"
+                  id="imageUpload"
+                  accept="image/*"
+                  multiple
+                  onChange={handleImageUpload}
+                  className="hidden"
+                />
               </div>
-              <p className="mt-2 text-[#4A90E2]">Tambahkan Foto</p>
+              <div>
+                <p className="mt-2 text-[#4A90E2]">Tambahkan Foto</p>
+              </div>
             </div>
           )}
         </div>

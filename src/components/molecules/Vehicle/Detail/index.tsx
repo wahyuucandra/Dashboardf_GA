@@ -20,23 +20,23 @@ export function Detail() {
   return (
     <>
       <div className="relative">
-        <VehicleBannerImage photos={photos}></VehicleBannerImage>
+        <VehicleBannerImage photos={photos} />
 
-        <div className="fixed top-4 left-4">
+        <div className="fixed top-4 ml-4">
           <Link
             href={'/booking-asset/vehicle/special-operational'}
             className="rounded-md bg-white w-8 h-8 flex items-center justify-center"
           >
-            <IconChevronLeft></IconChevronLeft>
+            <IconChevronLeft />
           </Link>
         </div>
 
         <div className="px-6 pt-[290px] h-screen">
-          <VehicleDescription vehicle={vehicle}></VehicleDescription>
+          <VehicleDescription vehicle={vehicle} />
           <br />
-          <VehicleInformation vehicle={vehicle}></VehicleInformation>
+          <VehicleInformation vehicle={vehicle} />
           <br />
-          <VehicleTerms vehicle={vehicle}></VehicleTerms>
+          <VehicleTerms vehicle={vehicle} />
           <br />
           <label className="flex-1 flex items-center custom-checkbox text-paragraph regular-14">
             <span className="text-[#252525]">
@@ -52,7 +52,7 @@ export function Detail() {
           </label>
         </div>
       </div>
-      <VehicleBooking acceptTerm={acceptTerm}></VehicleBooking>
+      <VehicleBooking acceptTerm={acceptTerm} />
     </>
   )
 }

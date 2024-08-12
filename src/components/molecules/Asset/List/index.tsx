@@ -253,7 +253,7 @@ export function List() {
           setIsItemModalOpen(false)
           setIsConfimationModalOpen(true)
         }}
-      ></Header>
+      />
       {assetLoading && <div className="hidden"></div>}
       {assetBrandLoading && <div className="hidden"></div>}
       {assetData && <div className="hidden"></div>}
@@ -263,7 +263,7 @@ export function List() {
         <div className="flex items-center space-x-3 py-3 mb-4">
           <div className="flex-1">
             <div className="flex items-center space-x-3 mb-1">
-              <IconScheduleRoom></IconScheduleRoom>
+              <IconScheduleRoom />
               <span className="text-information">ACC TB Simatupang</span>
             </div>
             <div className="text-desc flex items-center space-x-2">
@@ -297,7 +297,7 @@ export function List() {
                 }}
                 asset={asset}
                 qty={handleTotalQty(asset)}
-              ></AssetItem>
+              />
               <hr className="border-b border-[#EDEDED] my-6" />
             </div>
           ))}
@@ -338,7 +338,7 @@ export function List() {
               src={confirmationDanger.src}
               className="mx-auto mb-4 w-28 h-28"
               alt="confirmation"
-            ></Image>
+            />
           </div>
           <div className="text-heading s semibold-18 text-[#252525] mb-1">Konfirmasi Pindah Menu</div>
           <div className="text-paragraph regular-14 text-[#717171] mb-8 px-3">
@@ -369,6 +369,7 @@ export function List() {
         </div>
       </Modal>
 
+      {/* Modal choosing asset */}
       <Modal
         isOpen={isItemModalOpen}
         isFloating={false}
@@ -459,13 +460,14 @@ export function List() {
         </div>
       </Modal>
 
+      {/* Modal choosed asset */}
       <Modal
         isOpen={isItemConfimationModalOpen}
         isFloating={false}
         backdropDismiss={true}
         backdropClick={() => setIsItemConfimationModalOpen(false)}
       >
-        <div className="w-screen h-[calc(40vh)] bg-white relative py-6 px-4 rounded-t-xl ">
+        <div className="h-[calc(40vh)] bg-white relative py-6 px-4 rounded-t-xl max-container">
           <div className="text-heading xs semibold-16">{selectedAsset?.name}</div>
           <hr className="border border-[#D9D9D9] my-4" />
 

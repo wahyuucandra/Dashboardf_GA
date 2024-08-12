@@ -5,5 +5,9 @@ export const metadata = {
 }
 
 export default function BookingAsset() {
-  return <BookingAssetPage></BookingAssetPage>
+  return (
+    <>
+      <BookingAssetPage />
+    </>
+  )
 }

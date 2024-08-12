@@ -12,7 +12,7 @@ export function BannerImage({ photos }: Readonly<{ photos: Photo[] }>) {
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-full bg-white">
+      <div className="fixed top-0  w-full bg-white max-container">
         <Image
           width={0}
           height={0}

@@ -113,7 +113,7 @@ export function AllNotification() {
       // 		<IconCleaningServiceGuidance width={size} height={size} />
       // 	);
       default:
-        return null // Atau ikon default lainnya
+        return null
     }
   }
 

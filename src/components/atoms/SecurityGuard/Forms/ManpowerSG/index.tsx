@@ -3,10 +3,10 @@ import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 
-import { Button } from '@components/atoms/button'
 import TextAreaForm from '@components/atoms/Form/TextAreaForm'
 import TextForm from '@components/atoms/Form/TextForm'
 import SelectForm from '@components/atoms/Form/SelectForm'
+import { Button } from '@components/atoms/button'
 import { formManpowerSGValues, IFormManpowerSG } from '@interfaces/security-guard'
 
 const schema = Yup.object().shape({
@@ -36,7 +36,9 @@ export default function FormManpowerSG() {
   ]
 
   const handleMappingDate = (date: Date) => {
-    return `${date?.getFullYear()}-${date?.getMonth() + 1 >= 10 ? date?.getMonth() + 1 : '0' + (date?.getMonth() + 1)}-${date?.getDate()}`
+    return `${date?.getFullYear()}-${
+      date?.getMonth() + 1 >= 10 ? date?.getMonth() + 1 : '0' + (date?.getMonth() + 1)
+    }-${date?.getDate()}`
   }
 
   const onSubmit = () => {}

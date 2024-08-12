@@ -44,26 +44,20 @@ export function Menu() {
 
         <div className="grid grid-cols-2 gap-4 text-center">
           <Link
-            href={'/building-maintenance/maintenance/management'}
+            href={'/building-maintenance/maintenance/management?type=pengajuan-perbaikan'}
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconMaintenancePengajuan className="mx-auto" />
             <span className="text-paragraph semibold-14 text-[#2C598D]">Pengajuan Perbaikan</span>
           </Link>
           <Link
-            href={'/building-maintenance/maintenance/management'}
+            href={'/building-maintenance/maintenance/management?type=budget-timeline'}
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconMaintenanceBudget className="mx-auto" />
             <span className="text-paragraph semibold-14 text-[#2C598D]">Budget & Timeline</span>
           </Link>
-          <Link
-            href={'/building-maintenance/maintenance/management'}
-            className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
-          >
-            <IconMaintenanceStandar className="mx-auto" />
-            <span className="text-paragraph semibold-14 text-[#2C598D]">Standar Cabang</span>
-          </Link>
+
           <Link
             href={'/building-maintenance/maintenance/management'}
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
@@ -72,11 +66,18 @@ export function Menu() {
             <span className="text-paragraph semibold-14 text-[#2C598D]">Report Kondisi Cabang</span>
           </Link>
           <Link
-            href={'/building-maintenance/maintenance/management'}
+            href={'/building-maintenance/maintenance/management?type=history-perbaikan'}
             className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
           >
             <IconMaintenanceHistory className="mx-auto" />
             <span className="text-paragraph semibold-14 text-[#2C598D]">History Perbaikan</span>
+          </Link>
+          <Link
+            href={'/building-maintenance/maintenance/management?type=standar-cabang'}
+            className="bg-[#2C598D]/[.08] shadow-[0_1px_4px_1px_rgba(0,0,0,0.1)] p-6 flex flex-col space-y-3 rounded-[20px]"
+          >
+            <IconMaintenanceStandar className="mx-auto" />
+            <span className="text-paragraph semibold-14 text-[#2C598D]">Standar Cabang</span>
           </Link>
         </div>
       </div>

@@ -20,7 +20,9 @@ export function Booking({ acceptTerm }: Readonly<{ acceptTerm?: boolean }>) {
   const [isDateModalOpen, setIsDateModalOpen] = useState<boolean>(false)
   const [isTimeModalOpen, setIsTimeModalOpen] = useState<boolean>(false)
 
-  const { handleSubmit, setValue, control } = useForm<ScheduleForm>({ defaultValues: DefaulScheduleForm })
+  const { handleSubmit, setValue, control } = useForm<ScheduleForm>({
+    defaultValues: DefaulScheduleForm,
+  })
 
   const date = useWatch({
     control,
@@ -45,8 +47,14 @@ export function Booking({ acceptTerm }: Readonly<{ acceptTerm?: boolean }>) {
         return `${start?.date?.getDate()} ${monthsData[start?.date?.getMonth()].text} ${start?.date?.getFullYear()}`
       if (start?.date?.getTime() != end?.date?.getTime())
         if (start?.date?.getFullYear() == end?.date?.getFullYear())
-          return `${start?.date?.getDate()} ${monthsData[start?.date?.getMonth()].text} - ${end?.date?.getDate()} ${monthsData[end?.date?.getMonth()].text} ${start?.date?.getFullYear()}`
-      return `${start?.date?.getDate()} ${monthsData[start?.date?.getMonth()].text} ${start?.date?.getFullYear()} - ${end?.date?.getDate()} ${monthsData[end?.date?.getMonth()].text} ${start?.date?.getFullYear()}`
+          return `${start?.date?.getDate()} ${monthsData[start?.date?.getMonth()].text} - ${end?.date?.getDate()} ${
+            monthsData[end?.date?.getMonth()].text
+          } ${start?.date?.getFullYear()}`
+      return `${start?.date?.getDate()} ${
+        monthsData[start?.date?.getMonth()].text
+      } ${start?.date?.getFullYear()} - ${end?.date?.getDate()} ${
+        monthsData[end?.date?.getMonth()].text
+      } ${start?.date?.getFullYear()}`
     }
 
     return 'Pilih Tanggal'
@@ -66,7 +74,7 @@ export function Booking({ acceptTerm }: Readonly<{ acceptTerm?: boolean }>) {
 
   return (
     <>
-      <div className="fixed z-[101] bg-white bottom-0 left-0 w-full border border-t-[#F6F6F6] shadow-[2px_4px_12px_0_rgba(0,0,0,0.1)] px-6 py-4">
+      <div className="fixed z-[101] bg-white bottom-0 w-full border border-t-[#F6F6F6] shadow-[2px_4px_12px_0_rgba(0,0,0,0.1)] px-6 py-4 max-container">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="text-heading xs semibold-16 text-[#101010] mb-4">Reservation Date</div>
           <div className="text-room-detail badge-time text-[#0089CF] flex items-center space-x-3 mb-4">
