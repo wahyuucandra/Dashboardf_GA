@@ -1,9 +1,9 @@
-import { ManagementAssetPage } from '@components/organisms/Management';
+import { ManagementAssetPage } from '@components/organisms/Management'
 
 export const metadata = {
-	title: 'Management Asset',
-};
+  title: 'Management Asset',
+}
 
 export default function ManagingAsset() {
-	return <ManagementAssetPage />;
+  return <ManagementAssetPage />
 }

@@ -171,6 +171,7 @@ export function Menu() {
               <Link href={`${linkState}`} className="justify-self-stretch w-full">
                 <button
                   onClick={() => {
+                    dispatch(setBookingLocation('BERIJALAN'))
                     setIsOpen(false)
                   }}
                   type="button"

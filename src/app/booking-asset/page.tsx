@@ -4,7 +4,7 @@ export const metadata = {
   title: 'Booking Asset',
 }
 
-export default function BookingAsset () {
+export default function BookingAsset() {
   return (
     <>
       <BookingAssetPage />
