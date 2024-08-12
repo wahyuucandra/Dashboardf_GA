@@ -71,7 +71,7 @@ const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
       <>
         <div className={joinClass('relative mt-1', className)}>
           <input
-            type='file'
+            type="file"
             ref={ref}
             disabled={isDisabled}
             className={joinClass(
@@ -83,7 +83,7 @@ const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
             accept={accept}
             onBlur={props.onBlur}
           />
-          <div className='absolute inset-0 flex items-center pointer-events-none h-[45px]'>
+          <div className="absolute inset-0 flex items-center pointer-events-none h-[45px]">
             <div
               className={joinClass(
                 `items-center flex mx-2 line-clamp-2 justify-center h-[calc(100%-8px)] bg-[#fafafa] text-left ${
@@ -93,16 +93,16 @@ const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
               )}
             >
               {selectedDocument ? (
-                <span className='text-paragraph regular-14 text-[#626262] text-left'>
+                <span className="text-paragraph regular-14 text-[#626262] text-left">
                   {displayDocumentName(selectedDocument)}
                 </span>
               ) : (
-                <div className='flex items-center justify-center'>
-                  <div className='mr-2'>
+                <div className="flex items-center justify-center">
+                  <div className="mr-2">
                     <IconCloudUpload />
                   </div>
-                  <p className='flex gap-1 items-center justify-center text-paragraph regular-14 text-[#626262] py-2'>
-                    Klik <span className='text-[#0089CF] text-paragraph semibold-14'> di sini</span> untuk pilih file
+                  <p className="flex gap-1 items-center justify-center text-paragraph regular-14 text-[#626262] py-2">
+                    Klik <span className="text-[#0089CF] text-paragraph semibold-14"> di sini</span> untuk pilih file
                   </p>
                 </div>
               )}
@@ -110,10 +110,10 @@ const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
 
             {/* Edit and Delete Buttons */}
             {selectedDocument && (
-              <div className='flex items-center absolute top-1/2 right-2 transform -translate-y-1/2 gap-2'>
+              <div className="flex items-center absolute top-1/2 right-2 transform -translate-y-1/2 gap-2">
                 <button
-                  className='relative flex z-[9999]'
-                  type='button'
+                  className="relative flex z-[9999]"
+                  type="button"
                   onClick={() => {
                     if (fileInputRef.current) {
                       fileInputRef.current.click()
@@ -122,7 +122,7 @@ const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
                 >
                   <IconEdit />
                 </button>
-                <button className='relative flex z-[9999]' type='button' onClick={handleFileReset}>
+                <button className="relative flex z-[9999]" type="button" onClick={handleFileReset}>
                   <IconDelete />
                 </button>
               </div>
@@ -130,8 +130,8 @@ const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
           </div>
         </div>
         {labels ? (
-          <label className='label'>
-            <span className='label-text-alt w-[calc(100%-2px)]'>{labels}</span>
+          <label className="label">
+            <span className="label-text-alt w-[calc(100%-2px)]">{labels}</span>
           </label>
         ) : null}
       </>

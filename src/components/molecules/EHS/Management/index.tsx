@@ -71,7 +71,7 @@ export function Management() {
       ></Header>
       <div className="px-4 pt-16 overflow-hidden">
         <div className="flex items-center space-x-3 py-3">
-          <IconScheduleRoom/>
+          <IconScheduleRoom />
           <span className="flex-1 text-information">ACC TB Simatupang</span>
           <button
             type="button"

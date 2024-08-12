@@ -71,23 +71,23 @@ const RHFMultiSelect: React.FC<RHFMultiSelectProps> = ({ data, className, name, 
               value={selectedValues}
               onChange={handleChange}
               renderValue={selectedValues => (
-                <div className='flex gap-2'>
+                <div className="flex gap-2">
                   {selectedValues.map(value => {
                     const selectedItem = data.find(item => item.value === value)
                     return (
                       <div key={value}>
-                        <div className='flex border border-[#5141fe] rounded-md bg-white'>
-                          <div className='flex items-center rounded-l-lg p-1'>
+                        <div className="flex border border-[#5141fe] rounded-md bg-white">
+                          <div className="flex items-center rounded-l-lg p-1">
                             <Image
                               src={images.ERASE_IMAGE}
                               width={12}
                               height={12}
-                              alt='Delete Icon'
-                              className='hover:cursor-pointer z-[9999]'
+                              alt="Delete Icon"
+                              className="hover:cursor-pointer z-[9999]"
                               onClick={handleDelete(value, field.onChange)}
                             />
                           </div>
-                          <p className='text-[#5141fe] py-2 pr-2 pl-2 text-extra-small regular-12 border-l-[1px] border-[#5141fe]'>
+                          <p className="text-[#5141fe] py-2 pr-2 pl-2 text-extra-small regular-12 border-l-[1px] border-[#5141fe]">
                             {selectedItem?.name} {/* Display the name here */}
                           </p>
                         </div>
@@ -98,7 +98,7 @@ const RHFMultiSelect: React.FC<RHFMultiSelectProps> = ({ data, className, name, 
               )}
               MenuProps={MenuProps}
               inputProps={{ placeholder: label }}
-              className='min-w-[650px]'
+              className="min-w-[650px]"
             >
               {data.map(item => (
                 <MenuItem key={item.value} value={item.value}>

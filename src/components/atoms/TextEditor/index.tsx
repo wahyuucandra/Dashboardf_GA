@@ -29,7 +29,7 @@ interface TextEditorProps {
   initialValue?: string
 }
 
-function TextEditor ({ onChange, initialValue = '' }: TextEditorProps) {
+function TextEditor({ onChange, initialValue = '' }: TextEditorProps) {
   const editorRef = useRef<ClassicEditor | null>(null)
   const [editorLoaded, setEditorLoaded] = useState(false)
 
@@ -43,8 +43,8 @@ function TextEditor ({ onChange, initialValue = '' }: TextEditorProps) {
   }
 
   return (
-    <div className='editor-container editor-container_classic-editor'>
-      <div className='editor-container__editor'>
+    <div className="editor-container editor-container_classic-editor">
+      <div className="editor-container__editor">
         {editorLoaded && (
           <CKEditor
             editor={ClassicEditor}
