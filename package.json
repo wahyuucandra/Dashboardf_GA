@@ -16,7 +16,8 @@
     ]
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-react": "^8.0.0",
+    "@ckeditor/ckeditor5-build-classic": "^41.1.0",
+    "@ckeditor/ckeditor5-react": "^6.3.0",
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@hookform/resolvers": "^3.3.2",
@@ -27,7 +28,8 @@
     "@tanstack/react-query": "^5.13.4",
     "@tanstack/react-table": "^8.10.7",
     "axios": "^1.6.2",
-    "ckeditor5": "^42.0.2",
+    "ckeditor5": "^43.0.0",
+    "ckeditor5-custom-build": "file:./ckeditor5",
     "cookies-next": "^4.2.1",
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.11",
