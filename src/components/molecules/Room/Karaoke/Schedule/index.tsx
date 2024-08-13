@@ -65,7 +65,7 @@ const schema = yup.object().shape({
   reason: yup.string().required('Alasan wajib diisi'),
 })
 
-export function KaraokeSchedule () {
+export function KaraokeSchedule() {
   const router = useRouter()
 
   const { dispatch } = store
@@ -153,32 +153,32 @@ export function KaraokeSchedule () {
   }, [])
 
   return (
-    <div className='relative '>
+    <div className="relative ">
       <Image
         width={2000}
         height={1000}
-        sizes='100'
-        className='fixed z-[2] top-0 object-cover w-full max-container h-[188px] rounded-b'
+        sizes="100"
+        className="fixed z-[2] top-0 object-cover w-full max-container h-[188px] rounded-b"
         src={bookingAsset.src}
-        alt='Booking Asset'
+        alt="Booking Asset"
       />
 
-      <div className='fixed z-[2] top-4 ml-4'>
-        <Link href={'/booking-asset/room'} className='rounded-md bg-white w-8 h-8 flex items-center justify-center'>
+      <div className="fixed z-[2] top-4 ml-4">
+        <Link href={'/booking-asset/room'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
           <IconChevronLeft />
         </Link>
       </div>
 
-      <div className='bg-white py-[216px] h-screen overflow-y-auto'>
+      <div className="bg-white py-[216px] h-screen overflow-y-auto">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className='text-2xl font-semibold text-[#2C598D] mb-6 px-4'>Schedule Karaoke</div>
+          <div className="text-2xl font-semibold text-[#2C598D] mb-6 px-4">Schedule Karaoke</div>
 
           {/* Form */}
-          <div className='grid grid-cols-1 gap-6 pb-[150px] px-4'>
+          <div className="grid grid-cols-1 gap-6 pb-[150px] px-4">
             {/* Date Input */}
             <div>
-              <div className='text-paragraph regular-14 mb-1'>
-                Pilih tanggal <span className='text-[#E15241]'>*</span>
+              <div className="text-paragraph regular-14 mb-1">
+                Pilih tanggal <span className="text-[#E15241]">*</span>
               </div>
               <DateRangeInput
                 min={min}
@@ -194,8 +194,8 @@ export function KaraokeSchedule () {
 
             {/* Time Input */}
             <div>
-              <div className='text-paragraph regular-14 mb-1'>
-                Jam <span className='text-[#E15241]'>*</span>
+              <div className="text-paragraph regular-14 mb-1">
+                Jam <span className="text-[#E15241]">*</span>
               </div>
               <TimeRangeInput
                 disabled={availableTimesLoading}
@@ -212,8 +212,8 @@ export function KaraokeSchedule () {
 
             {/* Keperluan Input */}
             <div>
-              <div className='text-paragraph regular-14 mb-1'>
-                Keperluan <span className='text-[#E15241]'>*</span>
+              <div className="text-paragraph regular-14 mb-1">
+                Keperluan <span className="text-[#E15241]">*</span>
               </div>
               <ReasonInputArea
                 control={control}
@@ -231,14 +231,14 @@ export function KaraokeSchedule () {
 
           {/* Button submit */}
           <Footer>
-            <div className='bg-white pt-3 pb-12 px-3 w-full'>
+            <div className="bg-white pt-3 pb-12 px-3 w-full">
               <button
                 disabled={isSubmitLoading}
-                type='submit'
+                type="submit"
                 onClick={() => onSubmit()}
-                className='next-button h-11 rounded-lg w-full text-heading xs semibold-16 text-[#FFFFFF]'
+                className="next-button h-11 rounded-lg w-full text-heading xs semibold-16 text-[#FFFFFF]"
               >
-                {isSubmitLoading && <IconSpinner className='animate-spin' />}
+                {isSubmitLoading && <IconSpinner className="animate-spin" />}
                 {!isSubmitLoading && 'Lanjutkan'}
               </button>
             </div>

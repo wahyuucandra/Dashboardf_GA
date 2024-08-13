@@ -6,7 +6,7 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  safelist: ['bg-[#FDF4E2] text-[#F19D38]', 'bg-[#D3FED7] text-[#4EC558]', 'bg-[#FCEBEE] text-[#FF4040]'],
+  safelist: ['bg-[#FDF4E2] text-[#F19D38]', 'bg-[#D3FED7] text-[#4EC558]', 'bg-[#FCEBEE] text-[#FF4040]', 'badge-option-active', 'badge-option-not-active'],
   theme: {
     extend: {
       colors: {

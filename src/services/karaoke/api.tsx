@@ -5,7 +5,7 @@ import httpRequest from '@utils/helper'
 
 const api = httpRequest(API_MASTER)
 
-export function apiSubmitBookingKaraoke (payload: ISubmitBookingKaraokePayload): Promise<APIBaseResponse> {
+export function apiSubmitBookingKaraoke(payload: ISubmitBookingKaraokePayload): Promise<APIBaseResponse> {
   // const response: APIBaseResponse = {
   //   reqId: 'a',
   //   error: null,

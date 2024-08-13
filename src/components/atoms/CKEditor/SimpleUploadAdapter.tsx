@@ -4,11 +4,11 @@ import Base64 from '@utils/helper/Base64'
 class SimpleUploadAdapter {
   loader: any
 
-  constructor (loader: any) {
+  constructor(loader: any) {
     this.loader = loader
   }
 
-  async upload () {
+  async upload() {
     return this.loader.file.then(async (file: any) => {
       if (file.size > 5 * 1024 * 1024) {
         return Promise.reject('Ukuran file melebihi 5MB.')
@@ -27,7 +27,7 @@ class SimpleUploadAdapter {
     })
   }
 
-  abort () {
+  abort() {
     toast.error('Cancel Upload', {
       position: toast.POSITION.TOP_RIGHT,
     })

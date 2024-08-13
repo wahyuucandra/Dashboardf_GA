@@ -10,6 +10,7 @@ import { Modal } from '@components/atoms/ModalCustom'
 import { IBookLocation, IBookMenu } from '@interfaces/booking-asset'
 import { apiBookLocation, apiBookMenu } from '@services/booking-asset/api'
 import { setBookingLocation } from '@store/actions/actionBookingAsset'
+import { setShowNavbar } from '@store/actions/actionContainer'
 import { store } from '@store/storage'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -53,6 +54,7 @@ export function Menu() {
   useEffect(() => {
     handleFetchBookMenu()
     handleFetchBookLocation()
+    dispatch(setShowNavbar(true))
   }, [])
 
   const handleMappingMenu = (data: string) => {
