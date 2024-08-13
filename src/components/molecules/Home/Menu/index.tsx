@@ -92,18 +92,19 @@ export function Menu() {
             </button>
           )}
           {!loadingMenu && handleMappingMenu('Building Maintenance Management') && (
-            <button
-              onClick={() => {
-                setIsOpen(true)
-                setLinkState('/building-maintenance')
-              }}
-              className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-md"
-            >
-              <IconBuildingMaintenance className="mx-auto"></IconBuildingMaintenance>
-              <span className="text-[#2C598D] text-extra-small regular-12 mx-auto">
-                Building Maintenance Management
-              </span>
-            </button>
+            <Link href={'/building-maintenance'}>
+              <button
+                onClick={() => {
+                  setLinkState('/building-maintenance')
+                }}
+                className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-md"
+              >
+                <IconBuildingMaintenance className="mx-auto" />
+                <span className="text-[#2C598D] text-extra-small regular-12 mx-auto">
+                  Building Maintenance Management
+                </span>
+              </button>
+            </Link>
           )}
           {!loadingMenu && handleMappingMenu('About Us') && (
             <button className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-md">
