@@ -53,11 +53,8 @@ export function Menu() {
   }
 
   useEffect(() => {
-    if (initialRef.current === false) {
-      handleFetchBookMenu()
-      handleFetchBookLocation()
-      initialRef.current = true
-    }
+    handleFetchBookMenu()
+    handleFetchBookLocation()
   }, [])
 
   const handleMappingMenu = (data: string) => {
