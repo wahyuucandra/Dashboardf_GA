@@ -116,7 +116,7 @@ export function Schedule({ title = 'Meeting Room', category = 'Meeting Room' }: 
     }
 
     if (category === 'Pods') {
-      router.push('/booking-asset/pods/meeting-room')
+      router.push('/booking-asset/room/pods')
     }
   }
 
