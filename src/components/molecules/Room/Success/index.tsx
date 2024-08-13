@@ -16,13 +16,19 @@ export function Success() {
 
   const handleMappingDate = () => {
     if (roomListParams?.startBookingDate && roomListParams?.endBookingDate) {
-      return `${moment(roomListParams?.startBookingDate, 'YYYY-MM-DD').format('HH:mm:ss').toString()} - ${moment(roomListParams?.endBookingDate, 'YYYY-MM-DD').format('HH:mm:ss').toString()}`
+      return `${moment(roomListParams?.startBookingDate, 'YYYY-MM-DD').format('DD/MM/YYYY').toString()} - ${moment(roomListParams?.endBookingDate, 'YYYY-MM-DD').format('DD/MM/YYYY').toString()}`
     }
   }
 
   const handleMappingTime = () => {
     if (roomListParams?.timeOpen && roomListParams?.timeClose) {
-      return `${moment(roomListParams?.timeOpen, 'HH:mm').format('DD/MM/YYYY').toString()} - ${moment(roomListParams?.timeClose, 'HH:mm').format('HH:mm:ss').toString()}`
+      const timeOpen = roomListParams?.timeOpen?.split(':')
+      const timeOpenStr = timeOpen[0] + ':' + timeOpen[1]
+
+      const timeClose = roomListParams?.timeClose?.split(':')
+      const timeCloseStr = timeClose[0] + ':' + timeClose[1]
+
+      return `${timeOpenStr} - ${timeCloseStr}`
     }
   }
 

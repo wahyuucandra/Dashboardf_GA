@@ -13,11 +13,9 @@ import { setBookingLocation } from '@store/actions/actionBookingAsset'
 import { store } from '@store/storage'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export function Menu() {
-  const initialRef = useRef(false)
-
   const { dispatch } = store
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -53,11 +51,8 @@ export function Menu() {
   }
 
   useEffect(() => {
-    if (initialRef.current === false) {
-      handleFetchBookMenu()
-      handleFetchBookLocation()
-      initialRef.current = true
-    }
+    handleFetchBookMenu()
+    handleFetchBookLocation()
   }, [])
 
   const handleMappingMenu = (data: string) => {
