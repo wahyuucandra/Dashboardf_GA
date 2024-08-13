@@ -63,7 +63,7 @@ const schema = yup.object().shape({
   reason: yup.string().required('Alasan wajib diisi'),
 })
 
-export function Schedule({ title = 'Meeting Room', category = 'Meeting Room' }: { title?: string; category?: string }) {
+export function Schedule ({ title = 'Meeting Room', category = 'Meeting Room' }: { title?: string; category?: string }) {
   const router = useRouter()
 
   const { dispatch } = store
@@ -141,30 +141,30 @@ export function Schedule({ title = 'Meeting Room', category = 'Meeting Room' }: 
   }, [])
 
   return (
-    <div className="relative">
+    <div className='relative'>
       <Image
         width={0}
         height={0}
-        sizes="100"
-        className="fixed z-[2] top-0 object-cover w-full max-container h-[188px] rounded-b"
+        sizes='100'
+        className='fixed z-[2] top-0 object-cover w-full max-container h-[188px] rounded-b'
         src={bookingAsset.src}
-        alt="Booking Asset"
+        alt='Booking Asset'
       ></Image>
 
-      <div className="fixed z-[2] top-4 ml-4">
-        <Link href={'/booking-asset/room'} className="rounded-md bg-white w-8 h-8 flex items-center justify-center">
+      <div className='fixed z-[2] top-4 ml-4'>
+        <Link href={'/booking-asset/room'} className='rounded-md bg-white w-8 h-8 flex items-center justify-center'>
           <IconChevronLeft />
         </Link>
       </div>
 
-      <div className="bg-white py-[216px] h-screen overflow-y-auto">
+      <div className='bg-white py-[216px] h-screen overflow-y-auto'>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="text-heading m semibold-21 text-[#2C598D] mb-6 px-4">Schedule {title}</div>
+          <div className='text-heading m semibold-21 text-[#2C598D] mb-6 px-4'>Schedule {title}</div>
 
-          <div className="grid grid-cols-1 gap-6 pb-[150px] px-4">
+          <div className='grid grid-cols-1 gap-6 pb-[150px] px-4'>
             <div>
-              <div className="text-paragraph regular-14 mb-1">
-                Pilih tanggal <span className="text-[#E15241]">*</span>
+              <div className='text-paragraph regular-14 mb-1'>
+                Pilih tanggal <span className='text-[#E15241]'>*</span>
               </div>
               <DateRangeInput
                 min={min}
@@ -179,8 +179,8 @@ export function Schedule({ title = 'Meeting Room', category = 'Meeting Room' }: 
             </div>
 
             <div>
-              <div className="text-paragraph regular-14 mb-1">
-                Jam <span className="text-[#E15241]">*</span>
+              <div className='text-paragraph regular-14 mb-1'>
+                Jam <span className='text-[#E15241]'>*</span>
               </div>
               <TimeRangeInput
                 disabled={availableTimesLoading}
@@ -196,8 +196,8 @@ export function Schedule({ title = 'Meeting Room', category = 'Meeting Room' }: 
             </div>
 
             <div>
-              <div className="text-paragraph regular-14 mb-1">
-                Kapasitas <span className="text-[#E15241]">*</span>
+              <div className='text-paragraph regular-14 mb-1'>
+                Kapasitas <span className='text-[#E15241]'>*</span>
               </div>
               <CapacityInput
                 data={capacities}
@@ -212,8 +212,8 @@ export function Schedule({ title = 'Meeting Room', category = 'Meeting Room' }: 
             </div>
 
             <div>
-              <div className="text-paragraph regular-14 mb-1">
-                Keperluan <span className="text-[#E15241]">*</span>
+              <div className='text-paragraph regular-14 mb-1'>
+                Keperluan <span className='text-[#E15241]'>*</span>
               </div>
               <ReasonInputArea
                 control={control}
@@ -227,10 +227,10 @@ export function Schedule({ title = 'Meeting Room', category = 'Meeting Room' }: 
             </div>
           </div>
           <Footer>
-            <div className="bg-white pt-3 pb-12 px-3 w-full">
+            <div className='bg-white pt-3 pb-12 px-3 w-full'>
               <button
-                type="submit"
-                className="next-button h-11 rounded-lg w-full text-heading xs semibold-16 text-[#FFFFFF]"
+                type='submit'
+                className='next-button h-11 rounded-lg w-full text-heading xs semibold-16 text-[#FFFFFF]'
               >
                 Lanjutkan
               </button>

@@ -10,13 +10,15 @@ import Typography from '@mui/material/Typography'
 import Link from 'next/link'
 import * as Yup from 'yup'
 
-// import TextEditor from '@components/atoms/TextEditor'
 import SelectForm from '@components/atoms/Form/SelectForm'
 import ImageGallery from '@components/atoms/ImageGallery'
 import TextAreaForm from '@components/atoms/Form/TextAreaForm'
 import RHFMultiSelect from '@components/atoms/MultiSelect'
+// import CKEditorWithoutUpload from '@components/atoms/CKEditor/CKEditorWithoutUpload'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { optionsCapacity, optionsFacility, optionsFloor } from './data'
+// import CKTextEditor from '@components/atoms/CKTextEditor'
+// import TextEditor from '@components/atoms/TextEditor'
 
 const schema = Yup.object().shape({
   isActive: Yup.boolean().required('Aktif wajib dipilih'),
@@ -54,6 +56,17 @@ export function AddAsset() {
   const onSubmit = () => {
     /* ... Your submission logic ... */
   }
+
+  // const [editorData, setEditorData] = useState('')
+
+  // useEffect(() => {
+  //   setEditorData('')
+  // }, [])
+
+  // const handleEditorChange = (event: any, editor: any) => {
+  //   const data = editor.getData()
+  //   setEditorData(data)
+  // }
 
   return (
     <div className="px-4 py-8 bg-[#f6f6f6] h-full w-full">
@@ -111,8 +124,7 @@ export function AddAsset() {
 
           <div className="flex items-center">
             <p className="text-heading xs regular-16 w-[160px]">
-              Lantai Ruangan
-              <span className="text-red-500">*</span>
+              Lantai Ruangan<span className="text-red-500">*</span>
             </p>
             <SelectForm
               control={control}
@@ -126,8 +138,7 @@ export function AddAsset() {
 
           <div className="flex items-center">
             <p className="text-heading xs regular-16 w-[160px]">
-              Kapasitas Ruangan
-              <span className="text-red-500">*</span>
+              Kapasitas Ruangan<span className="text-red-500">*</span>
             </p>
             <SelectForm
               control={control}
@@ -141,12 +152,34 @@ export function AddAsset() {
 
           <div className="flex items-center">
             <p className="text-heading xs regular-16 w-[160px]">Description</p>
-            <div className="max-w-[650px]">{/* <TextEditor /> */}</div>
+            <div className="">
+              {/* <CKEditorWithoutUpload data={editorData} onChange={handleEditorChange} /> */}
+              {/* <TextEditor placeholder='Isi deskripsi ruangan' onChange={handleEditorChange} data={editorData} /> */}
+              {/* <TextEditor placeholder='Isi deskripsi ruangan' data={editorData} /> */}
+              {/* <CKTextEditor
+                onChange={handleEditorChange}
+                data={editorData}
+                placeholder='Start typing your awesome content...'
+              /> */}
+            </div>
           </div>
 
           <div className="flex items-center">
             <p className="text-heading xs regular-16 w-[160px]">Terms & Condition</p>
-            <div className="max-w-[650px]">{/* <TextEditor /> */}</div>
+            <div className="max-w-[650px]">
+              {/* <CKEditorWithoutUpload data={editorData} onChange={handleEditorChange} /> */}
+              {/* <TextEditor
+                placeholder='Isi ketentuan penggunaan yang perlu diketahui'
+                onChange={handleEditorChange}
+                data={editorData}
+              /> */}
+              {/* <TextEditor placeholder='Isi ketentuan penggunaan yang perlu diketahui' data={editorData} /> */}
+              {/* <CKTextEditor
+                onChange={handleEditorChange}
+                data={editorData}
+                placeholder='Start typing your awesome content...'
+              /> */}
+            </div>
           </div>
 
           <div className="flex items-start mt-4">

@@ -60,17 +60,6 @@ export const DefaulManpowerScheduleForm: ManpowerScheduleForm = {
   reason: undefined,
   manpower: undefined,
 }
-export interface KaraokeScheduleForm {
-  date: { start: DateInput | undefined; end: DateInput | undefined } | undefined
-  time: { start: TimeInput | undefined; end: TimeInput | undefined } | undefined
-  reason: string | undefined
-}
-
-export const DefaulKaraokeScheduleForm: KaraokeScheduleForm = {
-  date: undefined,
-  time: undefined,
-  reason: undefined,
-}
 
 export interface FacilityValue {
   id: number
