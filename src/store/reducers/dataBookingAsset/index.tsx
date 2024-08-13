@@ -2,15 +2,15 @@ export interface DataBookingAssetInitialState {
   bookingLocation: string
 }
 
-// const initialState: DataBookingAssetInitialState = {
-//   bookingLocation: '',
-// }
-
-const initialStateDummy: DataBookingAssetInitialState = {
-  bookingLocation: 'BERIJALAN',
+const initialState: DataBookingAssetInitialState = {
+  bookingLocation: '',
 }
 
-export const dataBookingAsset = (state: DataBookingAssetInitialState = initialStateDummy, action: any) => {
+// const initialStateDummy: DataBookingAssetInitialState = {
+//   bookingLocation: 'BERIJALAN',
+// }
+
+export const dataBookingAsset = (state: DataBookingAssetInitialState = initialState, action: any) => {
   switch (action.type) {
     case '@APP/SET_BOOKING_LOCATION':
       return {
