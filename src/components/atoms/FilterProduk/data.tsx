@@ -2,22 +2,22 @@ export const dataRoom: any[] = [
   {
     id: 1,
     name: 'Meeting Room',
-    values: 'meetingroom',
+    values: 'Meeting Room',
   },
   {
     id: 2,
     name: 'Pods',
-    values: 'pods',
+    values: 'Pods',
   },
   {
     id: 3,
     name: 'Karaoke',
-    values: 'karaoke',
+    values: 'Karaoke',
   },
   {
     id: 4,
     name: 'Ballroom',
-    values: 'ballroom',
+    values: 'Ballroom',
   },
 ]
 
@@ -25,12 +25,12 @@ export const dataVehicle: any[] = [
   {
     id: 1,
     name: 'Operational Khusus',
-    values: 'operasionalKhusus',
+    values: 'Operational Khusus',
   },
   {
     id: 2,
     name: 'Operational Kantor',
-    values: 'operasionalKantor',
+    values: 'Operational Kantor',
   },
 ]
 

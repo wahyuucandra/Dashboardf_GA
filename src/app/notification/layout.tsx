@@ -15,7 +15,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: 'Building Maintenance | GA',
+    default: 'Notification | GA',
     template: '%s | GA',
   },
   description: 'Get Result and Performance HC',

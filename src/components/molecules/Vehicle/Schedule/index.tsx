@@ -54,6 +54,8 @@ export function Schedule() {
     router.push('/booking-asset/vehicle/special-operational')
   }
 
+  const min = new Date(new Date().setHours(0, 0, 0, 0))
+
   return (
     <div className="relative max-container">
       <Image
@@ -148,6 +150,7 @@ export function Schedule() {
                 Pilih tanggal <span className="text-[#E15241]">*</span>
               </div>
               <DateRangeInput
+                min={min}
                 control={control}
                 value={date}
                 onButtonClick={val => {

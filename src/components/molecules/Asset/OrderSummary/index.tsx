@@ -285,7 +285,7 @@ export function OrderSummary() {
         </div>
       </div>
 
-      <div className="fixed bottom-0 z-[101] bg-white pb-10 pt-4 w-full px-4">
+      <div className="fixed bottom-0 z-[101] bg-white pb-10 pt-4 w-full px-4 max-container">
         {handleTotalQty() > 0 && (
           <div className="flex items-center justify-between mb-4">
             <span className="text-heading xs regular-16">Total</span>
