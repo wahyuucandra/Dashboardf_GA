@@ -10,7 +10,7 @@ import IconHistory from '@assets/icons/IconHistory'
 import IconLogout from '@assets/icons/IconLogout'
 import IconNotification from '@assets/icons/IconNotification'
 import IconModalLogout from '@assets/icons/IconModalLogout'
-import { GetCookie, SetCookie, SetStorage } from '@store/storage'
+import { GetCookie, SetCookie } from '@store/storage'
 
 export function Account() {
   const router = useRouter()
@@ -97,9 +97,9 @@ export function Account() {
             <button
               onClick={() => {
                 setIsConfimationModalOpen(false)
-                SetStorage('email', '')
                 SetCookie('data_user', '')
                 SetCookie('access_token', '')
+                SetCookie('tokenExpiration', '')
                 router.push(`/login`, { scroll: false })
               }}
               type="button"
