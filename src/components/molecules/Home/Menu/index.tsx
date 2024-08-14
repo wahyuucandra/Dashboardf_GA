@@ -89,7 +89,7 @@ export function Menu() {
               }}
               className="bg-[#2C598D]/[.08] p-4 flex flex-col space-y-3 rounded-md"
             >
-              <IconBookingAsset className="mx-auto"></IconBookingAsset>
+              <IconBookingAsset className="mx-auto" />
               <span className="text-[#2C598D] text-extra-small regular-12 mx-auto">Booking Asset</span>
             </button>
           )}

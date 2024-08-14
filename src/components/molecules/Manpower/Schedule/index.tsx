@@ -77,13 +77,7 @@ export function Schedule({
   const min = new Date(new Date().setHours(0, 0, 0, 0))
   const capacities = Array.from({ length: 10 }, (_, i) => i + 1)
 
-  const {
-    handleSubmit,
-    setValue,
-    clearErrors,
-    control,
-    formState: { isValid },
-  } = useForm<IManpowerScheduleForm>({
+  const { handleSubmit, setValue, clearErrors, control } = useForm<IManpowerScheduleForm>({
     resolver: yupResolver(schema),
     mode: 'onChange',
   })

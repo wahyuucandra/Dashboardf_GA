@@ -10,7 +10,7 @@ import { Button } from '@components/atoms/button'
 import { IconLeftArrow } from '@components/atoms/Icon'
 import { useCountDownTimer } from '@utils/hooks/useCountDownTimer'
 import { apiPostOTPLogin } from '@services/authentication/api'
-import { GetStorage, SetCookie } from '@store/storage'
+import { GetStorage, SetCookie, SetStorage } from '@store/storage'
 
 export default function OTPLogin() {
   const router = useRouter()
@@ -66,18 +66,23 @@ export default function OTPLogin() {
       const response: any = await apiPostOTPLogin(dataOTP)
 
       if (response.status === 'T') {
-        toast.success('Berhasil Login')
+        const expirationTime = Date.now() + 30 * 60 * 1000 // 30 menit dalam milidetik
 
+        SetStorage('email', '')
+        SetStorage('noHP', '')
+
+        SetCookie('tokenExpiration', expirationTime.toString())
         SetCookie('data_user', response.data)
         SetCookie('access_token', response?.data?.tokenSession)
 
+        toast.success('Berhasil Login')
         router.push('/')
       } else {
         toast.error('Terjadi kesalahan saat login. Silakan coba lagi.')
       }
     } catch (error: any) {
       if (error?.response?.data?.message) {
-        toast.error(error.response.data.message) // Handle server-side errors
+        toast.error(error.response.data.message)
       } else if (error.request) {
         toast.error('Gagal terhubung ke server. Periksa koneksi internet Anda.')
       } else {
