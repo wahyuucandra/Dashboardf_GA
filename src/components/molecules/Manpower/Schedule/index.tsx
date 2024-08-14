@@ -130,7 +130,7 @@ export function Schedule({
       startBookingTime,
       endBookingTime,
       gender: form?.gender?.toString(),
-      kapasitas: 0,
+      kapasitas: '',
       manpower: form?.manpower?.toString(),
       keperluan: form?.reason,
       subTipeBooking: category,

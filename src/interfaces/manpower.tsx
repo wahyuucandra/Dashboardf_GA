@@ -44,7 +44,7 @@ export interface ISubmitManpowerPayload {
   endBookingDate: string
   keperluan: string
   flagACCBerijalan: string
-  kapasitas: number
+  kapasitas: string
   manpower: string
   gender: string
   subTipeBooking: string
