@@ -24,6 +24,7 @@ import * as yup from 'yup'
 import './style.css'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/reducers'
+import { setManpowerSubmitResponse } from '@store/actions/actionManpower'
 
 const dateInputSchema = yup.object().shape({
   day: yup.number().required(),
@@ -99,8 +100,9 @@ export function Schedule({
     try {
       setIsLoading(true)
       const response = await apiSubmitBookingManpower(payload)
-      if (response.status == 'T') {
+      if (response.status == 'T' && response?.data) {
         setIsLoading(false)
+        dispatch(setManpowerSubmitResponse(response.data))
         router.push('/booking-asset/manpower/process')
       }
     } catch (error) {
