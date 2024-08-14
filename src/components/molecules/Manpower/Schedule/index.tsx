@@ -22,6 +22,8 @@ import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import './style.css'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store/reducers'
 
 const dateInputSchema = yup.object().shape({
   day: yup.number().required(),
@@ -76,6 +78,7 @@ export function Schedule({
   const [isLoading, setIsLoading] = useState<boolean>()
   const min = new Date(new Date().setHours(0, 0, 0, 0))
   const capacities = Array.from({ length: 10 }, (_, i) => i + 1)
+  const bookingLocation = useSelector((state: RootState) => state.dataBookingAsset.bookingLocation)
 
   const { handleSubmit, setValue, clearErrors, control } = useForm<IManpowerScheduleForm>({
     resolver: yupResolver(schema),
@@ -119,7 +122,7 @@ export function Schedule({
     const endBookingTime = `${moment(formTimeEnd).format('HH:mm:ss')}`
 
     const payload: ISubmitManpowerPayload = {
-      flagACCBerijalan: 'ACC',
+      flagACCBerijalan: bookingLocation,
       startBookingDate,
       endBookingDate,
       startBookingTime,
