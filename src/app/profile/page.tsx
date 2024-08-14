@@ -7,7 +7,7 @@ export const metadata = {
 export default function Profile() {
   return (
     <>
-      <AccountProfilePage />;
+      <AccountProfilePage />
     </>
   )
 }

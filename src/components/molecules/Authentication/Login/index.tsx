@@ -50,8 +50,6 @@ export default function LoginPage() {
     apiPostLogin(dataLogin)
       .then((response: any) => {
         if (response.status === 'T') {
-          const expirationTime = Date.now()
-          SetStorage('tokenExpiration', expirationTime.toString())
           SetStorage('email', value.email)
           SetStorage('noHP', response.data.noHp)
           router.push('/login/otp')

@@ -2,11 +2,6 @@
 
 import { useState } from 'react'
 
-import './style.css'
-
-import IconClose from '@assets/icons/IconClose'
-import IconChevronBottom from '@assets/icons/IconChevronBottom'
-import { Modal } from '../ModalCustom'
 import {
   dataCleaningService,
   dataMaintenance,
@@ -16,8 +11,13 @@ import {
   dataSecurityGuard,
   dataVehicle,
 } from './data'
+import IconClose from '@assets/icons/IconClose'
+import IconChevronBottom from '@assets/icons/IconChevronBottom'
+import { Modal } from '../ModalCustom'
 
-export const FilterProduk = () => {
+import './style.css'
+
+export const FilterProduk = ({ onProductChange }: { onProductChange: (product: string) => void }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const [isRoomDrop, setIsRoomDrop] = useState<boolean>(false)
@@ -36,11 +36,7 @@ export const FilterProduk = () => {
   const [securityGuard] = useState(dataSecurityGuard)
   const [cleaningService] = useState(dataCleaningService)
 
-  const [product, setProduct] = useState<string>('')
-
-  const handleProductChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setProduct(event.target.value)
-  }
+  const [product, setProduct] = useState<string>('all')
 
   const handleRoom = () => {
     setIsRoomDrop(!isRoomDrop)
@@ -70,16 +66,25 @@ export const FilterProduk = () => {
     setIsCleaningDrop(!isCleaningDrop)
   }
 
+  const handleProductChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newProduct = event.target.value
+    setProduct(newProduct)
+    onProductChange(newProduct)
+    setIsOpen(false)
+  }
+
   return (
-    <>
-      <button
-        type="button"
-        onClick={() => setIsOpen(true)}
-        className="w-full h-9 border border-[#D5D5D5] text-leftpy-2.5 px-3 rounded-3xl flex items-center space-x-4"
-      >
-        <div className={`flex-1 text-paragraph regular-14 `}>Semua Produk</div>
-        <IconChevronBottom />
-      </button>
+    <div>
+      <div>
+        <button
+          type="button"
+          onClick={() => setIsOpen(true)}
+          className="w-full h-9 border border-[#D5D5D5] text-left py-2.5 px-3 rounded-3xl flex items-center space-x-4"
+        >
+          <div className={`flex-1 text-paragraph regular-14 `}>Semua Produk</div>
+          <IconChevronBottom />
+        </button>
+      </div>
 
       <Modal isOpen={isOpen} isFloating={false} backdropClick={() => setIsOpen(false)}>
         <div className="w-screen max-container bg-white relative px-4 py-6 text-center rounded-xl">
@@ -87,13 +92,14 @@ export const FilterProduk = () => {
             <div className="flex justify-between items-center">
               <div className="flex">
                 <button onClick={() => setIsOpen(false)} className="mr-2">
-                  <IconClose width={24} height={24} color="#252525"></IconClose>
+                  <IconClose width={24} height={24} color="#252525" />
                 </button>
                 <div className="text-heading s semibold-18">Produk</div>
               </div>
               <button
                 onClick={() => {
-                  setProduct('')
+                  setProduct('all')
+                  setIsOpen(false)
                 }}
               >
                 <div className=" text-extra-small semibold-12 text-[#2C598D]">Reset</div>
@@ -105,7 +111,7 @@ export const FilterProduk = () => {
           {/* Filter items */}
           <div>
             <label className="containers text-heading xs semibold-16">
-              <p className="text-left">Semua Lokasi</p>
+              <p className="text-left">Semua Produk</p>
               <input
                 type="radio"
                 checked={product === 'all'}
@@ -419,6 +425,6 @@ export const FilterProduk = () => {
           </div>
         </div>
       </Modal>
-    </>
+    </div>
   )
 }
