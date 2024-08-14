@@ -94,7 +94,7 @@ export function Schedule({ title = 'Meeting Room', category = 'Meeting Room' }: 
     const timeClose = `${moment(formTimeEnd).format('HH:mm:ss')}`
 
     const params: IRoomListParams = {
-      flagACCBerijalan: 'ACC',
+      flagACCBerijalan: bookingLocation,
       kategoriMenu: category,
       location: bookingLocation ?? '',
       timeOpen,
