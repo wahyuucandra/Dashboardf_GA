@@ -6,11 +6,11 @@ const initialState: DataBookingAssetInitialState = {
   bookingLocation: '',
 }
 
-// const initialStateDummy: DataBookingAssetInitialState = {
-//   bookingLocation: 'BERIJALAN',
-// }
+const initialStateDummy: DataBookingAssetInitialState = {
+  bookingLocation: 'ACC',
+}
 
-export const dataBookingAsset = (state: DataBookingAssetInitialState = initialState, action: any) => {
+export const dataBookingAsset = (state: DataBookingAssetInitialState = initialStateDummy, action: any) => {
   switch (action.type) {
     case '@APP/SET_BOOKING_LOCATION':
       return {

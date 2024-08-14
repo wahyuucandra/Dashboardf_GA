@@ -28,9 +28,9 @@ export function List({ category = 'Meeting Room' }: { category?: string }) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [rooms, setRooms] = useState<IRoomList[]>()
   const [roomTypes, setRoomTypes] = useState<IRoomType[]>()
+  const [selectedTypes, setSelectedTypes] = useState<IRoomType[]>()
 
   const [isConfimationModalOpen, setIsConfimationModalOpen] = useState<boolean>(false)
-  const [selectedTypes, setSelectedTypes] = useState<IRoomType[]>()
 
   const dummies = Array.from({ length: 10 }, (_, i) => i + 1)
 
@@ -145,24 +145,25 @@ export function List({ category = 'Meeting Room' }: { category?: string }) {
   }
 
   useEffect(() => {
+    dispatch(setShowNavbar(true))
     handleMappingRoomTypes()
   }, [])
 
   useEffect(() => {
-    handleSelectRoomTypeByCategory()
+    if (roomTypes?.length) {
+      handleSelectRoomTypeByCategory()
+    }
   }, [roomTypes])
 
   useEffect(() => {
-    if (selectedTypes && selectedTypes?.length == 1) {
-      handleFetchListRoom({ kategoriMenu: selectedTypes[0].text })
-    } else {
-      handleFetchListRoom({ kategoriMenu: '' })
+    if (selectedTypes != undefined) {
+      if (selectedTypes && selectedTypes?.length == 1) {
+        handleFetchListRoom({ kategoriMenu: selectedTypes[0].text })
+      } else {
+        handleFetchListRoom({ kategoriMenu: '' })
+      }
     }
   }, [selectedTypes])
-
-  useEffect(() => {
-    dispatch(setShowNavbar(true))
-  }, [])
 
   return (
     <>
