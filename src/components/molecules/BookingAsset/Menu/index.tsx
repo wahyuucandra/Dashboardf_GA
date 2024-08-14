@@ -12,9 +12,18 @@ import IconManpower from '@assets/icons/IconManpower'
 import IconRoom from '@assets/icons/IconRoom'
 import IconVehicle from '@assets/icons/IconVehicle'
 import bookingAsset from '@assets/images/BookingAsset.png'
+import { useEffect } from 'react'
+import { store } from '@store/storage'
+import { setShowNavbar } from '@store/actions/actionContainer'
 
 export function Menu() {
+  const { dispatch } = store
+
   const bookingLocation = useSelector((state: RootState) => state.dataBookingAsset.bookingLocation)
+
+  useEffect(() => {
+    dispatch(setShowNavbar(true))
+  }, [])
 
   return (
     <div className="relative">

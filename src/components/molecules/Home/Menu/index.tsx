@@ -52,9 +52,9 @@ export function Menu() {
   }
 
   useEffect(() => {
+    dispatch(setShowNavbar(true))
     handleFetchBookMenu()
     handleFetchBookLocation()
-    dispatch(setShowNavbar(true))
   }, [])
 
   const handleMappingMenu = (data: string) => {

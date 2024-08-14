@@ -46,7 +46,15 @@ export function apiGetBookingTime(): Promise<APIBaseResponse<IBookingTime[]>> {
 }
 
 export function apiSubmitBookingManpower(
-  payload: ISubmitManpowerPayload
+  payload: ISubmitManpowerPayload,
+  idUser: string
 ): Promise<APIBaseResponse<ISubmitManpowerResponse>> {
-  return api.post<ISubmitManpowerResponse, APIBaseResponse<ISubmitManpowerResponse>>('/manpower/submitBooking', payload)
+  const headers = {
+    idUser,
+  }
+  return api.post<ISubmitManpowerResponse, APIBaseResponse<ISubmitManpowerResponse>>(
+    '/manpower/submitBooking',
+    payload,
+    { headers }
+  )
 }
