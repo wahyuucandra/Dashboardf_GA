@@ -13,7 +13,7 @@ import { IManpowerScheduleForm, ISubmitManpowerPayload } from '@interfaces/manpo
 import { IBookingTime } from '@interfaces/time'
 import { apiGetBookingTime, apiSubmitBookingManpower } from '@services/manpower/api'
 import { setShowNavbar } from '@store/actions/actionContainer'
-import { store } from '@store/storage'
+import { GetCookie, store } from '@store/storage'
 import moment from 'moment'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -25,6 +25,7 @@ import './style.css'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/reducers'
 import { setManpowerSubmitResponse } from '@store/actions/actionManpower'
+import { IOTPLoginResponse } from '@interfaces/auth'
 
 const dateInputSchema = yup.object().shape({
   day: yup.number().required(),
@@ -75,6 +76,8 @@ export function Schedule({
 
   const { dispatch } = store
 
+  const dataUser: IOTPLoginResponse = GetCookie('data_user')
+
   const [availableTimes, setAvailabelTimes] = useState<IBookingTime[]>()
   const [isLoading, setIsLoading] = useState<boolean>()
   const min = new Date(new Date().setHours(0, 0, 0, 0))
@@ -99,7 +102,7 @@ export function Schedule({
   const handleSubmitBookingManpower = async (payload: ISubmitManpowerPayload) => {
     try {
       setIsLoading(true)
-      const response = await apiSubmitBookingManpower(payload)
+      const response = await apiSubmitBookingManpower(payload, dataUser?.idUser)
       if (response.status == 'T' && response?.data) {
         setIsLoading(false)
         dispatch(setManpowerSubmitResponse(response.data))
