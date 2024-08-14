@@ -17,8 +17,14 @@ export function middleware(request: NextRequest) {
     return response
   }
 
-  // Redirect unauthenticated users to login (except login and excluded paths)
-  if (!cookieAuth && !['/login', '/excluded-path'].includes(request.nextUrl.pathname)) {
+  // Redirect unauthenticated users to login (except paths starting with /login, /register, /forgot-password, and /excluded-path)
+  if (
+    !cookieAuth &&
+    !request.nextUrl.pathname.startsWith('/login') &&
+    !request.nextUrl.pathname.startsWith('/register') &&
+    !request.nextUrl.pathname.startsWith('/forgot-password') &&
+    !request.nextUrl.pathname.startsWith('/excluded-path')
+  ) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
