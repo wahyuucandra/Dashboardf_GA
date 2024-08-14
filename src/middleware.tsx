@@ -3,13 +3,10 @@ import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
   const cookieAuth = request.cookies.get('access_token')?.value
-
-  // Ambil tokenExpiration dari localStorage
   const tokenExpiration = request.cookies.get('tokenExpiration')?.value
 
   // Cek tokenExpiration
   if (tokenExpiration && parseInt(tokenExpiration) < Date.now()) {
-    // Hapus access_token dari cookie jika sudah expired
     const response = NextResponse.redirect(new URL('/login', request.url))
     response.cookies.delete('access_token')
     response.cookies.delete('data_user')

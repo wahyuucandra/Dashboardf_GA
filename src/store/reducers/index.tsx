@@ -5,12 +5,14 @@ import { dataContainer, DataContainerInitialState } from './dataContainer'
 import { dataBookingAsset, DataBookingAssetInitialState } from './dataBookingAsset'
 import { dataRoom, DataRoomInitialState } from './dataRoom'
 import { dataKaraoke, DataKaraokeInitialState } from './dataKaraoke'
+import { dataManpower, DataManpowerInitialState } from './dataManpower'
 
 export interface RootState {
   dataContainer: DataContainerInitialState
   dataBookingAsset: DataBookingAssetInitialState
   dataRoom: DataRoomInitialState
   dataKaraoke: DataKaraokeInitialState
+  dataManpower: DataManpowerInitialState
 }
 
 export const rootReducer = combineReducers({
@@ -19,4 +21,5 @@ export const rootReducer = combineReducers({
   dataBookingAsset,
   dataRoom,
   dataKaraoke,
+  dataManpower,
 })

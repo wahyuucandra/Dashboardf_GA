@@ -3,9 +3,19 @@
 import bookingProcess from '@assets/images/BookingProcess.png'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { store } from '@store/storage'
+import { deleteManpowerSubmitResponse } from '@store/actions/actionManpower'
 
 export function Process() {
   const router = useRouter()
+
+  const { dispatch } = store
+
+  const handleCheckStatus = () => {
+    dispatch(deleteManpowerSubmitResponse())
+    router.push('/transactions')
+  }
+
   return (
     <div className="bg-white z-[102] h-screen max-container relative px-4">
       <div className="flex flex-col items-center h-full justify-center">
@@ -25,7 +35,7 @@ export function Process() {
         <button
           type="button"
           className={`status-button text-[#FFFFFF] py-2.5 mx-4 w-full rounded-lg text-heading xs semibold-16 mb-6`}
-          onClick={() => router.push('/booking-asset')}
+          onClick={() => handleCheckStatus()}
         >
           Cek Status
         </button>

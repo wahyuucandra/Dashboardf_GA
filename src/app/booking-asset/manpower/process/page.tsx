@@ -4,6 +4,6 @@ export const metadata = {
   title: 'Manpower Process',
 }
 
-export default function SpecialOperationalProcess() {
+export default function ManpowerProcess() {
   return <ManpowerProcessPage></ManpowerProcessPage>
 }

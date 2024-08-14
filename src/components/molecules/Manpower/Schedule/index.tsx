@@ -9,8 +9,12 @@ import Footer from '@components/atoms/Footer'
 import { ReasonInput } from '@components/atoms/ReasonInput'
 import { TimeRangeInput } from '@components/atoms/TimeRangeInput'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { IManpowerBookingTime, IManpowerScheduleForm, IManpowerSchedulePayload } from '@interfaces/manpower'
+import { IManpowerScheduleForm, ISubmitManpowerPayload } from '@interfaces/manpower'
+import { IBookingTime } from '@interfaces/time'
 import { apiGetBookingTime, apiSubmitBookingManpower } from '@services/manpower/api'
+import { setShowNavbar } from '@store/actions/actionContainer'
+import { store } from '@store/storage'
+import moment from 'moment'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -18,6 +22,9 @@ import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import './style.css'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store/reducers'
+import { setManpowerSubmitResponse } from '@store/actions/actionManpower'
 
 const dateInputSchema = yup.object().shape({
   day: yup.number().required(),
@@ -57,30 +64,45 @@ const schema = yup.object().shape({
   reason: yup.string().required('Alasan wajib diisi'),
 })
 
-export function Schedule() {
+export function Schedule({
+  title = 'Cleaning Service',
+  category = 'Cleaning Service',
+}: {
+  title?: string
+  category?: string
+}) {
   const router = useRouter()
 
-  const [availableTimes, setAvailabelTimes] = useState<IManpowerBookingTime[]>()
+  const { dispatch } = store
+
+  const [availableTimes, setAvailabelTimes] = useState<IBookingTime[]>()
   const [isLoading, setIsLoading] = useState<boolean>()
   const min = new Date(new Date().setHours(0, 0, 0, 0))
   const capacities = Array.from({ length: 10 }, (_, i) => i + 1)
+  const bookingLocation = useSelector((state: RootState) => state.dataBookingAsset.bookingLocation)
 
   const { handleSubmit, setValue, clearErrors, control } = useForm<IManpowerScheduleForm>({
     resolver: yupResolver(schema),
-    mode: 'all',
+    mode: 'onChange',
   })
+
+  const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    clearErrors('gender')
+    setValue('gender', event.target.value)
+  }
 
   const handleFetchBookingTime = async () => {
     const response = await apiGetBookingTime()
     if (response.status == 'T') setAvailabelTimes(response.data)
   }
 
-  const handleSubmitBookingManpower = async (payload: IManpowerSchedulePayload) => {
+  const handleSubmitBookingManpower = async (payload: ISubmitManpowerPayload) => {
     try {
       setIsLoading(true)
       const response = await apiSubmitBookingManpower(payload)
-      if (response.status == 'T') {
+      if (response.status == 'T' && response?.data) {
         setIsLoading(false)
+        dispatch(setManpowerSubmitResponse(response.data))
         router.push('/booking-asset/manpower/process')
       }
     } catch (error) {
@@ -90,31 +112,44 @@ export function Schedule() {
     }
   }
 
-  useEffect(() => {
-    handleFetchBookingTime()
-  }, [])
-
-  const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    clearErrors('gender')
-    setValue('gender', event.target.value)
-  }
-
-  const onSubmit = async (form: IManpowerScheduleForm) => {
+  const handleSubmitForm = (form: IManpowerScheduleForm) => {
     const formDateStart = form?.date?.start?.date
-    const dateRequest = `${formDateStart?.getFullYear()}-${formDateStart?.getMonth() + 1 >= 10 ? formDateStart?.getMonth() + 1 : '0' + (formDateStart?.getMonth() + 1)}-${formDateStart?.getDate()}`
+    const formDateEnd = form?.date?.end?.date
+    const formTimeStart = form?.time?.start?.startTime
+    const formTimeEnd = form?.time?.end?.endTime
 
-    const payload: IManpowerSchedulePayload = {
-      gender: form.gender,
-      manpower: form.manpower.toString(),
-      kapasitas: form.manpower,
-      flagAccBerijalan: 'ACC',
-      keperluan: form.reason,
-      dateRequest: dateRequest,
-      timeRequest: form?.time?.start?.startText,
+    const startBookingDate = `${moment(formDateStart).format('YYYY-MM-DD')}`
+    const endBookingDate = `${moment(formDateEnd).format('YYYY-MM-DD')}`
+    const startBookingTime = `${moment(formTimeStart).format('HH:mm:ss')}`
+    const endBookingTime = `${moment(formTimeEnd).format('HH:mm:ss')}`
+
+    const payload: ISubmitManpowerPayload = {
+      flagACCBerijalan: bookingLocation,
+      startBookingDate,
+      endBookingDate,
+      startBookingTime,
+      endBookingTime,
+      gender: form?.gender?.toString(),
+      kapasitas: '',
+      manpower: form?.manpower?.toString(),
+      keperluan: form?.reason,
+      subTipeBooking: category,
     }
 
     handleSubmitBookingManpower(payload)
   }
+
+  const onSubmit = async (form: IManpowerScheduleForm) => {
+    handleSubmitForm(form)
+  }
+
+  useEffect(() => {
+    dispatch(setShowNavbar(false))
+  }, [])
+
+  useEffect(() => {
+    handleFetchBookingTime()
+  }, [])
 
   return (
     <div className="relative">
@@ -134,7 +169,7 @@ export function Schedule() {
 
       <div className="bg-white py-[216px] h-screen overflow-y-auto ">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <p className="mb-6 px-4 text-heading m semibold-21 text-[#2C598D]">Schedule Manpower</p>
+          <p className="mb-6 px-4 text-heading m semibold-21 text-[#2C598D]">Schedule {title}</p>
           <div className="grid grid-cols-1 gap-6 pb-[150px] px-4">
             {/* Gender Input */}
             <div>
@@ -258,7 +293,7 @@ export function Schedule() {
           <Footer>
             <div className="bg-white pt-3 pb-12 px-3 w-full">
               <button
-                disabled={isLoading}
+                disabled={isLoading == true}
                 type="submit"
                 className="next-button h-11 rounded-lg w-full text-heading xs semibold-16 text-[#FFFFFF] flex items-center justify-center"
               >

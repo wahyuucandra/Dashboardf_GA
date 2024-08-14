@@ -1,16 +1,16 @@
 'use client'
 
-import { ManpowerMenu } from '@components/molecules/Manpower'
+import { ManpowerSchedule } from '@components/molecules/Manpower'
 import { RootState } from '@store/reducers'
 import { redirect } from 'next/navigation'
 import { useSelector } from 'react-redux'
 
-export function MenuPage() {
+export function CleaningServiceScheduleFormPage() {
   const bookingLocation = useSelector((state: RootState) => state.dataBookingAsset.bookingLocation)
 
   if (!bookingLocation) {
     redirect('/')
   }
 
-  return <ManpowerMenu></ManpowerMenu>
+  return <ManpowerSchedule title="Cleaning Service" category="Cleaning Service"></ManpowerSchedule>
 }
