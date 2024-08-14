@@ -7,7 +7,7 @@ const initialState: DataBookingAssetInitialState = {
 }
 
 // const initialStateDummy: DataBookingAssetInitialState = {
-//   bookingLocation: 'BERIJALAN',
+//   bookingLocation: 'ACC',
 // }
 
 export const dataBookingAsset = (state: DataBookingAssetInitialState = initialState, action: any) => {

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 
 export function Process() {
   const router = useRouter()
+
   return (
     <div className="bg-white z-[102] h-screen max-container relative px-4">
       <div className="flex flex-col items-center h-full justify-center">
@@ -25,7 +26,7 @@ export function Process() {
         <button
           type="button"
           className={`status-button text-[#FFFFFF] py-2.5 mx-4 w-full rounded-lg text-heading xs semibold-16 mb-6`}
-          onClick={() => router.push('/booking-asset')}
+          onClick={() => router.push('/transactions')}
         >
           Cek Status
         </button>

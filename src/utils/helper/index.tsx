@@ -22,7 +22,10 @@ const httpRequest = (baseURL: string, token?: string) => {
 
   // Request interceptor (no changes needed here)
   instance.interceptors.request.use(
-    config => config,
+    config => {
+      config.headers['Authorization'] = `Bearer ${token ?? (getCookie('access_token') || '')}`
+      return config
+    },
     error => Promise.reject(error)
   )
 

@@ -1,5 +1,5 @@
 import { APIBaseResponse } from '@interfaces/api'
-import { IManpowerSchedulePayload } from '@interfaces/manpower'
+import { ISubmitManpowerPayload, ISubmitManpowerResponse } from '@interfaces/manpower'
 import { IBookingTime } from '@interfaces/time'
 import { API_MASTER } from '@utils/environment'
 import httpRequest from '@utils/helper'
@@ -45,6 +45,8 @@ export function apiGetBookingTime(): Promise<APIBaseResponse<IBookingTime[]>> {
   })
 }
 
-export function apiSubmitBookingManpower(payload: IManpowerSchedulePayload): Promise<APIBaseResponse> {
-  return api.post<undefined, APIBaseResponse>('/manpower/submitBooking', payload)
+export function apiSubmitBookingManpower(
+  payload: ISubmitManpowerPayload
+): Promise<APIBaseResponse<ISubmitManpowerResponse>> {
+  return api.post<ISubmitManpowerResponse, APIBaseResponse<ISubmitManpowerResponse>>('/manpower/submitBooking', payload)
 }
