@@ -3,13 +3,10 @@ import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
   const cookieAuth = request.cookies.get('access_token')?.value
-
-  // Ambil tokenExpiration dari localStorage
   const tokenExpiration = request.cookies.get('tokenExpiration')?.value
 
   // Cek tokenExpiration
   if (tokenExpiration && parseInt(tokenExpiration) < Date.now()) {
-    // Hapus access_token dari cookie jika sudah expired
     const response = NextResponse.redirect(new URL('/login', request.url))
     response.cookies.delete('access_token')
     response.cookies.delete('data_user')
@@ -17,8 +14,14 @@ export function middleware(request: NextRequest) {
     return response
   }
 
-  // Redirect unauthenticated users to login (except login and excluded paths)
-  if (!cookieAuth && !['/login', '/excluded-path'].includes(request.nextUrl.pathname)) {
+  // Redirect unauthenticated users to login (except paths starting with /login, /register, /forgot-password, and /excluded-path)
+  if (
+    !cookieAuth &&
+    !request.nextUrl.pathname.startsWith('/login') &&
+    !request.nextUrl.pathname.startsWith('/register') &&
+    !request.nextUrl.pathname.startsWith('/forgot-password') &&
+    !request.nextUrl.pathname.startsWith('/excluded-path')
+  ) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
